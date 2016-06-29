@@ -15,20 +15,9 @@ autoload -Uz colors && colors
 autoload -Uz promptinit
 promptinit
 
-parse_git_branch() {
-    ref=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    if [[ $ref != "" ]]
-    then
-        echo "on $ref"
-    else
-        echo ""
-    fi
-}
-
-source $HOME/zsh-git-prompt/zshrc.sh
 
 PROMPT="
-%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%} $(parse_git_branch) $(git_super_status)
+%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%} $(parse_git_branch)
 %{$fg[blue]%}$%{$reset_color%} "
 RPROMPT="%{$fg[yellow]%}%~%{$reset_color%}"
 
