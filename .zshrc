@@ -1,0 +1,49 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/jason/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+autoload -Uz colors && colors
+
+autoload -Uz promptinit
+promptinit
+
+parse_git_branch() {
+    ref=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    if [[ $ref != "" ]]
+    then
+        echo "on $ref"
+    else
+        echo ""
+    fi
+}
+
+source $HOME/zsh-git-prompt/zshrc.sh
+
+PROMPT="
+%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%} $(parse_git_branch) $(git_super_status)
+%{$fg[blue]%}$%{$reset_color%} "
+RPROMPT="%{$fg[yellow]%}%~%{$reset_color%}"
+
+alias    ls='ls --color=auto'
+alias     l='ls -l'
+alias    ll='ls -la'
+alias    la='ls -a'
+alias    rr='rm -r'
+alias    ..='cd ..'
+alias   ...='cd ../..'
+alias     v='vim'
+alias     t='tmux'
+alias     c='clear'
+alias     g='git'
+alias     x='exit'
+alias fetch='neofetch --ascii'
+
+fortune -s

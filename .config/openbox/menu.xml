@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="system-menu" label="System">
+  <item label="Log Off">
+    <action name="Execute"><command>openbox --exit</command></action>
+  </item>
+  <separator />
+  <item label="Shutdown">
+    <action name="Execute">
+      <command>systemctl poweroff</command>
+    </action>
+  </item>
+  <separator />
+  <item label="Restart">
+    <action name="Execute">
+            <command>systemctl reboot</command>
+    </action>
+  </item>
+  <separator />
+  <item label="Suspend">
+    <action name="Execute"><command>systemctl suspend</command></action>
+  </item>
+  <separator />
+  <separator />
+  <item label="Reconfigure Openbox">
+    <action name="Reconfigure" />
+  </item>
+</menu>
+
+<menu id="root-menu" label="Openbox 3">
+  <item label="Terminal">
+    <action name="Execute"><command>urxvt</command></action>
+  </item>
+  <separator />
+  <item label="Firefox">
+    <action name="Execute"><command>firefox</command></action>
+  </item>
+  <separator />
+  <menu id="system-menu"/>
+</menu>
+
+</openbox_menu>
