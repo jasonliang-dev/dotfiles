@@ -17,7 +17,7 @@ promptinit
 
 
 PROMPT="
-%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%} $(parse_git_branch)
+%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%}
 %{$fg[blue]%}$%{$reset_color%} "
 RPROMPT="%{$fg[yellow]%}%~%{$reset_color%}"
 

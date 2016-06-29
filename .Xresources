@@ -12,12 +12,12 @@ URxvt.matcher.button: 1
 ! Make minimal
 *scrollBar:          false
 *internalBorder:     20
-*.geometry:          75x22
+*.geometry:          75x23
 
 ! Set font
-*font:               xft:Roboto Mono:size=11
-*boldFont:           xft:Roboto Mono:size=11
-*letterSpace:        0
+*font:               xft:Hack:size=11
+*boldFont:           xft:Hack:size=11
+*letterSpace:        -2
 
 ! Change Cursor
 !*cursorUnderline: true
