@@ -1,14 +1,14 @@
-" Pathogen {
+" Pathogen {{{
 execute pathogen#infect()
-" }
+" }}}
 
-" Colors {
+" Colors {{{
 syntax enable            " enable highlighting
 set background=dark 
 colorscheme base16-ocean " colorscheme
-" }
+" }}}
 
-" Look and Feel {
+" UI {{{
 set number         " show line number
 set relativenumber " enable relative numbers
 set showcmd        " show command in the bottom bar
@@ -18,27 +18,33 @@ set expandtab      " tabs become spaces
 set shiftwidth=4   " affects automatic indentation
 set wildmenu       " autocomplete for command menu
 set showmatch      " highlight matching brackets
-" }
+" }}}
 
-" Searching {
+" Searching {{{
 set incsearch " search as characters are entered
 set hlsearch " highlight search matches
 " clear hilighted text
 nnoremap <leader><space> :nohlsearch<CR>
-" }
+" }}}
 
-" Folding {
+" Folding {{{
 set foldenable        " enable folding
 set foldlevelstart=10 " opens most folds
 set foldnestmax=10    " 10 nested folds max
 set foldmethod=indent " fold based on indent
-" }
+" toggle folds
+nnoremap <space> za
+" }}}
 
-" Movement {
+" Movement {{{
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
 " highlight last inserted text
 nnoremap gV `[v`]
-" }
+" }}}
 
+" Mode line magic {{{
+set modeline
+" vim:foldmethod=marker:foldlevel=0
+" }}}
