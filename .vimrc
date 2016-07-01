@@ -3,9 +3,9 @@ execute pathogen#infect()
 " }}}
 
 " Colors {{{
-syntax enable            " enable highlighting
+syntax enable              " enable highlighting
 set background=dark 
-colorscheme base16-ocean " colorscheme
+colorscheme base16-default " colorscheme
 " }}}
 
 " UI {{{
@@ -24,7 +24,7 @@ set showmatch      " highlight matching brackets
 set incsearch " search as characters are entered
 set hlsearch " highlight search matches
 " clear hilighted text
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader><space> :nohl<CR>
 " }}}
 
 " Folding {{{
