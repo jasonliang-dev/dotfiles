@@ -17,8 +17,8 @@ promptinit
 
 
 PROMPT="
-%{$fg[blue]%}%n%{$reset_color%} at %{$fg[magenta]%}%m%{$reset_color%}
-%{$fg[blue]%}$%{$reset_color%} "
+%{$fg[green]%}%n%{$reset_color%} at %{$fg[cyan]%}%m%{$reset_color%}
+%{$fg[green]%}$%{$reset_color%} "
 RPROMPT="%{$fg[yellow]%}%~%{$reset_color%}"
 
 alias    ls='ls --color=auto'
