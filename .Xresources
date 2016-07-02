@@ -19,9 +19,6 @@ URxvt.matcher.button: 1
 *boldFont:           xft:Hack:size=12
 *letterSpace:        -1
 
-! Change Cursor
-*cursorUnderline: true
-
 ! Base16 Ocean
 ! Scheme: Chris Kempson (http://chriskempson.com)
 
