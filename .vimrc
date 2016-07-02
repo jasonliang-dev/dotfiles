@@ -24,7 +24,7 @@ set showmatch      " highlight matching brackets
 set incsearch " search as characters are entered
 set hlsearch " highlight search matches
 " clear hilighted text
-nnoremap <leader><space> :nohl<CR>
+nnoremap <silent> <leader><space> :nohl<CR>
 " }}}
 
 " Folding {{{
@@ -42,6 +42,14 @@ nnoremap j gj
 nnoremap k gk
 " highlight last inserted text
 nnoremap gV `[v`]
+" }}}
+
+" Splits {{{
+" resize splits quickly
+nnoremap <silent> <Leader>. :vertical resize +4<CR>
+nnoremap <silent> <Leader>, :vertical resize -4<CR>
+nnoremap <silent> <Leader>= :res +4<CR>
+nnoremap <silent> <Leader>- :res -4<CR>
 " }}}
 
 " Mode line {{{
