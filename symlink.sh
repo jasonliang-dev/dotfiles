@@ -50,17 +50,18 @@ if ask "Create symlink for .zshrc?" Y; then
 fi
 
 if ask "Create symlink for everythine else?"; then
-    ln $f $dot/.config/dunst        $HOME/.config/dunst
-    ln $f $dot/.config/mpd          $HOME/.config/mpd
-    ln $f $dot/.config/tint2        $HOME/.config/tint2
-    ln $f $dot/.config/compton.conf $HOME/.config/compton.conf
-    ln $f $dot/.gimp                $HOME/.gimp
-    ln $f $dot/.ncmpcpp             $HOME/.ncmpcpp
-    ln $f $dot/.themes              $HOME/.themes
-    ln $f $dot/.weechat             $HOME/.weechat
-    ln $f $dot/scripts              $HOME/scripts
-    ln $f $dot/startpage            $HOME/startpage
-    ln $f $dot/.tmux.conf           $HOME/.tmux.conf
-    ln $f $dot/.vimrc               $HOME/.vimrc
-    ln $f $dot/.Xresources          $HOME/.Xresources
+    ln $f $dot/.config/dunst          $HOME/.config/dunst
+    ln $f $dot/.config/mpd            $HOME/.config/mpd
+    ln $f $dot/.config/tint2          $HOME/.config/tint2
+    ln $f $dot/.config/compton.conf   $HOME/.config/compton.conf
+    ln $f $dot/.gimp                  $HOME/.gimp
+    ln $f $dot/.ncmpcpp               $HOME/.ncmpcpp
+    ln $f $dot/.themes                $HOME/.themes
+    ln $f $dot/.weechat               $HOME/.weechat
+    ln $f $dot/scripts                $HOME/scripts
+    ln $f $dot/startpage              $HOME/startpage
+    ln $f $dot/.tmux.conf             $HOME/.tmux.conf
+    ln $f $dot/.vim/bundle/plugins.sh $HOME/.vim/bundle/plugins.sh
+    ln $f $dot/.vimrc                 $HOME/.vimrc
+    ln $f $dot/.Xresources            $HOME/.Xresources
 fi
