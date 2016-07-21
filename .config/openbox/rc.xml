@@ -19,7 +19,7 @@
     <primaryMonitor>1</primaryMonitor>
   </placement>
   <theme>
-    <name>dark</name>
+    <name>black</name>
     <titleLayout>LIMC</titleLayout>
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
@@ -155,17 +155,17 @@
     </keybind>
     <keybind key="XF86AudioPlay">
       <action name="Execute">
-        <command>mpc toggle</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioPrev">
-      <action name="Execute">
-        <command>mpc prev</command>
+        <command>cmus-remote -u</command>
       </action>
     </keybind>
     <keybind key="XF86AudioNext">
       <action name="Execute">
-        <command>mpc next</command>
+        <command>cmus-remote -n</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioPrev">
+      <action name="Execute">
+        <command>cmus-remote -r</command>
       </action>
     </keybind>
     <keybind key="XF86AudioStop">
