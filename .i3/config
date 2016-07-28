@@ -24,7 +24,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+q kill
 
 # Start a program launcher
-bindsym $mod+d exec /home/jason/rofi.sh
+bindsym $mod+d exec /home/jason/scripts/rofi.sh
 
 # change focus
 bindsym $mod+h         focus left
@@ -139,88 +139,36 @@ bindsym $mod+r mode "resize"
 
 # Window Colours
 #                         border  background text   indicator
-  client.focused          $dark   $dark      $light $blue
-  client.focused_inactive $light  $light     $dark  $blue
-  client.unfocused        $light  $light     $dark  $blue
-  client.urgent           $light  $blue      $light $blue
+  client.focused          $light $light      $dark  $blue
+  client.focused_inactive $dark  $dark       $light $blue
+  client.unfocused        $dark  $dark       $light $blue
+  client.urgent           $dark  $blue       $dark  $blue
 
 # Start i3bar to display a workspace bar
 bar {
-    status_command     i3blocks -c ~/i3blocks.conf
+    status_command     i3blocks -c ~/.i3/i3blocks.conf
     colors {
-    separator $light
-    background $light
-    statusline $dark
+    separator $dark
+    background $dark
+    statusline $light
     #                  border  background text
-    focused_workspace  $light  $light     $dark
-    active_workspace   $light  $light     $grey
-    inactive_workspace $light  $light     $grey
-    urgent_workspace   $light  $blue      $light
+    focused_workspace  $dark   $dark      $light
+    active_workspace   $dark   $dark      $grey
+    inactive_workspace $dark   $dark      $grey
+    urgent_workspace   $dark  $blue      $dark
     }
     position bottom
 }
 
 # Runs i3lock
-bindsym $mod+shift+x exec /home/jason/lock.sh
+bindsym $mod+shift+x exec /home/jason/scripts/lock.sh
 
 # Window border thickness
 new_window pixel 2
 
-# Gaps
-set $default_gaps_inner 10
-set $default_gaps_outer 5
-
-gaps inner $default_gaps_inner
-gaps outer $default_gaps_outer
-
-# On the fly gap changing
-set $mode_gaps Gaps: (o)uter, (i)nner, (r)eset
-set $mode_gaps_outer Outer: +|-|0 
-set $mode_gaps_inner Inner: +|-|0 
-set $mode_gaps_reset i|o
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-    bindsym o      mode "$mode_gaps_outer"
-    bindsym i      mode "$mode_gaps_inner"
-    bindsym r      mode "$mode_gaps_reset"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-mode "$mode_gaps_inner" {
-    bindsym plus  gaps inner current plus 5
-    bindsym minus gaps inner current minus 5
-    bindsym 0     gaps inner current set 0
-
-    bindsym Shift+plus  gaps inner all plus 5
-    bindsym Shift+minus gaps inner all minus 5
-    bindsym Shift+0     gaps inner all set 0
-
-    bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "$mode_gaps"
-}
-mode "$mode_gaps_outer" {
-    bindsym plus  gaps outer current plus 5
-    bindsym minus gaps outer current minus 5
-    bindsym 0     gaps outer current set 0
-
-    bindsym Shift+plus  gaps outer all plus 5
-    bindsym Shift+minus gaps outer all minus 5
-    bindsym Shift+0     gaps outer all set 0
-
-    bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "$mode_gaps"
-}
-mode "$mode_gaps_reset" {
-    bindsym o gaps outer all set $default_gaps_outer
-    bindsym i gaps inner all set $default_gaps_inner
-
-    bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "$mode_gaps"
-}
-
-
+# Keyboard repeat
+exec xset r rate 270 27
+ 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec amixer set Master 2%+ unmute
 bindsym XF86AudioLowerVolume exec amixer set Master 2%- unmute
@@ -240,7 +188,7 @@ bindsym XF86AudioPrev        exec playerctl previous
 #exec tint2
 
 # run compton, a display compositor
-exec compton
+exec compton -C -f -D 4 -G -O 0.07 --vsync opengl
 
 # displays a wallpaper
 exec_always feh --bg-fill /home/jason/Pictures/wallpaper.jpg
