@@ -3,9 +3,9 @@ execute pathogen#infect()
 " }}}
 
 " Colors {{{
-syntax enable              " enable highlighting
+syntax enable                   " enable highlighting
 set background=dark 
-colorscheme base16-ocean " colorscheme
+colorscheme base16-default-dark " colorscheme
 " }}}
 
 " UI {{{
@@ -18,6 +18,7 @@ set expandtab      " tabs become spaces
 set shiftwidth=2   " affects automatic indentation
 set wildmenu       " autocomplete for command menu
 set showmatch      " highlight matching brackets
+set guifont=hack\ 12
 " }}}
 
 " Searching {{{

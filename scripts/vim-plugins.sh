@@ -4,3 +4,4 @@ git clone https://github.com/tpope/vim-sensible
 git clone https://github.com/tpope/vim-surround
 git clone https://github.com/christoomey/vim-tmux-navigator
 git clone https://github.com/valloric/youcompleteme
+git clone https://github.com/vim-scripts/guicolorscheme.vim
