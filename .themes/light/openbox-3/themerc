@@ -26,7 +26,7 @@ window.active.label.text.color: #2B303B
 window.inactive.label.text.color: #65737E
 
 # Set buttons color
-window.*.button.*.image.color: #252936
+window.*.button.*.image.color: #2B303B
 
 
 ## MENU

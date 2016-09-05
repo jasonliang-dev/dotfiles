@@ -13,25 +13,25 @@
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
   <placement>
-    <policy>UnderMouse</policy>
+    <policy>Smart</policy>
     <center>yes</center>
     <monitor>Primary</monitor>
     <primaryMonitor>1</primaryMonitor>
   </placement>
   <theme>
-    <name>black</name>
+    <name>dark</name>
     <titleLayout>LIMC</titleLayout>
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>Roboto Condensed, Condensed</name>
-      <size>10</size>
+      <name>Roboto Condensed</name>
+      <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveWindow">
-      <name>Roboto Condensed, Condensed</name>
-      <size>10</size>
+      <name>Roboto Condensed</name>
+      <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
@@ -155,17 +155,17 @@
     </keybind>
     <keybind key="XF86AudioPlay">
       <action name="Execute">
-        <command>cmus-remote -u</command>
+        <command>playerctl play-pause</command>
       </action>
     </keybind>
     <keybind key="XF86AudioNext">
       <action name="Execute">
-        <command>cmus-remote -n</command>
+        <command>playerctl next</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPrev">
       <action name="Execute">
-        <command>cmus-remote -r</command>
+        <command>playerctl previous</command>
       </action>
     </keybind>
     <keybind key="XF86AudioStop">
@@ -605,5 +605,8 @@
     <manageDesktops>yes</manageDesktops>
   </menu>
   <applications>
+    <application class="Firefox">
+      <decor>no</decor>
+    </application>
   </applications>
 </openbox_config>
