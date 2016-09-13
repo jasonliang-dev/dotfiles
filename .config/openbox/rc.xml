@@ -254,12 +254,12 @@
     </keybind>
     <keybind key="W-space">
       <action name="Execute">
-        <command>urxvt</command>
+        <command>termite</command>
       </action>
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>urxvt</command>
+        <command>termite</command>
       </action>
     </keybind>
     <keybind key="W-x">
