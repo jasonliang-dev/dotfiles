@@ -15,7 +15,7 @@ set showcmd        " show command in the bottom bar
 set cursorline     " highlight current line
 filetype indent on " loads indent files
 set expandtab      " tabs become spaces
-set shiftwidth=2   " affects automatic indentation
+set shiftwidth=4   " affects automatic indentation
 set wildmenu       " autocomplete for command menu
 set showmatch      " highlight matching brackets
 set guifont=hack\ 12
