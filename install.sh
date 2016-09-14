@@ -66,6 +66,7 @@ if ask "Create symlink for everythine else?"; then
   ln $f $dot/.tmux.conf               $HOME/.tmux.conf
   ln $f $dot/.vimrc                   $HOME/.vimrc
   ln $f $dot/.Xresources              $HOME/.Xresources
+  ln $f $dot/.zprofile                $HOME/.zprofile
 fi
 
 if ask "Install Pathogen?" Y; then
