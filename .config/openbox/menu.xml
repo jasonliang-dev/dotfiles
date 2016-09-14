@@ -31,7 +31,7 @@
 
 <menu id="root-menu" label="Openbox 3">
   <item label="Terminal">
-    <action name="Execute"><command>urxvt</command></action>
+    <action name="Execute"><command>termite</command></action>
   </item>
   <separator />
   <item label="Firefox">
