@@ -16,7 +16,7 @@ alias   x='exit'
 alias fetch='neofetch --ascii'
 
 PS1='
-\u at \h
-\w \\$ '
+\e[34m\u \e[39mat \e[35m\h
+\e[33m\w \e[34m\\$\e[39m '
 
 fortune -s
