@@ -20,7 +20,7 @@ padding.height: 8
 # Set title colors
 window.*.title.bg: Solid Flat
 window.*.*.bg: Parentrelative
-window.*.title.bg.color: #242424
+window.*.title.bg.color: #151515
 window.active.label.text.color: #E7E8EB
 window.inactive.label.text.color: #989CA3
 
@@ -32,13 +32,13 @@ window.*.button.*.image.color: #C0C5CE
 
 # Set menu colors
 menu.*.bg: Solid Flat
-menu.*.bg.color: #242424
+menu.*.bg.color: #151515
 menu.*.text.color: #C0C5CE
 menu.items.active.text.color: #3982A3
 
 # Add some padding
 menu.border.width: 16
-menu.border.color: #242424
+menu.border.color: #151515
 
 # Add some submenu padding
 menu.overlap.x: -27
@@ -46,4 +46,4 @@ menu.overlap.y: 0
 
 # Add padding between items
 menu.separator.padding.height: 2
-menu.separator.color: #242424
+menu.separator.color: #151515
