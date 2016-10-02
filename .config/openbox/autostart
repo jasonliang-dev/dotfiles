@@ -1,8 +1,9 @@
 
-compton --opengl --vsync opengl -cCfG -r 20 -D 5 -o 0.4 -l-12 -t-12 &
+compton --opengl --vsync opengl&
 feh --bg-fill /home/jason/Pictures/wallpaper.jpg &
 tint2 &
 xset r rate 270 27 &
 xset m 0 0 &
 xmodmap -e 'add mod3 = Scroll_Lock' &
 /home/jason/scripts/bar.sh &
+firefox &
