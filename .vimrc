@@ -5,7 +5,6 @@ execute pathogen#infect()
 " Colors {{{
 syntax enable                   " enable highlighting
 let base16colorspace=256
-set background=dark 
 colorscheme base16-default-dark " colorscheme
 " }}}
 

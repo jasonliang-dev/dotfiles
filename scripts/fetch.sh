@@ -1,8 +1,5 @@
 #!/bin/bash
 
-resetAll=$'\e[0m'
-underline='\e[4m'
-
 #Background color
 bDefault=$'\e[49m'
 bRed=$'\e[41m'
@@ -14,23 +11,28 @@ bCyan=$'\e[46m'
 
 #Foreground color
 cDefault=$'\e[39m'
-cRed=$'\e[31m'
-cGreen=$'\e[32m'
-cYellow=$'\e[33m'
 cBlue=$'\e[34m'
 cPurple=$'\e[35m'
-cCyan=$'\e[36m'
+
+distro=$(cat /etc/*-release | grep -oP 'PRETTY_NAME=\K".*"' | tr -d '"')
+kernel=$(uname -rm)
+uptime=$(uptime -p | sed 's/up //')
+numpkg=$(pacman -Q | wc -l)
+shell=$(echo $SHELL)
+resolution=$(xdpyinfo | grep 'dimensions' | awk '{print $2}')
+processor=$(grep -oP 'model name\K.*' /proc/cpuinfo | sed -e 's/^[ \t]: *//' | uniq)
 
 #Clear screen and print system info
 clear
 printf "$cBlue$USER$cDefault at $cPurple$(hostname)$cDefault
-Distro:     $(cat /etc/*-release | grep -oP 'PRETTY_NAME=\K".*"' | tr -d '"')
-Kernel:     $(uname -rmo)
-Uptime:     $(uptime -p | sed 's/up //')
-Packages:   $(pacman -Q | wc -l)
-Shell:      $(echo $SHELL)
-Resolution: $(xdpyinfo | grep 'dimensions' | awk '{print $2}')
-CPU:        $(grep -oP 'model name\K.*' /proc/cpuinfo | sed -e 's/^[ \t]: *//' | uniq)	
+
+\e[1mDistro:\e[21m     $distro
+\e[1mKernel:\e[21m     $kernel
+\e[1mUptime:\e[21m     $uptime
+\e[1mPackages:\e[21m   $numpkg
+\e[1mShell:\e[21m      $shell
+\e[1mResolution:\e[21m $resolution
+\e[1mCPU:\e[21m        $processor
 
             $bRed    $bGreen    $bYellow    $bBlue    $bPurple    $bCyan    $bDefault
 
