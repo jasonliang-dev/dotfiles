@@ -6,45 +6,45 @@
 set $mod Mod4
 
 # Colours
-set $dark   #2B303B
-set $grey   #A9B0BF
-set $light  #E7E8EB
-set $blue   #4084D6
+set $dark  #2B303B
+set $grey  #A9B0BF
+set $light #E7E8EB
+set $blue  #4084D6
 
 # Font for window titles.
 font pango:Roboto 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier Mod1
+floating_modifier Mod4
 
 # Start terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec termite
 
 # Kill focused window
-bindsym $mod+q kill
+bindsym $mod+shift+q kill
 
 # Start a program launcher
 bindsym $mod+d exec /home/jason/scripts/rofi.sh
 
 # Change focus
-bindsym $mod+h         focus left
-bindsym $mod+j         focus down
-bindsym $mod+k         focus up
-bindsym $mod+l         focus right
-bindsym $mod+Left      focus left
-bindsym $mod+Down      focus down
-bindsym $mod+Up        focus up
-bindsym $mod+Right     focus right
+bindsym $mod+h     focus left
+bindsym $mod+j     focus down
+bindsym $mod+k     focus up
+bindsym $mod+l     focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
 
 # Move focused window
-bindsym $mod+Shift+h         move left
-bindsym $mod+Shift+j         move down
-bindsym $mod+Shift+k         move up
-bindsym $mod+Shift+l         move right
-bindsym $mod+Shift+Left      move left
-bindsym $mod+Shift+Down      move down
-bindsym $mod+Shift+Up        move up
-bindsym $mod+Shift+Right     move right
+bindsym $mod+Shift+h     move left
+bindsym $mod+Shift+j     move down
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l     move right
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
 
 # Split in horizontal orientation
 bindsym $mod+g split h
@@ -115,55 +115,102 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes' 'i3-msg exit
 
 # Resize window
 mode "resize" {
-  # Pressing left will shrink the window’s width.
-  # Pressing right will grow the window’s width.
-  # Pressing up will shrink the window’s height.
-  # Pressing down will grow the window’s height.
-  bindsym h     resize shrink width  10 px or 10 ppt
-  bindsym j     resize grow   height 10 px or 10 ppt
-  bindsym k     resize shrink height 10 px or 10 ppt
-  bindsym l     resize grow   width  10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h     resize shrink width  10 px or 10 ppt
+    bindsym j     resize grow   height 10 px or 10 ppt
+    bindsym k     resize shrink height 10 px or 10 ppt
+    bindsym l     resize grow   width  10 px or 10 ppt
 
-  bindsym Left  resize shrink width  10 px or 10 ppt
-  bindsym Down  resize grow   height 10 px or 10 ppt
-  bindsym Up    resize shrink height 10 px or 10 ppt
-  bindsym Right resize grow   width  10 px or 10 ppt
+    bindsym Left  resize shrink width  10 px or 10 ppt
+    bindsym Down  resize grow   height 10 px or 10 ppt
+    bindsym Up    resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow   width  10 px or 10 ppt
 
-# Back to normal: Enter or Escape
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+    # Back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # Window Colours
-#                       border background  text   indicator
-client.focused          $light $light      $dark  $blue
-client.focused_inactive $dark  $dark       $light $blue
-client.unfocused        $dark  $dark       $light $blue
-client.urgent           $dark  $blue       $dark  $blue
+#                       border background text   indicator
+client.focused          $light $light     $dark  $blue
+client.focused_inactive $dark  $dark      $light $blue
+client.unfocused        $dark  $dark      $light $blue
+client.urgent           $dark  $blue      $dark  $blue
 
 # Start i3bar to display a workspace bar
 bar {
-  status_command     i3blocks -c ~/.i3/i3blocks.conf
+    status_command i3blocks -c ~/.i3/i3blocks.conf
     colors {
-      separator $dark
-      background $dark
-      statusline $light
-#                      border  background text
-      focused_workspace  $dark   $dark      $light
-      active_workspace   $dark   $dark      $grey
-      inactive_workspace $dark   $dark      $grey
-      urgent_workspace   $dark   $blue      $dark
+        separator  $dark
+        background $dark
+        statusline $light
+        #                  border  background text
+        focused_workspace  $dark   $dark      $light
+        active_workspace   $dark   $dark      $grey
+        inactive_workspace $dark   $dark      $grey
+        urgent_workspace   $dark   $blue      $dark
     }
-  position bottom
+    position bottom
 }
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym o      mode "$mode_gaps_outer"
+    bindsym i      mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 0
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0     gaps outer current set 0
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Set gaps
+gaps inner 20
+
+workspace $workspace1 gaps inner 0
+workspace $workspace1 gaps outer 0
 
 # Runs i3lock
 bindsym $mod+shift+x exec /home/jason/scripts/lock.sh
 
 # Window border thickness
-new_window pixel 2
+#new_window pixel 2
+for_window [class="^.*"] border pixel 4
+
+# Tint2
+exec tint2
 
 # Keyboard repeat
 exec xset r rate 270 27
@@ -177,8 +224,8 @@ bindsym XF86AudioLowerVolume exec amixer set Master 2%- unmute
 bindsym XF86AudioMute        exec amixer set Master toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Media player controls
 bindsym XF86AudioPlay  exec playerctl play
@@ -189,11 +236,8 @@ bindsym XF86AudioPrev  exec playerctl previous
 # Keyboard led
 bindsym ctrl+shift+Mod1+l exec /home/jason/scripts/scrlk.sh
 
-# Run tint2, a display bar/panel
-#exec tint2
-
 # Run compton, a display compositor
-exec compton -C -f -D 4 -G -O 0.07 --vsync opengl
+exec compton --opengl --vsync opengl
 
 # Displays a wallpaper
 exec_always feh --bg-fill /home/jason/Pictures/wallpaper.jpg

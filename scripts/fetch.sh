@@ -17,7 +17,11 @@ cPurple=$'\e[35m'
 distro=$(cat /etc/*-release | grep -oP 'PRETTY_NAME=\K".*"' | tr -d '"')
 kernel=$(uname -rm)
 uptime=$(uptime -p | sed 's/up //')
-numpkg=$(pacman -Q | wc -l)
+if [ -f /etc/debian_version ]; then
+    numpkg=$(dpkg -l | wc -l)
+else
+    numpkg=$(pacman -Q | wc -l)
+fi
 shell=$(echo $SHELL)
 resolution=$(xdpyinfo | grep 'dimensions' | awk '{print $2}')
 processor=$(grep -oP 'model name\K.*' /proc/cpuinfo | sed -e 's/^[ \t]: *//' | uniq)
