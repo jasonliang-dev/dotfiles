@@ -2,6 +2,18 @@
 execute pathogen#infect()
 " }}}
 
+" ctrlp & NERD tree {{{
+" toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
+" exclude some files
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
+" }}}
+
 " Colors {{{
 syntax enable                   " enable highlighting
 let base16colorspace=256
@@ -18,7 +30,6 @@ set expandtab      " tabs become spaces
 set shiftwidth=4   " affects automatic indentation
 set wildmenu       " autocomplete for command menu
 set showmatch      " highlight matching brackets
-set guifont=hack\ 12
 " }}}
 
 " Searching {{{

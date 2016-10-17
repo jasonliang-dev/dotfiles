@@ -9,7 +9,7 @@ mkdir -p $HOME/.config
 if ask "Create symlink for awesome?" N; then
     ln $f $HOME/dotfiles/.config/awesome $HOME/.config/awesome
 fi
-if ask "Create symlink for Openbox?" Y; then
+if ask "Create symlink for Openbox?" N; then
     ln $f $HOME/dotfiles/.config/openbox $HOME/.config/openbox
 fi
 if ask "Create symlink for i3?" N; then

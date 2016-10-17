@@ -1,20 +1,22 @@
-# run i3-config-wizard
-
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 # Mod key
 set $mod Mod4
 
 # Colours
-set $dark  #2B303B
-set $grey  #A9B0BF
-set $light #E7E8EB
-set $blue  #4084D6
+set $dark  #2b303b
+set $grey  #65737e
+set $light #e7e8eb
+set $blue  #96b5b4
 
-# Font for window titles.
-font pango:Roboto 10
+# Font
+font pango: Source Sans Pro 10
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# Direction keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Mod key to drag floating windows
 floating_modifier Mod4
 
 # Start terminal
@@ -23,54 +25,59 @@ bindsym $mod+Return exec termite
 # Kill focused window
 bindsym $mod+shift+q kill
 
-# Start a program launcher
+# Start rofi
 bindsym $mod+d exec /home/jason/scripts/rofi.sh
 
 # Change focus
-bindsym $mod+h     focus left
-bindsym $mod+j     focus down
-bindsym $mod+k     focus up
-bindsym $mod+l     focus right
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
+bindsym $mod+Right  focus right
 
 # Move focused window
-bindsym $mod+Shift+h     move left
-bindsym $mod+Shift+j     move down
-bindsym $mod+Shift+k     move up
-bindsym $mod+Shift+l     move right
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$down  move down
+bindsym $mod+Shift+$up    move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left   move left
+bindsym $mod+Shift+Down   move down
+bindsym $mod+Shift+Up     move up
+bindsym $mod+Shift+Right  move right
 
-# Split in horizontal orientation
+# Split vertical/horizontal
 bindsym $mod+g split h
-# Split in vertical orientation
 bindsym $mod+v split v
 
-# Enter fullscreen mode for the focused container
+# Change layout (fullscreen, stacked, tabbed, toggle split)
 bindsym $mod+f fullscreen toggle
-
-# Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-# Change focus between tiling / floating windows
+# Change between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
 # Focus the parent container
-bindsym $mod+a focus parent
-
+#bindsym $mod+a focus parent
 # Focus the child container
 #bindsym $mod+d focus child
 
+# Move the current window to scratchpad
+bindsym $mod+Shift+0 move scratchpad
+# Show scratchpad window
+bindsym $mod+0 scratchpad show
+
 # Workspaces
+#set $workspace1  "1: 🌐"
+#set $workspace2  "2: ⌨"
+#set $workspace3  "3: ⧉"
+#set $workspace4  "4: 🎧"
 set $workspace1  "1"
 set $workspace2  "2"
 set $workspace3  "3"
@@ -80,7 +87,6 @@ set $workspace6  "6"
 set $workspace7  "7"
 set $workspace8  "8"
 set $workspace9  "9"
-set $workspace10 "0"
 
 # Switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -92,9 +98,8 @@ bindsym $mod+6 workspace $workspace6
 bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace10
 
-# Move focused container to workspace
+# Move window to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
@@ -104,14 +109,13 @@ bindsym $mod+Shift+6 move container to workspace $workspace6
 bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 # Restart i3 inplace
 bindsym $mod+Shift+r restart
 # Exit i3
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Exit?' -b 'Yes' 'i3-msg exit'"
 
 # Resize window
 mode "resize" {
@@ -119,11 +123,10 @@ mode "resize" {
     # Pressing right will grow the window’s width.
     # Pressing up will shrink the window’s height.
     # Pressing down will grow the window’s height.
-    bindsym h     resize shrink width  10 px or 10 ppt
-    bindsym j     resize grow   height 10 px or 10 ppt
-    bindsym k     resize shrink height 10 px or 10 ppt
-    bindsym l     resize grow   width  10 px or 10 ppt
-
+    bindsym $left  resize shrink width  10 px or 10 ppt
+    bindsym $down  resize grow   height 10 px or 10 ppt
+    bindsym $up    resize shrink height 10 px or 10 ppt
+    bindsym $right resize grow   width  10 px or 10 ppt
     bindsym Left  resize shrink width  10 px or 10 ppt
     bindsym Down  resize grow   height 10 px or 10 ppt
     bindsym Up    resize shrink height 10 px or 10 ppt
@@ -133,11 +136,9 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
-# Window Colours
-#                       border background text   indicator
+# Window Colours        border background text   indicator
 client.focused          $light $light     $dark  $blue
 client.focused_inactive $dark  $dark      $light $blue
 client.unfocused        $dark  $dark      $light $blue
@@ -159,26 +160,27 @@ bar {
     position bottom
 }
 
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
+#
+# Something, something, added stuff below
+#
 
+# i3gaps (https://github.com/Airblader/i3)
 mode "$mode_gaps" {
-    bindsym o      mode "$mode_gaps_outer"
+    bindsym o      mode "$mode_gaps_outer" 
     bindsym i      mode "$mode_gaps_inner"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 mode "$mode_gaps_inner" {
     bindsym plus  gaps inner current plus 5
     bindsym minus gaps inner current minus 5
     bindsym 0     gaps inner current set 0
+    bindsym r     gaps inner current set 20
 
     bindsym Shift+plus  gaps inner all plus 5
     bindsym Shift+minus gaps inner all minus 5
     bindsym Shift+0     gaps inner all set 0
+    bindsym Shift+r     gaps inner all set 20
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -195,49 +197,64 @@ mode "$mode_gaps_outer" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
+# Resize Gaps
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
 # Set gaps
-gaps inner 20
-
+gaps inner 10
+# Workspace 1 has no gaps
 workspace $workspace1 gaps inner 0
 workspace $workspace1 gaps outer 0
 
-# Runs i3lock
-bindsym $mod+shift+x exec /home/jason/scripts/lock.sh
+# Workspace 3 is floating
+for_window [workspace=$workspace3] floating enable
+# Thunar is floating
+for_window [class="Thunar"] floating enable
+
+# Open windows on certain workspaces
+assign [class="VirtualBox"] $workspace3
+assign [class="discord"] $workspace8
+assign [class="Spotify"] $workspace9
 
 # Window border thickness
-#new_window pixel 2
-for_window [class="^.*"] border pixel 4
+for_window [class="^.*"] border pixel 3
+for_window [class="Xfce4-notifyd"] border pixel 0
 
-# Tint2
-exec tint2
-
-# Keyboard repeat
-exec xset r rate 270 27
-
-# Mouse movement
-exec xset m 0 0 
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec amixer set Master 2%+ unmute
-bindsym XF86AudioLowerVolume exec amixer set Master 2%- unmute
-bindsym XF86AudioMute        exec amixer set Master toggle
-
-# Screen brightness controls
-bindsym XF86MonBrightnessUp   exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+# Sticky Windows
+bindsym $mod+Shift+s sticky toggle
 
 # Media player controls
-bindsym XF86AudioPlay  exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext  exec playerctl next
-bindsym XF86AudioPrev  exec playerctl previous
+set $musicupdate pkill -RTMIN+10 i3blocks
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause && $musicupdate
+bindsym XF86AudioStop exec --no-startup-id playerctl stop && $musicupdate
+bindsym XF86AudioNext exec --no-startup-id playerctl next && $musicupdate
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous && $musicupdate
+# Pulse Audio controls
+set $audioupdate pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 2%+ && $audioupdate
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 2%- && $audioupdate
+bindsym XF86AudioMute        exec --no-startup-id amixer set -D pulse Master 1+ toggle && $audioupdate
+# Screen brightness controls
+bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+# i3blocks key indicator update
+bindsym --release Caps_Lock exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym --release Num_Lock  exec --no-startup-id pkill -RTMIN+11 i3blocks
 
-# Keyboard led
-bindsym ctrl+shift+Mod1+l exec /home/jason/scripts/scrlk.sh
+# Keyboard led - scroll lock led
+bindsym ctrl+shift+Mod1+l exec --no-startup-id /home/jason/scripts/scrlk.sh
 
-# Run compton, a display compositor
-exec compton --opengl --vsync opengl
+# Starts i3lock - lockscreen
+bindsym $mod+shift+x exec --no-startup-id /home/jason/scripts/lock.sh
 
-# Displays a wallpaper
-exec_always feh --bg-fill /home/jason/Pictures/wallpaper.jpg
+# Start Thunar - file manager
+bindsym $mod+shift+Return exec thunar
+
+# Run some stuff at startup
+exec --no-startup-id xset r rate 270 27 # keyboard repeat rate
+exec --no-startup-id xset m 0 0 # no mouse accel
+exec --no-startup-id sleep 1; nm-applet # wifi menu applet
+exec_always --no-startup-id compton --opengl --vsync opengl # shadows, fade, vsync, etc
+exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.jpg # background
