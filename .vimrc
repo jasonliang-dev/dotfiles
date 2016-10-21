@@ -66,5 +66,4 @@ nnoremap <silent> <Leader>- :res -4<CR>
 
 " Mode line {{{
 set modeline
-" vim:foldmethod=marker:foldlevel=0
 " }}}
