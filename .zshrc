@@ -13,7 +13,7 @@ autoload -Uz promptinit
 promptinit
 
 source ~/zsh-git-prompt/zshrc.sh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 PROMPT='
 %{$fg[blue]%}%n%{$reset_color%} at %{$fg[cyan]%}%m%{$reset_color%} $(git_super_status)
@@ -22,7 +22,7 @@ RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="on "
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
+ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}%{%G%} "
 ZSH_THEME_GIT_PROMPT_STAGED=" %{$fg[red]%}%{●%G%} "
 ZSH_THEME_GIT_PROMPT_CONFLICTS=" %{$fg[red]%}%{✖%G%} "
