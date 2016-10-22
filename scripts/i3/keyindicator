@@ -61,12 +61,12 @@ close(XSET);
 
 # Output
 if (($indicators{$indicator} || 0) & $mask) {
-    printf "  %s\n", $indicator;
-    printf "  %s\n", $indicator;
+    printf " %s\n", $indicator;
+    printf " %s\n", $indicator;
     printf "%s\n", $color_on;
 } else {
-    printf " %s\n", $indicator;
-    printf " %s\n", $indicator;
+    printf " %s\n", $indicator;
+    printf " %s\n", $indicator;
     printf "%s\n", $color_off;
 }
 exit 0

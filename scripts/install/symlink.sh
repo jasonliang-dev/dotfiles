@@ -36,10 +36,10 @@ if ask "Create symlink for everythine else?" N; then
     mkdir -p $HOME/.weechat
     mkdir -p $HOME/.mpd
 
-    ln -sfv $HOME/dotfiles/.config/dunst/dunstrc   $HOME/.config/dunst/dunstrc
-    ln -sfv $HOME/dotfiles/.config/tint2           $HOME/.config/tint2
-    ln -sfv $HOME/dotfiles/.mpd/mpd.conf           $HOME/.mpd/mpd.conf
-    ln -sfv $HOME/dotfiles/.ncmpcpp                $HOME/.ncmpcpp
-    ln -sfv $HOME/dotfiles/.themes                 $HOME/.themes
-    ln -sfv $HOME/dotfiles/.weechat/weechat.conf   $HOME/.weechat/weechat.conf
+    ln -sfv $HOME/dotfiles/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
+    ln -sfv $HOME/dotfiles/.config/tint2         $HOME/.config/tint2
+    ln -sfv $HOME/dotfiles/.mpd/mpd.conf         $HOME/.mpd/mpd.conf
+    ln -sfv $HOME/dotfiles/.ncmpcpp              $HOME/.ncmpcpp
+    ln -sfv $HOME/dotfiles/.themes               $HOME/.themes
+    ln -sfv $HOME/dotfiles/.weechat/weechat.conf $HOME/.weechat/weechat.conf
 fi

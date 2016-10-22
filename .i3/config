@@ -4,7 +4,7 @@ set $mod Mod4
 # Colours
 set $dark  #2b303b
 set $grey  #65737e
-set $light #e7e8eb
+set $light #eff1f5
 set $blue  #96b5b4
 
 # Font
@@ -157,7 +157,7 @@ mode "Resize & Move" {
 bindsym $mod+r mode "Resize & Move"
 
 # Window Colours        border background text   indicator
-client.focused          $light $light     $dark  $blue
+client.focused          $dark  $grey      $dark  $blue
 client.focused_inactive $dark  $dark      $light $blue
 client.unfocused        $dark  $dark      $light $blue
 client.urgent           $dark  $blue      $dark  $blue
@@ -165,8 +165,9 @@ client.urgent           $dark  $blue      $dark  $blue
 # Start i3bar to display a workspace bar
 bar {
     status_command i3blocks -c ~/.i3/i3blocks.conf
+    separator_symbol ""
     colors {
-        separator  $dark
+        separator  $grey
         background $dark
         statusline $light
         #                  border  background text
@@ -178,9 +179,9 @@ bar {
     position bottom
 }
 
-#
-# Something, something, added stuff below
-#
+###
+### 
+###
 
 # i3gaps (https://github.com/Airblader/i3)
 mode "$mode_gaps" {
@@ -228,7 +229,8 @@ workspace $ws1 gaps outer 0
 
 # Workspace 3 is floating
 for_window [workspace=$ws3] floating enable
-# Windows are floating
+# Some windows are floating
+for_window [class="feh"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="Ristretto"] floating enable
 
