@@ -157,13 +157,14 @@ mode "Resize & Move" {
 bindsym $mod+r mode "Resize & Move"
 
 # Window Colours        border background text   indicator
-client.focused          $dark  $grey      $dark  $blue
+client.focused          $grey  $grey      $light $blue
 client.focused_inactive $dark  $dark      $light $blue
 client.unfocused        $dark  $dark      $light $blue
-client.urgent           $dark  $blue      $dark  $blue
+client.urgent           $blue  $blue      $dark  $blue
 
 # Start i3bar to display a workspace bar
 bar {
+    font xft:Source Sans Pro, FontAwesome 10
     status_command i3blocks -c ~/.i3/i3blocks.conf
     separator_symbol ""
     colors {
