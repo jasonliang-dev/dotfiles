@@ -8,7 +8,7 @@ set $light #eff1f5
 set $blue  #96b5b4
 
 # Font
-font pango: Source Sans Pro 10
+font pango: Source Sans Pro 9
 
 # Direction keys
 set $left h
@@ -279,8 +279,4 @@ bindsym $mod+shift+x exec --no-startup-id /home/jason/scripts/lock.sh
 bindsym $mod+shift+Return exec thunar
 
 # Run some stuff at startup
-exec --no-startup-id xset r rate 270 27 # keyboard repeat rate
-exec --no-startup-id xset m 0 0 # no mouse accel
-exec --no-startup-id sleep 1; nm-applet # wifi menu applet
-exec_always --no-startup-id compton --opengl --vsync opengl # shadows, fade, vsync, etc
-exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.jpg # background
+exec --no-startup-id /home/jason/scripts/startup.sh
