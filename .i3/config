@@ -237,7 +237,7 @@ for_window [class="Ristretto"] floating enable
 
 # Open windows on certain workspaces
 assign [class="VirtualBox"] $ws3
-assign [class="discord"] $ws8
+assign [class="discord"] $ws5
 for_window [class="Spotify"] move to workspace $ws5
 
 # Window border thickness

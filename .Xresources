@@ -15,8 +15,6 @@ URxvt.matcher.button: 1
 *.geometry:          75x24
 
 ! Set font
-*font:               xft:Monospace:size=10
-*boldFont:           xft:Monospace:size=10
 *letterSpace:        -1
 *.intensityStyles:   false
 
