@@ -39,6 +39,12 @@ if ask "Install base16-shell?" N; then
     git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 fi
 
+if ask "Install xft port of lemonbar?" N; then
+    git clone https://github.com/krypt-n/bar.git && cd bar
+    make
+    sudo make install
+fi
+
 if ask "Install Termite? (Ubuntu Only)" N; then
     $HOME/dotfiles/scripts/install/termite.sh
 fi

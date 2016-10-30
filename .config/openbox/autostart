@@ -1,7 +1,2 @@
-compton --opengl --vsync opengl&
-feh --bg-fill /home/jason/Pictures/wallpaper.jpg &
-tint2 &
-xset r rate 270 27 &
-xset m 0 0 &
-xmodmap -e 'add mod3 = Scroll_Lock' &
+/home/jason/scripts/startup.sh &
 /home/jason/scripts/bar.sh &

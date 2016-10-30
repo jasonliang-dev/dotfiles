@@ -1,40 +1,75 @@
 #!/bin/bash
 
-battery () {
-    battery="$(</sys/class/power_supply/BAT1/capacity)"
-    charging="$(</sys/class/power_supply/BAT1/status)"
-
-    case "$battery" in
-        [0-9]|10)
-            battery="${battery}%  "
-        ;;
-
-        1[0-9]|2[0-5])
-            battery="${battery}%  "
-        ;;
-
-        2[6-9]|3[0-9]|4[0-9]|50)
-            battery="${battery}%  "
-        ;;
-
-        5[1-9]|6[0-9]|7[0-5])
-            battery="${battery}%  "
-        ;;
-
-        7[6-9]|8[0-9]|9[0-9]|100)
-            battery="${battery}%  "
-        ;;
+# I'm not very good at this...
+desktop() {
+    ws=`xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}'`
+    case $ws in
+        0)  echo web
+            ;;
+        1)  echo term
+            ;;
+        2)  echo music
+            ;;
+        *)  echo etc
+            ;;
     esac
-
-    [ "$charging" == "Charging" ] && \
-        battery="  $battery"
-
-    printf "%s" "$battery"
+}
+window() {
+    xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | 
+    cut -d '"' -f2
+}
+date0() {
+    date "+%A, %B %d"
+}
+date1() {
+    date "+%I:%M %P"
+}
+power() {
+    /home/jason/scripts/i3/battery
+}
+music() {
+    /home/jason/scripts/i3/mediaplayer
+}
+volume() {
+    /home/jason/scripts/i3/volume
 }
 
-while :; do
-        echo "        $(date "+%I:%M%P") %{r}$(battery)        %{r}"
-            sleep 2s
+# Center bar
+# Date and time
+while true; do
+    echo "%{c}  $(date0)          $(date1)"
+    sleep 10
 done |
+lemonbar -d -b -g "598x28+384+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0 -B "#2B303B" -F "#EFF1F5" &
 
-lemonbar -d -b -g "169x47+1165+16" -f "roboto-10" -f "fontawesome-12" -B "#333333" -F "#E0E0E0"
+# Left bar
+# Workspace
+while true; do
+    echo "%{c}  $(desktop)"
+    sleep 1
+done |
+lemonbar -d -b -g "128x28+0+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#c0c5ce" -F "#2b303b" &
+
+# Window title
+while true; do
+    echo "%{c}  $(window)"
+    sleep 1
+done |
+lemonbar -d -b -g "256x28+128+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#4F5B66" -F "#EFF1F5" &
+
+sleep .1
+
+# Right bar
+# Volume and battery
+while true; do
+    echo "%{c}$(volume)        $(power)"
+    sleep 1
+done |
+lemonbar -d -b -g "128x28+1238+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0 -B "#c0c5ce" -F "#2b303b" &
+
+# Music
+while true; do
+    echo "%{c}  $(music)"
+    sleep 1
+done |
+lemonbar -d -b -g "256x28+982+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#4F5B66" -F "#EFF1F5" &

@@ -40,15 +40,15 @@ $full_text = "$percent%";
 if ($status eq 'Discharging') {
     #$full_text = '🔋  ' . $full_text;
     if ($percent < 20) {
-        $full_text = ' ' . $full_text;
+        $full_text = '  ' . $full_text;
     } elsif ($percent < 40) {
-        $full_text = ' ' . $full_text;
+        $full_text = '  ' . $full_text;
     } elsif ($percent < 60) {
-        $full_text = ' ' . $full_text;
+        $full_text = '  ' . $full_text;
     } elsif ($percent < 80) {
-        $full_text = ' ' . $full_text;
+        $full_text = '  ' . $full_text;
     } else {
-        $full_text = ' ' . $full_text;
+        $full_text = '  ' . $full_text;
     }
 } else {
     #$full_text = '🗲 ' . $full_text;
@@ -63,25 +63,25 @@ $short_text = $full_text;
 
 # print text
 print "$full_text\n";
-print "$short_text\n";
+#print "$short_text\n";
 
 # consider color and urgent flag only on discharge
-if ($status eq 'Discharging') {
-
-    if ($percent < 20) {
-        print "#BF616A\n";
-    } elsif ($percent < 40) {
-        print "#D08770\n";
-    } elsif ($percent < 60) {
-        print "#EBCB8B\n";
-    } elsif ($percent < 80) {
-        print "#A3BE8C\n";
-    }
-
-    if ($percent < 15) {
-        exit(33);
-    }
-}
+#if ($status eq 'Discharging') {
+#
+#    if ($percent < 20) {
+#        print "#BF616A\n";
+#    } elsif ($percent < 40) {
+#        print "#D08770\n";
+#    } elsif ($percent < 60) {
+#        print "#EBCB8B\n";
+#    } elsif ($percent < 80) {
+#        print "#A3BE8C\n";
+#    }
+#
+#    if ($percent < 15) {
+#        exit(33);
+#    }
+#}
 
 exit(0);
 

@@ -33,8 +33,8 @@ window.*.button.*.image.color: #E7E8EB
 # Set menu colors
 menu.*.bg: Solid Flat
 menu.*.bg.color: #2B303B
-menu.*.text.color: #C0C5CE
-menu.items.active.text.color: #3982A3
+menu.*.text.color: #eff1f5
+menu.items.active.text.color: #a7adba
 
 # Add some padding
 menu.border.width: 16
