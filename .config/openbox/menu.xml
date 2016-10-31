@@ -34,10 +34,6 @@
     <action name="Execute"><command>termite</command></action>
   </item>
   <separator />
-  <item label="Firefox">
-    <action name="Execute"><command>firefox</command></action>
-  </item>
-  <separator />
   <menu id="system-menu"/>
 </menu>
 

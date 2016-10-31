@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
-    <strength>10</strength>
-    <screen_edge_strength>20</screen_edge_strength>
+    <strength>20</strength>
+    <screen_edge_strength>40</screen_edge_strength>
   </resistance>
   <focus>
     <focusNew>yes</focusNew>
@@ -20,7 +20,7 @@
   </placement>
   <theme>
     <name>dark</name>
-    <titleLayout>LIMC</titleLayout>
+    <titleLayout>CLM</titleLayout>
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
@@ -61,13 +61,14 @@
     </font>
   </theme>
   <desktops>
-    <number>4</number>
+    <number>5</number>
     <firstdesk>1</firstdesk>
     <names>
       <name>1</name>
       <name>2</name>
       <name>3</name>
       <name>4</name>
+      <name>5</name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
@@ -76,13 +77,13 @@
     <popupShow>Always</popupShow>
     <popupPosition>Center</popupPosition>
     <popupFixedPosition>
-      <x>10</x>
-      <y>10</y>
+      <x>28</x>
+      <y>56</y>
     </popupFixedPosition>
   </resize>
   <margins>
     <top>0</top>
-    <bottom>28</bottom>
+    <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
   </margins>
@@ -150,7 +151,7 @@
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>amixer set Master toggle</command>
+        <command>amixer set -D pulse Master 1+ toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPlay">

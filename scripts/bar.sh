@@ -10,6 +10,8 @@ desktop() {
             ;;
         2)  echo music
             ;;
+        3)  echo tweak
+            ;;
         *)  echo etc
             ;;
     esac
@@ -18,29 +20,51 @@ window() {
     xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | 
     cut -d '"' -f2
 }
-date0() {
-    date "+%A, %B %d"
+barDate() {
+    date "+%a, %B %d"
 }
-date1() {
+barTime() {
     date "+%I:%M %P"
 }
 power() {
-    /home/jason/scripts/i3/battery
+    percent="$(</sys/class/power_supply/BAT1/capacity)"
+    status="$(</sys/class/power_supply/BAT1/status)"
+
+    if [ $status == "Discharging" ]; then
+        if [ $percent -lt 20 ]; then
+            percent="  $percent%"
+        elif [ $percent -lt 40 ]; then
+            percent="  $percent%"
+        elif [ $percent -lt 60 ]; then
+            percent="  $percent%"
+        elif [ $percent -lt 80 ]; then
+            percent="  $percent%"
+        else
+            percent="  $percent%"
+        fi
+    else
+        percent="  $percent%"
+    fi
+    
+    echo $percent
 }
 music() {
-    /home/jason/scripts/i3/mediaplayer
+    pgrep spotify > /dev/null && \
+        echo   $(/home/jason/scripts/i3/mediaplayer)
 }
 volume() {
-    /home/jason/scripts/i3/volume
+    /home/jason/scripts/i3/volume 5 pulse
 }
 
+font="-f sourcesanspro-9 -f fontawesome-10"
+
 # Center bar
-# Date and time
+# Music
 while true; do
-    echo "%{c}  $(date0)          $(date1)"
-    sleep 10
+    echo "%{c}$(music)"
+    sleep 1
 done |
-lemonbar -d -b -g "598x28+384+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0 -B "#2B303B" -F "#EFF1F5" &
+lemonbar $font -g "598x28+384+0" -B "#343D46" -F "#EFF1F5" &
 
 # Left bar
 # Workspace
@@ -48,16 +72,14 @@ while true; do
     echo "%{c}  $(desktop)"
     sleep 1
 done |
-lemonbar -d -b -g "128x28+0+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#c0c5ce" -F "#2b303b" &
+lemonbar $font -g "128x28+0+0" -B "#C0C5CE" -F "#2B303B" &
 
 # Window title
 while true; do
     echo "%{c}  $(window)"
     sleep 1
 done |
-lemonbar -d -b -g "256x28+128+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#4F5B66" -F "#EFF1F5" &
-
-sleep .1
+lemonbar $font -g "256x28+128+0" -B "#4F5B66" -F "#EFF1F5" &
 
 # Right bar
 # Volume and battery
@@ -65,11 +87,11 @@ while true; do
     echo "%{c}$(volume)        $(power)"
     sleep 1
 done |
-lemonbar -d -b -g "128x28+1238+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0 -B "#c0c5ce" -F "#2b303b" &
+lemonbar $font -g "128x28+1238+0" -B "#C0C5CE" -F "#2B303B" &
 
-# Music
+# Date and time
 while true; do
-    echo "%{c}  $(music)"
-    sleep 1
+    echo "%{c}  $(barDate)          $(barTime)"
+    sleep 10
 done |
-lemonbar -d -b -g "256x28+982+0" -f "sourcesanspro-9" -f "fontawesome-10" -o 0  -B "#4F5B66" -F "#EFF1F5" &
+lemonbar $font -g "256x28+982+0" -B "#4F5B66" -F "#EFF1F5" &
