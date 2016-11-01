@@ -41,5 +41,5 @@ menu.border.color: #343D46
 menu.overlap.x: -27
 menu.overlap.y: 0
 # Add padding between items
-menu.separator.padding.height: 4
+menu.separator.padding.height: 3
 menu.separator.color: #343D46

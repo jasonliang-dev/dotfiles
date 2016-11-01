@@ -111,6 +111,11 @@
         <command>scrot -s</command>
       </action>
     </keybind>
+    <keybind key="Print">
+      <action name="Execute">
+        <command>scrot</command>
+      </action>
+    </keybind>
     <keybind key="A-Tab">
       <action name="NextWindow">
         <finalactions>
@@ -129,10 +134,8 @@
         </finalactions>
       </action>
     </keybind>
-    <keybind key="Print">
-      <action name="Execute">
-        <command>scrot</command>
-      </action>
+    <keybind key="W-space">
+        <action name="ToggleAlwaysOnTop"/>
     </keybind>
     <keybind key="C-A-S-l">
       <action name="Execute">
@@ -286,11 +289,6 @@
         <to>5</to>
       </action>
     </keybind>
-    <keybind key="W-space">
-      <action name="Execute">
-        <command>termite</command>
-      </action>
-    </keybind>
     <keybind key="W-Return">
       <action name="Execute">
         <command>termite</command>
@@ -300,6 +298,11 @@
       <action name="Execute">
         <command>/home/jason/scripts/lock.sh</command>
       </action>
+    </keybind>
+    <keybind key="W-S-e">
+        <action name="ShowMenu">
+            <menu>root-menu</menu>
+        </action>
     </keybind>
   </keyboard>
   <mouse>
