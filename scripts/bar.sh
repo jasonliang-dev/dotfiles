@@ -25,7 +25,7 @@ desktop() {
 window() {
     name=`xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_NAME | 
     cut -d '"' -f 2 | cut -c 1-32`
-    if [ ${#name} -gt 30 ]; then
+    if [ ${#name} -eq 32 ]; then
         echo "$name..."
     else
         echo $name

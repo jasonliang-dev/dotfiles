@@ -12,3 +12,5 @@ alias     t='tmux'
 alias     c='clear'
 alias     g='git'
 alias     x='exit'
+
+alias neofetch='neofetch --xoffset 27 --yoffset 27 --colors 7 7 19 6 7 20'
