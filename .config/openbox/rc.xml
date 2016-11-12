@@ -288,6 +288,10 @@
     <!-- End of Window Resize }}} -->
 
     <!-- Launch {{{ -->
+    <keybind key="W-A-x">
+      <action name="Execute"><command>dm-tool lock</command></action>
+    </keybind>
+
     <keybind key="W-S-Return">
       <action name="Execute"><command>thunar</command></action>
     </keybind>
