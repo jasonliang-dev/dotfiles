@@ -1,0 +1,200 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# mod key {{{
+set $mod Mod4
+# }}}
+
+# colours {{{
+set $dark  #2b303b
+set $grey  #65737e
+set $light #eff1f5
+set $blue  #96b5b4
+# }}}
+
+# font {{{
+font pango:source sans pro 9
+# }}}
+
+# use mouse+$mod to drag floating windows to their wanted position {{{
+floating_modifier $mod
+# }}}
+
+# start a terminal {{{
+bindsym $mod+Return exec termite
+# }}}
+
+# kill focused window {{{
+bindsym $mod+Shift+q kill
+# }}}
+
+# start rofi {{{
+bindsym $mod+d exec /home/jason/scripts/rofi.sh
+# }}}
+
+# change focus {{{
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# }}}
+
+# move focused window {{{
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+# }}}
+
+# split in horizontal orientation {{{
+bindsym $mod+g split h
+# }}}
+# split in vertical orientation {{{
+bindsym $mod+v split v
+# }}}
+
+# enter fullscreen mode for the focused container {{{
+bindsym $mod+f fullscreen toggle
+# }}}
+
+# change container layout (stacked, tabbed, toggle split) {{{
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# }}}
+
+# toggle tiling / floating {{{
+bindsym $mod+Shift+space floating toggle
+# }}}
+# change focus between tiling / floating windows {{{
+bindsym $mod+space focus mode_toggle
+# }}}
+
+# focus the parent container {{{
+bindsym $mod+a focus parent
+# }}}
+# focus the child container {{{
+#bindsym $mod+d focus child
+## }}}
+
+# switch to workspace {{{
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+# }}}
+
+# reload the configuration file {{{
+bindsym $mod+Shift+c reload
+# }}}
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3) {{{
+bindsym $mod+Shift+r restart
+# }}}
+# exit i3 (logs you out of your X session) {{{
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'What would you like to do?' -b 'Exit i3' 'i3-msg exit' -b 'Suspend' 'systemctl suspend' -b 'Reboot' 'systemctl reboot' -b 'Power off' 'systemctl poweroff'"
+# }}}
+
+# resize window (you can also use the mouse for that) {{{
+bindsym $mod+Control+h resize shrink width 10 px or 10 ppt
+bindsym $mod+Control+j resize grow height 10 px or 10 ppt
+bindsym $mod+Control+k resize shrink height 10 px or 10 ppt
+bindsym $mod+Control+l resize grow width 10 px or 10 ppt
+# }}}
+
+# start i3bar to display a workspace bar {{{
+# (plus the system information i3status finds out, if available)
+#bar {
+#	status_command i3status
+#	colors {
+#		separator  $grey
+#		background $dark
+#		statusline $light
+#		#                  border  background text
+#		focused_workspace  $dark   $dark      $light
+#		active_workspace   $dark   $dark      $grey
+#		inactive_workspace $dark   $dark      $grey
+#		urgent_workspace   $dark   $blue      $dark
+#	}
+#}
+# }}}
+
+# gaps {{{
+gaps inner 10
+bindsym $mod+Shift+g gaps inner current plus 5
+bindsym $mod+Control+g gaps inner current minus 5
+bindsym $mod+Shift+Control+g gaps inner current set 10
+# }}}
+
+# workspace 1 has no gaps {{{
+workspace 1 gaps inner 0
+# }}}
+
+# window theme {{{
+#                       border background text   indicator
+client.focused          $light $light     $light $blue
+client.focused_inactive $dark  $dark      $light $blue
+client.unfocused        $dark  $dark      $light $blue
+client.urgent           $blue  $blue      $dark  $blue
+# }}}
+
+# window border {{{
+for_window [class="^.*"] border pixel 2
+# }}}
+
+# window to center {{{
+bindsym $mod+c move position center
+# }}}
+
+# floating workspaces and windows {{{
+for_window [workspace=3] floating enable
+for_window [class="feh"] floating enable
+for_window [class="Thunar"] floating enable
+# }}}
+
+# media player controls {{{
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+# pulse audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 2%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 2%-
+bindsym XF86AudioMute        exec --no-startup-id amixer set Master toggle
+# screen brightness controls
+bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+# }}}
+
+# start thunar {{{
+bindsym $mod+shift+Return exec thunar
+# }}}
+
+# startup {{{
+exec --no-startup-id polybar new
+exec --no-startup-id compton
+exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.png
+exec_always --no-startup-id setxkbmap -option caps:escape
+exec_always --no-startup-id xset r rate 270 27
+exec_always --no-startup-id xset m 0 0
+# }}}
+
+# vim:foldmethod=marker:foldlevel=0

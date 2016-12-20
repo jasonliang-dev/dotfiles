@@ -1,0 +1,275 @@
+[colors] ; {{{
+; base16 ocean
+base00 = #2b303b
+base01 = #343d46
+base02 = #4f5b66
+base03 = #65737e
+base04 = #a7adba
+base05 = #c0c5ce
+base06 = #dfe1e8
+base07 = #eff1f5
+base08 = #bf616a
+base09 = #d08770
+base0A = #ebcb8b
+base0B = #a3be8c
+base0C = #96b5b4
+base0D = #8fa1b3
+base0E = #b48ead
+base0F = #ab7967
+
+background = ${self.base00}
+background-alt = ${self.base01}
+foreground = ${self.base07}
+foreground-alt = ${self.base05}
+; }}}
+
+[global/wm] ; {{{
+margin-top = 5
+margin-bottom = 5
+; }}}
+
+[bar/new] ;{{{
+width = 100%
+height = 27
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+overline-size = 0
+overline-color = #f00
+underline-size = 2
+underline-color = #00f
+
+border-bottom = 2
+border-bottom-color = ${colors.background}
+
+spacing = 2
+padding-left = 2
+padding-right = 4
+module-margin-left = 8
+module-margin-right = 8
+
+font-0 = source sans pro:size=8
+font-1 = fontawesome:size=10
+font-2 = source code pro:size=8
+
+modules-left = i3 xwindow
+modules-center = date time
+modules-right = backlight volume battery
+;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
+
+tray-position = right
+tray-padding = 2
+tray-detached = true
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+; }}}
+
+[module/xwindow] ; {{{
+type = internal/xwindow
+label = %title:0:30:...%
+; }}}
+
+[module/i3] ; {{{
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode = %mode%
+label-mode-padding = 4
+label-mode-foreground = #000
+label-mode-background = #2b303b
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.base0C}
+label-focused-padding = ${self.label-mode-padding}
+
+label-unfocused = %index%
+label-unfocused-padding = ${self.label-mode-padding}
+
+label-urgent = %index%
+label-urgent-foreground = ${colors.background}
+label-urgent-background = ${colors.base0D}
+label-urgent-padding = ${self.label-mode-padding}
+
+label-visible = %index%
+label-visible-foreground = ${colors.foreground}
+label-visible-padding = ${self.label-mode-padding}
+; }}}
+
+[module/mpd] ; {{{
+type = internal/mpd
+
+format-online = <label-song>  <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+icon-prev = 
+icon-seekb = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-seekf = 
+
+icon-random = 
+icon-repeat = 
+
+toggle-on-foreground = ${colors.primary}
+toggle-off-foreground = #66
+; }}}
+
+[module/backlight] ; {{{
+type = internal/xbacklight
+
+format = <label> <bar>
+label = " "
+
+bar-width = 10
+bar-indicator = ●
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+; }}}
+
+[module/wlan] ; {{{
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = ${colors.base0E}
+format-disconnected-underline = ${self.format-connected-underline}
+
+label-connected = %essid%
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+; }}}
+
+[module/date] ; {{{
+type = internal/date
+interval = 5
+
+date = "%A, %B %d"
+
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.base0B}
+
+label = %date%
+; }}}
+
+[module/time] ; {{{
+type = internal/date
+interval = 5
+
+time = %I:%M %p
+
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.base0C}
+
+label = %time%
+; }}}
+
+[module/volume] ; {{{
+type = internal/volume
+
+format-volume = <label-volume> <bar-volume>
+label-volume = 
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = "  "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.base0C}
+bar-volume-foreground-1 = ${colors.base0C}
+bar-volume-foreground-2 = ${colors.base0B}
+bar-volume-foreground-3 = ${colors.base0B}
+bar-volume-foreground-4 = ${colors.base0A}
+bar-volume-foreground-5 = ${colors.base09}
+bar-volume-foreground-6 = ${colors.base08}
+bar-volume-gradient = false
+bar-volume-indicator = ●
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = #ff
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+; }}}
+
+[module/battery] ; {{{
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = ${colors.base0A}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${colors.base09}
+
+format-full-prefix = 
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+; }}}
+
+[module/powermenu] ; {{{
+type = custom/menu
+
+label-open =  power
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = systemctl reboot
+
+menu-2-0 = power off
+menu-2-0-exec = systemctl poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+; }}}
+
+; vim:ft=dosini:foldmethod=marker:foldlevel=0
