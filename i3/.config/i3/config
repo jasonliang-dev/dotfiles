@@ -7,10 +7,12 @@ set $mod Mod4
 # }}}
 
 # colours {{{
+set $black #1e2129
 set $dark  #2b303b
 set $grey  #65737e
 set $light #eff1f5
 set $blue  #96b5b4
+set $warn  #d08770
 # }}}
 
 # font {{{
@@ -41,10 +43,10 @@ bindsym $mod+l focus right
 # }}}
 
 # move focused window {{{
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 30
+bindsym $mod+Shift+j move down 30
+bindsym $mod+Shift+k move up 30
+bindsym $mod+Shift+l move right 30
 # }}}
 
 # split in horizontal orientation {{{
@@ -132,7 +134,7 @@ bindsym $mod+Control+l resize grow width 10 px or 10 ppt
 #		focused_workspace  $dark   $dark      $light
 #		active_workspace   $dark   $dark      $grey
 #		inactive_workspace $dark   $dark      $grey
-#		urgent_workspace   $dark   $blue      $dark
+#		urgent_workspace   $dark   $warn      $dark
 #	}
 #}
 # }}}
@@ -151,9 +153,9 @@ workspace 1 gaps inner 0
 # window theme {{{
 #                       border background text   indicator
 client.focused          $light $light     $light $blue
-client.focused_inactive $dark  $dark      $light $blue
-client.unfocused        $dark  $dark      $light $blue
-client.urgent           $blue  $blue      $dark  $blue
+client.focused_inactive $black $black     $light $blue
+client.unfocused        $black $black     $light $blue
+client.urgent           $warn  $warn      $dark  $warn
 # }}}
 
 # window border {{{
@@ -191,7 +193,7 @@ bindsym $mod+shift+Return exec thunar
 # startup {{{
 exec --no-startup-id polybar new
 exec --no-startup-id compton
-exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.png
+exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.jpg
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id xset r rate 270 27
 exec_always --no-startup-id xset m 0 0

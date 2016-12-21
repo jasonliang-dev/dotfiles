@@ -18,9 +18,9 @@ base0E = #b48ead
 base0F = #ab7967
 
 background = ${self.base00}
-background-alt = ${self.base01}
+background-alt = ${self.base02}
 foreground = ${self.base07}
-foreground-alt = ${self.base05}
+foreground-alt = ${self.base04}
 ; }}}
 
 [global/wm] ; {{{
@@ -43,7 +43,7 @@ underline-color = #00f
 border-bottom = 2
 border-bottom-color = ${colors.background}
 
-spacing = 2
+spacing = 4
 padding-left = 2
 padding-right = 4
 module-margin-left = 8
@@ -53,9 +53,9 @@ font-0 = source sans pro:size=8
 font-1 = fontawesome:size=10
 font-2 = source code pro:size=8
 
-modules-left = i3 xwindow
-modules-center = date time
-modules-right = backlight volume battery
+modules-left = i3 xwindow mpd
+modules-center = 
+modules-right = backlight volume battery date time
 ;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
@@ -92,7 +92,7 @@ label-unfocused-padding = ${self.label-mode-padding}
 
 label-urgent = %index%
 label-urgent-foreground = ${colors.background}
-label-urgent-background = ${colors.base0D}
+label-urgent-background = ${colors.base09}
 label-urgent-padding = ${self.label-mode-padding}
 
 label-visible = %index%
@@ -102,6 +102,11 @@ label-visible-padding = ${self.label-mode-padding}
 
 [module/mpd] ; {{{
 type = internal/mpd
+
+host = 127.0.0.1
+port = 6600
+
+interval = 2
 
 format-online = <label-song>  <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>
 
@@ -119,8 +124,8 @@ icon-seekf = 
 icon-random = 
 icon-repeat = 
 
-toggle-on-foreground = ${colors.primary}
-toggle-off-foreground = #66
+toggle-on-foreground = ${colors.foreground-alt}
+toggle-off-foreground = ${colors.background-alt}
 ; }}}
 
 [module/backlight] ; {{{
@@ -131,11 +136,11 @@ label = " "
 
 bar-width = 10
 bar-indicator = ●
-bar-indicator-foreground = #ff
+bar-indicator-foreground = ${colors.foreground}
 bar-indicator-font = 2
 bar-fill = ─
 bar-fill-font = 2
-bar-fill-foreground = #9f78e1
+bar-fill-foreground = ${colors.base0E}
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
@@ -164,7 +169,7 @@ interval = 5
 
 date = "%A, %B %d"
 
-format-prefix = "  "
+format-prefix = "   "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = ${colors.base0B}
 
@@ -177,7 +182,7 @@ interval = 5
 
 time = %I:%M %p
 
-format-prefix = "  "
+format-prefix = "   "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = ${colors.base0C}
 
@@ -206,7 +211,7 @@ bar-volume-foreground-6 = ${colors.base08}
 bar-volume-gradient = false
 bar-volume-indicator = ●
 bar-volume-indicator-font = 2
-bar-volume-indicator-foreground = #ff
+bar-volume-indicator-foreground = ${colors.foreground}
 bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
@@ -226,22 +231,22 @@ format-charging-underline = ${colors.base0A}
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${colors.base09}
 
-format-full-prefix = 
+format-full-prefix = "   "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = "   "
+ramp-capacity-1 = "   "
+ramp-capacity-2 = "   "
+ramp-capacity-3 = "   "
+ramp-capacity-4 = "   "
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
+animation-charging-0 = "   "
+animation-charging-1 = "   "
+animation-charging-2 = "   "
+animation-charging-3 = "   "
+animation-charging-4 = "   "
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 ; }}}

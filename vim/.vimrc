@@ -40,7 +40,7 @@ set relativenumber " enable relative numbers
 set cursorline     " highlight current line
 set shiftwidth=4   " affects indent width
 
-" Change cursor in insert mode
+" Change cursor
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
@@ -72,6 +72,8 @@ nnoremap <Leader><up> :res -4<CR>
 " }}}
 
 " Others {{{
+" Use mouse
+set mouse=a
 " Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
