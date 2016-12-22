@@ -1,0 +1,28 @@
+#/usr/bin/env sh
+
+if pgrep cmus > /dev/null; then
+    case "$1" in
+	"play") cmus-remote -u;;
+	"stop") cmus-remote -s;;
+	"next") cmus-remote -n;;
+	"prev") cmus-remote -r;;
+    esac
+elif pgrep mpd > /dev/null; then
+    case "$1" in
+	"play") mpc toggle;;
+	"stop") mpc stop;;
+	"prev") mpc prev;;
+	"next") mpc next;;
+    esac
+elif pgrep spotify > /dev/null; then
+    case "$1" in
+	"play") playerctl play-pause;;
+	"stop") playerctl stop;;
+	"prev") playerctl previous;;
+	"next") playerctl next;;
+    esac
+else
+    echo "No music player is currently running!"
+fi
+
+# vim:ft=sh

@@ -32,7 +32,7 @@ bindsym $mod+Shift+q kill
 # }}}
 
 # start rofi {{{
-bindsym $mod+d exec /home/jason/scripts/rofi.sh
+bindsym $mod+d exec ~/scripts/rofi
 # }}}
 
 # change focus {{{
@@ -173,10 +173,10 @@ for_window [class="Thunar"] floating enable
 # }}}
 
 # media player controls {{{
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id ~/scripts/media play
+bindsym XF86AudioStop exec --no-startup-id ~/scripts/media stop
+bindsym XF86AudioNext exec --no-startup-id ~/scripts/media next
+bindsym XF86AudioPrev exec --no-startup-id ~/scripts/media prev
 # pulse audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 2%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 2%-
@@ -191,12 +191,12 @@ bindsym $mod+shift+Return exec thunar
 # }}}
 
 # startup {{{
-exec --no-startup-id polybar new
-exec --no-startup-id compton
-exec_always --no-startup-id feh --bg-fill /home/jason/Pictures/wallpaper.jpg
+exec_always --no-startup-id ~/scripts/polybar
+exec_always --no-startup-id compton
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
 exec_always --no-startup-id setxkbmap -option caps:escape
-exec_always --no-startup-id xset r rate 270 27
 exec_always --no-startup-id xset m 0 0
+exec_always --no-startup-id xset r rate 270 27
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0

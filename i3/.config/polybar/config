@@ -53,9 +53,9 @@ font-0 = source sans pro:size=8
 font-1 = fontawesome:size=10
 font-2 = source code pro:size=8
 
-modules-left = i3 xwindow mpd
+modules-left = i3 xwindow
 modules-center = 
-modules-right = backlight volume battery date time
+modules-right = mpd backlight volume battery date time
 ;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
@@ -108,7 +108,7 @@ port = 6600
 
 interval = 2
 
-format-online = <label-song>  <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>
+format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-song>
 
 label-song-maxlen = 25
 label-song-ellipsis = true
@@ -231,22 +231,22 @@ format-charging-underline = ${colors.base0A}
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${colors.base09}
 
-format-full-prefix = "   "
+format-full-prefix =    
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = "   "
-ramp-capacity-1 = "   "
-ramp-capacity-2 = "   "
-ramp-capacity-3 = "   "
-ramp-capacity-4 = "   "
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = "   "
-animation-charging-1 = "   "
-animation-charging-2 = "   "
-animation-charging-3 = "   "
-animation-charging-4 = "   "
+animation-charging-0 =    
+animation-charging-1 =    
+animation-charging-2 =    
+animation-charging-3 =    
+animation-charging-4 =    
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 ; }}}

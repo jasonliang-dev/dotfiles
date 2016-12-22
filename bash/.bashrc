@@ -10,6 +10,9 @@ alias l='ls -l'
 alias la='ls -a'
 alias ll='ls -al'
 alias ..='cd ..'
+alias v='vim'
+alias c='clear'
+alias x='exit'
 
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 
