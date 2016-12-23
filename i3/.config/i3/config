@@ -187,7 +187,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 # }}}
 
 # start thunar {{{
-bindsym $mod+shift+Return exec thunar
+bindsym $mod+Control+Return exec thunar
+# }}}
+
+# start i3lock {{{
+bindsym $mod+x exec --no-startup-id i3lock-fancy
 # }}}
 
 # startup {{{
