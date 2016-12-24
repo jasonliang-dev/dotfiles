@@ -61,7 +61,7 @@ set foldnestmax=10    " 10 nested folds max
 set foldmethod=indent " fold based on indent
 
 " Toggle folds
-nnoremap <space> za
+nnoremap <tab> za
 " }}}
 
 " Resize splits {{{

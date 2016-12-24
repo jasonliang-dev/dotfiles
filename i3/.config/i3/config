@@ -190,6 +190,10 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 bindsym $mod+Control+Return exec thunar
 # }}}
 
+# start gui emacs {{{
+bindsym $mod+Shift+Control+Return exec emacs
+# }}}
+
 # start i3lock {{{
 bindsym $mod+x exec --no-startup-id i3lock-fancy
 # }}}
