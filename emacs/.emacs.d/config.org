@@ -60,6 +60,7 @@ Return a list of installed packages or nil for every skipped package.
 (package-initialize)
 
 (ensure-package-installed 'evil
+                          'auto-complete
                           'base16-theme
                           'evil-leader
                           'evil-org
@@ -88,6 +89,10 @@ Return a list of installed packages or nil for every skipped package.
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
+#+END_SRC
+** Show matching pairs of parentheses
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode 1)
 #+END_SRC
 ** Start rainbow delimiters automatically
 #+BEGIN_SRC emacs-lisp
