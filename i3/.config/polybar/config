@@ -17,7 +17,7 @@ base0D = #8fa1b3
 base0E = #b48ead
 base0F = #ab7967
 
-background = ${self.base00}
+background = ${self.base01}
 background-alt = ${self.base02}
 foreground = ${self.base07}
 foreground-alt = ${self.base04}
@@ -53,9 +53,9 @@ font-0 = source sans pro:size=8
 font-1 = fontawesome:size=10
 font-2 = source code pro:size=8
 
-modules-left = i3 xwindow
-modules-center = 
-modules-right = mpd backlight volume battery date time
+modules-left = bspwm i3 xwindow
+modules-center = mpd
+modules-right = volume battery date time
 ;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
@@ -69,6 +69,27 @@ tray-detached = true
 [module/xwindow] ; {{{
 type = internal/xwindow
 label = %title:0:30:...%
+; }}}
+
+[module/bspwm]
+type = internal/bspwm
+ws-icon-default = x
+
+label-focused = %index%
+label-focused-underline= ${colors.base0C}
+label-focused-background= ${colors.background-alt}
+label-focused-padding = 4
+
+label-occupied = %index%
+label-occupied-padding = 4
+
+label-urgent = %index%
+label-urgent-background = ${colors.base09}
+label-urgent-padding = 4
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 4
 ; }}}
 
 [module/i3] ; {{{
@@ -108,16 +129,16 @@ port = 6600
 
 interval = 2
 
-format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-song>
+format-online = <toggle> <label-song>
 
-label-song-maxlen = 25
+label-song-maxlen = 50
 label-song-ellipsis = true
 
 icon-prev = 
 icon-seekb = 
 icon-stop = 
-icon-play = 
-icon-pause = 
+icon-play = 
+icon-pause = 
 icon-next = 
 icon-seekf = 
 
@@ -132,7 +153,7 @@ toggle-off-foreground = ${colors.background-alt}
 type = internal/xbacklight
 
 format = <label> <bar>
-label = " "
+label = 
 
 bar-width = 10
 bar-indicator = ●
@@ -196,9 +217,9 @@ format-volume = <label-volume> <bar-volume>
 label-volume = 
 label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = "  "
+format-muted-prefix = 
 format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
+label-muted = "    sound muted   "
 
 bar-volume-width = 10
 bar-volume-foreground-0 = ${colors.base0C}
@@ -231,7 +252,7 @@ format-charging-underline = ${colors.base0A}
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${colors.base09}
 
-format-full-prefix =    
+format-full-prefix = "    "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
@@ -242,11 +263,11 @@ ramp-capacity-3 = 
 ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 =    
-animation-charging-1 =    
-animation-charging-2 =    
-animation-charging-3 =    
-animation-charging-4 =    
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 ; }}}
