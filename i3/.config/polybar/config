@@ -24,8 +24,8 @@ foreground-alt = ${self.base04}
 ; }}}
 
 [global/wm] ; {{{
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 ; }}}
 
 [bar/new] ;{{{
@@ -71,7 +71,7 @@ type = internal/xwindow
 label = %title:0:30:...%
 ; }}}
 
-[module/bspwm]
+[module/bspwm] ; {{{
 type = internal/bspwm
 ws-icon-default = x
 

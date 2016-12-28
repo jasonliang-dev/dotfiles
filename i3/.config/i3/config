@@ -6,10 +6,12 @@
 set $mod Mod4
 # }}}
 
+# looks {{{
+
 # colours {{{
 set $black #1e2129
 set $dark  #2b303b
-set $grey  #65737e
+set $grey  #c0c5ce
 set $light #eff1f5
 set $blue  #96b5b4
 set $warn  #d08770
@@ -17,109 +19,6 @@ set $warn  #d08770
 
 # font {{{
 font pango:source sans pro 9
-# }}}
-
-# use mouse+$mod to drag floating windows to their wanted position {{{
-floating_modifier $mod
-# }}}
-
-# start a terminal {{{
-bindsym $mod+Return exec termite
-# }}}
-
-# kill focused window {{{
-bindsym $mod+Shift+q kill
-# }}}
-
-# start rofi {{{
-bindsym $mod+d exec ~/scripts/rofi
-# }}}
-
-# change focus {{{
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-# }}}
-
-# move focused window {{{
-bindsym $mod+Shift+h move left 30
-bindsym $mod+Shift+j move down 30
-bindsym $mod+Shift+k move up 30
-bindsym $mod+Shift+l move right 30
-# }}}
-
-# split in horizontal orientation {{{
-bindsym $mod+g split h
-# }}}
-# split in vertical orientation {{{
-bindsym $mod+v split v
-# }}}
-
-# enter fullscreen mode for the focused container {{{
-bindsym $mod+f fullscreen toggle
-# }}}
-
-# change container layout (stacked, tabbed, toggle split) {{{
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-# }}}
-
-# toggle tiling / floating {{{
-bindsym $mod+Shift+space floating toggle
-# }}}
-# change focus between tiling / floating windows {{{
-bindsym $mod+space focus mode_toggle
-# }}}
-
-# focus the parent container {{{
-bindsym $mod+a focus parent
-# }}}
-# focus the child container {{{
-#bindsym $mod+d focus child
-## }}}
-
-# switch to workspace {{{
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-# }}}
-
-# reload the configuration file {{{
-bindsym $mod+Shift+c reload
-# }}}
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3) {{{
-bindsym $mod+Shift+r restart
-# }}}
-# exit i3 (logs you out of your X session) {{{
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'What would you like to do?' -b 'Exit i3' 'i3-msg exit' -b 'Suspend' 'systemctl suspend' -b 'Reboot' 'systemctl reboot' -b 'Power off' 'systemctl poweroff'"
-# }}}
-
-# resize window (you can also use the mouse for that) {{{
-bindsym $mod+Control+h resize shrink width 10 px or 10 ppt
-bindsym $mod+Control+j resize grow height 10 px or 10 ppt
-bindsym $mod+Control+k resize shrink height 10 px or 10 ppt
-bindsym $mod+Control+l resize grow width 10 px or 10 ppt
 # }}}
 
 # start i3bar to display a workspace bar {{{
@@ -152,14 +51,74 @@ workspace 1 gaps inner 0
 
 # window theme {{{
 #                       border background text   indicator
-client.focused          $light $light     $light $blue
+client.focused          $grey  $grey      $light $blue
 client.focused_inactive $black $black     $light $blue
 client.unfocused        $black $black     $light $blue
 client.urgent           $warn  $warn      $dark  $warn
 # }}}
 
-# window border {{{
+# window border size {{{
 for_window [class="^.*"] border pixel 2
+# }}}
+
+# }}}
+
+# windows {{{
+
+# use mouse+$mod to drag floating windows to their wanted position {{{
+floating_modifier $mod
+# }}}
+
+# kill focused window {{{
+bindsym $mod+Shift+q kill
+# }}}
+
+# change focus {{{
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# }}}
+
+# move focused window {{{
+bindsym $mod+Shift+h move left 30
+bindsym $mod+Shift+j move down 30
+bindsym $mod+Shift+k move up 30
+bindsym $mod+Shift+l move right 30
+# }}}
+
+# split orientation {{{
+
+# split in horizontal orientation
+bindsym $mod+g split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+# }}}
+
+# enter fullscreen mode for the focused container {{{
+bindsym $mod+f fullscreen toggle
+# }}}
+
+# change container layout (stacked, tabbed, toggle split) {{{
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# }}}
+
+# toggle tiling / floating {{{
+bindsym $mod+Shift+space floating toggle
+# }}}
+
+# change focus between tiling / floating windows {{{
+bindsym $mod+space focus mode_toggle
+# }}}
+
+# resize window (you can also use the mouse for that) {{{
+bindsym $mod+Control+h resize shrink width 10 px or 2 ppt
+bindsym $mod+Control+j resize grow height 10 px or 2 ppt
+bindsym $mod+Control+k resize shrink height 10 px or 2 ppt
+bindsym $mod+Control+l resize grow width 10 px or 2 ppt
 # }}}
 
 # window to center {{{
@@ -171,6 +130,71 @@ for_window [workspace=3] floating enable
 for_window [class="feh"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="File-roller"] floating enable
+# }}}
+
+# }}}
+
+# applications {{{
+
+# start a terminal {{{
+bindsym $mod+Return exec termite
+# }}}
+
+# start rofi {{{
+bindsym $mod+d exec ~/scripts/rofi
+# }}}
+
+# start thunar {{{
+bindsym $mod+Control+Return exec thunar
+# }}}
+
+# start gui emacs {{{
+bindsym $mod+Shift+Control+Return exec emacs
+# }}}
+
+# start i3lock {{{
+bindsym $mod+x exec --no-startup-id i3lock-fancy
+# }}}
+
+# }}}
+
+# other {{{
+
+# switch to workspace {{{
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+# }}}
+
+# reload the configuration file {{{
+bindsym $mod+Shift+c reload
+# }}}
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3) {{{
+bindsym $mod+Shift+r restart
+# }}}
+
+# exit i3 (logs you out of your X session) {{{
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'What would you like to do?' -b 'Exit i3' 'i3-msg exit' -b 'Suspend' 'systemctl suspend' -b 'Reboot' 'systemctl reboot' -b 'Power off' 'systemctl poweroff'"
 # }}}
 
 # media player controls {{{
@@ -187,20 +211,10 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 # }}}
 
-# start thunar {{{
-bindsym $mod+Control+Return exec thunar
-# }}}
-
-# start gui emacs {{{
-bindsym $mod+Shift+Control+Return exec emacs
-# }}}
-
-# start i3lock {{{
-bindsym $mod+x exec --no-startup-id i3lock-fancy
-# }}}
-
 # startup {{{
 exec_always --no-startup-id ~/scripts/startup
+# }}}
+
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0

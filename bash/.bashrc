@@ -19,7 +19,6 @@ alias ga='git add'
 alias gc='git commit -m'
 alias gd='git diff'
 alias gm='git commit --amend'
-alias gp='git pull'
 alias gs='git status'
 
 alias c='clear'
