@@ -2,10 +2,14 @@
 # https://wiki.archlinux.org/index.php/Laptop#hibernate_on_low_battery_level
 
 acpi -b | awk -F'[,:%]' '{print $2, $3}' | {
-	read -r status capacity
+    read -r status capacity
 
-	if [ "$status" = Discharging -a "$capacity" -lt 20 ]; then
-		logger "Critical battery threshold"
-		systemctl suspend
+	if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
+	    logger "Critical battery threshold"
+	    systemctl hibernate
+	elif [ "$status" = Discharging -a "$capacity" -lt 15 ]; then
+	    notify-send -u critical "Battery is at $capacity" "Charge or power off the computer"
+	elif [ "$status" = Discharging -a "$capacity" -lt 25 ]; then
+	    notify-send "Battery is at $capacity"
 	fi
-}
+    }

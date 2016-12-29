@@ -1,5 +1,6 @@
 ~/scripts/polybar &
 compton &
+dunst &
 feh --bg-fill ~/Pictures/wallpaper.jpg &
 setxkbmap -option caps:escape &
 xset m 0 0 &
