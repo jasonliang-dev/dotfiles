@@ -1,0 +1,17 @@
+" switch tabs with h/l
+noremap l gt
+noremap h gT
+
+" scroll multiple lines
+noremap j 2j
+noremap k 2k
+
+" follow hints with keys close to the home row
+set hintchars=qwerasdfghjkl;
+
+" change hint colours
+highlight Hint -append background-color: #bf616a; text-transform: lowercase;
+highlight HintElem background-color: #ebcb8b80; color: black;
+
+" clear highlighted text
+nnoremap <leader><leader> :nohl<CR>
