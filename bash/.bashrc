@@ -18,6 +18,7 @@ alias  g='git'
 alias ga='git add'
 alias gc='git commit -m'
 alias gd='git diff'
+alias gl='git log'
 alias gm='git commit --amend'
 alias gs='git status'
 
@@ -25,5 +26,6 @@ alias c='clear'
 alias x='exit'
 
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
+alias info='neofetch --color_blocks off --image /home/jason/Pictures/wallpaper.jpg'
 
 export PS1="┌─[ \[\e[33m\]\w\[\e[m\] ] \n└─╼ "

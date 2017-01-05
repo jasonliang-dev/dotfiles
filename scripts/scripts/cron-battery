@@ -6,10 +6,10 @@ acpi -b | awk -F'[,:%]' '{print $2, $3}' | {
 
 	if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
 	    logger "Critical battery threshold"
-	    systemctl hibernate
+	    /usr/bin/systemctl hibernate
 	elif [ "$status" = Discharging -a "$capacity" -lt 15 ]; then
-	    notify-send -u critical "Battery is at $capacity" "Charge or power off the computer"
+	    /usr/bin/notify-send -u critical "Battery is at $capacity%" "Charge or power off the computer"
 	elif [ "$status" = Discharging -a "$capacity" -lt 25 ]; then
-	    notify-send "Battery is at $capacity"
+	    /usr/bin/notify-send "Battery is at $capacity%"
 	fi
     }
