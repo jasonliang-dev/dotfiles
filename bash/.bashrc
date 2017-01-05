@@ -11,7 +11,8 @@ alias la='ls -a'
 alias ll='ls -al'
 alias ..='cd ..'
 
-alias e='emacs -nw --color=always'
+alias e='emacs'
+alias enw='emacs -nw --color=always'
 alias v='vim'
 
 alias  g='git'
@@ -21,6 +22,7 @@ alias gd='git diff'
 alias gl='git log'
 alias gm='git commit --amend'
 alias gs='git status'
+alias gr='git reset HEAD'
 
 alias c='clear'
 alias x='exit'

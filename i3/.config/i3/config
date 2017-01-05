@@ -50,7 +50,7 @@ workspace 1 gaps inner 0
 
 # window theme {{{
 #                       border background text   indicator
-client.focused          $grey  $grey      $light $blue
+client.focused          $grey  $grey      $dark  $blue
 client.focused_inactive $dark  $dark      $light $blue
 client.unfocused        $dark  $dark      $light $blue
 client.urgent           $warn  $warn      $dark  $warn

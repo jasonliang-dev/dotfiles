@@ -1,4 +1,3 @@
-emacs/.emacs~
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log
 ncmpcpp/.config/mpd/pid
@@ -7,3 +6,4 @@ ncmpcpp/.config/mpd/state
 ncmpcpp/.config/mpd/sticker.sql
 ncmpcpp/.ncmpcpp/error.log
 termite/.config/gtk-3.0/settings.ini
+README.org~
