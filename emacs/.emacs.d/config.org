@@ -73,6 +73,7 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 * UI
 ** Make GUI Emacs less ugly
+Remove the bars, change the font, set set cursor colour
 #+BEGIN_SRC emacs-lisp
   (menu-bar-mode -1)
   (tool-bar-mode -1)
@@ -81,6 +82,7 @@ Return a list of installed packages or nil for every skipped package.
   (set-cursor-color "#c0c5ce")
 #+END_SRC
 ** Make line numbers more readable
+Line numbers are difficult to read if text size was adjusted
 #+BEGIN_SRC emacs-lisp
   (eval-after-load "linum"
     '(set-face-attribute 'linum nil :height 100))
@@ -90,7 +92,7 @@ Return a list of installed packages or nil for every skipped package.
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-message t)
 #+END_SRC
-** Show matching pairs of parentheses
+** Highlight matching pairs of parentheses
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
 #+END_SRC
@@ -102,7 +104,8 @@ Return a list of installed packages or nil for every skipped package.
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode 1)
 #+END_SRC
-** change all prompts to y or n
+** Change all prompts to y or n
+=yes/no= to =y/n=
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
@@ -127,14 +130,16 @@ Return a list of installed packages or nil for every skipped package.
   (setq org-startup-indented t)
 #+END_SRC
 ** Fontify code in code blocks
+Source code blocks *NOW WITH COLOUR!*
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
 #+END_SRC
 ** Fix tab key
+~tab~ is broken when emacs is running in the CLI
 #+BEGIN_SRC emacs-lisp
-  (setq evil-want-C-i-jump nil)
+  ;;(setq evil-want-C-i-jump nil)
 #+END_SRC
-** Languages for source code blocks
+** Load languages for source code blocks
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
@@ -144,15 +149,15 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 ** Create timestamps when a TODO item is done
 #+BEGIN_SRC emacs-lisp
-(setq org-log-done 'time)
+  (setq org-log-done 'time)
 #+END_SRC
 ** Pretty bullets
 #+BEGIN_SRC emacs-lisp
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
-* Make emacs more vim-like
-** scroll one line at a time (less "jumpy" than defaults)
+* Make more vim-like
+** scroll one line at a time
 #+BEGIN_SRC emacs-lisp
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -165,13 +170,58 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 ** Enable leader key
 #+BEGIN_SRC emacs-lisp
-  ;;(global-evil-leader-mode)
+  (global-evil-leader-mode)
 #+END_SRC
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
   (global-linum-mode 1)
 ;;(setq linum-format "%d ")
   (linum-relative-global-mode)
+#+END_SRC
+** Org-mode agenda movement
+*This won't work for some reason* \\
+I'll fix it when I care.
+
+use ~j~ and ~k~ keys to move in the agenda
+#+BEGIN_SRC emacs-lisp
+  ;;(define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+  ;;(define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+#+END_SRC
+use ~J~ and ~K~ to move between headers
+#+BEGIN_SRC emacs-lisp
+  (defun air-org-agenda-next-header ()
+    "Jump to the next header in an agenda series."
+    (interactive)
+    (air--org-agenda-goto-header))
+
+  (defun air-org-agenda-previous-header ()
+    "Jump to the previous header in an agenda series."
+    (interactive)
+    (air--org-agenda-goto-header t))
+
+  (defun air--org-agenda-goto-header (&optional backwards)
+    "Find the next agenda series header forwards or BACKWARDS."
+    (let ((pos (save-excursion
+                 (goto-char (if backwards
+                                (line-beginning-position)
+                              (line-end-position)))
+                 (let* ((find-func (if backwards
+                                       'previous-single-property-change
+                                     'next-single-property-change))
+                        (end-func (if backwards
+                                      'max
+                                    'min))
+                        (all-pos-raw (list (funcall find-func (point) 'org-agenda-structural-header)
+                                           (funcall find-func (point) 'org-agenda-date-header)))
+                        (all-pos (cl-remove-if-not 'numberp all-pos-raw))
+                        (prop-pos (if all-pos (apply end-func all-pos) nil)))
+                   prop-pos))))
+      (if pos (goto-char pos))
+      (if backwards (goto-char (line-beginning-position)))))
+
+
+  ;;(define-key org-agenda-mode-map "J" 'air-org-agenda-next-header)
+  ;;(define-key org-agenda-mode-map "K" 'air-org-agenda-previous-header)
 #+END_SRC
 * Other
 ** Toggle Neotree
