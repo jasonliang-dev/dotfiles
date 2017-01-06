@@ -1,10 +1,11 @@
 #+OPTIONS: toc:nil num:nil
 * Dotfiles
-- *Distro:* Arch Linux
-- *Window Manager:* i3
-- *Theme:* Arc
-- *Icons:* Paper
+- Distro: =Arch Linux=
+- Window Manager: =i3=
+- Theme: =Arc=
+- Icons: =Paper=
 ** Screenshots
+Current
 [[http://i.imgur.com/8mnMihE.png]]
 
 Old
