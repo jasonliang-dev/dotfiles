@@ -60,16 +60,22 @@ Return a list of installed packages or nil for every skipped package.
   (package-initialize)
 
   (ensure-package-installed 'evil
-                            'auto-complete
-                            'base16-theme
-                            'evil-leader
-                            'evil-org
-                            'helm
-                            'linum-relative
-                            'magit
-                            'neotree
-                            'org-bullets
-                            'rainbow-delimiters)
+			    'auto-complete
+			    'base16-theme
+			    'evil-leader
+			    'evil-org
+			    'helm
+			    'icicles
+			    'linum-relative
+			    'magit
+			    'neotree
+			    'org-bullets
+			    'rainbow-delimiters
+			    'yasnippet)
+#+END_SRC
+** Load packages
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-ioslide)
 #+END_SRC
 * UI
 ** Make GUI Emacs less ugly
@@ -174,9 +180,9 @@ Source code blocks *NOW WITH COLOUR!*
 #+END_SRC
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
-  (global-linum-mode 1)
-;;(setq linum-format "%d ")
-  (linum-relative-global-mode)
+  ;;(global-linum-mode 1)
+  ;;(setq linum-format "%d ")
+  ;;(linum-relative-global-mode)
 #+END_SRC
 ** Org-mode agenda movement
 *This won't work for some reason* \\
