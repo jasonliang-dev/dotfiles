@@ -6,6 +6,10 @@ noremap h gT
 noremap j 2j
 noremap k 2k
 
+" rearrange tabs
+noremap <C-S-h> :tabm -1<CR>
+noremap <C-S-l> :tabm +1<CR>
+
 " follow hints with keys close to the home row
 set hintchars=qwerasdfghjkl;
 
