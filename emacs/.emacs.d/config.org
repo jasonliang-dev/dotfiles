@@ -27,7 +27,7 @@
       ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
    '(package-selected-packages
      (quote
-      (rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
+      (yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -152,6 +152,11 @@ Source code blocks *NOW WITH COLOUR!*
                                (python .t)
                                (java .t)
                                (latex .t)))
+#+END_SRC
+** Save clock history
+#+BEGIN_SRC emacs-lisp
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
 #+END_SRC
 ** Create timestamps when a TODO item is done
 #+BEGIN_SRC emacs-lisp
