@@ -1,39 +1,40 @@
 #+TITLE: Emacs Config
+* Custom
+#+BEGIN_SRC emacs-lisp
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
+ '(ansi-term-color-vector
+   [unspecified "#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
+ '(custom-enabled-themes (quote (base16-ocean)))
+ '(custom-safe-themes
+   (quote
+    ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
+ '(package-selected-packages
+   (quote
+    (flycheck yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+#+END_SRC
 * Load package repos
 #+BEGIN_SRC emacs-lisp
   (require 'package)
 
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
   (setq package-enable-at-startup nil)
   (package-initialize)
-#+END_SRC
-* I don't know what this is
-#+BEGIN_SRC emacs-lisp
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(ansi-color-names-vector
-     ["#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
-   '(ansi-term-color-vector
-     [unspecified "#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
-   '(custom-enabled-themes (quote (base16-ocean)))
-   '(custom-safe-themes
-     (quote
-      ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
-   '(package-selected-packages
-     (quote
-      (yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
 #+END_SRC
 * Automatically install packages
 ** Assure every package is installed
@@ -44,11 +45,28 @@ Return a list of installed packages or nil for every skipped package.
     (mapcar
      (lambda (package)
        (if (package-installed-p package)
-           nil
-         (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-             (package-install package)
-           package)))
+	   nil
+	 (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+	     (package-install package)
+	   package)))
      packages))
+
+  ;; Make sure a package is installed
+  (defun package-require (package)
+    "Install a PACKAGE unless it is already installed 
+  or a feature with the same name is already active.
+
+  Usage: (package-require 'package)"
+					  ; try to activate the package with at least version 0.
+    (package-activate package '(0))
+					  ; try to just require the package. Maybe the user has it in his local config
+
+    (condition-case nil
+	(require package)
+					  ; if we cannot require it, it does not exist, yet. So install it.
+      (error (progn
+	       (package-install package)
+	       (require package)))))
 #+END_SRC
 ** Make sure to have downloaded archive description.
 #+BEGIN_SRC emacs-lisp
@@ -57,25 +75,31 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 ** Activate/Install packages
 #+BEGIN_SRC emacs-lisp
-  (package-initialize)
+    (package-initialize)
 
-  (ensure-package-installed 'evil
-			    'auto-complete
-			    'base16-theme
-			    'evil-leader
-			    'evil-org
-			    'helm
-			    'icicles
-			    'linum-relative
-			    'magit
-			    'neotree
-			    'org-bullets
-			    'rainbow-delimiters
-			    'yasnippet)
+    (ensure-package-installed 'evil
+			      'evil-leader
+			      'evil-org
+			      'auto-complete
+			      'base16-theme
+			      'flycheck
+	                      'goto-chg
+			      'helm
+			      'icicles
+			      'linum-relative
+			      'magit
+			      'neotree
+			      'org-bullets
+			      'rainbow-delimiters
+			      'yasnippet)
+
 #+END_SRC
 ** Load packages
 #+BEGIN_SRC emacs-lisp
+  (ac-config-default)
   (require 'ox-ioslide)
+  (global-flycheck-mode)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+END_SRC
 * UI
 ** Make GUI Emacs less ugly
@@ -102,18 +126,13 @@ Line numbers are difficult to read if text size was adjusted
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
 #+END_SRC
-** Start rainbow delimiters automatically
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-#+END_SRC
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode 1)
 #+END_SRC
-** Change all prompts to y or n
-=yes/no= to =y/n=
+** Proper word wrapping
 #+BEGIN_SRC emacs-lisp
-  (fset 'yes-or-no-p 'y-or-n-p)
+  (global-visual-line-mode t)
 #+END_SRC
 * Org-mode
 ** Define agenda files
@@ -140,18 +159,50 @@ Source code blocks *NOW WITH COLOUR!*
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
 #+END_SRC
-** Fix tab key
-~tab~ is broken when emacs is running in the CLI
-#+BEGIN_SRC emacs-lisp
-  ;;(setq evil-want-C-i-jump nil)
-#+END_SRC
 ** Load languages for source code blocks
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t)
-                               (python .t)
+   'org-babel-load-languages '((C)
+                               (R)
+                               (asymptote)
+                               (awk)
+                               (calc)
+                               (clojure)
+                               (comint)
+                               (css .t)
+                               (ditaa)
+                               (dot)
+                               (emacs-lisp .t)
+                               (fortran)
+                               (gnuplot)
+                               (haskell)
+                               (io)
                                (java .t)
-                               (latex .t)))
+                               (js .t)
+                               (latex)
+                               (ledger)
+                               (lilypond)
+                               (lisp)
+                               (matlab)
+                               (maxima)
+                               (mscgen)
+                               (ocaml)
+                               (octave)
+                               (org .t)
+                               (perl)
+                               (picolisp)
+                               (plantuml)
+                               (python .t)
+                               (ref)
+                               (ruby .t)
+                               (sass)
+                               (scala)
+                               (scheme)
+                               (screen)
+                               (sh .t)
+                               (shen)
+                               (sql)
+                               (sqlite)))
 #+END_SRC
 ** Save clock history
 #+BEGIN_SRC emacs-lisp
@@ -234,7 +285,29 @@ use ~J~ and ~K~ to move between headers
   ;;(define-key org-agenda-mode-map "J" 'air-org-agenda-next-header)
   ;;(define-key org-agenda-mode-map "K" 'air-org-agenda-previous-header)
 #+END_SRC
+* Keyboard
+** Change all prompts to y or n
+=yes/no= to =y/n=
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** Fix tab key
+~tab~ is broken when emacs is running in the CLI
+#+BEGIN_SRC emacs-lisp
+  ;;(setq evil-want-C-i-jump nil)
+#+END_SRC
+** Go to last change
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [(control meta .)] 'goto-last-change)
+#+END_SRC
 * Other
+** Flyspell
+#+BEGIN_SRC emacs-lisp
+  (setq-default ispell-program-name "aspell")
+
+  (setq ispell-extra-args '("--sug-mode=ultra" "-w" "äöüÄÖÜßñ"))
+  (setq ispell-list-command "list")
+#+END_SRC
 ** Toggle Neotree
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-n") 'neotree-toggle)
