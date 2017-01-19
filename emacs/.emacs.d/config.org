@@ -1,28 +1,28 @@
 #+TITLE: Emacs Config
 * Custom
 #+BEGIN_SRC emacs-lisp
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
- '(ansi-term-color-vector
-   [unspecified "#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
- '(custom-enabled-themes (quote (base16-ocean)))
- '(custom-safe-themes
-   (quote
-    ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
- '(package-selected-packages
-   (quote
-    (flycheck yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ansi-color-names-vector
+     ["#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"])
+   '(ansi-term-color-vector
+     [unspecified "#2b303b" "#bf616a" "#a3be8c" "#ebcb8b" "#8fa1b3" "#b48ead" "#8fa1b3" "#c0c5ce"] t)
+   '(custom-enabled-themes (quote (base16-ocean)))
+   '(custom-safe-themes
+     (quote
+      ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
+   '(package-selected-packages
+     (quote
+      (icicles helm auto-complete evil org-journal flycheck yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
 #+END_SRC
 * Load package repos
 #+BEGIN_SRC emacs-lisp
@@ -75,33 +75,40 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 ** Activate/Install packages
 #+BEGIN_SRC emacs-lisp
-    (package-initialize)
+  (package-initialize)
 
-    (ensure-package-installed 'evil
-			      'evil-leader
-			      'evil-org
-			      'auto-complete
-			      'base16-theme
-			      'flycheck
-	                      'goto-chg
-			      'helm
-			      'icicles
-			      'linum-relative
-			      'magit
-			      'neotree
-			      'org-bullets
-			      'rainbow-delimiters
-			      'yasnippet)
+  (ensure-package-installed 'evil
+                            'evil-leader
+                            'evil-org
+                            'auto-complete
+                            'base16-theme
+                            'flycheck
+                            'goto-chg
+                            'helm
+                            'icicles
+                            'linum-relative
+                            'magit
+                            'neotree
+                            'org-bullets
+                            'rainbow-delimiters
+                            'yasnippet)
 
 #+END_SRC
 ** Load packages
 #+BEGIN_SRC emacs-lisp
   (ac-config-default)
-  (require 'ox-ioslide)
-  (global-flycheck-mode)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (global-flycheck-mode)
 #+END_SRC
 * UI
+** Highlight current line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode 1)
+#+END_SRC
+** Highlight matching pairs of parentheses
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+#+END_SRC
 ** Make GUI Emacs less ugly
 Remove the bars, change the font, set set cursor colour
 #+BEGIN_SRC emacs-lisp
@@ -117,42 +124,33 @@ Line numbers are difficult to read if text size was adjusted
   (eval-after-load "linum"
     '(set-face-attribute 'linum nil :height 100))
 #+END_SRC
+** Proper word wrapping
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode t)
+#+END_SRC
 ** Remove annoying startup stuffs
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-message t)
 #+END_SRC
-** Highlight matching pairs of parentheses
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode 1)
-#+END_SRC
-** Highlight current line
-#+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode 1)
-#+END_SRC
-** Proper word wrapping
-#+BEGIN_SRC emacs-lisp
-  (global-visual-line-mode t)
-#+END_SRC
 * Org-mode
+** Create timestamps when a TODO item is done
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time)
+#+END_SRC
 ** Define agenda files
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files '("~/Dropbox/"))
 #+END_SRC
-** Open agenda list
+** Define TODO states
 #+BEGIN_SRC emacs-lisp
-  (defun air-pop-to-org-agenda (split)
-    "Visit the org agenda, in the current window or a SPLIT."
-    (interactive "P")
-    (org-agenda-list)
-    (when (not split)
-      (delete-other-windows)))
-
-  (define-key global-map (kbd "C-c t a") 'air-pop-to-org-agenda)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 #+END_SRC
-** Org headlines are indented
+** Export to markdown
 #+BEGIN_SRC emacs-lisp
-  (setq org-startup-indented t)
+  (eval-after-load "org"
+    '(require 'ox-md nil t))
 #+END_SRC
 ** Fontify code in code blocks
 Source code blocks *NOW WITH COLOUR!*
@@ -204,32 +202,32 @@ Source code blocks *NOW WITH COLOUR!*
                                (sql)
                                (sqlite)))
 #+END_SRC
-** Save clock history
+** Open agenda list
 #+BEGIN_SRC emacs-lisp
-  (setq org-clock-persist 'history)
-  (org-clock-persistence-insinuate)
+  (defun air-pop-to-org-agenda (split)
+    "Visit the org agenda, in the current window or a SPLIT."
+    (interactive "P")
+    (org-agenda-list)
+    (when (not split)
+      (delete-other-windows)))
+
+  (define-key global-map (kbd "C-c t a") 'air-pop-to-org-agenda)
 #+END_SRC
-** Create timestamps when a TODO item is done
+** Org headlines are indented
 #+BEGIN_SRC emacs-lisp
-  (setq org-log-done 'time)
+  (setq org-startup-indented t)
 #+END_SRC
 ** Pretty bullets
 #+BEGIN_SRC emacs-lisp
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
+** Save clock history
+#+BEGIN_SRC emacs-lisp
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+#+END_SRC
 * Make more vim-like
-** scroll one line at a time
-#+BEGIN_SRC emacs-lisp
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-  (setq scroll-step 1) ;; keyboard scroll one line at a time
-#+END_SRC
-** Scroll up with C-u
-#+BEGIN_SRC emacs-lisp
-  (setq evil-want-C-u-scroll t)
-#+END_SRC
 ** Enable leader key
 #+BEGIN_SRC emacs-lisp
   (global-evil-leader-mode)
@@ -285,6 +283,17 @@ use ~J~ and ~K~ to move between headers
   ;;(define-key org-agenda-mode-map "J" 'air-org-agenda-next-header)
   ;;(define-key org-agenda-mode-map "K" 'air-org-agenda-previous-header)
 #+END_SRC
+** Scroll one line at a time
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  (setq scroll-step 1) ;; keyboard scroll one line at a time
+#+END_SRC
+** Scroll up with C-u
+#+BEGIN_SRC emacs-lisp
+  (setq evil-want-C-u-scroll t)
+#+END_SRC
 * Keyboard
 ** Change all prompts to y or n
 =yes/no= to =y/n=
@@ -312,13 +321,13 @@ use ~J~ and ~K~ to move between headers
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-n") 'neotree-toggle)
 #+END_SRC
-** Start evil
+* Start evil
 #+BEGIN_SRC emacs-lisp
   (require 'evil-org)
   (require 'evil)
   (evil-mode t)
 #+END_SRC
-** Open file on startup
+* Open file on startup
 #+BEGIN_SRC emacs-lisp
   (find-file "/home/jason/Dropbox/todo.org")
 #+END_SRC
