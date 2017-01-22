@@ -107,7 +107,7 @@ Return a list of installed packages or nil for every skipped package.
 #+END_SRC
 ** Highlight matching pairs of parentheses
 #+BEGIN_SRC emacs-lisp
-  (show-paren-mode 1)
+  ;;(show-paren-mode 1)
 #+END_SRC
 ** Make GUI Emacs less ugly
 Remove the bars, change the font, set set cursor colour
@@ -228,10 +228,6 @@ Source code blocks *NOW WITH COLOUR!*
   (org-clock-persistence-insinuate)
 #+END_SRC
 * Make more vim-like
-** Enable leader key
-#+BEGIN_SRC emacs-lisp
-  (global-evil-leader-mode)
-#+END_SRC
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
   ;;(global-linum-mode 1)
@@ -293,6 +289,10 @@ use ~J~ and ~K~ to move between headers
 ** Scroll up with C-u
 #+BEGIN_SRC emacs-lisp
   (setq evil-want-C-u-scroll t)
+#+END_SRC
+** Enable leader key
+#+BEGIN_SRC emacs-lisp
+  (global-evil-leader-mode)
 #+END_SRC
 * Keyboard
 ** Change all prompts to y or n

@@ -8,9 +8,9 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'chriskempson/base16-vim'
+Plugin 'junegunn/goyo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'raimondi/delimitmate'
-Plugin 'junegunn/goyo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
@@ -40,6 +40,8 @@ set number         " show line number
 set relativenumber " enable relative numbers
 set cursorline     " highlight current line
 set shiftwidth=4   " affects indent width
+set noshowmatch    " no hightlight brackets
+
 
 " Change cursor
 let &t_SI = "\<Esc>[6 q"
