@@ -16,7 +16,7 @@
       ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" default)))
    '(package-selected-packages
      (quote
-      (icicles helm auto-complete evil org-journal flycheck yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
+      (evil-numbers icicles helm auto-complete evil org-journal flycheck yasnippet rainbow-delimiters org-bullets neotree evil-org evil-leader linum-relative base16-theme magit evil-visual-mark-mode))))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -79,6 +79,7 @@ Return a list of installed packages or nil for every skipped package.
 
   (ensure-package-installed 'evil
                             'evil-leader
+                            'evil-numbers
                             'evil-org
                             'auto-complete
                             'base16-theme
@@ -228,6 +229,11 @@ Source code blocks *NOW WITH COLOUR!*
   (org-clock-persistence-insinuate)
 #+END_SRC
 * Make more vim-like
+** Increment & decrement numbers
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c C-=") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-c C--") 'evil-numbers/dec-at-pt)
+#+END_SRC
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
   ;;(global-linum-mode 1)
