@@ -30,4 +30,7 @@ alias x='exit'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias info='neofetch --color_blocks off --image /home/jason/Pictures/wallpaper.jpg'
 
+export EDITOR='vim'
+export VISUAL='vim'
+
 export PS1="┌─[ \[\e[33m\]\w\[\e[m\] ] \n└─╼ "
