@@ -1,0 +1,164 @@
+#+TITLE: Emacs Config
+* Move up with ~C-u~
+#+BEGIN_SRC emacs-lisp
+  (setq evil-want-C-u-scroll t)
+#+END_SRC
+* Custom
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file)
+#+END_SRC
+* Load package and add repos
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  (setq package-enable-at-startup nil)
+  (package-initialize)
+#+END_SRC
+* Have use-package automatically install packages
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    (require 'use-package))
+
+  (setq use-package-always-ensure t)
+  (use-package auto-complete
+    :init
+    (ac-config-default))
+  (use-package base16-theme)
+  (use-package evil-leader
+    :init
+    (global-evil-leader-mode))
+  (use-package evil-numbers
+    :init
+    (global-set-key (kbd "C-c C-=") 'evil-numbers/inc-at-pt)
+    (global-set-key (kbd "C-c C--") 'evil-numbers/dec-at-pt))
+  (use-package evil-org)
+  (use-package evil-visual-mark-mode)
+  (use-package helm)
+  (use-package jdee
+    :disabled t)
+  (use-package magit)
+  (use-package rainbow-delimiters
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (use-package yasnippet)
+#+END_SRC
+* UI
+** No welcome screen
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-message t)
+#+END_SRC
+** Highlight current line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode 1)
+#+END_SRC
+** Remove bars
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (toggle-scroll-bar -1)
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "Source Code Pro 10")
+#+END_SRC
+** Cursor colour
+#+BEGIN_SRC emacs-lisp
+  (set-cursor-color "#c0c5ce")
+#+END_SRC
+** Word wrap
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode t)
+#+END_SRC
+* Org
+** Add timestamps when DONE
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time)
+#+END_SRC
+** Agenda
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/Dropbox/"))
+#+END_SRC
+** TODO states
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+              '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+#+END_SRC
+** Source block languages
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C)
+                               (R)
+                               (asymptote)
+                               (awk)
+                               (calc)
+                               (clojure)
+                               (comint)
+                               (css .t)
+                               (ditaa)
+                               (dot)
+                               (emacs-lisp .t)
+                               (fortran)
+                               (gnuplot)
+                               (haskell)
+                               (io)
+                               (java .t)
+                               (js .t)
+                               (latex .t)
+                               (ledger)
+                               (lilypond)
+                               (lisp .t)
+                               (matlab)
+                               (maxima)
+                               (mscgen)
+                               (ocaml)
+                               (octave)
+                               (org .t)
+                               (perl)
+                               (picolisp)
+                               (plantuml)
+                               (python .t)
+                               (ref)
+                               (ruby .t)
+                               (sass)
+                               (scala)
+                               (scheme)
+                               (screen)
+                               (sh .t)
+                               (shen)
+                               (sql)
+                               (sqlite)))
+#+END_SRC
+* Other
+** Easy quick edits
+#+BEGIN_SRC emacs-lisp
+  (server-start)
+#+END_SRC
+** Scroll a line at a time
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  (setq scroll-step 1) ;; keyboard scroll one line at a time
+#+END_SRC
+** ~yes/no~ prompts are ~y/n~
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** Go to last change
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [(control meta .)] 'goto-last-change)
+#+END_SRC
+* These should be at the bottom
+#+BEGIN_SRC emacs-lisp
+  (require 'evil-org 'evil)
+  (evil-mode t)
+#+END_SRC
