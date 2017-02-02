@@ -134,8 +134,7 @@ bindsym $mod+Control+l resize grow width 10 px or 2 ppt
 bindsym $mod+c move position center
 # }}}
 
-# floating workspaces and windows {{{
-for_window [workspace=3] floating enable
+# floating windows {{{
 for_window [class="Eog"] floating enable
 for_window [class="File-roller"] floating enable
 for_window [class="Thunar"] floating enable
