@@ -4,9 +4,7 @@
 - Window Manager: =i3=
 - Theme: =Arc=
 - Icons: =Paper=
-** Screenshots
-Current
+** Screenshots (Old)
 [[http://i.imgur.com/8mnMihE.png]]
 
-Old
 [[http://i.imgur.com/S89X0m8.png]]

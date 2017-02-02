@@ -3,14 +3,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq evil-want-C-u-scroll t)
    #+END_SRC
-** Remove bars
-   This should be under [[UI]], but I really don't like seeing the bars
-   #+BEGIN_SRC emacs-lisp
-     (menu-bar-mode -1)
-     (tool-bar-mode -1)
-     (toggle-scroll-bar -1)
-     (set-fringe-mode 0)
-   #+END_SRC
 ** Custom
    #+BEGIN_SRC emacs-lisp
      (setq custom-file "~/.emacs.d/custom.el")
@@ -107,6 +99,13 @@
     #+BEGIN_SRC emacs-lisp
       (setq inhibit-splash-screen t)
       (setq inhibit-startup-message t)
+    #+END_SRC
+*** Remove bars
+    #+BEGIN_SRC emacs-lisp
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (toggle-scroll-bar -1)
+      (set-fringe-mode 0)
     #+END_SRC
 ** Org
 *** Add timestamps when DONE
