@@ -1,6 +1,7 @@
 *~
 \#*
 emacs/.emacs.d/auto-save-list
+emacs/.emacs.d/custom.el
 emacs/.emacs.d/elpa
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log

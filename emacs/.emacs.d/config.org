@@ -18,6 +18,7 @@
   (package-initialize)
 #+END_SRC
 * Have use-package automatically install packages
+** Install use-package
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -25,12 +26,20 @@
 
   (eval-when-compile
     (require 'use-package))
-
+#+END_SRC
+** Package List
+#+BEGIN_SRC emacs-lisp
   (setq use-package-always-ensure t)
+  (use-package airline-themes
+    :disabled t)
   (use-package auto-complete
     :init
     (ac-config-default))
   (use-package base16-theme)
+  (use-package diminish
+    :init
+    (diminish 'wrap-region-mode)
+    (diminish 'yas/minor-mode))
   (use-package evil-leader
     :init
     (global-evil-leader-mode))
@@ -44,38 +53,59 @@
   (use-package jdee
     :disabled t)
   (use-package magit)
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (setq org-bullets-bullet-list '("•")))
+  (use-package powerline
+    :disabled t)
+  (use-package powerline-evil
+    :init
+    (powerline-evil-vim-color-theme))
   (use-package rainbow-delimiters
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
   (use-package yasnippet)
 #+END_SRC
 * UI
-** No welcome screen
+** Cursor colour
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-splash-screen t)
-  (setq inhibit-startup-message t)
+  (set-cursor-color "#c0c5ce")
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "Source Code Pro 10")
 #+END_SRC
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode 1)
+#+END_SRC
+** Magit status is full screen
+#+BEGIN_SRC emacs-lisp
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun lia-magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'lia-magit-quit-session)
+#+END_SRC
+** No welcome screen
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-message t)
 #+END_SRC
 ** Remove bars
 #+BEGIN_SRC emacs-lisp
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (toggle-scroll-bar -1)
-#+END_SRC
-** Font
-#+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Source Code Pro 10")
-#+END_SRC
-** Cursor colour
-#+BEGIN_SRC emacs-lisp
-  (set-cursor-color "#c0c5ce")
-#+END_SRC
-** Word wrap
-#+BEGIN_SRC emacs-lisp
-  (global-visual-line-mode t)
+  (set-fringe-mode 0)
 #+END_SRC
 * Org
 ** Add timestamps when DONE
@@ -86,10 +116,9 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files '("~/Dropbox/"))
 #+END_SRC
-** TODO states
+** Ellipsis
 #+BEGIN_SRC emacs-lisp
-  (setq org-todo-keywords
-              '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+  (setq org-ellipsis " ⤵")
 #+END_SRC
 ** Source block languages
 #+BEGIN_SRC emacs-lisp
@@ -137,10 +166,57 @@
                                (sql)
                                (sqlite)))
 #+END_SRC
+** TODO states
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)")
+          (sequence "TODO(T)" "IN-PROGRESS(I)" "WAITING(W)" "|" "DONE(D)" "CANCELED(C)")))
+#+END_SRC
 * Other
 ** Easy quick edits
 #+BEGIN_SRC emacs-lisp
   (server-start)
+#+END_SRC
+** Rotate windows
+#+BEGIN_SRC emacs-lisp
+  (defun lia-window-rotate ()
+    "Rotate your windows"
+    (interactive)
+    (cond ((not (> (count-windows)1))
+           (message "You can't rotate a single window!"))
+          (t
+           (setq i 1)
+           (setq numWindows (count-windows))
+           (while  (< i numWindows)
+             (let* (
+                    (w1 (elt (window-list) i))
+                    (w2 (elt (window-list) (+ (% i numWindows) 1)))
+
+                    (b1 (window-buffer w1))
+                    (b2 (window-buffer w2))
+
+                    (s1 (window-start w1))
+                    (s2 (window-start w2))
+                    )
+               (set-window-buffer w1  b2)
+               (set-window-buffer w2 b1)
+               (set-window-start w1 s2)
+               (set-window-start w2 s1)
+               (setq i (1+ i)))))))
+#+END_SRC
+** Go to last change
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [(control meta .)] 'goto-last-change)
+#+END_SRC
+** Move *~ files
+#+BEGIN_SRC emacs-lisp
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
 #+END_SRC
 ** Scroll a line at a time
 #+BEGIN_SRC emacs-lisp
@@ -149,13 +225,45 @@
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (setq scroll-step 1) ;; keyboard scroll one line at a time
 #+END_SRC
+** Open window at the side
+#+BEGIN_SRC emacs-lisp
+  (defun lia-window-switch-split ()
+    "Switch between horizontal/vertical layout"
+    (interactive)
+    (if (= (count-windows) 2)
+        (let* ((this-win-buffer (window-buffer))
+               (next-win-buffer (window-buffer (next-window)))
+               (this-win-edges (window-edges (selected-window)))
+               (next-win-edges (window-edges (next-window)))
+               (this-win-2nd (not (and (<= (car this-win-edges)
+                                           (car next-win-edges))
+                                       (<= (cadr this-win-edges)
+                                           (cadr next-win-edges)))))
+               (splitter
+                (if (= (car this-win-edges)
+                       (car (window-edges (next-window))))
+                    'split-window-horizontally
+                  'split-window-vertically)))
+          (delete-other-windows)
+          (let ((first-win (selected-window)))
+            (funcall splitter)
+            (if this-win-2nd (other-window 1))
+            (set-window-buffer (selected-window) this-win-buffer)
+            (set-window-buffer (next-window) next-win-buffer)
+            (select-window first-win)
+            (if this-win-2nd (other-window 1))))))
+#+END_SRC
+** Word wrap
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode t)
+  
+  ;; move by visual line
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+#+END_SRC
 ** ~yes/no~ prompts are ~y/n~
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-** Go to last change
-#+BEGIN_SRC emacs-lisp
-  (global-set-key [(control meta .)] 'goto-last-change)
 #+END_SRC
 * These should be at the bottom
 #+BEGIN_SRC emacs-lisp
