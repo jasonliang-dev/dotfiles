@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ~/scripts/polybar &
 compton &
 dunst &

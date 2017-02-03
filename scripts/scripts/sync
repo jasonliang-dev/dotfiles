@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+pkill dropbox
+dropbox &
+sleep 15;
+pkill dropbox

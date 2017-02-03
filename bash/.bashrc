@@ -26,8 +26,9 @@ alias gca='git commit --amend'
 alias c='clear'
 alias x='exit'
 
-alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias info='neofetch --color_blocks off --image /home/jason/Pictures/wallpaper.jpg'
+alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
+alias sync='$HOME/scripts/sync &'
 
 export EDITOR='vim'
 export VISUAL='vim'
