@@ -28,45 +28,111 @@
         (require 'use-package))
     #+END_SRC
 *** Package List
-    #+BEGIN_SRC emacs-lisp
-      (setq use-package-always-ensure t)
-      (use-package airline-themes
-        :disabled t)
-      (use-package auto-complete
-        :init
-        (ac-config-default))
-      (use-package base16-theme)
-      (use-package diminish
-        :init
-        (diminish 'wrap-region-mode)
-        (diminish 'yas/minor-mode))
-      (use-package evil-leader
-        :init
-        (global-evil-leader-mode))
-      (use-package evil-numbers
-        :init
-        (global-set-key (kbd "C-c C-=") 'evil-numbers/inc-at-pt)
-        (global-set-key (kbd "C-c C--") 'evil-numbers/dec-at-pt))
-      (use-package evil-org)
-      (use-package evil-visual-mark-mode)
-      (use-package helm)
-      (use-package jdee
-        :disabled t)
-      (use-package magit)
-      (use-package org-bullets
-        :init
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-        (setq org-bullets-bullet-list '("•")))
-      (use-package powerline
-        :disabled t)
-      (use-package powerline-evil
-        :init
-        (powerline-evil-vim-color-theme))
-      (use-package rainbow-delimiters
-        :init
-        (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-      (use-package yasnippet)
-    #+END_SRC
+**** Always load
+     #+BEGIN_SRC emacs-lisp
+       	(setq use-package-always-ensure t)
+     #+END_SRC
+**** airline-themes
+     #+BEGIN_SRC emacs-lisp
+       (use-package airline-themes
+         :disabled t)
+     #+END_SRC
+**** auto-complete
+     #+BEGIN_SRC emacs-lisp
+       (use-package auto-complete
+         :init
+         (ac-config-default))
+     #+END_SRC
+**** base16-theme
+     #+BEGIN_SRC emacs-lisp
+       (use-package base16-theme)
+     #+END_SRC
+**** diminish
+     #+BEGIN_SRC emacs-lisp
+       (use-package diminish
+         :init
+         (diminish 'wrap-region-mode)
+         (diminish 'yas/minor-mode))
+     #+END_SRC
+**** evil
+     #+BEGIN_SRC emacs-lisp
+       (use-package evil
+         :config
+         ;; move by visual line
+         (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+         (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line))
+     #+END_SRC
+**** evil-leader
+     #+BEGIN_SRC emacs-lisp
+       (use-package evil-leader
+         :init
+         (global-evil-leader-mode))
+     #+END_SRC
+**** evil-numbers
+     #+BEGIN_SRC emacs-lisp
+       (use-package evil-numbers
+         :init
+         (global-set-key (kbd "C-c C-=") 'evil-numbers/inc-at-pt)
+         (global-set-key (kbd "C-c C--") 'evil-numbers/dec-at-pt))
+     #+END_SRC
+**** evil-org
+     #+BEGIN_SRC emacs-lisp
+       (use-package evil-org)
+     #+END_SRC
+**** helm
+     #+BEGIN_SRC emacs-lisp
+       (use-package helm)
+     #+END_SRC
+**** jdee
+     #+BEGIN_SRC emacs-lisp
+       (use-package jdee
+         :disabled t)
+     #+END_SRC
+**** magit
+     #+BEGIN_SRC emacs-lisp
+       (use-package magit
+         :config
+         (defadvice magit-status (around magit-fullscreen activate)
+           (window-configuration-to-register :magit-fullscreen)
+           ad-do-it
+           (delete-other-windows))
+
+         (defun magit-quit-session ()
+           "Restores the previous window configuration and kills the magit buffer"
+           (interactive)
+           (kill-buffer)
+           (jump-to-register :magit-fullscreen))
+
+         (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+     #+END_SRC
+**** org-bullets
+     #+BEGIN_SRC emacs-lisp
+       (use-package org-bullets
+         :init
+         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+         (setq org-bullets-bullet-list '("•")))
+     #+END_SRC
+**** powerline
+     #+BEGIN_SRC emacs-lisp
+       (use-package powerline
+         :disabled t)
+     #+END_SRC
+**** powerline-evil
+     #+BEGIN_SRC emacs-lisp
+       (use-package powerline-evil
+         :init
+         (powerline-evil-vim-color-theme))
+     #+END_SRC
+**** rainbow-delimiters
+     #+BEGIN_SRC emacs-lisp
+       (use-package rainbow-delimiters
+         :init
+         (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+     #+END_SRC
+**** yasnippet
+     #+BEGIN_SRC emacs-lisp
+       (use-package yasnippet)
+     #+END_SRC
 ** UI
 *** Cursor colour
     #+BEGIN_SRC emacs-lisp
@@ -79,21 +145,6 @@
 *** Highlight current line
     #+BEGIN_SRC emacs-lisp
       (global-hl-line-mode 1)
-    #+END_SRC
-*** Magit status is full screen
-    #+BEGIN_SRC emacs-lisp
-      (defadvice magit-status (around magit-fullscreen activate)
-        (window-configuration-to-register :magit-fullscreen)
-        ad-do-it
-        (delete-other-windows))
-
-      (defun magit-quit-session ()
-        "Restores the previous window configuration and kills the magit buffer"
-        (interactive)
-        (kill-buffer)
-        (jump-to-register :magit-fullscreen))
-
-      (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
     #+END_SRC
 *** No welcome screen
     #+BEGIN_SRC emacs-lisp
@@ -226,10 +277,6 @@
 *** Word wrap
     #+BEGIN_SRC emacs-lisp
       (global-visual-line-mode t)
-
-      ;; move by visual line
-      (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-      (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
     #+END_SRC
 *** ~yes/no~ prompts are ~y/n~
     #+BEGIN_SRC emacs-lisp
@@ -239,4 +286,5 @@
    #+BEGIN_SRC emacs-lisp
      (require 'evil-org 'evil)
      (evil-mode t)
+     (find-file "~/Dropbox/todo.org")
    #+END_SRC
