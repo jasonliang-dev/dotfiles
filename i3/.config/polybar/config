@@ -1,4 +1,5 @@
-[colors] ; {{{
+[colors]
+; {{{
 ; base16 ocean
 base00 = #2b303b
 base01 = #343d46
@@ -23,12 +24,14 @@ foreground = ${self.base07}
 foreground-alt = ${self.base04}
 ; }}}
 
-[global/wm] ; {{{
+[global/wm]
+; {{{
 margin-top = 0
 margin-bottom = 0
 ; }}}
 
-[bar/new] ;{{{
+[bar/new]
+; {{{
 width = 100%
 height = 27
 
@@ -40,7 +43,7 @@ overline-color = #f00
 underline-size = 2
 underline-color = #00f
 
-border-bottom = 2
+border-bottom = 1
 border-bottom-color = ${colors.background}
 
 spacing = 4
@@ -66,12 +69,14 @@ tray-detached = true
 ;scroll-down = i3wm-wsprev
 ; }}}
 
-[module/xwindow] ; {{{
+[module/xwindow]
+; {{{
 type = internal/xwindow
 label = %title:0:30:...%
 ; }}}
 
-[module/bspwm] ; {{{
+[module/bspwm]
+; {{{
 type = internal/bspwm
 ws-icon-default = x
 
@@ -92,7 +97,8 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 4
 ; }}}
 
-[module/i3] ; {{{
+[module/i3]
+; {{{
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
@@ -121,7 +127,8 @@ label-visible-foreground = ${colors.foreground}
 label-visible-padding = ${self.label-mode-padding}
 ; }}}
 
-[module/mpd] ; {{{
+[module/mpd]
+; {{{
 type = internal/mpd
 
 host = 127.0.0.1
@@ -149,7 +156,8 @@ toggle-on-foreground = ${colors.foreground-alt}
 toggle-off-foreground = ${colors.background-alt}
 ; }}}
 
-[module/backlight] ; {{{
+[module/backlight]
+; {{{
 type = internal/xbacklight
 
 format = <label> <bar>
@@ -167,7 +175,8 @@ bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 ; }}}
 
-[module/wlan] ; {{{
+[module/wlan]
+; {{{
 type = internal/network
 interface = wlp3s0
 interval = 3.0
@@ -184,7 +193,8 @@ ramp-signal-0 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 ; }}}
 
-[module/date] ; {{{
+[module/date]
+; {{{
 type = internal/date
 interval = 5
 
@@ -197,7 +207,8 @@ format-underline = ${colors.base0B}
 label = %date%
 ; }}}
 
-[module/time] ; {{{
+[module/time]
+; {{{
 type = internal/date
 interval = 5
 
@@ -210,7 +221,8 @@ format-underline = ${colors.base0C}
 label = %time%
 ; }}}
 
-[module/volume] ; {{{
+[module/volume]
+; {{{
 type = internal/volume
 
 format-volume = <label-volume> <bar-volume>
@@ -240,7 +252,8 @@ bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 ; }}}
 
-[module/battery] ; {{{
+[module/battery]
+; {{{
 type = internal/battery
 battery = BAT1
 adapter = ACAD
@@ -272,7 +285,8 @@ animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 ; }}}
 
-[module/powermenu] ; {{{
+[module/powermenu]
+; {{{
 type = custom/menu
 
 label-open =  power
