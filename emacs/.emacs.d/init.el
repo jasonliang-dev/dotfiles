@@ -1,8 +1,12 @@
+;; Some changes before loading the main config file
+;; remove bars
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(set-fringe-mode 0)
+;; yes/no prompts are y/n
+(fset 'yes-or-no-p 'y-or-n-p)
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;; load config.org
 (package-initialize)
-
 (org-babel-load-file (expand-file-name "config.org" user-emacs-directory))
