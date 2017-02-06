@@ -41,8 +41,8 @@
 *** diminish
     #+BEGIN_SRC emacs-lisp
       (use-package diminish
-	:init
-	(diminish 'jiggle-mode))
+        :init
+        (diminish 'jiggle-mode))
     #+END_SRC
 *** evil
     #+BEGIN_SRC emacs-lisp
@@ -76,53 +76,53 @@
         (helm-mode 1)
         (global-set-key (kbd "M-x") 'helm-M-x))
     #+END_SRC
-*** jdee
+*** COMMENT jdee
     #+BEGIN_SRC emacs-lisp
       (use-package jdee
-	:disabled t)
+        :disabled t)
     #+END_SRC
 *** magit
     #+BEGIN_SRC emacs-lisp
       (use-package magit
-	:config
-	(defadvice magit-status (around magit-fullscreen activate)
-	  (window-configuration-to-register :magit-fullscreen)
-	  ad-do-it
-	  (delete-other-windows))
+        :config
+        (defadvice magit-status (around magit-fullscreen activate)
+          (window-configuration-to-register :magit-fullscreen)
+          ad-do-it
+          (delete-other-windows))
 
-	(defun magit-quit-session ()
-	  "Restores the previous window configuration and kills the magit buffer"
-	  (interactive)
-	  (kill-buffer)
-	  (jump-to-register :magit-fullscreen))
+        (defun magit-quit-session ()
+          "Restores the previous window configuration and kills the magit buffer"
+          (interactive)
+          (kill-buffer)
+          (jump-to-register :magit-fullscreen))
 
-	(define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+        (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
     #+END_SRC
 *** org-bullets
     #+BEGIN_SRC emacs-lisp
       (use-package org-bullets
-	:init
-	(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-	(setq org-bullets-bullet-list '("•")))
+        :init
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+        (setq org-bullets-bullet-list '("•")))
     #+END_SRC
 *** powerline
     #+BEGIN_SRC emacs-lisp
       (use-package powerline
-	:disabled t
-	:config
-	(use-package airline-themes))
+        :disabled t
+        :config
+        (use-package airline-themes))
     #+END_SRC
 *** powerline-evil
     #+BEGIN_SRC emacs-lisp
       (use-package powerline-evil
-	:init
-	(powerline-evil-vim-color-theme))
+        :init
+        (powerline-evil-vim-color-theme))
     #+END_SRC
 *** rainbow-delimiters
     #+BEGIN_SRC emacs-lisp
       (use-package rainbow-delimiters
-	:init
-	(add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+        :init
+        (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
     #+END_SRC
 *** s
     #+BEGIN_SRC emacs-lisp
