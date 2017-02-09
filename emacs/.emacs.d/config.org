@@ -76,7 +76,7 @@
         (helm-mode 1)
         (global-set-key (kbd "M-x") 'helm-M-x))
     #+END_SRC
-*** COMMENT jdee
+*** jdee
     #+BEGIN_SRC emacs-lisp
       (use-package jdee
         :disabled t)
@@ -115,6 +115,7 @@
 *** powerline-evil
     #+BEGIN_SRC emacs-lisp
       (use-package powerline-evil
+        :disabled
         :init
         (powerline-evil-vim-color-theme))
     #+END_SRC
@@ -144,6 +145,49 @@
 ** Highlight current line
    #+BEGIN_SRC emacs-lisp
      (global-hl-line-mode 1)
+   #+END_SRC
+** Modeline
+   #+BEGIN_SRC emacs-lisp
+     ;; use setq-default to set it for /all/ modes
+     (setq-default mode-line-format
+                   (list
+                    " "
+                    ;; was this buffer modified since the last save?
+                    '(:eval (when (buffer-modified-p)
+                              (concat (propertize "Modified"
+                                          'face 'font-lock-warning-face
+                                          'help-echo "Buffer has been modified") " ")))
+
+                    ;; is this buffer read-only?
+                    '(:eval (when buffer-read-only
+                              (concat (propertize "Read Only"
+                                          'face 'font-lock-type-face
+                                          'help-echo "Buffer is read-only") " ")))
+
+                    ;; the buffer name; the file name as a tool tip
+                    '(:eval (propertize "%b " 'face 'font-lock-keyword-face
+                                        'help-echo (buffer-file-name)))
+
+                    ;; line and column
+                    "(" ;; '%02' to set to 2 chars at least; prevents flickering
+                    (propertize "%02l" 'face 'font-lock-type-face) ","
+                    (propertize "%02c" 'face 'font-lock-type-face)
+                    ") "
+
+                    ;; the current major mode for the buffer.
+                    "["
+                    '(:eval (propertize "%m" 'face 'font-lock-string-face
+                                        'help-echo buffer-file-coding-system))
+                    "] "
+
+                    ;; add the time, with the date and the emacs uptime in the tooltip
+                    '(:eval (propertize (format-time-string "%I:%M%P")
+                                        'help-echo
+                                        (concat (format-time-string "%c; ")
+                                                (emacs-uptime "Uptime:%hh"))))
+                    ;; i don't want to see minor-modes; but if you want, uncomment this:
+                    ;; minor-mode-alist  ;; list of minor modes
+                    ))
    #+END_SRC
 ** No welcome screen
    #+BEGIN_SRC emacs-lisp
@@ -274,5 +318,6 @@
   #+BEGIN_SRC emacs-lisp
     (require 'evil-org 'evil)
     (evil-mode t)
-    (find-file "~/Dropbox/todo.org")
+    ;;(find-file "~/Dropbox/todo.org")
+    (find-file "~/.emacs.d/config.org")
   #+END_SRC

@@ -38,10 +38,10 @@ font pango:source sans pro 9
 # }}}
 
 # gaps {{{
-gaps inner 10
+gaps inner 0
 bindsym $mod+Shift+g gaps inner current plus 5
 bindsym $mod+Control+g gaps inner current minus 5
-bindsym $mod+Shift+Control+g gaps inner current set 10
+bindsym $mod+Shift+Control+g gaps inner current set 0
 # }}}
 
 # workspace 1 has no gaps {{{
@@ -57,7 +57,7 @@ client.urgent           $warn  $warn      $warn  $warn
 # }}}
 
 # window border size {{{
-for_window [class="^.*"] border pixel 4
+for_window [class="^.*"] border pixel 3
 for_window [class="Firefox"] border pixel 0
 # }}}
 
@@ -158,7 +158,7 @@ bindsym $mod+Control+Return exec thunar
 # }}}
 
 # start gui emacs {{{
-bindsym $mod+Shift+Control+Return exec emacs
+bindsym $mod+Shift+Return exec emacs
 # }}}
 
 # start i3lock {{{
