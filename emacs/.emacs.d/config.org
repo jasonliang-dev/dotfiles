@@ -147,6 +147,7 @@
      (global-hl-line-mode 1)
    #+END_SRC
 ** Modeline
+   https://emacs-fu.blogspot.ca/2011/08/customizing-mode-line.html
    #+BEGIN_SRC emacs-lisp
      ;; use setq-default to set it for /all/ modes
      (setq-default mode-line-format
@@ -318,6 +319,6 @@
   #+BEGIN_SRC emacs-lisp
     (require 'evil-org 'evil)
     (evil-mode t)
-    ;;(find-file "~/Dropbox/todo.org")
-    (find-file "~/.emacs.d/config.org")
+    (find-file "~/Dropbox/todo.org")
+    ;;(find-file "~/.emacs.d/config.org")
   #+END_SRC
