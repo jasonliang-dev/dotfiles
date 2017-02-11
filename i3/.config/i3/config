@@ -145,23 +145,24 @@ for_window [class="feh"] floating enable
 
 # applications {{{
 
-# start a terminal {{{
+# terminal {{{
 bindsym $mod+Return exec termite
 # }}}
 
-# start rofi {{{
+# rofi {{{
 bindsym $mod+d exec ~/scripts/rofi
 # }}}
 
-# start thunar {{{
+# thunar {{{
 bindsym $mod+Control+Return exec thunar
 # }}}
 
-# start gui emacs {{{
+# gui emacs {{{
+assign [class="Emacs"] 8
 bindsym $mod+Shift+Return exec emacs
 # }}}
 
-# start i3lock {{{
+# i3lock {{{
 bindsym $mod+x exec --no-startup-id i3lock-fancy
 # }}}
 
