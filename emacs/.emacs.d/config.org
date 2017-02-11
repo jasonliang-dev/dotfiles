@@ -28,15 +28,15 @@
     #+BEGIN_SRC emacs-lisp
        (setq use-package-always-ensure t)
     #+END_SRC
-*** auto-complete
-    #+BEGIN_SRC emacs-lisp
-      (use-package auto-complete
-	:init
-	(ac-config-default))
-    #+END_SRC
 *** base16-theme
     #+BEGIN_SRC emacs-lisp
       (use-package base16-theme)
+    #+END_SRC
+*** company-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package company
+        :init
+        (add-hook 'after-init-hook 'global-company-mode))
     #+END_SRC
 *** diminish
     #+BEGIN_SRC emacs-lisp
@@ -69,6 +69,28 @@
         :init
         (add-hook 'after-init-hook #'global-flycheck-mode))
     #+END_SRC
+*** git-gutter-fringe
+    https://github.com/syohex/emacs-git-gutter-fringe
+    #+BEGIN_SRC emacs-lisp
+      (use-package git-gutter-fringe
+        :init
+        (global-git-gutter-mode t)
+        (setq fringes-outside-margins t)
+        :config
+        (set-face-foreground 'git-gutter-fr:modified "#ebcb8b")
+        (set-face-foreground 'git-gutter-fr:added    "#a3be8c")
+        (set-face-foreground 'git-gutter-fr:deleted  "#bf616a")
+        ;; https://github.com/hlissner/.emacs.d/blob/master/core/core-vcs.el#L24
+        (define-fringe-bitmap 'git-gutter-fr:added
+          [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
+          nil nil 'center)
+        (define-fringe-bitmap 'git-gutter-fr:modified
+          [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
+          nil nil 'center)
+        (define-fringe-bitmap 'git-gutter-fr:deleted
+          [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
+          nil nil 'center))
+    #+END_SRC
 *** helm
     #+BEGIN_SRC emacs-lisp
       (use-package helm
@@ -98,6 +120,10 @@
 
         (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
     #+END_SRC
+*** nlinum
+    #+BEGIN_SRC emacs-lisp
+      (use-package nlinum)
+    #+END_SRC
 *** org-bullets
     #+BEGIN_SRC emacs-lisp
       (use-package org-bullets
@@ -125,13 +151,14 @@
         :init
         (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
     #+END_SRC
-*** s
+*** web-mode
     #+BEGIN_SRC emacs-lisp
-      (use-package s)
+      (use-package web-mode)
     #+END_SRC
 *** yasnippet
     #+BEGIN_SRC emacs-lisp
-      (use-package yasnippet)
+      (use-package yasnippet
+        :disabled)
     #+END_SRC
 * UI
 ** Cursor colour
@@ -141,6 +168,16 @@
 ** Font
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil :font "Source Code Pro 10")
+   #+END_SRC
+** Fringe colour
+   http://emacs.stackexchange.com/a/5343
+   #+BEGIN_SRC emacs-lisp
+     (defun lia/tone-down-fringes ()
+       "Set the fringe colour to the background colour."
+       (set-face-attribute 'fringe nil
+                           :foreground (face-foreground 'default)
+                           :background (face-background 'default)))
+     (lia/tone-down-fringes)
    #+END_SRC
 ** Highlight current line
    #+BEGIN_SRC emacs-lisp
@@ -180,14 +217,6 @@
                     '(:eval (propertize "%m" 'face 'font-lock-string-face
                                         'help-echo buffer-file-coding-system))
                     "] "
-
-                    ;; add the time, with the date and the emacs uptime in the tooltip
-                    '(:eval (propertize (format-time-string "%I:%M%P")
-                                        'help-echo
-                                        (concat (format-time-string "%c; ")
-                                                (emacs-uptime "Uptime:%hh"))))
-                    ;; i don't want to see minor-modes; but if you want, uncomment this:
-                    ;; minor-mode-alist  ;; list of minor modes
                     ))
    #+END_SRC
 ** No welcome screen
