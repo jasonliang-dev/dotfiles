@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 pkill dropbox
-dropbox &
-sleep 15;
-pkill dropbox
+while pgrep dropbox > /dev/null; do sleep .1; done
+dropbox

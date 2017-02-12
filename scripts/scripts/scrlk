@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-TOGGLE=$HOME/scripts/.toggle
+TOGGLE=$HOME/scripts/.scrlktoggle
 
 if [ ! -e $TOGGLE ]; then
     touch $TOGGLE

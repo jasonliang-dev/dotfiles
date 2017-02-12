@@ -1,4 +1,7 @@
-#/usr/bin/env sh
+#!/usr/bin/env sh
+cnf () {
+    echo "Usage: ./media play, ./media stop, ./media prev, ./media next"
+}
 
 if pgrep cmus > /dev/null; then
     case "$1" in
@@ -6,20 +9,20 @@ if pgrep cmus > /dev/null; then
 	"stop") cmus-remote -s;;
 	"next") cmus-remote -n;;
 	"prev") cmus-remote -r;;
+	*)      cnf;;
     esac
 elif pgrep mpd > /dev/null; then
     case "$1" in
-	"play") mpc toggle;;
-	"stop") mpc stop;;
-	"prev") mpc prev;;
-	"next") mpc next;;
+	"play")               mpc toggle;;
+	"stop"|"next"|"prev") mpc $1;;
+	*)                    cnf;;
     esac
 elif pgrep spotify > /dev/null; then
     case "$1" in
-	"play") playerctl play-pause;;
-	"stop") playerctl stop;;
-	"prev") playerctl previous;;
-	"next") playerctl next;;
+	"play")        playerctl play-pause;;
+	"prev")        playerctl previous;;
+	"stop"|"next") playerctl $1;;
+	*)             cnf;;
     esac
 else
     echo "No music player is currently running!"
