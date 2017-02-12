@@ -1,10 +1,10 @@
 #+OPTIONS: toc:nil num:nil
 * Dotfiles
-- Distro: =Arch Linux=
-- Window Manager: =i3=
-- Theme: =Arc=
-- Icons: =Paper=
-** Screenshots (Old)
-[[http://i.imgur.com/8mnMihE.png]]
-
-[[http://i.imgur.com/S89X0m8.png]]
+  This is me irl \\
+  [[http://i2.kym-cdn.com/photos/images/newsfeed/000/234/765/b7e.jpg]]
+  - Distro: =Arch Linux=
+  - Window Manager: =i3=
+  - Theme: =Arc=
+  - Icons: =Paper=
+** Screenshots
+   [[file:screenshots/1.png]]
