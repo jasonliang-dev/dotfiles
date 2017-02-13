@@ -4,6 +4,8 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (set-fringe-mode 3)
+;; open maximized
+(toggle-frame-maximized)
 ;; yes/no prompts are y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 

@@ -26,7 +26,7 @@ alias  gs='git status'
 alias c='clear'
 alias x='exit'
 
-alias info='neofetch --color_blocks off --image /home/jason/Pictures/wallpaper.jpg'
+alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias sync='$HOME/scripts/sync &'
 

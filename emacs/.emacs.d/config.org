@@ -72,12 +72,11 @@
 *** folding
     #+BEGIN_SRC emacs-lisp
       (use-package folding
-        :disabled
         :init
         (load "folding" 'nomessage 'noerror)
         (folding-mode-add-find-file-hook)
         :config
-        (folding-add-to-marks-list 'html-mode "<!-- {{{ " "<!-- }}} -->" " -->" nil t))
+        (folding-add-to-marks-list 'web-mode "<!-- {{{ " "<!-- }}} -->" " -->" nil t))
     #+END_SRC
 *** git-gutter-fringe
     https://github.com/syohex/emacs-git-gutter-fringe
