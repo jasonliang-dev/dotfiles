@@ -2,7 +2,7 @@
 
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
 
-  <menu id="apps" label="run">
+  <menu id="run" label="run">
     <item label="web">
       <action name="Execute">
 	<command>firefox</command>
@@ -21,6 +21,12 @@
     <item label="text">
       <action name="Execute">
 	<command>emacs</command>
+      </action>
+    </item>
+    <separator />
+    <item label="wall">
+      <action name="Execute">
+	<command>~/scripts/feh</command>
       </action>
     </item>
   </menu>
@@ -49,7 +55,7 @@
   </menu>
 
   <menu id="root-menu" label="Openbox 3">
-    <menu id="apps"/>
+    <menu id="run"/>
     <menu id="power"/>
     <separator />
     <item label="reconfigure">
