@@ -69,6 +69,15 @@
         :init
         (add-hook 'after-init-hook #'global-flycheck-mode))
     #+END_SRC
+*** folding
+    #+BEGIN_SRC emacs-lisp
+      (use-package folding
+        :init
+        (load "folding" 'nomessage 'noerror)
+        (folding-mode-add-find-file-hook)
+        :config
+        (folding-add-to-marks-list 'html-mode "<!-- {{{ " "<!-- }}} -->" " -->" nil t))
+    #+END_SRC
 *** git-gutter-fringe
     https://github.com/syohex/emacs-git-gutter-fringe
     #+BEGIN_SRC emacs-lisp
