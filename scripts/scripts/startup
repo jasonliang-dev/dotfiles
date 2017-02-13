@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
-~/scripts/polybar &
+
+if pgrep i3 || pgrep bspwm > /dev/null; then
+    ~/scripts/polybar &
+elif pgrep openbox > /dev/null; then
+    tint2 &
+else
+    exit 1
+fi
+
 compton &
 dunst &
 feh --bg-fill ~/Pictures/wallpaper.jpg &
