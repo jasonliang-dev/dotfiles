@@ -10,4 +10,6 @@ ncmpcpp/.config/mpd/playlists
 ncmpcpp/.config/mpd/state
 ncmpcpp/.config/mpd/sticker.sql
 ncmpcpp/.ncmpcpp/error.log
+openbox/.themes/Arc\ Custom
+openbox/.themes/temp
 termite/.config/gtk-3.0/settings.ini
