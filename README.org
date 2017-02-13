@@ -3,7 +3,7 @@
   [[http://i2.kym-cdn.com/photos/images/newsfeed/000/234/765/b7e.jpg]]
 ** Setup
   - Distro: =Arch Linux=
-  - Window Manager: =i3=
+  - Window Manager: =Openbox=
   - Theme: =Arc=
   - Icons: =Paper=
   [[file:screenshots/2.png]] \\
