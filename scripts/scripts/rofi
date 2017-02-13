@@ -9,6 +9,6 @@ rofi \
     -opacity 90 \
     -bw 0 \
     -color-enabled \
-    -color-window "#343D46" \
-    -color-normal "#343D46","#DFE1E8","#343D46","#343D46","#96b5b4" \
+    -color-window "#E6343D46" \
+    -color-normal "#00343D46","#DFE1E8","#00343D46","#00343D46","#96b5b4" \
     -font "Source Sans Pro 18"

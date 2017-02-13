@@ -72,6 +72,7 @@
 *** folding
     #+BEGIN_SRC emacs-lisp
       (use-package folding
+        :disabled
         :init
         (load "folding" 'nomessage 'noerror)
         (folding-mode-add-find-file-hook)
