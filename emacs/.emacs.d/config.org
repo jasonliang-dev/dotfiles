@@ -41,6 +41,7 @@
 *** diminish
     #+BEGIN_SRC emacs-lisp
       (use-package diminish
+        :disabled
         :init
         (diminish 'jiggle-mode))
     #+END_SRC
@@ -72,6 +73,7 @@
 *** folding
     #+BEGIN_SRC emacs-lisp
       (use-package folding
+        :disabled
         :init
         (load "folding" 'nomessage 'noerror)
         (folding-mode-add-find-file-hook)

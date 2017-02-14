@@ -2,66 +2,66 @@
 
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
 
-  <menu id="run" label="run">
-    <item label="web">
-      <action name="Execute">
-	<command>firefox</command>
-      </action>
-    </item>
-    <item label="terminal">
-      <action name="Execute">
-	<command>termite</command>
-      </action>
-    </item>
-    <item label="files">
-      <action name="Execute">
-	<command>thunar</command>
-      </action>
-    </item>
-    <item label="text">
-      <action name="Execute">
-	<command>emacs</command>
-      </action>
-    </item>
-    <separator />
-    <item label="wall">
-      <action name="Execute">
-	<command>~/scripts/feh</command>
-      </action>
-    </item>
-  </menu>
+    <menu id="run" label="run">
+	<item label="web">
+	    <action name="Execute">
+		<command>firefox</command>
+	    </action>
+	</item>
+	<item label="terminal">
+	    <action name="Execute">
+		<command>termite</command>
+	    </action>
+	</item>
+	<item label="files">
+	    <action name="Execute">
+		<command>thunar</command>
+	    </action>
+	</item>
+	<item label="text">
+	    <action name="Execute">
+		<command>emacs</command>
+	    </action>
+	</item>
+	<separator />
+	<item label="wall">
+	    <action name="Execute">
+		<command>~/scripts/feh</command>
+	    </action>
+	</item>
+    </menu>
 
-  <menu id="power" label="power">
-    <item label="exit">
-      <action name="Execute">
-	<command>openbox --exit</command>
-      </action>
-    </item>
-    <item label="suspend">
-      <action name="Execute">
-	<command>systemctl suspend</command>
-      </action>
-    </item>
-    <item label="reboot">
-      <action name="Execute">
-	<command>systemctl reboot</command>
-      </action>
-    </item>
-    <item label="poweroff">
-      <action name="Execute">
-	<command>systemctl poweroff</command>
-      </action>
-    </item>
-  </menu>
+    <menu id="power" label="power">
+	<item label="exit">
+	    <action name="Execute">
+		<command>openbox --exit</command>
+	    </action>
+	</item>
+	<item label="suspend">
+	    <action name="Execute">
+		<command>systemctl suspend</command>
+	    </action>
+	</item>
+	<item label="reboot">
+	    <action name="Execute">
+		<command>systemctl reboot</command>
+	    </action>
+	</item>
+	<item label="poweroff">
+	    <action name="Execute">
+		<command>systemctl poweroff</command>
+	    </action>
+	</item>
+    </menu>
 
-  <menu id="root-menu" label="Openbox 3">
-    <menu id="run"/>
-    <menu id="power"/>
-    <separator />
-    <item label="reconfigure">
-      <action name="Reconfigure" />
-    </item>
-  </menu>
+    <menu id="root-menu" label="Openbox 3">
+	<menu id="run"/>
+	<menu id="power"/>
+	<separator />
+	<item label="reconfigure">
+	    <action name="Reconfigure" />
+	</item>
+    </menu>
 
 </openbox_menu>
 
