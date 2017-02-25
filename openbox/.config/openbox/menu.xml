@@ -10,7 +10,7 @@
 	</item>
 	<item label="terminal">
 	    <action name="Execute">
-		<command>termite</command>
+		<command>~/scripts/term</command>
 	    </action>
 	</item>
 	<item label="files">
