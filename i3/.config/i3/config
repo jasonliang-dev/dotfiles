@@ -146,7 +146,7 @@ for_window [class="feh"] floating enable
 # applications {{{
 
 # terminal {{{
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec ~/scripts/term
 # }}}
 
 # rofi {{{

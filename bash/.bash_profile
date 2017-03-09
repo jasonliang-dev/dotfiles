@@ -7,5 +7,5 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-  exec startx
+  exec $HOME/scripts/startgui
 fi

@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias l='ls -l'
 alias la='ls -a'
 alias ll='ls -al'
+alias cl='cd "$@" && ls'
 alias ..='cd ..'
 
 alias e='emacsclient'
@@ -28,7 +29,8 @@ alias x='exit'
 
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
-alias sync='$HOME/scripts/sync &'
+alias ytdl='youtube-dl'
+alias sync='$HOME/scripts/sync'
 
 export EDITOR='vim'
 export VISUAL='vim'
