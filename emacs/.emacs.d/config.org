@@ -255,8 +255,8 @@
 ** TODO States
    #+BEGIN_SRC emacs-lisp
      (setq org-todo-keywords
-           '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)")
-             (sequence "TODO(T)" "IN-PROGRESS(I)" "WAITING(W)" "|" "DONE(D)" "CANCELED(C)")))
+           '((sequence "TODO(t)" "IN-PROGRESS(i)" "ON HOLD(h)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")
+             (sequence "[ ](T)" "[-](I)" "[*](W)" "|" "[X](D)")))
    #+END_SRC
 * Other
 ** Spelling

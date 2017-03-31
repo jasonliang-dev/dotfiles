@@ -30,7 +30,6 @@ alias x='exit'
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias ytdl='youtube-dl'
-alias sync='$HOME/scripts/sync'
 
 export EDITOR='vim'
 export VISUAL='vim'
