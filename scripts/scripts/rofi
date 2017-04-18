@@ -2,13 +2,13 @@
 rofi \
     -show run \
     -fuzzy \
-    -lines 3 \
+    -lines 5 \
     -eh 1 \
-    -width 30 \
-    -padding 60 \
+    -width 100 \
+    -padding 500 \
     -opacity 90 \
     -bw 0 \
     -color-enabled \
-    -color-window "#E6343D46" \
-    -color-normal "#00343D46","#DFE1E8","#00343D46","#00343D46","#96b5b4" \
+    -color-window "#E62B303B" \
+    -color-normal "#002B303B","#C0C5CE","#002B303B","#002B303B","#8FA1B3" \
     -font "Source Sans Pro 18"
