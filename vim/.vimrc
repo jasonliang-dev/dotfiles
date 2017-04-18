@@ -8,6 +8,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'chriskempson/base16-vim'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'junegunn/goyo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'raimondi/delimitmate'
