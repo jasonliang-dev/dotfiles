@@ -112,7 +112,7 @@
 *** jdee
     #+BEGIN_SRC emacs-lisp
       (use-package jdee
-        :disabled t)
+        :disabled)
     #+END_SRC
 *** magit
     #+BEGIN_SRC emacs-lisp
@@ -145,7 +145,7 @@
 *** powerline
     #+BEGIN_SRC emacs-lisp
       (use-package powerline
-        :disabled t
+        :disabled
         :config
         (use-package airline-themes))
     #+END_SRC
