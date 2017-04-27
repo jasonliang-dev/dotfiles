@@ -29,6 +29,10 @@ alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias ytdl='youtube-dl'
 
+alias ss='dropbox start'
+alias re='dropbox stop'
+alias ds='dropbox status'
+
 alias c='clear'
 alias x='exit'
 
@@ -38,3 +42,6 @@ export VISUAL='vim'
 export PS1="┌─[ \[\e[33m\]\w\[\e[m\] ] \n└─╼ "
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+fortune -s
+echo ""

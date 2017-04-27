@@ -19,3 +19,6 @@ highlight HintElem background-color: #ebcb8b80; color: black;
 
 " clear highlighted text
 nnoremap <leader><leader> :nohl<CR>
+
+" select all text with Ctrl + A
+inoremap <C-a> <C-Home>
