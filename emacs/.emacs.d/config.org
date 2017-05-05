@@ -2,6 +2,8 @@
 * Custom
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/custom.el")
+    (unless (file-exists-p custom-file)
+      (write-region "" nil custom-file))
     (load custom-file)
   #+END_SRC
 * Load package and add repos
