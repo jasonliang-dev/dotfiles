@@ -224,6 +224,10 @@
      (setq inhibit-startup-message t)
    #+END_SRC
 * Org
+** Hide formating characters
+   #+BEGIN_SRC emacs-lisp
+     (setq org-hide-emphasis-markers t)
+   #+END_SRC
 ** Add timestamps when DONE
    #+BEGIN_SRC emacs-lisp
      (setq org-log-done 'time)
