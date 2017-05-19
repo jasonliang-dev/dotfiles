@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 * Custom
   #+BEGIN_SRC emacs-lisp
-    (setq custom-file "~/.emacs.d/custom.el")
+    (setq custom-file (concat user-emacs-directory "custom.el"))
     (unless (file-exists-p custom-file)
       (write-region "" nil custom-file))
     (load custom-file)
@@ -113,8 +113,11 @@
     #+END_SRC
 *** jdee
     #+BEGIN_SRC emacs-lisp
-      (use-package jdee
-        :disabled)
+      (use-package jdee)
+    #+END_SRC
+*** linum-relative
+    #+BEGIN_SRC emacs-lisp
+      (use-package linum-relative)
     #+END_SRC
 *** magit
     #+BEGIN_SRC emacs-lisp
@@ -368,5 +371,4 @@
     (require 'evil-org 'evil)
     (evil-mode t)
     (find-file "~/Dropbox/todo.org")
-    ;;(find-file "~/.emacs.d/config.org")
   #+END_SRC
