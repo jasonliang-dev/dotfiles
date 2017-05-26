@@ -23,7 +23,9 @@ alias dd='dropbox stop'
 alias ds='dropbox status'
 
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
+alias nb='netbeans -J-Dswing.aatext=true -J-Dawt.useSystemAAFontSettings=on'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
+alias sf='screenfetch'
 alias ytdl='youtube-dl'
 alias nb='netbeans -J-Dswing.aatext=true -J-Dawt.useSystemAAFontSettings=on'
 
