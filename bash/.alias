@@ -11,6 +11,7 @@ alias v='vim'
 
 alias   g='git'
 alias  ga='git add'
+alias  gb='git branch'
 alias  gc='git commit -m'
 alias gca='git commit --amend'
 alias  gd='git diff'
