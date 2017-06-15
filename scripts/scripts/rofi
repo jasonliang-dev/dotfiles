@@ -2,10 +2,10 @@
 rofi \
     -show run \
     -fuzzy \
-    -lines 5 \
+    -lines 3 \
     -eh 1 \
-    -width 100 \
-    -padding 500 \
+    -width 500 \
+    -padding 80 \
     -opacity 90 \
     -bw 0 \
     -color-enabled \

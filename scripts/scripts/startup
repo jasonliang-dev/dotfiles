@@ -8,7 +8,7 @@ else
     exit 1
 fi
 
-compton &
+#compton &
 dunst &
 ~/scripts/feh &
 setxkbmap -option caps:escape &
