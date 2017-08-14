@@ -745,9 +745,12 @@
       <decor>no</decor>
       <desktop>1</desktop>
     </application>
+    <application class="Navigator">
+      <decor>no</decor>
+      <desktop>1</desktop>
+    </application>
     <application class="Emacs">
       <decor>no</decor>
-      <desktop>8</desktop>
     </application>
   </applications>
   <dock>
