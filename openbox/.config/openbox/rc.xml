@@ -346,32 +346,21 @@
     </keybind>
     <keybind key="A-Tab">
       <action name="NextWindow">
-        <allDesktops>yes</allDesktops>
         <bar>no</bar>
         <dialog>yes</dialog>
         <raise>yes</raise>
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-        </finalactions>
       </action>
     </keybind>
     <keybind key="A-S-Tab">
       <action name="PreviousWindow">
-        <allDesktops>yes</allDesktops>
         <bar>no</bar>
-        <dialog>yes</dialog>
+        <dialog>no</dialog>
         <raise>yes</raise>
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-        </finalactions>
       </action>
     </keybind>
     <keybind key="W-Tab">
       <action name="NextWindow">
+        <allDesktops>yes</allDesktops>
         <bar>no</bar>
         <dialog>yes</dialog>
         <raise>yes</raise>
@@ -379,8 +368,9 @@
     </keybind>
     <keybind key="W-S-Tab">
       <action name="PreviousWindow">
+        <allDesktops>yes</allDesktops>
         <bar>no</bar>
-        <dialog>no</dialog>
+        <dialog>yes</dialog>
         <raise>yes</raise>
       </action>
     </keybind>
