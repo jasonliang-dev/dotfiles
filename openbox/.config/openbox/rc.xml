@@ -739,9 +739,6 @@
       <decor>no</decor>
       <desktop>1</desktop>
     </application>
-    <application class="Emacs">
-      <decor>no</decor>
-    </application>
   </applications>
   <dock>
     <position>TopLeft</position>

@@ -1,3 +1,8 @@
+" Leader {{{
+" set the leader to ,
+let mapleader = ","
+" }}}
+
 " Vundle and plugins {{{
 set nocompatible
 filetype off
