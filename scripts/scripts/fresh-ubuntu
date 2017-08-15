@@ -1,4 +1,4 @@
-#/usr/bin/env sh
+#!/usr/bin/env sh
 
 # add paper project repo
 sudo add-apt-repository ppa:snwh/pulp

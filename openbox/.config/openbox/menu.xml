@@ -15,7 +15,7 @@
 	</item>
 	<item label="files">
 	    <action name="Execute">
-		<command>thunar</command>
+		<command>~/scripts/files</command>
 	    </action>
 	</item>
 	<item label="text">

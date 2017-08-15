@@ -453,7 +453,7 @@
     </keybind>
     <keybind key="W-C-Return">
       <action name="Execute">
-        <command>thunar</command>
+        <command>~/scripts/files</command>
       </action>
     </keybind>
     <keybind key="W-Return">
