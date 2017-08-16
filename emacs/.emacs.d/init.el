@@ -6,9 +6,9 @@
 
 ;;; Code:
 
-;; Custom
+;; Move built in customization stuff to a different file
 (setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+(load custom-file 'noerror)
 
 ;; remove bars
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -42,8 +42,73 @@
 ;; Package list
 ;; ############
 
-;; :init - before
-;; :config - after
+;; EVIL MODE
+;; vim, in emacs
+(use-package evil
+  :init
+  ;; Scroll up with C-u
+  (setq evil-want-C-u-scroll t)
+  :config
+  ;; move by visual line
+  (evil-global-set-key 'motion (kbd "j") 'evil-next-visual-line)
+  (evil-global-set-key 'motion (kbd "k") 'evil-previous-visual-line)
+
+  ;; leader key
+  (use-package evil-leader
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader ",")
+
+    (evil-leader/set-key
+      ","   'other-window
+      "."   'mode-line-other-buffer
+      "SPC" 'lia/window-switch-split
+      "w"   'lia/window-swap
+      "c"   'comment-region
+      "a"   'evil-numbers/inc-at-pt
+      "x"   'evil-numbers/dec-at-pt
+      "f"   'helm-find-files
+      "e"   'flycheck-next-error
+      "b"   'helm-mini
+      "d"   'kill-this-buffer
+      "g"   'magit-status
+      "n"   'neotree-toggle
+      "l"   'nlinum-mode
+      "r"   'nlinum-relative-toggle
+      "t"   'org-agenda))
+
+  ;; multiple cursors for evil
+  (use-package evil-mc
+    :diminish evil-mc-mode
+    :config
+    (global-evil-mc-mode 1))
+
+  ;; use magit with evil keys
+  (use-package evil-magit)
+
+  ;; increment/decrement numbers
+  (use-package evil-numbers
+    :init
+    (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
+    (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt))
+
+  ;; evil keys in org mode
+  (use-package evil-org
+    :diminish evil-org-mode
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+	      (lambda ()
+		(evil-org-set-key-theme)))
+    (evil-define-key 'emacs org-agenda-mode-map
+      "j" 'evil-next-line
+      "k" 'evil-previous-line))
+  
+  ;; vim surround
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode t)))
+
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
@@ -55,12 +120,35 @@
 ;; ICONS!
 (use-package all-the-icons)
 
+;; icons in dired
+(use-package all-the-icons-dired
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 ;; base16 colours
 (use-package base16-theme
   :config
   (load-theme 'base16-ocean t)
   (defvar lia/base16-colors base16-ocean-colors
-    "It's nice to have some colour"))
+    "It's nice to have some colour")
+
+  ;; https://github.com/belak/base16-emacs#evil-mode
+  ;; Set the cursor color based on the evil state
+  (setq evil-emacs-state-cursor   `(,(plist-get lia/base16-colors :base0D) box)
+	evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
+	evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
+	evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
+	evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
+	evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
+
+;; swap windows (buffers)
+(use-package buffer-move
+  :config
+  (evil-global-set-key 'motion (kbd "C-S-h") 'buf-move-left)
+  (evil-global-set-key 'motion (kbd "C-S-j") 'buf-move-down)
+  (evil-global-set-key 'motion (kbd "C-S-k") 'buf-move-up)
+  (evil-global-set-key 'motion (kbd "C-S-l") 'buf-move-right))
+
 
 ;; text completion
 (use-package company
@@ -85,54 +173,6 @@
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
   (diminish 'undo-tree-mode))
-
-;; vim, in emacs
-(use-package evil
-  :init
-  ;; Scroll up with C-u
-  (setq evil-want-C-u-scroll t)
-  :config
-  ;; move by visual line
-  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-
-  ;; leader key
-  (use-package evil-leader
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader ",")
-    (evil-leader/set-key "t" 'org-agenda))
-
-  ;; multiple cursors for evil
-  (use-package evil-mc
-    :diminish evil-mc-mode
-    :config
-    (global-evil-mc-mode 1)
-    (evil-leader/set-key "c" 'evil-mc-undo-all-cursors))
-
-  ;; use magit with evil keys
-  (use-package evil-magit)
-
-  ;; increment/decrement numbers
-  (use-package evil-numbers
-    :init
-    (evil-leader/set-key
-      "a" 'evil-numbers/inc-at-pt
-      "x" 'evil-numbers/dec-at-pt)
-    (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
-    (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt))
-
-  ;; evil keys in org mode
-  (use-package evil-org
-    :diminish evil-org-mode
-    :config
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-	      (lambda ()
-		(evil-org-set-key-theme))))
-  (use-package evil-surround
-    :config
-    (global-evil-surround-mode t)))
 
 ;; syntax checking
 (use-package flycheck
@@ -189,7 +229,6 @@
 ;; git
 (use-package magit
   :config
-  (evil-leader/set-key "g" 'magit-status)
 
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
@@ -211,41 +250,95 @@
 	neo-window-fixed-size nil
 	neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-  (evil-leader/set-key "n" 'neotree-toggle)
+  ;; change neotree's text colours
+  ;; oh boy, here we go.
+  (set-face-attribute 'neo-banner-face nil
+		      :foreground (plist-get lia/base16-colors :base0C))
+
+  (set-face-attribute 'neo-header-face nil
+		      :foreground (plist-get lia/base16-colors :base05))
+
+  (set-face-attribute 'neo-root-dir-face nil
+		      :foreground (plist-get lia/base16-colors :base0C))
+
+  (set-face-attribute 'neo-dir-link-face nil
+		      :foreground (plist-get lia/base16-colors :base0D))
+
+  (set-face-attribute 'neo-file-link-face nil
+		      :foreground (plist-get lia/base16-colors :base05))
+
+  (set-face-attribute 'neo-expand-btn-face nil
+		      :foreground (plist-get lia/base16-colors :base0C))
+
+  (set-face-attribute 'neo-vc-default-face nil
+		      :foreground (plist-get lia/base16-colors :base05))
+
+  (set-face-attribute 'neo-vc-user-face nil
+		      :foreground (plist-get lia/base16-colors :base08))
+
+  (set-face-attribute 'neo-vc-up-to-date-face nil
+		      :foreground (plist-get lia/base16-colors :base03))
+
+  (set-face-attribute 'neo-vc-edited-face nil
+		      :foreground (plist-get lia/base16-colors :base0E))
+
+  (set-face-attribute 'neo-vc-needs-merge-face nil
+		      :foreground (plist-get lia/base16-colors :base08))
+
+  (set-face-attribute 'neo-vc-unlocked-changes-face nil
+		      :foreground (plist-get lia/base16-colors :base08))
+
+  (set-face-attribute 'neo-vc-added-face nil
+		      :foreground (plist-get lia/base16-colors :base0B))
+
+  (set-face-attribute 'neo-vc-conflict-face nil
+		      :foreground (plist-get lia/base16-colors :base08))
+
+  (set-face-attribute 'neo-vc-missing-face nil
+		      :foreground (plist-get lia/base16-colors :base08))
+
+  (set-face-attribute 'neo-vc-ignored-face nil
+		      :foreground (plist-get lia/base16-colors :base03))
+
   (global-set-key [f8] 'neotree-toggle)
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action)
-  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-  (evil-define-key 'normal neotree-mode-map (kbd "h") 'neotree-hidden-file-toggle)
-  (evil-define-key 'normal neotree-mode-map (kbd "z") 'neotree-stretch-toggle)
-  (evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-refresh)
-  (evil-define-key 'normal neotree-mode-map (kbd "m") 'neotree-rename-node)
-  (evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
-  (evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
-  (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
-  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))
+  (evil-define-key 'normal neotree-mode-map
+    (kbd "q") 'neotree-hide
+    (kbd "h") 'neotree-hidden-file-toggle
+    (kbd "z") 'neotree-stretch-toggle
+    (kbd "R") 'neotree-refresh
+    (kbd "m") 'neotree-rename-node
+    (kbd "c") 'neotree-create-node
+    (kbd "d") 'neotree-delete-node
+    (kbd "SPC") 'neotree-quick-look
+    (kbd "TAB") 'neotree-enter
+    (kbd "RET") 'neotree-enter))
 
-;; relative line numbers
-;; https://www.emacswiki.org/emacs/LineNumbers#toc6
-(use-package nlinum-relative
+;; linum is laggy. use nlinum instead
+(use-package nlinum
   :config
   ;; Preset `nlinum-format' for minimum width.
+  ;; https://www.emacswiki.org/emacs/LineNumbers#toc6
   (defun lia/nlinum-mode-hook ()
     (when nlinum-mode
       (setq-local nlinum-format
-		  (concat "%" (number-to-string
-			       ;; Guesstimate number of buffer lines.
-			       (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+		  (concat " %" (number-to-string
+				;; Guesstimate number of buffer lines.
+				(ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
 			  "d "))))
-  (add-hook 'nlinum-mode-hook #'lia/nlinum-mode-hook)
+  (add-hook 'nlinum-mode-hook #'lia/nlinum-mode-hook))
 
+;; relative line numbers
+(use-package nlinum-relative
+  :config
   (setq nlinum-relative-current-symbol ""
 	nlinum-relative-redisplay-delay 0)
 
   (nlinum-relative-setup-evil)
-  (add-hook 'prog-mode-hook 'nlinum-relative-mode))
+  ;;(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+  )
 
 ;; cool looking bullets in org
 (use-package org-bullets
@@ -263,10 +356,7 @@
   (projectile-mode t)
   ;; https://github.com/sviridov/.emacs.d/blob/master/config/base/init-diminish.el#L25
   (setq-default projectile-mode-line
-		'(:eval (format "Pro[%s]" (projectile-project-name))))
-  (evil-leader/set-key
-    "p f" 'projectile-find-file
-    "p p" 'projectile-switch-project))
+		'(:eval (format "Pro[%s]" (projectile-project-name)))))
 
 ;; rainbow brackets
 (use-package rainbow-delimiters
@@ -283,42 +373,64 @@
   (require 'spaceline-config)
 
   (setq powerline-default-separator 'slant
-	powerline-height 30
-	spaceline-minor-modes-separator " "
-	spaceline-separator-dir-left '(right . right)
-	spaceline-separator-dir-right '(right . right)
-	spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  	powerline-height 30
+  	spaceline-minor-modes-separator " "
+  	spaceline-separator-dir-left '(right . right)
+  	spaceline-separator-dir-right '(right . right)
+  	spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
   (eval
-   `(defface lia/face-active1
-      '((t :background ,(plist-get lia/base16-colors :base01)
-	   :foreground ,(plist-get lia/base16-colors :base05)
+   `(defface lia/mode-line-face
+      '((t :foreground ,(plist-get lia/base16-colors :base05)
+	   :background ,(plist-get lia/base16-colors :base02)
 	   :inherit 'mode-line))
-      "Custom active face for spaceline."
+      "Custom mode line face"
       :group 'spaceline))
 
   (eval
-   `(defface lia/face-inactive1
-      '((t :background ,(plist-get lia/base16-colors :base01)
-	   :foreground ,(plist-get lia/base16-colors :base03)
+   `(defface lia/spaceline-hud-face
+      '((t :background ,(plist-get lia/base16-colors :base00)
 	   :inherit 'mode-line))
-      "Custom inactive face for spaceline."
+      "Custom face for spaceline hud segment"
       :group 'spaceline))
-  
+
+  (set-face-attribute 'powerline-active1 nil
+		      :foreground (plist-get lia/base16-colors :base01)
+		      :background (plist-get lia/base16-colors :base05))
+
+  (set-face-attribute 'powerline-active2 nil
+		      :background (plist-get lia/base16-colors :base01))
+
+  (set-face-attribute 'powerline-inactive1 nil
+		      :foreground (plist-get lia/base16-colors :base03)
+		      :background (plist-get lia/base16-colors :base01))
+
+  (spaceline-define-segment hud
+    "A HUD that shows which part of the buffer is currently visible."
+    (when (string-match "\%" (format-mode-line "%p"))
+      (powerline-hud 'lia/spaceline-hud-face default-face))
+    :tight t)
+
   ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
   (setq spaceline-face-func
-	(lambda (face active)
-	  (cond
-	   ((eq 'face1 face) (if active 'lia/face-active1 'lia/face-inactive1))
-	   ((eq 'face2 face) (if active 'mode-line 'lia/face-inactive1))
-	   ((eq 'line face) (if active 'powerline-active2 'lia/face-inactive1))
-	   ((eq 'highlight face) (if active
-				     (funcall spaceline-highlight-face-func)
-				   'lia/face-inactive1)))))
+  	(lambda (face active)
+  	  (cond
+  	   ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
+  	   ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
+  	   ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
+  	   ((eq 'highlight face) (if active
+  				     (funcall spaceline-highlight-face-func)
+  				   'powerline-inactive1)))))
 
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-off)
-  (spaceline-spacemacs-theme))
+  (spaceline-spacemacs-theme)
+
+  (use-package spaceline-all-the-icons
+    :disabled
+    :config
+    (spaceline-all-the-icons-theme)
+    (spaceline-all-the-icons--setup-neotree)))
 
 ;; make the editor more sublime-y
 (use-package sublimity
@@ -354,15 +466,6 @@
 ;; Show matching parentheses
 (setq show-paren-delay 0)
 (show-paren-mode t)
-
-;; https://github.com/belak/base16-emacs#evil-mode
-;; Set the cursor color based on the evil state
-(setq evil-emacs-state-cursor   `(,(plist-get lia/base16-colors :base0D) box)
-      evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
-      evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
-      evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
-      evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
-      evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box))
 
 ;; custom mode line
 ;; https://emacs-fu.blogspot.ca/2011/08/customizing-mode-line.html
@@ -409,9 +512,12 @@
 ;; ########
 
 (setq org-agenda-files '("~/Dropbox/org/") ; set agenda directory
+      org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
       org-ellipsis " ⤵" ; custom ellipsis
       org-hide-emphasis-markers t ; hide formating characters
-      org-log-done 'time) ; add timestamps when DONE
+      org-log-done 'time ; add timestamps when task is done, or rescheduled
+      org-log-redeadline 'time
+      org-log-reschedule 'time)
 
 ;; org source code languages
 (setq org-src-fontify-natively t)
@@ -452,11 +558,21 @@
       `(("." . ,(expand-file-name
 		 (concat user-emacs-directory "backups")))))
 
-;; scroll a line at a time
-;; (setq mouse-wheel-scroll-amount '(amount (1 . 1))) ; mouse scroll amount
-;; (setq mouse-wheel-progressive-speed nil)           ; don't accelerate scrolling
-;; (setq mouse-wheel-follow-mouse 't)                 ; scroll window under mouse
-;; (setq scroll-step 1)                               ; keyboard scroll one line at a time
+;; mouse wheel scrolling
+(setq mouse-wheel-scroll-amount '(5))    ; mouse scroll amount
+(setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't)       ; scroll window under mouse
+
+(defun lia/the-the ()
+  "Search forward for for a duplicated word."
+  (interactive)
+  (message "Searching for for duplicated words ...")
+  (push-mark)
+
+  (if (re-search-forward
+       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
+      (message "Found duplicated word.")
+    (message "End of buffer")))
 
 (defun lia/window-switch-split ()
   "Switch between horizontal/vertical layout."
@@ -483,17 +599,6 @@
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
-
-(defun lia/the-the ()
-  "Search forward for for a duplicated word."
-  (interactive)
-  (message "Searching for for duplicated words ...")
-  (push-mark)
-
-  (if (re-search-forward
-       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
-      (message "Found duplicated word.")
-    (message "End of buffer")))
 
 (defun lia/window-swap ()
   "Swap your windows."
