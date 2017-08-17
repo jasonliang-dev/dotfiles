@@ -53,6 +53,7 @@
       "x"   'evil-numbers/dec-at-pt
       "f"   'helm-find-files
       "e"   'flycheck-next-error
+      "E"   'flycheck-previous-error
       "b"   'helm-mini
       "d"   'kill-this-buffer
       "g"   'magit-status
@@ -237,53 +238,22 @@
 
   ;; change neotree's text colours
   ;; oh boy, here we go.
-  (set-face-attribute 'neo-banner-face nil
-		      :foreground (plist-get lia/base16-colors :base0C))
-
-  (set-face-attribute 'neo-header-face nil
-		      :foreground (plist-get lia/base16-colors :base05))
-
-  (set-face-attribute 'neo-root-dir-face nil
-		      :foreground (plist-get lia/base16-colors :base0C))
-
-  (set-face-attribute 'neo-dir-link-face nil
-		      :foreground (plist-get lia/base16-colors :base0D))
-
-  (set-face-attribute 'neo-file-link-face nil
-		      :foreground (plist-get lia/base16-colors :base05))
-
-  (set-face-attribute 'neo-expand-btn-face nil
-		      :foreground (plist-get lia/base16-colors :base0C))
-
-  (set-face-attribute 'neo-vc-default-face nil
-		      :foreground (plist-get lia/base16-colors :base05))
-
-  (set-face-attribute 'neo-vc-user-face nil
-		      :foreground (plist-get lia/base16-colors :base08))
-
-  (set-face-attribute 'neo-vc-up-to-date-face nil
-		      :foreground (plist-get lia/base16-colors :base03))
-
-  (set-face-attribute 'neo-vc-edited-face nil
-		      :foreground (plist-get lia/base16-colors :base0E))
-
-  (set-face-attribute 'neo-vc-needs-merge-face nil
-		      :foreground (plist-get lia/base16-colors :base08))
-
-  (set-face-attribute 'neo-vc-unlocked-changes-face nil
-		      :foreground (plist-get lia/base16-colors :base08))
-
-  (set-face-attribute 'neo-vc-added-face nil
-		      :foreground (plist-get lia/base16-colors :base0B))
-
-  (set-face-attribute 'neo-vc-conflict-face nil
-		      :foreground (plist-get lia/base16-colors :base08))
-
-  (set-face-attribute 'neo-vc-missing-face nil
-		      :foreground (plist-get lia/base16-colors :base08))
-
-  (set-face-attribute 'neo-vc-ignored-face nil
-		      :foreground (plist-get lia/base16-colors :base03))
+  (set-face-foreground 'neo-banner-face              (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-header-face              (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-root-dir-face            (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-dir-link-face            (plist-get lia/base16-colors :base0D))
+  (set-face-foreground 'neo-file-link-face           (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-expand-btn-face          (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-vc-default-face          (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-vc-user-face             (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-up-to-date-face       (plist-get lia/base16-colors :base03))
+  (set-face-foreground 'neo-vc-edited-face           (plist-get lia/base16-colors :base0E))
+  (set-face-foreground 'neo-vc-needs-merge-face      (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-unlocked-changes-face (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-added-face            (plist-get lia/base16-colors :base0B))
+  (set-face-foreground 'neo-vc-conflict-face         (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-missing-face          (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-ignored-face          (plist-get lia/base16-colors :base03))
 
   (global-set-key [f8] 'neotree-toggle)
 

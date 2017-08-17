@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-;; required by packages
+;; required by package
 (package-initialize)
 
 ;; Move built in customization stuff to a different file
@@ -19,12 +19,14 @@
   (concat user-emacs-directory "lia"))
 (add-to-list 'load-path lia/config-directory)
 
+;; load my configuration files
 (require 'lia-first)
 (require 'lia-packages)
 (require 'lia-appearance)
 (require 'lia-org)
 (require 'lia-settings)
 
-(evil-mode t) ; Start evil mode at the end
+;; Start evil mode at the end
+(evil-mode t)
 
 ;;; init.el ends here

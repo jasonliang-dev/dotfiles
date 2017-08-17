@@ -6,13 +6,21 @@
 
 ;;; Code:
 
-(setq org-agenda-files '("~/Dropbox/org/") ; set agenda directory
-      org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
+(require 'org)
+
+(setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
       org-ellipsis " ⤵" ; custom ellipsis
       org-hide-emphasis-markers t ; hide formating characters
       org-log-done 'time ; add timestamps when task is done, or rescheduled
       org-log-redeadline 'time
       org-log-reschedule 'time)
+
+;; set agenda files
+;; https://www.reddit.com/r/emacs/comments/4z1pfn/allow_orgagendafiles_to_fail_gracefully/d6s62ue/
+(setq org-agenda-files
+      (delq nil
+	    (mapcar (lambda (file) (and (file-exists-p file) file))
+		    '("~/Dropbox/org/"))))
 
 ;; org source code languages
 (setq org-src-fontify-natively t)

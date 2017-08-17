@@ -6,7 +6,9 @@
 
 ;;; Code:
 
-(set-face-attribute 'default nil :font "Source Code Pro 10") ; set font
+;; Change the default face
+(set-face-attribute 'default nil
+		    :font "Source Code Pro 10")
 
 (global-hl-line-mode 1) ; highlight the current line
 
@@ -45,12 +47,9 @@
 
 ;; set the fringe color to the background color
 ;; http://emacs.stackexchange.com/a/5343
-(defun lia/tone-down-fringes ()
-  "Set the fringe colour to the background colour."
-  (set-face-attribute 'fringe nil
-		      :foreground (face-foreground 'default)
-		      :background (face-background 'default)))
-(lia/tone-down-fringes)
+(set-face-attribute 'fringe nil
+		    ;;:foreground (face-foreground 'default)
+		    :background (face-background 'default))
 
 ;; don't display the welcome screen
 (setq inhibit-splash-screen t
