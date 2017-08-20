@@ -6,13 +6,17 @@
 
 ;;; Code:
 
-;; Change the default face
-(set-face-attribute 'default nil
-		    :font "Source Code Pro 10")
+;; Change the default font
+(set-frame-font "Source Code Pro 10")
 
-(global-hl-line-mode 1) ; highlight the current line
+;; highlight the current line
+(global-hl-line-mode 1)
 
-(global-visual-line-mode t) ; enable wordwrap
+;; enable wordwrap
+(global-visual-line-mode t)
+
+;; change certain text into symbols (lambda, >=, etc)
+(global-prettify-symbols-mode t)
 
 ;; Show matching parentheses
 (setq show-paren-delay 0)

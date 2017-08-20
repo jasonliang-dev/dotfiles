@@ -51,6 +51,7 @@
       "s"   'eshell
       "a"   'evil-numbers/inc-at-pt
       "x"   'evil-numbers/dec-at-pt
+      "r"   'er/expand-region
       "f"   'helm-find-files
       "e"   'flycheck-next-error
       "E"   'flycheck-previous-error
@@ -58,8 +59,8 @@
       "d"   'kill-this-buffer
       "g"   'magit-status
       "n"   'neotree-toggle
-      "l"   'nlinum-mode
-      "r"   'nlinum-relative-toggle
+      "ll"  'nlinum-mode
+      "lr"  'nlinum-relative-toggle
       "t"   'org-agenda
       ))
 
@@ -74,9 +75,9 @@
 
   ;; increment/decrement numbers
   (use-package evil-numbers
-    :init
-    (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
-    (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt))
+    :bind
+    (("C-c +" . evil-numbers/inc-at-pt)
+     ("C-c -" . evil-numbers/dec-at-pt)))
 
   ;; evil keys in org mode
   (use-package evil-org
@@ -93,8 +94,15 @@
   ;; vim surround
   (use-package evil-surround
     :config
-    (global-evil-surround-mode t)))
+    (global-evil-surround-mode t))
 
+  ;; vim-like folding
+  (use-package evil-vimish-fold
+    :diminish evil-vimish-fold-mode
+    :config
+    (setq vimish-fold-indication-mode 'right-fringe)
+    (setq vimish-fold-header-width nil)
+    (evil-vimish-fold-mode t)))
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
@@ -127,6 +135,13 @@
 	evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
 	evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
 
+;; show the cursor when the window jumps
+;; it's not that I have trouble finding the cursor
+;; I think this just looks cool
+(use-package beacon
+  :config
+  (beacon-mode t))
+
 ;; swap windows (buffers)
 (use-package buffer-move
   :config
@@ -134,7 +149,6 @@
   (evil-global-set-key 'motion (kbd "C-S-j") 'buf-move-down)
   (evil-global-set-key 'motion (kbd "C-S-k") 'buf-move-up)
   (evil-global-set-key 'motion (kbd "C-S-l") 'buf-move-right))
-
 
 ;; text completion
 (use-package company
@@ -160,20 +174,17 @@
   (diminish 'auto-revert-mode)
   (diminish 'undo-tree-mode))
 
+;; expand region
+(use-package expand-region)
+
 ;; syntax checking
 (use-package flycheck
   :diminish flycheck-mode
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
-;; fold marked regions
-(use-package folding
-  :disabled
-  :init
-  (load "folding" 'nomessage 'noerror)
-  (folding-mode-add-find-file-hook)
-  :config
-  (folding-add-to-marks-list 'web-mode "<!-- {{{ " "<!-- }}} -->" " -->" nil t))
+;; dim surrounding text
+(use-package focus)
 
 ;; show git changes in gutter
 (use-package git-gutter-fringe
@@ -199,18 +210,15 @@
 ;; narrow lists
 (use-package helm
   :diminish helm-mode
+  :bind
+  ("M-x" . helm-M-x)
   :init
-  (helm-mode 1)
-  (global-set-key (kbd "M-x") 'helm-M-x))
+  (helm-mode 1))
 
 ;; helm integration with projectile
 (use-package helm-projectile
   :config
   (helm-projectile-on))
-
-;; java add-on
-(use-package jdee
-  :disabled)
 
 ;; git
 (use-package magit
@@ -228,8 +236,18 @@
     (jump-to-register :magit-fullscreen))
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
+;; major mode for markdown
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;; Ever heard of NERDTREE? Basically that.
 (use-package neotree
+  :bind
+  ([f8] . neotree-toggle)
   :config
   (setq neo-smart-open t
 	projectile-switch-project-action 'neotree-projectile-action
@@ -254,8 +272,6 @@
   (set-face-foreground 'neo-vc-conflict-face         (plist-get lia/base16-colors :base08))
   (set-face-foreground 'neo-vc-missing-face          (plist-get lia/base16-colors :base08))
   (set-face-foreground 'neo-vc-ignored-face          (plist-get lia/base16-colors :base03))
-
-  (global-set-key [f8] 'neotree-toggle)
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action)
@@ -295,10 +311,26 @@
   ;;(add-hook 'prog-mode-hook 'nlinum-relative-mode)
   )
 
+;; diagrams (concept map)
+(use-package org-brain
+  :disabled
+  :ensure nil
+  :init
+  (setq org-brain-path "~/Dropbox/org/brain")
+  :config
+  ;; For Evil users
+  (eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  (setq org-id-track-globally t)
+  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (setq org-brain-visualize-default-choices 'all))
+
 ;; cool looking bullets in org
 (use-package org-bullets
   :init
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (add-hook 'org-mode-hook
+	    (lambda ()
+	      (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
 
 ;; page break lines
@@ -309,7 +341,7 @@
 (use-package powerline
   :config
   (setq powerline-default-separator 'slant
-  	powerline-height 30)
+  	powerline-height 35)
 
   (set-face-attribute 'powerline-active1 nil
 		      :foreground (plist-get lia/base16-colors :base05)
@@ -335,6 +367,14 @@
   :init
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+;; deal with pairs of parentheses better
+(use-package smartparens
+  :diminish smartparens-mode
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode t))
+
+;; stop jumping all over the place, it hurts my eyes
 (use-package smooth-scrolling
   :config
   (smooth-scrolling-mode t))
@@ -374,6 +414,7 @@
 
   (use-package spaceline-all-the-icons
     :disabled
+    :ensure nil
     :config
     (spaceline-all-the-icons-theme)
     (spaceline-all-the-icons--setup-neotree)))
