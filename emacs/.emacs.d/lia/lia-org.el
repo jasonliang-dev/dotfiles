@@ -8,6 +8,8 @@
 
 (require 'org)
 
+(define-key org-mode-map (kbd "C-c >") 'org-time-stamp-inactive)
+
 (setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
       org-ellipsis " ⤵" ; custom ellipsis
       org-hide-emphasis-markers t ; hide formating characters
@@ -39,8 +41,42 @@
 
 ;; custom todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "IN-PROGRESS(i)" "ON HOLD(h)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")
-	(sequence "[ ](T)" "[-](I)" "[*](W)" "|" "[X](D)")))
+      '((sequence "TODO(t)"
+		  "IN-PROGRESS(i)"
+		  "ON HOLD(h)"
+		  "WAITING(w)"
+		  "|"
+		  "DONE(d)"
+		  "CANCELED(c)")
+	(sequence "[ ](T)"
+		  "[-](I)"
+		  "[*](W)"
+		  "|"
+		  "[X](D)")))
+
+;; I meant 3:00 in the afternoon! not 3:00am!
+(defvar time-range-with-pm-suffix '("1:00" . "6:59"))
+(defun org-analyze-date-dwim (original-fun ans org-def org-defdecode)
+  (let* ((time (funcall original-fun ans org-def org-defdecode))
+         (minute (nth 1 time))
+         (hour (nth 2 time))
+         (minutes (+ minute (* 60 hour)))
+         s)
+    (when (and (< hour 12)
+               (not (string-match "am" ans))
+               (>= minutes (org-hh:mm-string-to-minutes (car time-range-with-pm-suffix)))
+               (<= minutes (org-hh:mm-string-to-minutes (cdr time-range-with-pm-suffix))))
+      (setf (nth 2 time) (+ hour 12))
+      (when (boundp 'org-end-time-was-given)
+        (setq s org-end-time-was-given)
+        (if (and s (string-match "^\\([0-9]+\\)\\(:[0-9]+\\)$" s))
+            (setq org-end-time-was-given
+                  (concat (number-to-string (+ 12 (string-to-number (match-string 1 s))))
+                          (match-string 2 s))))))
+    time))
+
+(advice-add 'org-read-date-analyze :around #'org-analyze-date-dwim)
+
 
 (provide 'lia-org)
 

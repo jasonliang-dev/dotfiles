@@ -58,10 +58,11 @@
       "b"   'helm-mini
       "d"   'kill-this-buffer
       "g"   'magit-status
-      "n"   'neotree-toggle
       "ll"  'nlinum-mode
       "lr"  'nlinum-relative-toggle
-      "t"   'org-agenda
+      "oa"  'org-agenda
+      "ol"  'org-insert-link
+      "ot"  'org-todo
       ))
 
   ;; multiple cursors for evil
@@ -102,11 +103,13 @@
     :config
     (setq vimish-fold-indication-mode 'right-fringe)
     (setq vimish-fold-header-width nil)
+
+    (evil-define-key 'normal prog-mode-map [tab] 'vimish-fold-toggle)
+
     (evil-vimish-fold-mode t)))
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
-  ;;:diminish aggressive-indent-mode
   :config
   (global-aggressive-indent-mode t)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode))
@@ -122,8 +125,8 @@
 ;; base16 colours
 (use-package base16-theme
   :config
-  (load-theme 'base16-ocean t)
-  (defvar lia/base16-colors base16-ocean-colors
+  (load-theme 'base16-material t)
+  (defvar lia/base16-colors base16-material-colors
     "It's nice to have some colour")
 
   ;; https://github.com/belak/base16-emacs#evil-mode
@@ -173,6 +176,16 @@
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
   (diminish 'undo-tree-mode))
+
+;; emmet
+(use-package emmet
+  :disabled
+  :ensure nil
+  :bind
+  ("C-j" . 'emmet-expand-line)
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode))
 
 ;; expand region
 (use-package expand-region)
@@ -307,9 +320,7 @@
   (setq nlinum-relative-current-symbol ""
 	nlinum-relative-redisplay-delay 0)
 
-  (nlinum-relative-setup-evil)
-  ;;(add-hook 'prog-mode-hook 'nlinum-relative-mode)
-  )
+  (nlinum-relative-setup-evil))
 
 ;; diagrams (concept map)
 (use-package org-brain
@@ -392,10 +403,10 @@
   (eval
    `(defface lia/mode-line-face
       '((t :foreground ,(plist-get lia/base16-colors :base05)
-	   :background ,(plist-get lia/base16-colors :base02)
+	   :background ,(plist-get lia/base16-colors :base03)
 	   :inherit 'mode-line))
       "Custom mode line face"
-      :group 'spaceline))
+      :group 'lia/faces))
 
   ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
   (setq spaceline-face-func
@@ -429,7 +440,8 @@
 
 ;; neat features for web development
 (use-package web-mode
-  :disabled)
+  :disabled
+  :ensure nil)
 
 ;; templates
 (use-package yasnippet

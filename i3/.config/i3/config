@@ -146,11 +146,11 @@ for_window [class="feh"] floating enable
 # applications {{{
 
 # terminal {{{
-bindsym $mod+Return exec ~/scripts/term
+bindsym $mod+Return exec ~/scripts/term.sh
 # }}}
 
 # rofi {{{
-bindsym $mod+d exec ~/scripts/rofi
+bindsym $mod+d exec ~/scripts/rofi.sh
 # }}}
 
 # thunar {{{
@@ -206,21 +206,21 @@ bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'What would y
 # }}}
 
 # media player controls {{{
-bindsym XF86AudioPlay exec --no-startup-id ~/scripts/audio play
-bindsym XF86AudioStop exec --no-startup-id ~/scripts/audio stop
-bindsym XF86AudioNext exec --no-startup-id ~/scripts/audio next
-bindsym XF86AudioPrev exec --no-startup-id ~/scripts/audio prev
+bindsym XF86AudioPlay exec --no-startup-id ~/scripts/audio.sh play
+bindsym XF86AudioStop exec --no-startup-id ~/scripts/audio.sh stop
+bindsym XF86AudioNext exec --no-startup-id ~/scripts/audio.sh next
+bindsym XF86AudioPrev exec --no-startup-id ~/scripts/audio.sh prev
 # audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/scripts/audio up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/scripts/audio down
-bindsym XF86AudioMute        exec --no-startup-id ~/scripts/audio mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/scripts/audio.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/scripts/audio.sh down
+bindsym XF86AudioMute        exec --no-startup-id ~/scripts/audio.sh mute
 # screen brightness controls
 bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 # }}}
 
 # startup {{{
-exec_always --no-startup-id ~/scripts/startup
+exec_always --no-startup-id ~/scripts/startup.sh
 # }}}
 
 # }}}

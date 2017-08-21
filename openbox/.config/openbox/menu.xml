@@ -10,12 +10,12 @@
 	</item>
 	<item label="terminal">
 	    <action name="Execute">
-		<command>~/scripts/term</command>
+		<command>~/scripts/term.sh</command>
 	    </action>
 	</item>
 	<item label="files">
 	    <action name="Execute">
-		<command>~/scripts/files</command>
+		<command>~/scripts/files.sh</command>
 	    </action>
 	</item>
 	<item label="text">
@@ -26,7 +26,7 @@
 	<separator />
 	<item label="wall">
 	    <action name="Execute">
-		<command>~/scripts/feh</command>
+		<command>~/scripts/feh.sh</command>
 	    </action>
 	</item>
     </menu>

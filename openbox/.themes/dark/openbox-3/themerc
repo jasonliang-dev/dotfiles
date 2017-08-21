@@ -1,45 +1,57 @@
+## COLOURS
+
+# Set border colour
+window.active.client.color: #89DDFF
+window.inactive.client.color: #546E7A
+
+# title colours
+window.*.title.bg.color: #2E3C43
+window.active.label.text.color: #EEFFFF
+window.inactive.label.text.color: #546E7A
+
+# Set buttons color
+window.active.button.*.image.color: #89DDFF
+window.inactive.button.*.image.color: #546E7A
+
+# Set menu colors
+menu.*.bg.color: #2E3C43
+menu.*.text.color: #B2CCD6
+menu.items.active.text.color: #EEFFFF
+menu.border.color: #2E3C43
+
+
 ## BORDERS
 
 # Hide bloat
 window.handle.width: 0
 border.width: 0
+
 # Set border width
 window.client.padding.width: 0
 window.client.padding.height: 2
-# Set border color
-window.active.client.color: #96B5B4
-window.inactive.client.color: #4F5B66
+
 
 ## TITLE
 
 # Title alignment
 *.text.justify: center
+
 # Add some padding
 padding.width: 20
 padding.height: 8
+
 # Set title colors
 window.*.title.bg: Solid Flat
 window.*.*.bg: Parentrelative
-window.*.title.bg.color: #343D46
-window.active.label.text.color: #EFF1F5
-window.inactive.label.text.color: #65737E
-# Set buttons color
-window.active.button.*.image.color: #96B5B4
-window.inactive.button.*.image.color: #4F5B66
+
 
 ## MENU
 
-# Set menu colors
 menu.*.bg: Solid Flat
-menu.*.bg.color: #343D46
-menu.*.text.color: #A7ADBA
-menu.items.active.text.color: #EFF1F5
-# Add some padding
+
+# Padding
 menu.border.width: 16
-menu.border.color: #343D46
-# Add some submenu padding
 menu.overlap.x: -27
 menu.overlap.y: 0
-# Add padding between items
 menu.separator.padding.height: 3
 menu.separator.color: #343D46

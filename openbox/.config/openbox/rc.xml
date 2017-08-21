@@ -244,47 +244,47 @@
     <!-- Media, Volume, and Brightness keys -->
     <keybind key="XF86AudioPlay">
       <action name="Execute">
-        <command>~/scripts/audio play</command>
+        <command>~/scripts/audio.sh play</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioNext">
+    <keybind key="XF86Audio.ShNext">
       <action name="Execute">
-        <command>~/scripts/audio next</command>
+        <command>~/scripts/audio.sh next</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioPrev">
+    <keybind key="XF86Audio.ShPrev">
       <action name="Execute">
-        <command>~/scripts/audio prev</command>
+        <command>~/scripts/audio.sh prev</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioStop">
+    <keybind key="XF86Audio.ShStop">
       <action name="Execute">
-        <command>~/scripts/audio stop</command>
+        <command>~/scripts/audio.sh stop</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioRaiseVolume">
+    <keybind key="XF86Audio.ShRaiseVolume">
       <action name="Execute">
-        <command>~/scripts/audio up</command>
+        <command>~/scripts/audio.sh up</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioLowerVolume">
+    <keybind key="XF86Audio.ShLowerVolume">
       <action name="Execute">
-        <command>~/scripts/audio down</command>
+        <command>~/scripts/audio.sh down</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioMute">
+    <keybind key="XF86Audio.ShMute">
       <action name="Execute">
-        <command>~/scripts/audio mute</command>
+        <command>~/scripts/audio.sh mute</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>~/scripts/brightness up</command>
+        <command>~/scripts/brightness.sh up</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>~/scripts/brightness down</command>
+        <command>~/scripts/brightness.sh down</command>
       </action>
     </keybind>
     <!-- End of Media, Volume, and Brightness keys -->
@@ -453,12 +453,12 @@
     </keybind>
     <keybind key="W-C-Return">
       <action name="Execute">
-        <command>~/scripts/files</command>
+        <command>~/scripts/files.sh</command>
       </action>
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>~/scripts/term</command>
+        <command>~/scripts/term.sh</command>
       </action>
     </keybind>
     <!-- End of Launch -->
@@ -470,12 +470,12 @@
     </keybind>
     <keybind key="W-d">
       <action name="Execute">
-        <command>~/scripts/rofi</command>
+        <command>~/scripts/rofi.sh</command>
       </action>
     </keybind>
     <keybind key="C-A-S-l">
       <action name="Execute">
-        <command>~/scripts/scrlk</command>
+        <command>~/scripts/scrlk.sh</command>
       </action>
     </keybind>
     <!-- End of Scripts -->
