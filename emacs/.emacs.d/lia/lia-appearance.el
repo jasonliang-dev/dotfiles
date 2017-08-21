@@ -10,7 +10,7 @@
 (set-frame-font "Source Code Pro 10")
 
 ;; highlight the current line
-(global-hl-line-mode 1)
+(global-hl-line-mode)
 
 ;; enable wordwrap
 (global-visual-line-mode t)
@@ -19,7 +19,7 @@
 (global-prettify-symbols-mode t)
 
 ;; Show matching parentheses
-(setq show-paren-delay 0)
+(setq show-paren-delay 0.2)
 (show-paren-mode t)
 
 ;; custom mode line

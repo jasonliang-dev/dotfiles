@@ -1,9 +1,5 @@
 *~
 \#*
-emacs/.emacs.d/auto-save-list
-emacs/.emacs.d/config.el
-emacs/.emacs.d/custom.el
-emacs/.emacs.d/elpa
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log
 ncmpcpp/.config/mpd/pid
@@ -11,6 +7,4 @@ ncmpcpp/.config/mpd/playlists
 ncmpcpp/.config/mpd/state
 ncmpcpp/.config/mpd/sticker.sql
 ncmpcpp/.ncmpcpp/error.log
-openbox/.themes/Arc\ Custom
-openbox/.themes/temp
 termite/.config/gtk-3.0/settings.ini

@@ -55,6 +55,7 @@
 		  "[X](D)")))
 
 ;; I meant 3:00 in the afternoon! not 3:00am!
+;; https://emacs.stackexchange.com/a/3320
 (defvar time-range-with-pm-suffix '("1:00" . "6:59"))
 (defun org-analyze-date-dwim (original-fun ans org-def org-defdecode)
   (let* ((time (funcall original-fun ans org-def org-defdecode))

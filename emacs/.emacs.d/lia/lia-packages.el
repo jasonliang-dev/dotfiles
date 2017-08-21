@@ -58,6 +58,7 @@
       "b"   'helm-mini
       "d"   'kill-this-buffer
       "g"   'magit-status
+      "t"   'neotree-toggle
       "ll"  'nlinum-mode
       "lr"  'nlinum-relative-toggle
       "oa"  'org-agenda
@@ -90,7 +91,9 @@
 		(evil-org-set-key-theme)))
     (evil-define-key 'emacs org-agenda-mode-map
       "j" 'evil-next-line
-      "k" 'evil-previous-line))
+      "k" 'evil-previous-line
+      "J" 'org-agenda-later
+      "K" 'org-agenda-earlier))
   
   ;; vim surround
   (use-package evil-surround
