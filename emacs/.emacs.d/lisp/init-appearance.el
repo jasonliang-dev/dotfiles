@@ -1,4 +1,4 @@
-;; lia-appearance.el --- Part of my Emacs config
+;; init-appearance.el --- Part of my Emacs config
 
 ;;; Commentary:
 
@@ -8,6 +8,9 @@
 
 ;; Change the default font
 (set-frame-font "Source Code Pro 10")
+
+;; stop the cursor from blinking
+(blink-cursor-mode 0)
 
 ;; highlight the current line
 (global-hl-line-mode)
@@ -59,6 +62,6 @@
 (setq inhibit-splash-screen t
       inhibit-startup-message t)
 
-(provide 'lia-appearance)
+(provide 'init-appearance)
 
-;;; lia-appearance.el ends here
+;;; init-appearance.el ends here

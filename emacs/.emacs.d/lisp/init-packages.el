@@ -1,4 +1,4 @@
-;;; lia-packages.el --- Part of my Emacs config
+;;; init-packages.el --- Part of my Emacs config
 
 ;;; Commentary:
 
@@ -169,8 +169,8 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "Now with 40% more flavor!"
-	dashboard-startup-banner 'logo
+  ;; TODO: random string for title
+  (setq dashboard-startup-banner 'logo
 	dashboard-items '((recents . 10)
 			  (bookmarks .10)
 			  (projects . 10)
@@ -291,6 +291,7 @@
   :config
   (setq neo-smart-open t
 	projectile-switch-project-action 'neotree-projectile-action
+	neo-window-width 35
 	neo-window-fixed-size nil
 	neo-theme (if (display-graphic-p) 'icons 'arrow))
 
@@ -476,10 +477,10 @@
   :disabled
   :ensure nil
   :config
-  (org-super-agenda-mode t)
   (let ((org-super-agenda-groups
 	 '((:auto-category t))))
-    (org-agenda-list)))
+    (org-agenda-list))
+  (org-super-agenda-mode t))
 
 ;; neat features for web development
 (use-package web-mode
@@ -495,6 +496,6 @@
 ;; yasnippet collection
 (use-package yasnippet-snippets)
 
-(provide 'lia-packages)
+(provide 'init-packages)
 
-;;; lia-packages.el ends here
+;;; init-packages.el ends here

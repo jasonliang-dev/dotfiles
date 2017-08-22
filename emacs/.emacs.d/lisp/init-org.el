@@ -1,4 +1,4 @@
-;;; lia-org.el --- Part of my Emacs config
+;;; init-org.el --- Part of my Emacs config
 
 ;;; Commentary:
 
@@ -79,6 +79,6 @@
 (advice-add 'org-read-date-analyze :around #'org-analyze-date-dwim)
 
 
-(provide 'lia-org)
+(provide 'init-org)
 
-;;; lia-org.el ends here
+;;; init-org.el ends here

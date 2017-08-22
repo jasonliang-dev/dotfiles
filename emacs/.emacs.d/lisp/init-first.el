@@ -1,4 +1,4 @@
-;; lia-first.el --- Part of my Emacs config
+;; init-first.el --- Part of my Emacs config
 
 ;;; Commentary:
 
@@ -13,6 +13,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ; yes/no prompts are y/n
 
-(provide 'lia-first)
+(provide 'init-first)
 
-;;; lia-first.el ends here
+;;; init-first.el ends here

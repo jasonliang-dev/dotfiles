@@ -1,4 +1,4 @@
-;;; lia-settings --- Part of my Emacs config
+;;; init-settings --- Part of my Emacs config
 
 ;;; Commentary:
 
@@ -87,6 +87,6 @@
 	     (set-window-start w2 s1)
 	     (setq i (1+ i)))))))
 
-(provide 'lia-settings)
+(provide 'init-settings)
 
-;;; lia-settings.el ends here
+;;; init-settings.el ends here
