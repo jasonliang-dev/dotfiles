@@ -104,7 +104,6 @@
   (use-package evil-vimish-fold
     :diminish evil-vimish-fold-mode
     :config
-    (setq vimish-fold-indication-mode 'right-fringe)
     (setq vimish-fold-header-width nil)
 
     (evil-define-key 'normal prog-mode-map [tab] 'vimish-fold-toggle)
@@ -197,7 +196,28 @@
 (use-package flycheck
   :diminish flycheck-mode
   :init
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  ;; https://github.com/flycheck/flycheck/blob/master/flycheck.el#L3380
+  (setq flycheck-indication-mode 'right-fringe)
+  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    (vector #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00011001
+	    #b00110110
+	    #b01101100
+	    #b11011000
+	    #b01101100
+	    #b00110110
+	    #b00011001
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000
+	    #b00000000)))
 
 ;; dim surrounding text
 (use-package focus)
@@ -207,21 +227,21 @@
   :diminish git-gutter-mode
   :init
   (global-git-gutter-mode t)
-  (setq fringes-outside-margins t)
   :config
+  (setq fringes-outside-margins t)
   (set-face-foreground 'git-gutter-fr:added    (plist-get lia/base16-colors :base0B))
   (set-face-foreground 'git-gutter-fr:modified (plist-get lia/base16-colors :base0A))
   (set-face-foreground 'git-gutter-fr:deleted  (plist-get lia/base16-colors :base08))
-  ;; https://github.com/hlissner/.emacs.d/blob/master/core/core-vcs.el#L24
-  (define-fringe-bitmap 'git-gutter-fr:added
-    [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
-    nil nil 'center)
-  (define-fringe-bitmap 'git-gutter-fr:modified
-    [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
-    nil nil 'center)
-  (define-fringe-bitmap 'git-gutter-fr:deleted
-    [224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
-    nil nil 'center))
+  ;; https://github.com/hlissner/.emacs.d/blob/master/modules/ui/doom/config.el#L97
+  (fringe-helper-define 'git-gutter-fr:added '(center repeated)
+    "XXX.....")
+  (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
+    "XXX.....")
+  (fringe-helper-define 'git-gutter-fr:deleted 'bottom
+    "X......."
+    "XX......"
+    "XXX....."
+    "XXXX...."))
 
 ;; narrow lists
 (use-package helm
@@ -256,8 +276,8 @@
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
 ;; Ever heard of NERDTREE? Basically that.
@@ -355,7 +375,7 @@
 (use-package powerline
   :config
   (setq powerline-default-separator 'slant
-  	powerline-height 35)
+	powerline-height 35)
 
   (set-face-attribute 'powerline-active1 nil
 		      :foreground (plist-get lia/base16-colors :base05)
@@ -413,14 +433,14 @@
 
   ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
   (setq spaceline-face-func
-  	(lambda (face active)
-  	  (cond
-  	   ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
-  	   ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
-  	   ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
-  	   ((eq 'highlight face) (if active
-  				     (funcall spaceline-highlight-face-func)
-  				   'powerline-inactive1)))))
+	(lambda (face active)
+	  (cond
+	   ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
+	   ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
+	   ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
+	   ((eq 'highlight face) (if active
+				     (funcall spaceline-highlight-face-func)
+				   'powerline-inactive1)))))
 
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-off)

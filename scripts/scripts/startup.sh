@@ -10,7 +10,7 @@ fi
 
 #compton &
 dunst &
-~/scripts/feh &
+~/scripts/feh.sh &
 setxkbmap -option caps:escape &
 xset m 0 0 &
 xset r rate 270 27 &

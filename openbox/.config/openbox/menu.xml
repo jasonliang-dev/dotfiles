@@ -31,7 +31,7 @@
 	</item>
     </menu>
 
-    <menu id="power" label="power">
+    <menu id="system" label="system">
 	<item label="exit">
 	    <action name="Execute">
 		<command>openbox --exit</command>
@@ -56,7 +56,7 @@
 
     <menu id="root-menu" label="Openbox 3">
 	<menu id="run"/>
-	<menu id="power"/>
+	<menu id="system"/>
 	<separator />
 	<item label="reconfigure">
 	    <action name="Reconfigure" />
