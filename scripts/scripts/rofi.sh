@@ -11,4 +11,4 @@ rofi \
     -color-enabled \
     -color-window "#E6263238" \
     -color-normal "#00263238","#EEFFFF","#00263238","#00263238","#89DDFF" \
-    -font "Source Sans Pro 18"
+    -font "Source Sans Pro Light 20"

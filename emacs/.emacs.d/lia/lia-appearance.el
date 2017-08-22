@@ -19,7 +19,7 @@
 (global-prettify-symbols-mode t)
 
 ;; Show matching parentheses
-(setq show-paren-delay 0.2)
+(defvar show-paren-delay 0.2)
 (show-paren-mode t)
 
 ;; custom mode line
@@ -49,11 +49,11 @@
 		 "] ")))
 ;;(lia/mode-line)
 
+;; set the fringe size
+(fringe-mode 16)
+
 ;; set the fringe color to the background color
-;; http://emacs.stackexchange.com/a/5343
-(set-face-attribute 'fringe nil
-		    ;;:foreground (face-foreground 'default)
-		    :background (face-background 'default))
+(set-face-background 'fringe nil)
 
 ;; don't display the welcome screen
 (setq inhibit-splash-screen t

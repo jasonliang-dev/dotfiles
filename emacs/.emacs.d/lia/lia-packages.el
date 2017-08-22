@@ -45,8 +45,8 @@
     (evil-leader/set-key
       ","   'other-window
       "."   'mode-line-other-buffer
-      "SPC" 'lia/window-switch-split
       "w"   'lia/window-swap
+      "W"   'lia/window-switch-split
       "c"   'comment-region
       "s"   'eshell
       "a"   'evil-numbers/inc-at-pt
@@ -63,6 +63,7 @@
       "lr"  'nlinum-relative-toggle
       "oa"  'org-agenda
       "ol"  'org-insert-link
+      "op"  'org-pomodoro
       "ot"  'org-todo
       ))
 
@@ -145,6 +146,9 @@
 ;; I think this just looks cool
 (use-package beacon
   :config
+  (setq beacon-dont-blink-major-modes '(neotree-mode
+					magit-status-mode
+					magit-popup-mode))
   (beacon-mode t))
 
 ;; swap windows (buffers)
@@ -367,6 +371,12 @@
 	      (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
 
+;; pomodoro
+(use-package org-pomodoro
+  :config
+  (set-face-foreground 'org-pomodoro-mode-line (plist-get lia/base16-colors :base0A))
+  (set-face-foreground 'org-pomodoro-mode-line-break (plist-get lia/base16-colors :base0C)))
+
 ;; page break lines
 (use-package page-break-lines
   :diminish page-break-lines-mode)
@@ -426,7 +436,7 @@
   (eval
    `(defface lia/mode-line-face
       '((t :foreground ,(plist-get lia/base16-colors :base05)
-	   :background ,(plist-get lia/base16-colors :base03)
+	   :background ,(plist-get lia/base16-colors :base02)
 	   :inherit 'mode-line))
       "Custom mode line face"
       :group 'lia/faces))
@@ -460,6 +470,16 @@
   ;;(require 'sublimity-map)
   (require 'sublimity-scroll)
   (sublimity-mode t))
+
+;; better agenda
+(use-package org-super-agenda
+  :disabled
+  :ensure nil
+  :config
+  (org-super-agenda-mode t)
+  (let ((org-super-agenda-groups
+	 '((:auto-category t))))
+    (org-agenda-list)))
 
 ;; neat features for web development
 (use-package web-mode
