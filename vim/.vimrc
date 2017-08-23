@@ -45,6 +45,12 @@ set wildmenu
 " search as I'm typing
 set incsearch
 
+" highlight as I search
+set hlsearch
+
+" clear highlighted text
+nnoremap <leader><leader> :nohl<CR>
+
 " enable folding
 set foldenable
 
