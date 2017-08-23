@@ -36,6 +36,12 @@
   (evil-global-set-key 'motion (kbd "j") 'evil-next-visual-line)
   (evil-global-set-key 'motion (kbd "k") 'evil-previous-visual-line)
 
+  ;; easy window navigation
+  (evil-global-set-key 'motion (kbd "C-h") 'evil-window-left)
+  (evil-global-set-key 'motion (kbd "C-j") 'evil-window-down)
+  (evil-global-set-key 'motion (kbd "C-k") 'evil-window-up)
+  (evil-global-set-key 'motion (kbd "C-l") 'evil-window-right)
+
   ;; leader key
   (use-package evil-leader
     :config
@@ -43,28 +49,31 @@
     (evil-leader/set-leader ",")
 
     (evil-leader/set-key
-      ","   'other-window
-      "."   'mode-line-other-buffer
-      "w"   'lia/window-swap
-      "W"   'lia/window-switch-split
-      "c"   'comment-region
-      "s"   'eshell
-      "a"   'evil-numbers/inc-at-pt
-      "x"   'evil-numbers/dec-at-pt
-      "r"   'er/expand-region
-      "f"   'helm-find-files
-      "e"   'flycheck-next-error
-      "E"   'flycheck-previous-error
-      "b"   'helm-mini
-      "d"   'kill-this-buffer
-      "g"   'magit-status
-      "t"   'neotree-toggle
-      "ll"  'nlinum-mode
-      "lr"  'nlinum-relative-toggle
-      "oa"  'org-agenda
-      "ol"  'org-insert-link
-      "op"  'org-pomodoro
-      "ot"  'org-todo
+      "h"  (lambda ()
+	     (interactive)
+	     (find-file "~/Dropbox/help"))
+      "H"  'help
+      ","  'ace-window
+      "."  'mode-line-other-buffer
+      "W"  'lia/window-swap
+      "w"  'lia/window-switch-split
+      "oo" 'ace-link-org
+      "c"  'comment-region
+      "s"  'eshell
+      "r"  'er/expand-region
+      "f"  'helm-find-files
+      "e"  'flycheck-next-error
+      "E"  'flycheck-previous-error
+      "b"  'helm-mini
+      "d"  'kill-this-buffer
+      "g"  'magit-status
+      "t"  'neotree-toggle
+      "ll" 'nlinum-mode
+      "lr" 'nlinum-relative-toggle
+      "oa" 'org-agenda
+      "ol" 'org-insert-link
+      "op" 'org-pomodoro
+      "ot" 'org-todo
       ))
 
   ;; multiple cursors for evil
@@ -110,6 +119,16 @@
     (evil-define-key 'normal prog-mode-map [tab] 'vimish-fold-toggle)
 
     (evil-vimish-fold-mode t)))
+
+;; quickly select different windows
+(use-package ace-window
+  :config
+  (setq aw-keys '(?w ?e ?r ?s ?d ?f)))
+
+;; quickly select links
+(use-package ace-link
+  :config
+  (ace-link-setup-default))
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
@@ -324,9 +343,9 @@
     (kbd "m") 'neotree-rename-node
     (kbd "c") 'neotree-create-node
     (kbd "d") 'neotree-delete-node
-    (kbd "SPC") 'neotree-quick-look
     (kbd "TAB") 'neotree-enter
-    (kbd "RET") 'neotree-enter))
+    (kbd "SPC") 'neotree-change-root
+    (kbd "RET") 'neotree-change-root))
 
 ;; linum is laggy. use nlinum instead
 (use-package nlinum
@@ -486,6 +505,13 @@
 (use-package web-mode
   :disabled
   :ensure nil)
+
+;; display available bindings
+(use-package which-key
+  :config
+  (setq which-key-allow-evil-operators t)
+  (which-key-setup-side-window-right-bottom)
+  (which-key-mode t))
 
 ;; templates
 (use-package yasnippet
