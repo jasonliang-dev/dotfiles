@@ -474,6 +474,7 @@
 
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-buffer-encoding-abbrev-off)
   (spaceline-spacemacs-theme)
 
   (use-package spaceline-all-the-icons
