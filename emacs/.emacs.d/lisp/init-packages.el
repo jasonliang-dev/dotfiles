@@ -343,9 +343,9 @@
     (kbd "m") 'neotree-rename-node
     (kbd "c") 'neotree-create-node
     (kbd "d") 'neotree-delete-node
-    (kbd "TAB") 'neotree-quick-look
-    (kbd "SPC") 'neotree-quick-look
-    (kbd "RET") 'neotree-quick-look))
+    (kbd "TAB") 'neotree-enter
+    (kbd "SPC") 'neotree-enter
+    (kbd "RET") 'neotree-enter))
 
 ;; linum is laggy. use nlinum instead
 (use-package nlinum
