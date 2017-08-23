@@ -1,5 +1,13 @@
 *~
 \#*
+emacs/.emacs.d/bookmarks
+emacs/.emacs.d/custom.el
+emacs/.emacs.d/elpa/
+emacs/.emacs.d/eshell/history
+emacs/.emacs.d/eshell/lastdir
+emacs/.emacs.d/projectile-bookmarks.eld
+emacs/.emacs.d/recentf
+emacs/.emacs.d/url/
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log
 ncmpcpp/.config/mpd/pid
