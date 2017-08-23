@@ -2,12 +2,13 @@
 
 ;;; Commentary:
 
-;;
+;; This file configures Org mode
 
 ;;; Code:
 
 (require 'org)
 
+;; inactive timestamp keybinding
 (define-key org-mode-map (kbd "C-c >") 'org-time-stamp-inactive)
 
 (setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries

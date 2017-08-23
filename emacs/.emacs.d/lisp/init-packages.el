@@ -46,35 +46,35 @@
   (use-package evil-leader
     :config
     (global-evil-leader-mode)
-    (evil-leader/set-leader ",")
+    (evil-leader/set-leader "SPC")
 
     (evil-leader/set-key
       "h"  (lambda ()
 	     (interactive)
 	     (find-file "~/Dropbox/help"))
-      "H"  'help
-      ","  'ace-window
-      "."  'mode-line-other-buffer
-      "W"  'lia/window-swap
-      "w"  'lia/window-switch-split
-      "oo" 'ace-link-org
-      "c"  'comment-region
-      "s"  'eshell
-      "r"  'er/expand-region
-      "f"  'helm-find-files
-      "e"  'flycheck-next-error
-      "E"  'flycheck-previous-error
-      "b"  'helm-mini
-      "p"  'helm-show-kill-ring
-      "d"  'kill-this-buffer
-      "g"  'magit-status
-      "t"  'neotree-toggle
-      "ll" 'nlinum-mode
-      "lr" 'nlinum-relative-toggle
-      "oa" 'org-agenda
-      "ol" 'org-insert-link
-      "op" 'org-pomodoro
-      "ot" 'org-todo
+      "H"   'help
+      "SPC" 'ace-window
+      "TAB" 'mode-line-other-buffer
+      "W"   'lia/window-swap
+      "w"   'lia/window-switch-split
+      "oo"  'ace-link-org
+      "c"   'comment-region
+      "s"   'eshell
+      "r"   'er/expand-region
+      "f"   'helm-find-files
+      "e"   'flycheck-next-error
+      "E"   'flycheck-previous-error
+      "m"   'helm-mini
+      "p"   'helm-show-kill-ring
+      "d"   'kill-this-buffer
+      "g"   'magit-status
+      "t"   'neotree-toggle
+      "ll"  'nlinum-mode
+      "lr"  'nlinum-relative-toggle
+      "oa"  'org-agenda
+      "ol"  'org-insert-link
+      "op"  'org-pomodoro
+      "ot"  'org-todo
       ))
 
   ;; multiple cursors for evil
@@ -511,7 +511,6 @@
 (use-package which-key
   :config
   (setq which-key-allow-evil-operators t)
-  (which-key-setup-side-window-right-bottom)
   (which-key-mode t))
 
 ;; templates
