@@ -31,25 +31,25 @@
   "Custom mode line."
   (interactive)
   (setq-default mode-line-format
-		(list
-		 ;; Any changes since last save?
-		 " %* "
+                (list
+                 ;; Any changes since last save?
+                 " %* "
 
-		 ;; the buffer name; the file name as a tool tip
-		 '(:eval (propertize "%b " 'face 'font-lock-keyword-face
-				     'help-echo (buffer-file-name)))
+                 ;; the buffer name; the file name as a tool tip
+                 '(:eval (propertize "%b " 'face 'font-lock-keyword-face
+                                     'help-echo (buffer-file-name)))
 
-		 ;; line and column
-		 "(" ;; '%02' to set to 2 chars at least; prevents flickering
-		 (propertize "%02l" 'face 'font-lock-type-face) ","
-		 (propertize "%02c" 'face 'font-lock-type-face)
-		 ") "
+                 ;; line and column
+                 "(" ;; '%02' to set to 2 chars at least; prevents flickering
+                 (propertize "%02l" 'face 'font-lock-type-face) ","
+                 (propertize "%02c" 'face 'font-lock-type-face)
+                 ") "
 
-		 ;; the current major mode for the buffer.
-		 "["
-		 '(:eval (propertize "%m" 'face 'font-lock-string-face
-				     'help-echo buffer-file-coding-system))
-		 "] ")))
+                 ;; the current major mode for the buffer.
+                 "["
+                 '(:eval (propertize "%m" 'face 'font-lock-string-face
+                                     'help-echo buffer-file-coding-system))
+                 "] ")))
 ;;(lia/mode-line)
 
 ;; set the fringe size

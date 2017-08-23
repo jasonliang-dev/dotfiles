@@ -49,9 +49,9 @@
     (evil-leader/set-leader "SPC")
 
     (evil-leader/set-key
-      "h"  (lambda ()
-	     (interactive)
-	     (find-file "~/Dropbox/help"))
+      "h"   (lambda ()
+              (interactive)
+              (find-file "~/Dropbox/help"))
       "H"   'help
       "SPC" 'ace-window
       "TAB" 'mode-line-other-buffer
@@ -59,14 +59,16 @@
       "w"   'lia/window-switch-split
       "oo"  'ace-link-org
       "c"   'comment-region
+      "d"   'dired
       "s"   'eshell
       "r"   'er/expand-region
       "f"   'helm-find-files
+      "x"   'helm-M-x
       "e"   'flycheck-next-error
       "E"   'flycheck-previous-error
       "m"   'helm-mini
       "p"   'helm-show-kill-ring
-      "d"   'kill-this-buffer
+      "k"   'kill-this-buffer
       "g"   'magit-status
       "t"   'neotree-toggle
       "ll"  'nlinum-mode
@@ -98,8 +100,8 @@
     :config
     (add-hook 'org-mode-hook 'evil-org-mode)
     (add-hook 'evil-org-mode-hook
-	      (lambda ()
-		(evil-org-set-key-theme)))
+              (lambda ()
+                (evil-org-set-key-theme)))
     (evil-define-key 'emacs org-agenda-mode-map
       "j" 'evil-next-line
       "k" 'evil-previous-line
@@ -155,11 +157,11 @@
   ;; https://github.com/belak/base16-emacs#evil-mode
   ;; Set the cursor color based on the evil state
   (setq evil-emacs-state-cursor   `(,(plist-get lia/base16-colors :base0D) box)
-	evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
-	evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
-	evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
-	evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
-	evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
+        evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
+        evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
+        evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
+        evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
+        evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
 
 ;; show the cursor when the window jumps
 ;; it's not that I have trouble finding the cursor
@@ -167,8 +169,8 @@
 (use-package beacon
   :config
   (setq beacon-dont-blink-major-modes '(neotree-mode
-					magit-status-mode
-					magit-popup-mode))
+                                        magit-status-mode
+                                        magit-popup-mode))
   (beacon-mode t))
 
 ;; swap windows (buffers)
@@ -190,10 +192,10 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner (concat user-emacs-directory "icon/emacs-sexy.png")
-	dashboard-items '((recents . 10)
-			  (bookmarks .10)
-			  (projects . 10)
-			  (agenda . 10))))
+        dashboard-items '((recents . 10)
+                          (bookmarks .10)
+                          (projects . 10)
+                          (agenda . 10))))
 
 ;; hide or shorten minor modes
 (use-package diminish
@@ -225,22 +227,22 @@
   (setq flycheck-indication-mode 'right-fringe)
   (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
     (vector #b00000000
-	    #b00000000
-	    #b00000000
-	    #b00000000
-	    #b00000000
-	    #b00011001
-	    #b00110110
-	    #b01101100
-	    #b11011000
-	    #b01101100
-	    #b00110110
-	    #b00011001
-	    #b00000000
-	    #b00000000
-	    #b00000000
-	    #b00000000
-	    #b00000000)))
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00011001
+            #b00110110
+            #b01101100
+            #b11011000
+            #b01101100
+            #b00110110
+            #b00011001
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00000000)))
 
 ;; dim surrounding text
 (use-package focus)
@@ -299,8 +301,8 @@
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode))
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
 ;; Ever heard of NERDTREE? Basically that.
@@ -309,10 +311,10 @@
   ([f8] . neotree-toggle)
   :config
   (setq neo-smart-open t
-	projectile-switch-project-action 'neotree-projectile-action
-	neo-window-width 35
-	neo-window-fixed-size nil
-	neo-theme (if (display-graphic-p) 'icons 'arrow))
+        projectile-switch-project-action 'neotree-projectile-action
+        neo-window-width 35
+        neo-window-fixed-size nil
+        neo-theme (if (display-graphic-p) 'icons 'arrow))
 
   ;; change neotree's text colours
   ;; oh boy, here we go.
@@ -355,17 +357,17 @@
   (defun lia/nlinum-mode-hook ()
     (when nlinum-mode
       (setq-local nlinum-format
-		  (concat " %" (number-to-string
-				;; Guesstimate number of buffer lines.
-				(ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-			  "d "))))
+                  (concat " %" (number-to-string
+                                ;; Guesstimate number of buffer lines.
+                                (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+                          "d "))))
   (add-hook 'nlinum-mode-hook #'lia/nlinum-mode-hook))
 
 ;; relative line numbers
 (use-package nlinum-relative
   :config
   (setq nlinum-relative-current-symbol ""
-	nlinum-relative-redisplay-delay 0)
+        nlinum-relative-redisplay-delay 0)
 
   (nlinum-relative-setup-evil))
 
@@ -387,8 +389,8 @@
 (use-package org-bullets
   :init
   (add-hook 'org-mode-hook
-	    (lambda ()
-	      (org-bullets-mode 1)))
+            (lambda ()
+              (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
 
 ;; pomodoro
@@ -405,18 +407,18 @@
 (use-package powerline
   :config
   (setq powerline-default-separator 'slant
-	powerline-height 35)
+        powerline-height 35)
 
   (set-face-attribute 'powerline-active1 nil
-		      :foreground (plist-get lia/base16-colors :base05)
-		      :background (plist-get lia/base16-colors :base01))
+                      :foreground (plist-get lia/base16-colors :base05)
+                      :background (plist-get lia/base16-colors :base01))
 
   (set-face-attribute 'powerline-active2 nil
-		      :background (plist-get lia/base16-colors :base01))
+                      :background (plist-get lia/base16-colors :base01))
 
   (set-face-attribute 'powerline-inactive1 nil
-		      :foreground (plist-get lia/base16-colors :base03)
-		      :background (plist-get lia/base16-colors :base01)))
+                      :foreground (plist-get lia/base16-colors :base03)
+                      :background (plist-get lia/base16-colors :base01)))
 
 ;; features for projects
 (use-package projectile
@@ -424,7 +426,7 @@
   (projectile-mode t)
   ;; https://github.com/sviridov/.emacs.d/blob/master/config/base/init-diminish.el#L25
   (setq-default projectile-mode-line
-		'(:eval (format "Pro[%s]" (projectile-project-name)))))
+                '(:eval (format "Pro[%s]" (projectile-project-name)))))
 
 ;; rainbow brackets
 (use-package rainbow-delimiters
@@ -438,6 +440,19 @@
   (require 'smartparens-config)
   (smartparens-global-mode t))
 
+;; use tabs for indentation, spaces for alignment
+;; relevent image: https://camo.githubusercontent.com/38467eb65de742741e216b6df7f986f2d7a621c6/687474703a2f2f7777772e656d61637377696b692e6f72672f706963732f7374617469632f54616273537061636573426f74682e706e67
+(use-package smart-tabs-mode
+  :config
+  (smart-tabs-insinuate 'c
+                        'c++
+                        'java
+                        'javascript
+                        'cperl
+                        'python
+                        'ruby
+                        'nxml))
+
 ;; stop jumping all over the place, it hurts my eyes
 (use-package smooth-scrolling
   :config
@@ -449,28 +464,28 @@
   (require 'spaceline-config)
 
   (setq spaceline-minor-modes-separator " "
-	spaceline-separator-dir-left '(right . right)
-	spaceline-separator-dir-right '(right . right)
-	spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+        spaceline-separator-dir-left '(right . right)
+        spaceline-separator-dir-right '(right . right)
+        spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
   (eval
    `(defface lia/mode-line-face
       '((t :foreground ,(plist-get lia/base16-colors :base05)
-	   :background ,(plist-get lia/base16-colors :base02)
-	   :inherit 'mode-line))
+           :background ,(plist-get lia/base16-colors :base02)
+           :inherit 'mode-line))
       "Custom mode line face"
       :group 'lia/faces))
 
   ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
   (setq spaceline-face-func
-	(lambda (face active)
-	  (cond
-	   ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
-	   ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
-	   ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
-	   ((eq 'highlight face) (if active
-				     (funcall spaceline-highlight-face-func)
-				   'powerline-inactive1)))))
+        (lambda (face active)
+          (cond
+           ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
+           ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
+           ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
+           ((eq 'highlight face) (if active
+                                     (funcall spaceline-highlight-face-func)
+                                   'powerline-inactive1)))))
 
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-off)
@@ -498,7 +513,7 @@
   :ensure nil
   :config
   (let ((org-super-agenda-groups
-	 '((:auto-category t))))
+         '((:auto-category t))))
     (org-agenda-list))
   (org-super-agenda-mode t))
 

@@ -28,55 +28,55 @@
        (headline           `(:inherit default :weight bold :height 130)))
 
   (custom-theme-set-faces 'user
-			  `(org-level-8 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-7 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-6 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-5 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-4 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-3 ((t (,@headline ,@variable-tuple :height 150))))
-			  `(org-level-2 ((t (,@headline ,@variable-tuple :height 170))))
-			  `(org-level-1 ((t (,@headline ,@variable-tuple :height 190))))
-			  `(org-document-title ((t (,@headline
-						    ,@variable-tuple
-						    :height 250
-						    :underline nil))))))
+                          `(org-level-8 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-7 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-6 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-5 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-4 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-3 ((t (,@headline ,@variable-tuple :height 150))))
+                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 170))))
+                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 190))))
+                          `(org-document-title ((t (,@headline
+                                                    ,@variable-tuple
+                                                    :height 250
+                                                    :underline nil))))))
 
 ;; set agenda files
 ;; https://www.reddit.com/r/emacs/comments/4z1pfn/allow_orgagendafiles_to_fail_gracefully/d6s62ue/
 (setq org-agenda-files
       (delq nil
-	    (mapcar (lambda (file) (and (file-exists-p file) file))
-		    '("~/Dropbox/org/"))))
+            (mapcar (lambda (file) (and (file-exists-p file) file))
+                    '("~/Dropbox/org/"))))
 
 ;; org source code languages
 (setq org-src-fontify-natively t)
 (org-babel-do-load-languages
  'org-babel-load-languages '((css . t)
-			     (emacs-lisp . t)
-			     (java . t)
-			     (js . t)
-			     (latex . t)
-			     (lisp . t)
-			     (org . t)
-			     (perl . t)
-			     (python . t)
-			     (ruby . t)
-			     (sh . t)))
+                             (emacs-lisp . t)
+                             (java . t)
+                             (js . t)
+                             (latex . t)
+                             (lisp . t)
+                             (org . t)
+                             (perl . t)
+                             (python . t)
+                             (ruby . t)
+                             (sh . t)))
 
 ;; custom todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)"
-		  "IN-PROGRESS(i)"
-		  "ON HOLD(h)"
-		  "WAITING(w)"
-		  "|"
-		  "DONE(d)"
-		  "CANCELED(c)")
-	(sequence "[ ](T)"
-		  "[-](I)"
-		  "[*](W)"
-		  "|"
-		  "[X](D)")))
+                  "IN-PROGRESS(i)"
+                  "ON HOLD(h)"
+                  "WAITING(w)"
+                  "|"
+                  "DONE(d)"
+                  "CANCELED(c)")
+        (sequence "[ ](T)"
+                  "[-](I)"
+                  "[*](W)"
+                  "|"
+                  "[X](D)")))
 
 ;; I meant 3:00 in the afternoon! not 3:00am!
 ;; https://emacs.stackexchange.com/a/3320
