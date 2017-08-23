@@ -1,6 +1,6 @@
 " SET LEADER
 
-let mapleader = ","
+let mapleader = " "
 
 " VUNDLE
 
