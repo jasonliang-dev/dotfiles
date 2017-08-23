@@ -65,6 +65,7 @@
       "e"  'flycheck-next-error
       "E"  'flycheck-previous-error
       "b"  'helm-mini
+      "p"  'helm-show-kill-ring
       "d"  'kill-this-buffer
       "g"  'magit-status
       "t"  'neotree-toggle
@@ -188,8 +189,7 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  ;; TODO: random string for title
-  (setq dashboard-startup-banner 'logo
+  (setq dashboard-startup-banner (concat user-emacs-directory "icon/emacs-sexy.png")
 	dashboard-items '((recents . 10)
 			  (bookmarks .10)
 			  (projects . 10)
@@ -343,9 +343,9 @@
     (kbd "m") 'neotree-rename-node
     (kbd "c") 'neotree-create-node
     (kbd "d") 'neotree-delete-node
-    (kbd "TAB") 'neotree-enter
-    (kbd "SPC") 'neotree-change-root
-    (kbd "RET") 'neotree-change-root))
+    (kbd "TAB") 'neotree-quick-look
+    (kbd "SPC") 'neotree-quick-look
+    (kbd "RET") 'neotree-quick-look))
 
 ;; linum is laggy. use nlinum instead
 (use-package nlinum
