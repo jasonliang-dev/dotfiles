@@ -1,14 +1,1 @@
-alias open find-file $1
-alias f find-file $1
-
-alias .. cd ..
-alias  l ls -l $*
-alias la ls -a $*
-alias ll ls -al $*
-
-alias t tmux
-alias v vim
-
-alias clear recenter 0
-alias c recenter 0
 alias x exit

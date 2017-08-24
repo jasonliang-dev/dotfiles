@@ -52,6 +52,10 @@
       "SPC" 'ace-window
       "TAB" 'mode-line-other-buffer
       "c"   'comment-region
+      "d"   (lambda ()
+              (interactive)
+              (neotree-hide)
+              (deer))
       "E"   'flycheck-previous-error
       "e"   'flycheck-next-error
       "f"   (lambda ()
@@ -169,6 +173,7 @@
 ;; it's not that I have trouble finding the cursor
 ;; I think this just looks cool
 (use-package beacon
+  :diminish beacon-mode
   :config
   (setq beacon-dont-blink-major-modes '(dired-mode
 					neotree-mode
@@ -209,11 +214,8 @@
   (diminish 'undo-tree-mode))
 
 ;; emmet
-(use-package emmet
-  :disabled
-  :ensure nil
-  :bind
-  ("C-j" . 'emmet-expand-line)
+(use-package emmet-mode
+  :diminish (emmet-mode . "em")
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
@@ -249,7 +251,8 @@
             #b00000000)))
 
 ;; dim surrounding text
-(use-package focus)
+(use-package focus
+  :commands focus-mode)
 
 ;; show git changes in gutter
 (use-package git-gutter-fringe
@@ -313,6 +316,7 @@
 (use-package neotree
   :bind
   ([f8] . neotree-toggle)
+  :commands neotree-toggle
   :config
   (setq neo-smart-open t
         projectile-switch-project-action 'neotree-projectile-action
@@ -439,8 +443,7 @@
 ;; emulate ranger in dired
 (use-package ranger
   :config
-  (setq ranger-cleanup-eagerly t)
-  (setq ranger-show-hidden t))
+  (setq ranger-cleanup-eagerly t))
 
 ;; deal with pairs of parentheses better
 (use-package smartparens
@@ -533,13 +536,14 @@
 
 ;; display available bindings
 (use-package which-key
+  :diminish which-key-mode
   :config
   (setq which-key-allow-evil-operators t)
   (which-key-mode t))
 
 ;; templates
 (use-package yasnippet
-  ;;:diminish yas-minor-mode
+  :diminish yas-minor-mode
   :config
   (yas-global-mode t))
 
