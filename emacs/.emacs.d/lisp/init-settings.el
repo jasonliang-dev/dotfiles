@@ -33,9 +33,6 @@
       mouse-wheel-progressive-speed nil ; don't accelerate scrolling
       mouse-wheel-follow-mouse 't)      ; scroll window under mouse
 
-;; goto the last change
-(global-set-key (kbd "C-M-.") 'goto-last-change)
-
 (defun lia/the-the ()
   "Search forward for for a duplicated word."
   (interactive)

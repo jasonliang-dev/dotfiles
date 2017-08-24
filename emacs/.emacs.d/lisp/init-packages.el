@@ -32,59 +32,6 @@
   ;; Scroll up with C-u
   (setq evil-want-C-u-scroll t)
   :config
-  ;; move by visual line
-  (evil-global-set-key 'motion (kbd "j") 'evil-next-visual-line)
-  (evil-global-set-key 'motion (kbd "k") 'evil-previous-visual-line)
-
-  ;; easy window navigation
-  (evil-global-set-key 'motion (kbd "C-h") 'evil-window-left)
-  (evil-global-set-key 'motion (kbd "C-j") 'evil-window-down)
-  (evil-global-set-key 'motion (kbd "C-k") 'evil-window-up)
-  (evil-global-set-key 'motion (kbd "C-l") 'evil-window-right)
-
-  ;; leader key
-  (use-package evil-leader
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader "SPC")
-
-    (evil-leader/set-key
-      "SPC" 'ace-window
-      "TAB" 'mode-line-other-buffer
-      "c"   'comment-region
-      "d"   (lambda ()
-              (interactive)
-              (neotree-hide)
-              (deer))
-      "E"   'flycheck-previous-error
-      "e"   'flycheck-next-error
-      "f"   (lambda ()
-              (interactive)
-              (neotree-hide)
-              (ranger))
-      "g"   'magit-status
-      "H"   'help
-      "h"   (lambda ()
-              (interactive)
-              (find-file "~/Dropbox/help"))
-      "k"   'kill-this-buffer
-      "m"   'helm-mini
-      "p"   'helm-show-kill-ring
-      "r"   'er/expand-region
-      "s"   'eshell
-      "t"   'neotree-toggle
-      "W"   'lia/window-swap
-      "w"   'lia/window-switch-split
-      "x"   'helm-M-x
-      "ll"  'nlinum-mode
-      "lr"  'nlinum-relative-toggle
-      "oa"  'org-agenda
-      "ol"  'org-insert-link
-      "oo"  'ace-link-org
-      "op"  'org-pomodoro
-      "ot"  'org-todo
-      ))
-
   ;; multiple cursors for evil
   (use-package evil-mc
     :diminish evil-mc-mode
@@ -95,10 +42,7 @@
   (use-package evil-magit)
 
   ;; increment/decrement numbers
-  (use-package evil-numbers
-    :bind
-    (("C-c +" . evil-numbers/inc-at-pt)
-     ("C-c -" . evil-numbers/dec-at-pt)))
+  (use-package evil-numbers)
 
   ;; evil keys in org mode
   (use-package evil-org
@@ -107,12 +51,7 @@
     (add-hook 'org-mode-hook 'evil-org-mode)
     (add-hook 'evil-org-mode-hook
               (lambda ()
-                (evil-org-set-key-theme)))
-    (evil-define-key 'emacs org-agenda-mode-map
-      "j" 'evil-next-line
-      "k" 'evil-previous-line
-      "J" 'org-agenda-later
-      "K" 'org-agenda-earlier))
+                (evil-org-set-key-theme))))
   
   ;; vim surround
   (use-package evil-surround
@@ -124,10 +63,154 @@
     :diminish evil-vimish-fold-mode
     :config
     (setq vimish-fold-header-width nil)
-
-    (evil-define-key 'normal prog-mode-map [tab] 'vimish-fold-toggle)
-
     (evil-vimish-fold-mode t)))
+
+;; A completion framework
+;; helm is heavy, but full of features
+(use-package helm
+  :disabled
+  :diminish helm-mode
+  :init
+  (helm-mode 1)
+  :config
+  ;; helm integration with projectile
+  (use-package helm-projectile
+    :disabled
+    :config
+    (helm-projectile-on)))
+
+;; Another completion framework
+;; ivy is lightweight and simple
+(use-package ivy
+  :diminish ivy-mode
+  :config
+  (ivy-mode t)
+  ;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 16)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+
+  ;; ivy integeration with projectile
+  (use-package counsel-projectile
+    :config
+    (counsel-projectile-on)))
+
+;; manage keybindings
+(use-package general
+  :config
+  ;; leader keybinds
+  (general-define-key
+   :states '(normal visual motion insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "SPC" 'ace-window
+   "TAB" 'mode-line-other-buffer
+   "/"   'swiper
+   "c"   'comment-region
+   "d"   (lambda ()
+	   (interactive)
+	   (neotree-hide)
+	   (deer))
+   "e"   'flycheck-previous-error
+   "e"   'flycheck-next-error
+   "f"   (lambda ()
+	   (interactive)
+	   (neotree-hide)
+	   (ranger))
+   "gk"  'general-describe-keybindings
+   "gs"  'magit-status
+   "h"   'help
+   "h"   (lambda ()
+	   (interactive)
+	   (find-file "~/Dropbox/help"))
+   "k"   'kill-this-buffer
+   "m"   'ivy-switch-buffer
+   "p"   'counsel-yank-pop
+   "r"   'er/expand-region
+   "s"   'eshell
+   "t"   'neotree-toggle
+   "w"   'lia/window-swap
+   "w"   'lia/window-switch-split
+   "x"   'counsel-M-x
+   "ll"  'nlinum-mode
+   "lr"  'nlinum-relative-toggle
+   "oa"  'org-agenda
+   "ol"  'org-insert-link
+   "oo"  'ace-link-org
+   "op"  'org-pomodoro
+   "ot"  'org-todo)
+
+  ;; evil mode
+  (general-define-key
+   :states '(normal visual motion)
+   "j" 'evil-next-visual-line
+   "k" 'evil-previous-visual-line
+
+   "C-h" 'evil-window-left
+   "C-j" 'evil-window-down
+   "C-k" 'evil-window-up
+   "C-l" 'evil-window-right)
+
+  ;; vimish-fold
+  (general-define-key
+   :states 'normal
+   :keymaps 'prog-mode-map
+   "TAB" 'vimish-fold-toggle)
+
+  ;; evil-numbers
+  (general-define-key
+   :prefix "C-c"
+   "+" 'evil-numbers/inc-at-pt
+   "-" 'evil-numbers/dec-at-pt)
+
+  ;; buffer-move
+  (general-define-key
+   "C-S-h" 'buf-move-left
+   "C-S-j" 'buf-move-down
+   "C-S-k" 'buf-move-up
+   "C-S-l" 'buf-move-right)
+
+  ;; magit quit
+  (general-define-key
+   :keymaps 'magit-status-mode-map
+   "q" 'magit-quit-session)
+
+  ;; neotree
+  (general-define-key
+   [f8] 'neotree-toggle)
+  (general-define-key
+   :states 'normal
+   :keymaps 'neotree-mode-map
+   "q"   'neotree-hide
+   "h"	 'neotree-hidden-file-toggle
+   "z"	 'neotree-stretch-toggle
+   "R"	 'neotree-refresh
+   "m"	 'neotree-rename-node
+   "c"	 'neotree-create-node
+   "d"	 'neotree-delete-node
+   "TAB" 'neotree-quick-look
+   "RET" 'neotree-enter)
+
+  ;; org mode
+  (general-define-key
+   :keymaps 'org-mode-map
+   :prefix "C-c"
+   ">" 'org-time-stamp-inactive)
+  ;; org agenda
+  (general-define-key
+   :states 'emacs
+   :keymaps 'org-agenda-mode-map
+   "j" 'evil-next-line
+   "k" 'evil-previous-line
+   "J" 'org-agenda-later
+   "K" 'org-agenda-earlier)
+
+  ;; other bindings
+  (general-define-key
+   "C-M-." 'goto-last-change))
 
 ;; quickly select different windows
 (use-package ace-window
@@ -183,12 +266,7 @@
   (beacon-mode t))
 
 ;; swap windows (buffers)
-(use-package buffer-move
-  :config
-  (evil-global-set-key 'motion (kbd "C-S-h") 'buf-move-left)
-  (evil-global-set-key 'motion (kbd "C-S-j") 'buf-move-down)
-  (evil-global-set-key 'motion (kbd "C-S-k") 'buf-move-up)
-  (evil-global-set-key 'motion (kbd "C-S-l") 'buf-move-right))
+(use-package buffer-move)
 
 ;; text completion
 (use-package company
@@ -217,6 +295,7 @@
 (use-package emmet-mode
   :diminish (emmet-mode . "em")
   :config
+  (add-hook 'web-mode-hook  'emmet-mode)
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
 
@@ -275,19 +354,6 @@
     "XXX....."
     "XXXX...."))
 
-;; narrow lists
-(use-package helm
-  :diminish helm-mode
-  :bind
-  ("M-x" . helm-M-x)
-  :init
-  (helm-mode 1))
-
-;; helm integration with projectile
-(use-package helm-projectile
-  :config
-  (helm-projectile-on))
-
 ;; git
 (use-package magit
   :config
@@ -301,8 +367,7 @@
     "Restores the previous window configuration and kills the magit buffer"
     (interactive)
     (kill-buffer)
-    (jump-to-register :magit-fullscreen))
-  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+    (jump-to-register :magit-fullscreen)))
 
 ;; major mode for markdown
 (use-package markdown-mode
@@ -314,8 +379,6 @@
 
 ;; Ever heard of NERDTREE? Basically that.
 (use-package neotree
-  :bind
-  ([f8] . neotree-toggle)
   :commands neotree-toggle
   :config
   (setq neo-smart-open t
@@ -344,17 +407,7 @@
   (set-face-foreground 'neo-vc-ignored-face          (plist-get lia/base16-colors :base03))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  (evil-define-key 'normal neotree-mode-map
-    (kbd "q") 'neotree-hide
-    (kbd "h") 'neotree-hidden-file-toggle
-    (kbd "z") 'neotree-stretch-toggle
-    (kbd "R") 'neotree-refresh
-    (kbd "m") 'neotree-rename-node
-    (kbd "c") 'neotree-create-node
-    (kbd "d") 'neotree-delete-node
-    (kbd "TAB") 'neotree-quick-look
-    (kbd "RET") 'neotree-enter))
+  (setq projectile-switch-project-action 'neotree-projectile-action))
 
 ;; linum is laggy. use nlinum instead
 (use-package nlinum
@@ -377,20 +430,6 @@
         nlinum-relative-redisplay-delay 0)
 
   (nlinum-relative-setup-evil))
-
-;; diagrams (concept map)
-(use-package org-brain
-  :disabled
-  :ensure nil
-  :init
-  (setq org-brain-path "~/Dropbox/org/brain")
-  :config
-  ;; For Evil users
-  (eval-after-load 'evil
-    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-  (setq org-id-track-globally t)
-  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
-  (setq org-brain-visualize-default-choices 'all))
 
 ;; cool looking bullets in org
 (use-package org-bullets
@@ -513,11 +552,9 @@
 
 ;; make the editor more sublime-y
 (use-package sublimity
-  :disabled
+  :commands sublimity-mode
   :config
-  ;;(require 'sublimity-map)
-  (require 'sublimity-scroll)
-  (sublimity-mode t))
+  (require 'sublimity-scroll))
 
 ;; better agenda
 (use-package org-super-agenda
@@ -531,8 +568,23 @@
 
 ;; neat features for web development
 (use-package web-mode
-  :disabled
-  :ensure nil)
+  :config
+  ;; use web mode when editing certain files
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+  (defun lia/web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 4)
+    (setq web-mode-css-indent-offset 4)
+    (setq web-mode-code-indent-offset 4))
+  (add-hook 'web-mode-hook 'my-web-mode-hook))
 
 ;; display available bindings
 (use-package which-key
