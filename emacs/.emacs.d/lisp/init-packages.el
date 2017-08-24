@@ -49,32 +49,35 @@
     (evil-leader/set-leader "SPC")
 
     (evil-leader/set-key
+      "SPC" 'ace-window
+      "TAB" 'mode-line-other-buffer
+      "c"   'comment-region
+      "d"   (lambda ()
+              (interactive)
+              (neotree-hide)
+              (ranger))
+      "E"   'flycheck-previous-error
+      "e"   'flycheck-next-error
+      "f"   'helm-find-files
+      "g"   'magit-status
+      "H"   'help
       "h"   (lambda ()
               (interactive)
               (find-file "~/Dropbox/help"))
-      "H"   'help
-      "SPC" 'ace-window
-      "TAB" 'mode-line-other-buffer
-      "W"   'lia/window-swap
-      "w"   'lia/window-switch-split
-      "oo"  'ace-link-org
-      "c"   'comment-region
-      "d"   'dired
-      "s"   'eshell
-      "r"   'er/expand-region
-      "f"   'helm-find-files
-      "x"   'helm-M-x
-      "e"   'flycheck-next-error
-      "E"   'flycheck-previous-error
+      "k"   'kill-this-buffer
       "m"   'helm-mini
       "p"   'helm-show-kill-ring
-      "k"   'kill-this-buffer
-      "g"   'magit-status
+      "r"   'er/expand-region
+      "s"   'eshell
       "t"   'neotree-toggle
+      "W"   'lia/window-swap
+      "w"   'lia/window-switch-split
+      "x"   'helm-M-x
       "ll"  'nlinum-mode
       "lr"  'nlinum-relative-toggle
       "oa"  'org-agenda
       "ol"  'org-insert-link
+      "oo"  'ace-link-org
       "op"  'org-pomodoro
       "ot"  'org-todo
       ))
