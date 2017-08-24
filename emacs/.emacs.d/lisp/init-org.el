@@ -8,9 +8,6 @@
 
 (require 'org)
 
-;; inactive timestamp keybinding
-(define-key org-mode-map (kbd "C-c >") 'org-time-stamp-inactive)
-
 (setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
       org-ellipsis " ⤵" ; custom ellipsis
       org-hide-emphasis-markers t ; hide formating characters
@@ -25,7 +22,7 @@
                              ((x-list-fonts "Verdana")         '(:font "Verdana"))
                              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
                              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-       (headline           `(:inherit default :weight bold :height 130)))
+       (headline           `(:inherit default :weight bold :height 140)))
 
   (custom-theme-set-faces 'user
                           `(org-level-8 ((t (,@headline ,@variable-tuple))))
@@ -33,12 +30,12 @@
                           `(org-level-6 ((t (,@headline ,@variable-tuple))))
                           `(org-level-5 ((t (,@headline ,@variable-tuple))))
                           `(org-level-4 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-3 ((t (,@headline ,@variable-tuple :height 150))))
-                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 170))))
-                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 190))))
+                          `(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
+                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
+                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
                           `(org-document-title ((t (,@headline
                                                     ,@variable-tuple
-                                                    :height 250
+                                                    :height 300
                                                     :underline nil))))))
 
 ;; set agenda files
