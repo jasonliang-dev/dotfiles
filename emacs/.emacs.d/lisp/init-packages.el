@@ -52,13 +52,12 @@
       "SPC" 'ace-window
       "TAB" 'mode-line-other-buffer
       "c"   'comment-region
-      "d"   (lambda ()
+      "E"   'flycheck-previous-error
+      "e"   'flycheck-next-error
+      "f"   (lambda ()
               (interactive)
               (neotree-hide)
               (ranger))
-      "E"   'flycheck-previous-error
-      "e"   'flycheck-next-error
-      "f"   'helm-find-files
       "g"   'magit-status
       "H"   'help
       "h"   (lambda ()
@@ -171,9 +170,11 @@
 ;; I think this just looks cool
 (use-package beacon
   :config
-  (setq beacon-dont-blink-major-modes '(neotree-mode
+  (setq beacon-dont-blink-major-modes '(dired-mode
+					neotree-mode
                                         magit-status-mode
-                                        magit-popup-mode))
+                                        magit-popup-mode
+                                        ranger-mode))
   (beacon-mode t))
 
 ;; swap windows (buffers)
@@ -348,8 +349,7 @@
     (kbd "m") 'neotree-rename-node
     (kbd "c") 'neotree-create-node
     (kbd "d") 'neotree-delete-node
-    (kbd "TAB") 'neotree-enter
-    (kbd "SPC") 'neotree-enter
+    (kbd "TAB") 'neotree-quick-look
     (kbd "RET") 'neotree-enter))
 
 ;; linum is laggy. use nlinum instead
@@ -435,6 +435,12 @@
 (use-package rainbow-delimiters
   :init
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+;; emulate ranger in dired
+(use-package ranger
+  :config
+  (setq ranger-cleanup-eagerly t)
+  (setq ranger-show-hidden t))
 
 ;; deal with pairs of parentheses better
 (use-package smartparens
