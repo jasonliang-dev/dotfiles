@@ -18,10 +18,15 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
-;; Write backup files to own directory
+;; always follow symlinks under version control
+(setq vc-follow-symlinks t)
+
+;; Write backup and auto-save files to their own directory
+(defvar lia/backup-dir (concat user-emacs-directory "backup"))
 (setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
+      `((".*" . ,lia/backup-dir)))
+(setq auto-save-file-name-transforms
+      `((".*" ,lia/backup-dir t)))
 
 ;; mouse wheel scrolling
 (setq mouse-wheel-scroll-amount '(5)    ; mouse scroll amount
