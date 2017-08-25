@@ -9,6 +9,13 @@
 ;; required by package
 (package-initialize)
 
+;; remove bars
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+(fset 'yes-or-no-p 'y-or-n-p) ; yes/no prompts are y/n
+
 ;; Add my config directory to load path
 (defvar lia/config-directory
   (concat user-emacs-directory "lisp"))
@@ -20,7 +27,6 @@
 (load custom-file 'noerror)
 
 ;; load my configuration files
-(require 'init-first)
 (require 'init-packages)
 (require 'init-appearance)
 (require 'init-org)
