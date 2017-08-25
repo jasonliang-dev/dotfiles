@@ -21,17 +21,25 @@
 ;; always follow symlinks under version control
 (setq vc-follow-symlinks t)
 
-;; Write backup and auto-save files to their own directory
-(defvar lia/backup-dir (concat user-emacs-directory "backup"))
-(setq backup-directory-alist
-      `((".*" . ,lia/backup-dir)))
-(setq auto-save-file-name-transforms
-      `((".*" ,lia/backup-dir t)))
-
 ;; mouse wheel scrolling
 (setq mouse-wheel-scroll-amount '(5)    ; mouse scroll amount
       mouse-wheel-progressive-speed nil ; don't accelerate scrolling
       mouse-wheel-follow-mouse 't)      ; scroll window under mouse
+
+;; https://www.emacswiki.org/emacs/KillingBuffers#toc2
+(defun lia/kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+;; https://www.emacswiki.org/emacs/KillingBuffers#toc3
+(defun lia/kill-dired-buffers ()
+  "Kill dired buffers."
+  (interactive)
+  (mapc (lambda (buffer)
+	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+	    (kill-buffer buffer)))
+	(buffer-list)))
 
 (defun lia/the-the ()
   "Search forward for for a duplicated word."

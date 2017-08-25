@@ -43,7 +43,7 @@
 (setq org-agenda-files
       (delq nil
             (mapcar (lambda (file) (and (file-exists-p file) file))
-                    '("~/Dropbox/org/"))))
+                    '("~/Dropbox/org/planner.org"))))
 
 ;; org source code languages
 (setq org-src-fontify-natively t)

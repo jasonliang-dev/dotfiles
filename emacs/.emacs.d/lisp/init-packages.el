@@ -75,7 +75,6 @@
   :config
   ;; helm integration with projectile
   (use-package helm-projectile
-    :disabled
     :config
     (helm-projectile-on)))
 
@@ -256,6 +255,7 @@
 ;; it's not that I have trouble finding the cursor
 ;; I think this just looks cool
 (use-package beacon
+  :disabled
   :diminish beacon-mode
   :config
   (setq beacon-dont-blink-major-modes '(dired-mode
@@ -300,7 +300,6 @@
   (add-hook 'css-mode-hook  'emmet-mode))
 
 ;; expand region
-(use-package expand-region)
 
 ;; syntax checking
 (use-package flycheck
@@ -464,7 +463,48 @@
 
   (set-face-attribute 'powerline-inactive1 nil
                       :foreground (plist-get lia/base16-colors :base03)
-                      :background (plist-get lia/base16-colors :base01)))
+                      :background (plist-get lia/base16-colors :base01))
+
+;; modeline from spacemacs
+  (use-package spaceline
+    :config
+    (require 'spaceline-config)
+
+    (setq spaceline-minor-modes-separator " "
+	  spaceline-separator-dir-left '(right . right)
+	  spaceline-separator-dir-right '(right . right)
+	  spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+
+    (eval
+     `(defface lia/mode-line-face
+	'((t :foreground ,(plist-get lia/base16-colors :base05)
+	     :background ,(plist-get lia/base16-colors :base02)
+	     :inherit 'mode-line))
+	"Custom mode line face"
+	:group 'lia/faces))
+
+    ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
+    (setq spaceline-face-func
+	  (lambda (face active)
+	    (cond
+	     ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
+	     ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
+	     ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
+	     ((eq 'highlight face) (if active
+				       (funcall spaceline-highlight-face-func)
+				     'powerline-inactive1)))))
+
+    (spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-buffer-size-off)
+    (spaceline-toggle-buffer-encoding-abbrev-off)
+    (spaceline-spacemacs-theme)
+
+    (use-package spaceline-all-the-icons
+      :disabled
+      :ensure nil
+      :config
+      (spaceline-all-the-icons-theme)
+      (spaceline-all-the-icons--setup-neotree))))
 
 ;; features for projects
 (use-package projectile
@@ -482,7 +522,7 @@
 ;; emulate ranger in dired
 (use-package ranger
   :config
-  (setq ranger-cleanup-eagerly t))
+  (setq ranger-cleanup-on-disable t))
 
 ;; deal with pairs of parentheses better
 (use-package smartparens
@@ -508,47 +548,6 @@
 (use-package smooth-scrolling
   :config
   (smooth-scrolling-mode t))
-
-;; modeline from spacemacs
-(use-package spaceline
-  :config
-  (require 'spaceline-config)
-
-  (setq spaceline-minor-modes-separator " "
-        spaceline-separator-dir-left '(right . right)
-        spaceline-separator-dir-right '(right . right)
-        spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-
-  (eval
-   `(defface lia/mode-line-face
-      '((t :foreground ,(plist-get lia/base16-colors :base05)
-           :background ,(plist-get lia/base16-colors :base02)
-           :inherit 'mode-line))
-      "Custom mode line face"
-      :group 'lia/faces))
-
-  ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
-  (setq spaceline-face-func
-        (lambda (face active)
-          (cond
-           ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
-           ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
-           ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
-           ((eq 'highlight face) (if active
-                                     (funcall spaceline-highlight-face-func)
-                                   'powerline-inactive1)))))
-
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-buffer-encoding-abbrev-off)
-  (spaceline-spacemacs-theme)
-
-  (use-package spaceline-all-the-icons
-    :disabled
-    :ensure nil
-    :config
-    (spaceline-all-the-icons-theme)
-    (spaceline-all-the-icons--setup-neotree)))
 
 ;; make the editor more sublime-y
 (use-package sublimity
