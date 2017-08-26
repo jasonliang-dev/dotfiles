@@ -95,11 +95,6 @@
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
     <!-- Workspaces -->
-    <keybind key="W-e">
-      <action name="GoTodesktop">
-        <to>8</to>
-      </action>
-    </keybind>
     <keybind key="W-S-u">
       <action name="SendToDesktop">
         <to>1</to>
