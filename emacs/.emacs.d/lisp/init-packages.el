@@ -438,6 +438,18 @@
               (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
 
+;; sync with google calendar
+(use-package org-gcal
+  :commands
+  (org-gcal-sync
+   org-gcal-fetch
+   org-gcal-post-at-point
+   org-gcal-delete-at-point
+   org-gcal-refresh-token)
+  :config
+  (defvar lia/gcal-config "~/Dropbox/org/org-gcal.el")
+  (when (file-exists-p lia/gcal-config) (load-file lia/gcal-config)))
+
 ;; pomodoro
 (use-package org-pomodoro
   :config
@@ -520,9 +532,7 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; emulate ranger in dired
-(use-package ranger
-  :config
-  (setq ranger-cleanup-on-disable t))
+(use-package ranger)
 
 ;; deal with pairs of parentheses better
 (use-package smartparens

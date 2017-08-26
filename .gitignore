@@ -5,6 +5,7 @@ emacs/.emacs.d/custom.el
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
+emacs/.emacs.d/org-gcal/
 emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/recentf
 emacs/.emacs.d/url/
