@@ -30,8 +30,7 @@
 ;; add package repos
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "http://melpa.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.org/packages/")))
+			 ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
 
@@ -87,10 +86,24 @@
     (setq vimish-fold-header-width nil)
     (evil-vimish-fold-mode t)))
 
+;; base16 colours
+(use-package base16-theme
+  :config
+  (load-theme 'base16-material t)
+  (defconst lia/base16-colors base16-material-colors)
+
+  ;; https://github.com/belak/base16-emacs#evil-mode
+  ;; Set the cursor color based on the evil state
+  (setq evil-emacs-state-cursor   `(,(plist-get lia/base16-colors :base0D) box)
+        evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
+        evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
+        evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
+        evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
+        evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
+
 ;; A completion framework
 ;; helm is heavy, but full of features
 (use-package helm
-  :disabled
   :diminish helm-mode
   :init
   (helm-mode 1)
@@ -98,11 +111,27 @@
   ;; helm integration with projectile
   (use-package helm-projectile
     :config
-    (helm-projectile-on)))
+    (helm-projectile-on))
+
+  ;;  search matches in another buffer
+  (use-package helm-swoop
+    :config
+    (set-face-attribute 'helm-swoop-target-line-face nil
+			:background (plist-get lia/base16-colors :base01)
+			:foreground (plist-get lia/base16-colors :base05))
+
+    (set-face-attribute 'helm-swoop-target-line-block-face nil
+			:background (plist-get lia/base16-colors :base01)
+			:foreground (plist-get lia/base16-colors :base05))
+
+    (set-face-attribute 'helm-swoop-target-word-face nil
+			:background (plist-get lia/base16-colors :base0D)
+			:foreground (plist-get lia/base16-colors :base05))))
 
 ;; Another completion framework
 ;; ivy is lightweight and simple
 (use-package ivy
+  :disabled
   :diminish ivy-mode
   :config
   (ivy-mode t)
@@ -129,40 +158,49 @@
    :non-normal-prefix "M-SPC"
    "SPC" 'ace-window
    "TAB" 'mode-line-other-buffer
-   "/"   'swiper
    "c"   'comment-region
-   "d"   (lambda ()
-	   (interactive)
-	   (neotree-hide)
-	   (deer))
+   "d"   '((lambda ()
+	     (interactive)
+	     (neotree-hide)
+	     (deer))
+	   :which-key "deer")
    "e"   'flycheck-previous-error
    "e"   'flycheck-next-error
-   "f"   (lambda ()
-	   (interactive)
-	   (neotree-hide)
-	   (ranger))
+   "f"   '((lambda ()
+	     (interactive)
+	     (neotree-hide)
+	     (ranger))
+	   :which-key "ranger")
    "gk"  'general-describe-keybindings
    "gs"  'magit-status
-   "h"   (lambda ()
-	   (interactive)
-	   (find-file "~/Dropbox/help"))
-   "H"   'help
+   "h"   '((lambda ()
+	     (interactive)
+	     (find-file (concat lia/dropbox-directory "help")))
+	   :which-key "my help")
    "k"   'kill-this-buffer
-   "m"   'ivy-switch-buffer
-   "p"   'counsel-yank-pop
    "r"   'er/expand-region
    "s"   'eshell
    "t"   'neotree-toggle
    "w"   'lia/window-swap
    "W"   'lia/window-switch-split
-   "x"   'counsel-M-x
    "ll"  'nlinum-mode
    "lr"  'nlinum-relative-toggle
    "oa"  'org-agenda
    "ol"  'org-insert-link
    "oo"  'ace-link-org
    "op"  'org-pomodoro
-   "ot"  'org-todo)
+   "ot"  'org-todo
+
+   ;; helm/ivy bindings
+   "/"   'helm-swoop
+   ;;"/"   'swiper
+   "m"   'helm-mini
+   ;;"m"   'ivy-switch-buffer
+   "p"   'helm-show-kill-ring
+   ;;"p"   'counsel-yank-pop
+   "x"   'helm-M-x
+   ;;"x"   'counsel-M-x
+   )
 
   ;; global bindings
   (general-define-key
@@ -172,7 +210,16 @@
    "C-S-l" 'buf-move-right
    "C-c +" 'evil-numbers/inc-at-pt
    "C-c -" 'evil-numbers/dec-at-pt
-   "C-M-." 'goto-last-change)
+   "C-M-." 'goto-last-change
+
+   ;; helm/ivy bindings
+   "C-x C-f" 'helm-find-files
+   ;;"C-x C-f" 'counsel-find-file
+   "C-x C-r" 'helm-recentf
+   ;;"C-x C-r" 'counsel-recentf
+   "M-x" 'helm-M-x
+   ;;"M-x" 'counsel-M-x
+   )
 
   ;; evil mode
   (general-define-key
@@ -250,22 +297,6 @@
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
-;; base16 colours
-(use-package base16-theme
-  :config
-  (load-theme 'base16-material t)
-  (defconst lia/base16-colors base16-material-colors
-    "It's nice to have some colour")
-
-  ;; https://github.com/belak/base16-emacs#evil-mode
-  ;; Set the cursor color based on the evil state
-  (setq evil-emacs-state-cursor   `(,(plist-get lia/base16-colors :base0D) box)
-        evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
-        evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
-        evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
-        evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) hbar)
-        evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))
-
 ;; show the cursor when the window jumps
 ;; it's not that I have trouble finding the cursor
 ;; I think this just looks cool
@@ -342,7 +373,8 @@
             #b00000000
             #b00000000
             #b00000000
-            #b00000000)))
+            #b00000000))
+  (use-package helm-flycheck))
 
 ;; dim surrounding text
 (use-package focus
@@ -446,31 +478,121 @@
 
   (nlinum-relative-setup-evil))
 
-;; cool looking bullets in org
-(use-package org-bullets
-  :init
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-bullets-mode 1)))
-  (setq org-bullets-bullet-list '("•")))
-
-;; sync with google calendar
-(use-package org-gcal
-  :commands
-  (org-gcal-sync
-   org-gcal-fetch
-   org-gcal-post-at-point
-   org-gcal-delete-at-point
-   org-gcal-refresh-token)
+(use-package org
   :config
-  (defconst lia/gcal-config "~/Dropbox/org/org-gcal.el")
-  (when (file-exists-p lia/gcal-config) (load-file lia/gcal-config)))
+  (setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
+	org-ellipsis " ⤵" ; custom ellipsis
+	org-hide-emphasis-markers t ; hide formating characters
+	org-log-done 'time ; add timestamps when task is done, or rescheduled
+	org-log-redeadline 'time
+	org-log-reschedule 'time)
 
-;; pomodoro
-(use-package org-pomodoro
-  :config
-  (set-face-foreground 'org-pomodoro-mode-line (plist-get lia/base16-colors :base0A))
-  (set-face-foreground 'org-pomodoro-mode-line-break (plist-get lia/base16-colors :base0C)))
+  ;; better looking org headlines
+  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html#orgheadline4
+  (let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+			       ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+			       ((x-list-fonts "Verdana")         '(:font "Verdana"))
+			       ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+			       (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+	 (headline           `(:inherit default :weight bold :height 140)))
+
+    (custom-theme-set-faces 'user
+			    `(org-level-8 ((t (,@headline ,@variable-tuple))))
+			    `(org-level-7 ((t (,@headline ,@variable-tuple))))
+			    `(org-level-6 ((t (,@headline ,@variable-tuple))))
+			    `(org-level-5 ((t (,@headline ,@variable-tuple))))
+			    `(org-level-4 ((t (,@headline ,@variable-tuple))))
+			    `(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
+			    `(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
+			    `(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
+			    `(org-document-title ((t (,@headline
+						      ,@variable-tuple
+						      :height 300
+						      :underline nil))))))
+
+  ;; set agenda files
+  (setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")
+			       (concat lia/dropbox-directory "org/gcal.org")))
+
+  ;; org source code languages
+  (setq org-src-fontify-natively t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((css . t)
+			       (emacs-lisp . t)
+			       (java . t)
+			       (js . t)
+			       (latex . t)
+			       (lisp . t)
+			       (org . t)
+			       (perl . t)
+			       (python . t)
+			       (ruby . t)
+			       (sh . t)))
+
+  ;; custom todo keywords
+  (setq org-todo-keywords
+	'((sequence "TODO(t)"
+		    "IN-PROGRESS(i)"
+		    "ON HOLD(h)"
+		    "WAITING(w)"
+		    "|"
+		    "DONE(d)"
+		    "CANCELED(c)")
+	  (sequence "[ ](T)"
+		    "[-](I)"
+		    "[*](W)"
+		    "|"
+		    "[X](D)")))
+
+  ;; I meant 3:00 in the afternoon! not 3:00am!
+  ;; https://emacs.stackexchange.com/a/3320
+  (defvar time-range-with-pm-suffix '("1:00" . "6:59"))
+  (defun org-analyze-date-dwim (original-fun ans org-def org-defdecode)
+    (let* ((time (funcall original-fun ans org-def org-defdecode))
+	   (minute (nth 1 time))
+	   (hour (nth 2 time))
+	   (minutes (+ minute (* 60 hour)))
+	   s)
+      (when (and (< hour 12)
+		 (not (string-match "am" ans))
+		 (>= minutes (org-hh:mm-string-to-minutes (car time-range-with-pm-suffix)))
+		 (<= minutes (org-hh:mm-string-to-minutes (cdr time-range-with-pm-suffix))))
+	(setf (nth 2 time) (+ hour 12))
+	(when (boundp 'org-end-time-was-given)
+	  (setq s org-end-time-was-given)
+	  (if (and s (string-match "^\\([0-9]+\\)\\(:[0-9]+\\)$" s))
+	      (setq org-end-time-was-given
+		    (concat (number-to-string (+ 12 (string-to-number (match-string 1 s))))
+			    (match-string 2 s))))))
+      time))
+
+  (advice-add 'org-read-date-analyze :around #'org-analyze-date-dwim)
+
+  ;; cool looking bullets in org
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook
+	      (lambda ()
+		(org-bullets-mode 1)))
+    (setq org-bullets-bullet-list '("•")))
+
+  ;; sync with google calendar
+  (use-package org-gcal
+    :commands
+    (org-gcal-sync
+     org-gcal-fetch
+     org-gcal-post-at-point
+     org-gcal-delete-at-point
+     org-gcal-refresh-token)
+    :config
+    (defconst lia/gcal-config (concat lia/dropbox-directory "org/org-gcal.el"))
+    (when (file-exists-p lia/gcal-config) (load-file lia/gcal-config)))
+
+  ;; pomodoro
+  (use-package org-pomodoro
+    :config
+    (set-face-foreground 'org-pomodoro-mode-line (plist-get lia/base16-colors :base0A))
+    (set-face-foreground 'org-pomodoro-mode-line-break (plist-get lia/base16-colors :base0C))))
 
 ;; page break lines
 (use-package page-break-lines
@@ -616,6 +738,12 @@
 
 
 
+;; start emacs as a server if one isn't running
+;; https://stackoverflow.com/a/9999774
+(if (and (fboundp 'server-running-p)
+         (not (server-running-p)))
+    (server-start))
+
 ;; Change the default font
 (set-frame-font "Source Code Pro 10")
 
@@ -645,114 +773,18 @@
 (setq inhibit-splash-screen t
       inhibit-startup-message t)
 
-
-
-(require 'org)
-
-(setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
-      org-ellipsis " ⤵" ; custom ellipsis
-      org-hide-emphasis-markers t ; hide formating characters
-      org-log-done 'time ; add timestamps when task is done, or rescheduled
-      org-log-redeadline 'time
-      org-log-reschedule 'time)
-
-;; better looking org headlines
-;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html#orgheadline4
-(let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-			     ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-			     ((x-list-fonts "Verdana")         '(:font "Verdana"))
-			     ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-			     (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-       (headline           `(:inherit default :weight bold :height 140)))
-
-  (custom-theme-set-faces 'user
-			  `(org-level-8 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-7 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-6 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-5 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-4 ((t (,@headline ,@variable-tuple))))
-			  `(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
-			  `(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
-			  `(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
-			  `(org-document-title ((t (,@headline
-						    ,@variable-tuple
-						    :height 300
-						    :underline nil))))))
-
-;; set agenda files
-(setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")
-			     (concat lia/dropbox-directory "org/gcal.org")))
-
-;; org source code languages
-(setq org-src-fontify-natively t)
-(org-babel-do-load-languages
- 'org-babel-load-languages '((css . t)
-			     (emacs-lisp . t)
-			     (java . t)
-			     (js . t)
-			     (latex . t)
-			     (lisp . t)
-			     (org . t)
-			     (perl . t)
-			     (python . t)
-			     (ruby . t)
-			     (sh . t)))
-
-;; custom todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t)"
-		  "IN-PROGRESS(i)"
-		  "ON HOLD(h)"
-		  "WAITING(w)"
-		  "|"
-		  "DONE(d)"
-		  "CANCELED(c)")
-	(sequence "[ ](T)"
-		  "[-](I)"
-		  "[*](W)"
-		  "|"
-		  "[X](D)")))
-
-;; I meant 3:00 in the afternoon! not 3:00am!
-;; https://emacs.stackexchange.com/a/3320
-(defvar time-range-with-pm-suffix '("1:00" . "6:59"))
-(defun org-analyze-date-dwim (original-fun ans org-def org-defdecode)
-  (let* ((time (funcall original-fun ans org-def org-defdecode))
-	 (minute (nth 1 time))
-	 (hour (nth 2 time))
-	 (minutes (+ minute (* 60 hour)))
-	 s)
-    (when (and (< hour 12)
-	       (not (string-match "am" ans))
-	       (>= minutes (org-hh:mm-string-to-minutes (car time-range-with-pm-suffix)))
-	       (<= minutes (org-hh:mm-string-to-minutes (cdr time-range-with-pm-suffix))))
-      (setf (nth 2 time) (+ hour 12))
-      (when (boundp 'org-end-time-was-given)
-	(setq s org-end-time-was-given)
-	(if (and s (string-match "^\\([0-9]+\\)\\(:[0-9]+\\)$" s))
-	    (setq org-end-time-was-given
-		  (concat (number-to-string (+ 12 (string-to-number (match-string 1 s))))
-			  (match-string 2 s))))))
-    time))
-
-(advice-add 'org-read-date-analyze :around #'org-analyze-date-dwim)
-
-
-
-;; start emacs as a server if one isn't running
-;; https://stackoverflow.com/a/9999774
-(if (and (fboundp 'server-running-p)
-         (not (server-running-p)))
-    (server-start))
-
 ;; set the indentation width
 (setq tab-width 4)
 
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+;; move backup~ files to its own directory
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups"))))
+
+;; don't create those goddamn #autosave# files
+(setq auto-save-default nil)
 
 ;; always follow symlinks under version control
 (setq vc-follow-symlinks t)
