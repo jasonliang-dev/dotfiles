@@ -21,3 +21,4 @@ sudo apt install\
      thunar\
      tint2\
      vim-gtk\
+     xcape\

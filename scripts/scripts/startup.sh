@@ -11,6 +11,7 @@ fi
 #compton &
 dunst &
 ~/scripts/feh.sh &
-setxkbmap -option caps:escape &
+setxkbmap -option ctrl:nocaps &
+xcape -e 'Control_L=Escape' &
 xset m 0 0 &
 xset r rate 270 27 &
