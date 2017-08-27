@@ -1,3 +1,4 @@
+*.elc
 *~
 \#*
 emacs/.emacs.d/bookmarks
