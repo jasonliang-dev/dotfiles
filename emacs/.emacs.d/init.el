@@ -53,6 +53,9 @@
   ;; Scroll up with C-u
   (setq evil-want-C-u-scroll t)
   :config
+  ;; fine undo history
+  (setq evil-want-fine-undo t)
+
   ;; multiple cursors for evil
   (use-package evil-mc
     :diminish evil-mc-mode
@@ -181,6 +184,7 @@
    "r"   'er/expand-region
    "s"   'eshell
    "t"   'neotree-toggle
+   "u"   'undo-tree-visualize
    "w"   'lia/window-swap
    "W"   'lia/window-switch-split
    "ll"  'nlinum-mode
@@ -191,15 +195,17 @@
    "op"  'org-pomodoro
    "ot"  'org-todo
 
-   ;; helm/ivy bindings
-   "/"   'helm-swoop
-   ;;"/"   'swiper
-   "m"   'helm-mini
-   ;;"m"   'ivy-switch-buffer
-   "p"   'helm-show-kill-ring
-   ;;"p"   'counsel-yank-pop
-   "x"   'helm-M-x
-   ;;"x"   'counsel-M-x
+   ;; helm bindings
+   "/" 'helm-swoop
+   "m" 'helm-mini
+   "p" 'helm-show-kill-ring
+   "x" 'helm-M-x
+
+   ;; ivy bindings
+   ;;"/" 'swiper
+   ;;"m" 'ivy-switch-buffer
+   ;;"p" 'counsel-yank-pop
+   ;;"x" 'counsel-M-x
    )
 
   ;; global bindings
@@ -212,12 +218,14 @@
    "C-c -" 'evil-numbers/dec-at-pt
    "C-M-." 'goto-last-change
 
-   ;; helm/ivy bindings
+   ;; helm bindings
    "C-x C-f" 'helm-find-files
-   ;;"C-x C-f" 'counsel-find-file
    "C-x C-r" 'helm-recentf
-   ;;"C-x C-r" 'counsel-recentf
    "M-x" 'helm-M-x
+
+   ;; ivy bindings
+   ;;"C-x C-f" 'counsel-find-file
+   ;;"C-x C-r" 'counsel-recentf
    ;;"M-x" 'counsel-M-x
    )
 
