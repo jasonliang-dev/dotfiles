@@ -24,7 +24,7 @@ startup_notification = false
 
 [frame]
 width = 0
-color = "#65737e"
+color = "#263238"
 
 [shortcuts]
 close = ctrl+space
@@ -33,16 +33,16 @@ history = ctrl+grave
 context = ctrl+shift+period
 
 [urgency_low]
-background = "#4f5b66"
-foreground = "#a7adba"
-timeout = 5
+background = "#263238"
+foreground = "#82AAFF"
+timeout = 10
 
 [urgency_normal]
-background = "#4f5b66"
-foreground = "#eff1f5"
+background = "#263238"
+foreground = "#EEFFFF"
 timeout = 10
 
 [urgency_critical]
-background = "#4f5b66"
-foreground = "#d08770"
+background = "#263238"
+foreground = "#F78C6C"
 timeout = 0

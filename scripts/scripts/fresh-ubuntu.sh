@@ -10,14 +10,15 @@ sudo add-apt-repository ppa:tista/adapta
 sudo apt update
 
 sudo apt install\
-     arc-theme\
-     papirus-icon-theme\
      adapta-gtk-theme\
+     arc-theme\
      compton\
+     dunst\
      feh\
      lxappearance\
      openbox\
      paper-icon-theme\
+     papirus-icon-theme\
      thunar\
      tint2\
      vim-gtk\
