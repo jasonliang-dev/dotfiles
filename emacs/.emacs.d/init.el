@@ -2,7 +2,11 @@
 
 ;;; Commentary:
 
-;; 
+;; This is my dodgy and messed up Emacs configuration!
+;;
+;; Most of the code here is copied and pasted from articles,
+;; other people's dotfiles, Emacs Wiki, Reddit, Stack Exchange
+;; and some other sources that I cannot remember.
 
 ;;; Code:
 
@@ -162,14 +166,14 @@
    "SPC" 'ace-window
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
-   "c"   'comment-region
+   "c"   'flycheck-next-error
+   "C"   'flycheck-previous-error
    "d"   '((lambda ()
 	     (interactive)
 	     (neotree-hide)
 	     (deer))
 	   :which-key "deer")
-   "E"   'flycheck-previous-error
-   "e"   'flycheck-next-error
+   "e"   'emmet-expand-line
    "f"   '((lambda ()
 	     (interactive)
 	     (neotree-hide)
@@ -197,6 +201,7 @@
    "oo"  'ace-link-org
    "op"  'org-pomodoro
    "ot"  'org-todo
+   "z"   'comment-region
 
    ;; helm bindings
    "/" 'helm-swoop
@@ -262,11 +267,10 @@
    :keymaps 'neotree-mode-map
    "q"   'neotree-hide
    "h"	 'neotree-hidden-file-toggle
-   "z"	 'neotree-stretch-toggle
    "R"	 'neotree-refresh
-   "m"	 'neotree-rename-node
-   "c"	 'neotree-create-node
-   "d"	 'neotree-delete-node
+   "M"	 'neotree-rename-node
+   "C"	 'neotree-create-node
+   "D"	 'neotree-delete-node
    "TAB" 'neotree-quick-look
    "RET" 'neotree-enter)
 
@@ -296,6 +300,7 @@
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
+  :diminish (aggressive-indent-mode . "🄰")
   :config
   (global-aggressive-indent-mode t)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode))
@@ -313,7 +318,6 @@
 ;; I think this just looks cool
 (use-package beacon
   :disabled
-  :diminish beacon-mode
   :config
   (setq beacon-dont-blink-major-modes '(dired-mode
 					neotree-mode
@@ -327,7 +331,7 @@
 
 ;; text completion
 (use-package company
-  :diminish company-mode
+  :diminish (company-mode . "🄲")
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -346,13 +350,13 @@
   :config
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
+  (diminish 'org-indent-mode)
   (diminish 'undo-tree-mode))
 
 ;; emmet
 (use-package emmet-mode
-  :diminish (emmet-mode . "em")
+  :diminish (emmet-mode . "🄴")
   :config
-  (add-hook 'web-mode-hook  'emmet-mode)
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
 
@@ -609,7 +613,7 @@
 
 ;; page break lines
 (use-package page-break-lines
-  :diminish page-break-lines-mode)
+  :diminish (page-break-lines-mode . "🄻"))
 
 ;; powerline
 (use-package powerline
@@ -633,7 +637,7 @@
     :config
     (require 'spaceline-config)
 
-    (setq spaceline-minor-modes-separator " "
+    (setq spaceline-minor-modes-separator ""
 	  spaceline-separator-dir-left '(right . right)
 	  spaceline-separator-dir-right '(right . right)
 	  spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
@@ -657,7 +661,7 @@
 				       (funcall spaceline-highlight-face-func)
 				     'powerline-inactive1)))))
 
-    (spaceline-toggle-minor-modes-off)
+    ;;(spaceline-toggle-minor-modes-off)
     (spaceline-toggle-buffer-size-off)
     (spaceline-toggle-buffer-encoding-abbrev-off)
     (spaceline-spacemacs-theme)))
@@ -668,7 +672,7 @@
   (projectile-mode t)
   ;; https://github.com/sviridov/.emacs.d/blob/master/config/base/init-diminish.el#L25
   (setq-default projectile-mode-line
-                '(:eval (format "Pro[%s]" (projectile-project-name)))))
+                '(:eval (format "🄿【%s】" (projectile-project-name)))))
 
 ;; rainbow brackets
 (use-package rainbow-delimiters
@@ -731,8 +735,9 @@
     "Hooks for Web mode."
     (setq web-mode-markup-indent-offset 4)
     (setq web-mode-css-indent-offset 4)
-    (setq web-mode-code-indent-offset 4))
-  (add-hook 'web-mode-hook 'my-web-mode-hook))
+    (setq web-mode-code-indent-offset 4)
+    (emmet-mode))
+  (add-hook 'web-mode-hook 'lia/web-mode-hook))
 
 ;; display available bindings
 (use-package which-key
@@ -743,7 +748,7 @@
 
 ;; templates
 (use-package yasnippet
-  :diminish yas-minor-mode
+  :diminish (yas-minor-mode . "🅈")
   :config
   (yas-global-mode t)
   ;; yasnippet collection
@@ -758,7 +763,11 @@
   (server-start))
 
 ;; Change the default font
-(set-frame-font "Monego 10" nil t)
+;; https://www.emacswiki.org/emacs/SetFonts#toc11
+(defun font-candidate (&rest fonts)
+  "Return existing font which first match in FONTS."
+  (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
+(set-frame-font (font-candidate '"Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
