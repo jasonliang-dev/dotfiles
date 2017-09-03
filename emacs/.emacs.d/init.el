@@ -161,13 +161,14 @@
    :non-normal-prefix "M-SPC"
    "SPC" 'ace-window
    "TAB" 'mode-line-other-buffer
+   "br"  'revert-buffer
    "c"   'comment-region
    "d"   '((lambda ()
 	     (interactive)
 	     (neotree-hide)
 	     (deer))
 	   :which-key "deer")
-   "e"   'flycheck-previous-error
+   "E"   'flycheck-previous-error
    "e"   'flycheck-next-error
    "f"   '((lambda ()
 	     (interactive)
@@ -185,11 +186,13 @@
    "s"   'eshell
    "t"   'neotree-toggle
    "u"   'undo-tree-visualize
+   "U"   'universal-argument
    "w"   'lia/window-swap
    "W"   'lia/window-switch-split
    "ll"  'nlinum-mode
    "lr"  'nlinum-relative-toggle
    "oa"  'org-agenda
+   "oi"  'org-toggle-inline-images
    "ol"  'org-insert-link
    "oo"  'ace-link-org
    "op"  'org-pomodoro
@@ -497,26 +500,28 @@
 
   ;; better looking org headlines
   ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html#orgheadline4
-  (let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-			       ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-			       ((x-list-fonts "Verdana")         '(:font "Verdana"))
-			       ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-			       (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-	 (headline           `(:inherit default :weight bold :height 140)))
+  (let* ((variable-tuple (cond
+			  ((x-list-fonts "Roboto")          '(:font "Roboto"))
+			  ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+			  ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+			  ((x-list-fonts "Verdana")         '(:font "Verdana"))
+			  ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+			  (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+  	 (headline           `(:inherit default :weight bold :height 140)))
 
     (custom-theme-set-faces 'user
-			    `(org-level-8 ((t (,@headline ,@variable-tuple))))
-			    `(org-level-7 ((t (,@headline ,@variable-tuple))))
-			    `(org-level-6 ((t (,@headline ,@variable-tuple))))
-			    `(org-level-5 ((t (,@headline ,@variable-tuple))))
-			    `(org-level-4 ((t (,@headline ,@variable-tuple))))
-			    `(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
-			    `(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
-			    `(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
-			    `(org-document-title ((t (,@headline
-						      ,@variable-tuple
-						      :height 300
-						      :underline nil))))))
+  			    `(org-level-8 ((t (,@headline ,@variable-tuple))))
+  			    `(org-level-7 ((t (,@headline ,@variable-tuple))))
+  			    `(org-level-6 ((t (,@headline ,@variable-tuple))))
+  			    `(org-level-5 ((t (,@headline ,@variable-tuple))))
+  			    `(org-level-4 ((t (,@headline ,@variable-tuple))))
+  			    `(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
+  			    `(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
+  			    `(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
+  			    `(org-document-title ((t (,@headline
+  						      ,@variable-tuple
+  						      :height 250
+  						      :underline nil))))))
 
   ;; set agenda files
   (setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")
@@ -748,12 +753,12 @@
 
 ;; start emacs as a server if one isn't running
 ;; https://stackoverflow.com/a/9999774
-(if (and (fboundp 'server-running-p)
-         (not (server-running-p)))
-    (server-start))
+(when (and (fboundp 'server-running-p)
+	   (not (server-running-p)))
+  (server-start))
 
 ;; Change the default font
-(set-frame-font "Source Code Pro 10")
+(set-frame-font "Monego 10" nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
