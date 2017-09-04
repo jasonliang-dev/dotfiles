@@ -602,8 +602,8 @@
      org-gcal-delete-at-point
      org-gcal-refresh-token)
     :config
-    (defconst lia/gcal-config (concat lia/dropbox-directory "org/org-gcal.el"))
-    (when (file-exists-p lia/gcal-config) (load-file lia/gcal-config)))
+    (defconst lia/gcal-file (concat lia/dropbox-directory "org/org-gcal.el"))
+    (when (file-exists-p lia/gcal-file) (load-file lia/gcal-file)))
 
   ;; pomodoro
   (use-package org-pomodoro
