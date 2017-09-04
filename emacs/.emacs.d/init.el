@@ -785,9 +785,6 @@
 (defvar show-paren-delay 0.2)
 (show-paren-mode t)
 
-;; set the fringe size
-(fringe-mode 16)
-
 ;; set the fringe color to the background color
 (set-face-background 'fringe nil)
 
