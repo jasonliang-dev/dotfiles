@@ -300,7 +300,7 @@
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
-  :diminish (aggressive-indent-mode . "🄰")
+  :diminish (aggressive-indent-mode . "🅐")
   :config
   (global-aggressive-indent-mode t)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode))
@@ -331,7 +331,7 @@
 
 ;; text completion
 (use-package company
-  :diminish (company-mode . "🄲")
+  :diminish (company-mode . "🅒")
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -355,7 +355,7 @@
 
 ;; emmet
 (use-package emmet-mode
-  :diminish (emmet-mode . "🄴")
+  :diminish (emmet-mode . "🅔")
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
@@ -613,7 +613,7 @@
 
 ;; page break lines
 (use-package page-break-lines
-  :diminish (page-break-lines-mode . "🄻"))
+  :diminish (page-break-lines-mode . "🅛"))
 
 ;; powerline
 (use-package powerline
@@ -672,7 +672,7 @@
   (projectile-mode t)
   ;; https://github.com/sviridov/.emacs.d/blob/master/config/base/init-diminish.el#L25
   (setq-default projectile-mode-line
-                '(:eval (format "🄿【%s】" (projectile-project-name)))))
+                '(:eval (format "🅟【%s】" (projectile-project-name)))))
 
 ;; rainbow brackets
 (use-package rainbow-delimiters
@@ -748,7 +748,7 @@
 
 ;; templates
 (use-package yasnippet
-  :diminish (yas-minor-mode . "🅈")
+  :diminish (yas-minor-mode . "🅨")
   :config
   (yas-global-mode t)
   ;; yasnippet collection
