@@ -96,8 +96,15 @@
 ;; base16 colours
 (use-package base16-theme
   :config
-  (load-theme 'base16-material t)
-  (defconst lia/base16-colors base16-material-colors)
+  ;; load light theme...
+  (load-theme 'base16-tomorrow t)
+  (setq lia/base16-colors base16-tomorrow-colors)
+  ;; ...until it's past 6:00pm, then use dark theme
+  ;; https://emacs.stackexchange.com/questions/6029/is-it-possible-to-execute-a-function-or-command-at-a-specific-time
+  (run-at-time "18:00" nil (lambda ()
+			     (interactive)
+			     (load-theme 'base16-material t)
+			     (setq lia/base16-colors base16-material-colors)))
 
   ;; https://github.com/belak/base16-emacs#evil-mode
   ;; Set the cursor color based on the evil state
@@ -317,7 +324,6 @@
 ;; it's not that I have trouble finding the cursor
 ;; I think this just looks cool
 (use-package beacon
-  :disabled
   :config
   (setq beacon-dont-blink-major-modes '(dired-mode
 					neotree-mode
@@ -773,7 +779,7 @@
 (blink-cursor-mode 0)
 
 ;; highlight the current line
-(global-hl-line-mode)
+;;(global-hl-line-mode)
 
 ;; enable wordwrap
 (global-visual-line-mode t)
