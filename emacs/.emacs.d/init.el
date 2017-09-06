@@ -56,6 +56,9 @@
   :init
   ;; Scroll up with C-u
   (setq evil-want-C-u-scroll t)
+
+  ;; Start evil mode at the end
+  (add-hook 'after-init-hook (evil-mode t))
   :config
   ;; fine undo history
   (setq evil-want-fine-undo t)
@@ -194,6 +197,8 @@
 	     (interactive)
 	     (find-file (concat lia/dropbox-directory "help")))
 	   :which-key "my help")
+   "j"   'avy-goto-char-2
+   "J"   'avy-goto-word-1
    "k"   'kill-this-buffer
    "r"   'er/expand-region
    "s"   'eshell
@@ -321,6 +326,10 @@
 (use-package all-the-icons-dired
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+(use-package avy
+  :config
+  (avy-setup-default))
 
 ;; show the cursor when the window jumps
 ;; it's not that I have trouble finding the cursor
@@ -887,34 +896,5 @@
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
-
-(defun lia/window-swap ()
-  "Swap your windows."
-  (interactive)
-  (cond ((not (> (count-windows)1))
-         (message "You can't swap a single window!"))
-        (t
-         (setq i 1)
-         (setq numWindows (count-windows))
-         (while  (< i numWindows)
-           (let* (
-                  (w1 (elt (window-list) i))
-                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
-
-                  (b1 (window-buffer w1))
-                  (b2 (window-buffer w2))
-
-                  (s1 (window-start w1))
-                  (s2 (window-start w2)))
-             (set-window-buffer w1  b2)
-             (set-window-buffer w2 b1)
-             (set-window-start w1 s2)
-             (set-window-start w2 s1)
-             (setq i (1+ i)))))))
-
-
-
-;; Start evil mode at the end
-(evil-mode t)
 
 ;;; init.el ends here
