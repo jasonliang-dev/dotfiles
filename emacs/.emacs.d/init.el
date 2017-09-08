@@ -178,35 +178,29 @@
    "SPC" 'ace-window
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
-   "c"   'flycheck-next-error
-   "C"   'flycheck-previous-error
+   "c"   'comment-region
    "d"   '((lambda ()
-	     (interactive)
-	     (neotree-hide)
-	     (deer))
-	   :which-key "deer")
+			 (interactive)
+			 (neotree-hide)
+			 (deer))
+		   :which-key "deer")
    "e"   'emmet-expand-line
-   "f"   '((lambda ()
-	     (interactive)
-	     (neotree-hide)
-	     (ranger))
-	   :which-key "ranger")
+   "f"   'flycheck-next-error
+   "F"   'flycheck-previous-error
    "gk"  'general-describe-keybindings
    "gs"  'magit-status
    "h"   '((lambda ()
-	     (interactive)
-	     (find-file (concat lia/dropbox-directory "help")))
-	   :which-key "my help")
-   "j"   'avy-goto-char-2
-   "J"   'avy-goto-word-1
+			 (interactive)
+			 (find-file (concat lia/dropbox-directory "help")))
+		   :which-key "my help")
+   "j"   'avy-goto-word-1
    "k"   'kill-this-buffer
    "r"   'er/expand-region
    "s"   'eshell
    "t"   'neotree-toggle
    "u"   'undo-tree-visualize
    "U"   'universal-argument
-   "w"   'lia/window-swap
-   "W"   'lia/window-switch-split
+   "w"   'lia/window-switch-split
    "ll"  'nlinum-mode
    "lr"  'nlinum-relative-toggle
    "oa"  'org-agenda
@@ -215,7 +209,6 @@
    "oo"  'ace-link-org
    "op"  'org-pomodoro
    "ot"  'org-todo
-   "z"   'comment-region
 
    ;; helm bindings
    "/" 'helm-swoop
@@ -385,7 +378,7 @@
 (use-package flycheck
   :diminish flycheck-mode
   :init
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (global-flycheck-mode)
   :config
   ;; https://github.com/flycheck/flycheck/blob/master/flycheck.el#L3380
   (setq flycheck-indication-mode 'right-fringe)
@@ -471,24 +464,22 @@
 
   ;; change neotree's text colours
   ;; oh boy, here we go.
-  (add-hook 'after-init-hook
-	    (lambda ()
-	      (set-face-foreground 'neo-banner-face              (plist-get lia/base16-colors :base0C))
-	      (set-face-foreground 'neo-header-face              (plist-get lia/base16-colors :base05))
-	      (set-face-foreground 'neo-root-dir-face            (plist-get lia/base16-colors :base0C))
-	      (set-face-foreground 'neo-dir-link-face            (plist-get lia/base16-colors :base0D))
-	      (set-face-foreground 'neo-file-link-face           (plist-get lia/base16-colors :base05))
-	      (set-face-foreground 'neo-expand-btn-face          (plist-get lia/base16-colors :base0C))
-	      (set-face-foreground 'neo-vc-default-face          (plist-get lia/base16-colors :base05))
-	      (set-face-foreground 'neo-vc-user-face             (plist-get lia/base16-colors :base08))
-	      (set-face-foreground 'neo-vc-up-to-date-face       (plist-get lia/base16-colors :base03))
-	      (set-face-foreground 'neo-vc-edited-face           (plist-get lia/base16-colors :base0E))
-	      (set-face-foreground 'neo-vc-needs-merge-face      (plist-get lia/base16-colors :base08))
-	      (set-face-foreground 'neo-vc-unlocked-changes-face (plist-get lia/base16-colors :base08))
-	      (set-face-foreground 'neo-vc-added-face            (plist-get lia/base16-colors :base0B))
-	      (set-face-foreground 'neo-vc-conflict-face         (plist-get lia/base16-colors :base08))
-	      (set-face-foreground 'neo-vc-missing-face          (plist-get lia/base16-colors :base08))
-	      (set-face-foreground 'neo-vc-ignored-face          (plist-get lia/base16-colors :base03))))
+  (set-face-foreground 'neo-banner-face              (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-header-face              (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-root-dir-face            (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-dir-link-face            (plist-get lia/base16-colors :base0D))
+  (set-face-foreground 'neo-file-link-face           (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-expand-btn-face          (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-vc-default-face          (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-vc-user-face             (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-up-to-date-face       (plist-get lia/base16-colors :base03))
+  (set-face-foreground 'neo-vc-edited-face           (plist-get lia/base16-colors :base0E))
+  (set-face-foreground 'neo-vc-needs-merge-face      (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-unlocked-changes-face (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-added-face            (plist-get lia/base16-colors :base0B))
+  (set-face-foreground 'neo-vc-conflict-face         (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-missing-face          (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-ignored-face          (plist-get lia/base16-colors :base03))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action))
@@ -774,6 +765,12 @@
   (setq which-key-allow-evil-operators t)
   (which-key-mode t))
 
+;; distraction free editing
+;; basically goyo vim
+(use-package writeroom-mode
+  :config
+  )
+
 ;; templates
 (use-package yasnippet
   :diminish (yas-minor-mode . "🅨")
@@ -820,8 +817,11 @@
 (setq inhibit-splash-screen t
       inhibit-startup-message t)
 
+;; turn off the bell
+(setq ring-bell-function 'ignore)
+
 ;; set the indentation width
-(setq tab-width 4)
+(setq-default tab-width 4)
 
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
