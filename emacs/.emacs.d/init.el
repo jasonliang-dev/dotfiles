@@ -317,9 +317,6 @@
 
    "g" 'pdf-view-first-page
    "G" 'pdf-view-last-page
-   ;; alternatively
-   "g" 'image-bob
-   "G" 'image-eob
    (kbd "C-o") 'pdf-history-backward
    (kbd "C-i") 'pdf-history-forward
    "m" 'pdf-view-position-to-register
@@ -412,7 +409,8 @@
 
 (use-package fill-column-indicator
   :config
-  (setq fci-rule-column 80))
+  (setq fci-rule-column 80)
+  (add-hook 'prog-mode-hook 'fci-mode))
 
 ;; syntax checking
 (use-package flycheck
@@ -608,7 +606,8 @@
                                                       :underline nil))))))
 
   ;; set agenda files
-  (setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")))
+  (setq org-agenda-files
+		(list (concat lia/dropbox-directory "org/planner.org")))
 
   ;; org source code languages
   (setq org-src-fontify-natively t)

@@ -7,7 +7,7 @@
 #+startup: showeverything indent
 #+options: num:nil toc:nil
 
-#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage[letterpaper, landscape, margin=2in]{geometry}
 
 #+author: $2
 

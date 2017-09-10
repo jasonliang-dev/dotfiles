@@ -11,7 +11,7 @@ fi
 #compton &
 dunst &
 ~/scripts/feh.sh &
-setxkbmap -option "compose:ralt" &
 setxkbmap -option "caps:escape" &
+setxkbmap -option "compose:ralt" &
 xset m 0 0 &
 xset r rate 270 27 &
