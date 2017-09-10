@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: new-org-document
+# key: new
+# --
+#+title: $1
+
+#+startup: showeverything indent
+#+options: num:nil toc:nil
+
+#+latex_header: \usepackage[margin=1in]{geometry}
+
+#+author: $2
+
+* $0

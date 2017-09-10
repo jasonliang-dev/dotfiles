@@ -207,8 +207,6 @@
    "oi"	 'org-toggle-inline-images
    "ol"	 'org-insert-link
    "oo"	 'ace-link-org
-   "op"	 'org-pomodoro
-   "ot"	 'org-todo
 
    ;; helm bindings
    "/" 'helm-swoop
@@ -293,7 +291,34 @@
    "j" 'evil-next-line
    "k" 'evil-previous-line
    "J" 'org-agenda-later
-   "K" 'org-agenda-earlier))
+   "K" 'org-agenda-earlier)
+
+  ;; pdfs
+  ;; https://github.com/noctuid/evil-guide#example-integration-with-pdf-tools
+  (general-define-key
+   :states 'emacs
+   :keymaps 'doc-view-mode-map
+   "h" (general-simulate-keys "p" t)
+   "j" (general-simulate-keys "C-n" t)
+   "k" (general-simulate-keys "C-p" t)
+   "l" (general-simulate-keys "n" t)
+
+   "J" (general-simulate-keys "SPC" t)
+   "K" (general-simulate-keys "DEL" t)
+
+   "g" 'pdf-view-first-page
+   "G" 'pdf-view-last-page
+   ;; alternatively
+   "g" 'image-bob
+   "G" 'image-eob
+   (kbd "C-o") 'pdf-history-backward
+   (kbd "C-i") 'pdf-history-forward
+   "m" 'pdf-view-position-to-register
+   "'" 'pdf-view-jump-to-register
+   "/" 'pdf-occur
+   "o" 'pdf-outline
+   "f" 'pdf-links-action-perform
+   "b" 'pdf-view-midnight-minor-mode))
 
 ;; quickly select different windows
 (use-package ace-window
@@ -360,6 +385,7 @@
 (use-package diminish
   :config
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+  (diminish 'flyspell-mode)
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
   (diminish 'undo-tree-mode))
@@ -541,8 +567,7 @@
 													  :underline nil))))))
 
   ;; set agenda files
-  (setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")
-							   (concat lia/dropbox-directory "org/gcal.org")))
+  (setq org-agenda-files (list (concat lia/dropbox-directory "org/planner.org")))
 
   ;; org source code languages
   (setq org-src-fontify-natively t)
@@ -608,6 +633,7 @@
 
   ;; sync with google calendar
   (use-package org-gcal
+	:disabled
 	:commands
 	(org-gcal-sync
 	 org-gcal-fetch
@@ -786,6 +812,15 @@
 (when (and (fboundp 'server-running-p)
 		   (not (server-running-p)))
   (server-start))
+
+;; enable flyspell in text mode buffers
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
+;; don't print flyspell messages because it's slow
+(setq flyspell-issue-message-flag nil)
 
 ;; Change the default font
 ;; https://www.emacswiki.org/emacs/SetFonts#toc11
