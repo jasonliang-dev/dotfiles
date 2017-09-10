@@ -111,12 +111,18 @@
   ;; https://github.com/belak/base16-emacs#evil-mode
   (add-hook 'after-init-hook
 			(lambda ()
-			  (setq evil-emacs-state-cursor	  `(,(plist-get lia/base16-colors :base0D) box)
-					evil-insert-state-cursor  `(,(plist-get lia/base16-colors :base0D) bar)
-					evil-motion-state-cursor  `(,(plist-get lia/base16-colors :base0E) box)
-					evil-normal-state-cursor  `(,(plist-get lia/base16-colors :base0B) box)
-					evil-replace-state-cursor `(,(plist-get lia/base16-colors :base08) bar)
-					evil-visual-state-cursor  `(,(plist-get lia/base16-colors :base09) box)))))
+			  (setq evil-emacs-state-cursor
+					`(,(plist-get lia/base16-colors :base0D) box)
+					evil-insert-state-cursor
+					`(,(plist-get lia/base16-colors :base0D) bar)
+					evil-motion-state-cursor
+					`(,(plist-get lia/base16-colors :base0E) box)
+					evil-normal-state-cursor
+					`(,(plist-get lia/base16-colors :base0B) box)
+					evil-replace-state-cursor
+					`(,(plist-get lia/base16-colors :base08) bar)
+					evil-visual-state-cursor
+					`(,(plist-get lia/base16-colors :base09) box)))))
 
 ;; A completion framework
 ;; helm is heavy, but full of features
@@ -135,17 +141,20 @@
 	:config
 	(add-hook 'after-init-hook
 			  (lambda ()
-				(set-face-attribute 'helm-swoop-target-line-face nil
-									:background (plist-get lia/base16-colors :base01)
-									:foreground (plist-get lia/base16-colors :base05))
+				(set-face-attribute
+				 'helm-swoop-target-line-face nil
+				 :background (plist-get lia/base16-colors :base01)
+				 :foreground (plist-get lia/base16-colors :base05))
 
-				(set-face-attribute 'helm-swoop-target-line-block-face nil
-									:background (plist-get lia/base16-colors :base01)
-									:foreground (plist-get lia/base16-colors :base05))
+				(set-face-attribute
+				 'helm-swoop-target-line-block-face nil
+				 :background (plist-get lia/base16-colors :base01)
+				 :foreground (plist-get lia/base16-colors :base05))
 
-				(set-face-attribute 'helm-swoop-target-word-face nil
-									:background (plist-get lia/base16-colors :base0D)
-									:foreground (plist-get lia/base16-colors :base05))))))
+				(set-face-attribute
+				 'helm-swoop-target-word-face nil
+				 :background (plist-get lia/base16-colors :base0D)
+				 :foreground (plist-get lia/base16-colors :base05))))))
 
 ;; Another completion framework
 ;; ivy is lightweight and simple
@@ -375,7 +384,8 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner (concat user-emacs-directory "icon/emacs-sexy.png")
+  (setq dashboard-startup-banner
+		(concat user-emacs-directory "icon/emacs-sexy.png")
 		dashboard-items '((recents . 10)
 						  (bookmarks .10)
 						  (projects . 10)
@@ -399,6 +409,10 @@
 
 ;; expand region
 (use-package expand-region)
+
+(use-package fill-column-indicator
+  :config
+  (setq fci-rule-column 80))
 
 ;; syntax checking
 (use-package flycheck
@@ -441,9 +455,12 @@
   (setq fringes-outside-margins t)
   (add-hook 'after-init-hook
 			(lambda ()
-			  (set-face-foreground 'git-gutter-fr:added	   (plist-get lia/base16-colors :base0B))
-			  (set-face-foreground 'git-gutter-fr:modified (plist-get lia/base16-colors :base0A))
-			  (set-face-foreground 'git-gutter-fr:deleted  (plist-get lia/base16-colors :base08))))
+			  (set-face-foreground 'git-gutter-fr:added
+								   (plist-get lia/base16-colors :base0B))
+			  (set-face-foreground 'git-gutter-fr:modified
+								   (plist-get lia/base16-colors :base0A))
+			  (set-face-foreground 'git-gutter-fr:deleted
+								   (plist-get lia/base16-colors :base08))))
   ;; https://github.com/hlissner/.emacs.d/blob/master/modules/ui/doom/config.el#L97
   (fringe-helper-define 'git-gutter-fr:added '(center repeated)
 	"XXX.....")
@@ -490,22 +507,38 @@
 
   ;; change neotree's text colours
   ;; oh boy, here we go.
-  (set-face-foreground 'neo-banner-face				 (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-header-face				 (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-root-dir-face			 (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-dir-link-face			 (plist-get lia/base16-colors :base0D))
-  (set-face-foreground 'neo-file-link-face			 (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-expand-btn-face			 (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-vc-default-face			 (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-vc-user-face			 (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-up-to-date-face		 (plist-get lia/base16-colors :base03))
-  (set-face-foreground 'neo-vc-edited-face			 (plist-get lia/base16-colors :base0E))
-  (set-face-foreground 'neo-vc-needs-merge-face		 (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-unlocked-changes-face (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-added-face			 (plist-get lia/base16-colors :base0B))
-  (set-face-foreground 'neo-vc-conflict-face		 (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-missing-face			 (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-ignored-face			 (plist-get lia/base16-colors :base03))
+  (set-face-foreground 'neo-banner-face
+					   (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-header-face
+					   (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-root-dir-face
+					   (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-dir-link-face
+					   (plist-get lia/base16-colors :base0D))
+  (set-face-foreground 'neo-file-link-face
+					   (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-expand-btn-face
+					   (plist-get lia/base16-colors :base0C))
+  (set-face-foreground 'neo-vc-default-face
+					   (plist-get lia/base16-colors :base05))
+  (set-face-foreground 'neo-vc-user-face
+					   (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-up-to-date-face
+					   (plist-get lia/base16-colors :base03))
+  (set-face-foreground 'neo-vc-edited-face
+					   (plist-get lia/base16-colors :base0E))
+  (set-face-foreground 'neo-vc-needs-merge-face
+					   (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-unlocked-changes-face
+					   (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-added-face
+					   (plist-get lia/base16-colors :base0B))
+  (set-face-foreground 'neo-vc-conflict-face
+					   (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-missing-face
+					   (plist-get lia/base16-colors :base08))
+  (set-face-foreground 'neo-vc-ignored-face
+					   (plist-get lia/base16-colors :base03))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action))
@@ -544,12 +577,17 @@
   ;; better looking org headlines
   ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html#orgheadline4
   (let* ((variable-tuple (cond
-						  ((x-list-fonts "Roboto")			'(:font "Roboto"))
-						  ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-						  ((x-list-fonts "Lucida Grande")	'(:font "Lucida Grande"))
-						  ((x-list-fonts "Verdana")			'(:font "Verdana"))
-						  ((x-family-fonts "Sans Serif")	'(:family "Sans Serif"))
-						  (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+						  ((x-list-fonts "Roboto")
+						   '(:font "Roboto"))
+						  ((x-list-fonts "Source Sans Pro")
+						   '(:font "Source Sans Pro"))
+						  ((x-list-fonts "Lucida Grande")
+						   '(:font "Lucida Grande"))
+						  ((x-list-fonts "Verdana")
+						   '(:font "Verdana"))
+						  ((x-family-fonts "Sans Serif")
+						   '(:family "Sans Serif"))
+						  (nil (warn "Cannot find a Sans Serif Font."))))
 		 (headline			 `(:inherit default :weight bold :height 140)))
 
 	(custom-theme-set-faces 'user
@@ -558,9 +596,12 @@
 							`(org-level-6 ((t (,@headline ,@variable-tuple))))
 							`(org-level-5 ((t (,@headline ,@variable-tuple))))
 							`(org-level-4 ((t (,@headline ,@variable-tuple))))
-							`(org-level-3 ((t (,@headline ,@variable-tuple :height 160))))
-							`(org-level-2 ((t (,@headline ,@variable-tuple :height 180))))
-							`(org-level-1 ((t (,@headline ,@variable-tuple :height 200))))
+							`(org-level-3 ((t (,@headline ,@variable-tuple
+														  :height 160))))
+							`(org-level-2 ((t (,@headline ,@variable-tuple
+														  :height 180))))
+							`(org-level-1 ((t (,@headline ,@variable-tuple
+														  :height 200))))
 							`(org-document-title ((t (,@headline
 													  ,@variable-tuple
 													  :height 250
@@ -610,14 +651,17 @@
 		   s)
 	  (when (and (< hour 12)
 				 (not (string-match "am" ans))
-				 (>= minutes (org-hh:mm-string-to-minutes (car time-range-with-pm-suffix)))
-				 (<= minutes (org-hh:mm-string-to-minutes (cdr time-range-with-pm-suffix))))
+				 (>= minutes (org-hh:mm-string-to-minutes
+							  (car time-range-with-pm-suffix)))
+				 (<= minutes (org-hh:mm-string-to-minutes
+							  (cdr time-range-with-pm-suffix))))
 		(setf (nth 2 time) (+ hour 12))
 		(when (boundp 'org-end-time-was-given)
 		  (setq s org-end-time-was-given)
 		  (if (and s (string-match "^\\([0-9]+\\)\\(:[0-9]+\\)$" s))
 			  (setq org-end-time-was-given
-					(concat (number-to-string (+ 12 (string-to-number (match-string 1 s))))
+					(concat (number-to-string
+							 (+ 12 (string-to-number (match-string 1 s))))
 							(match-string 2 s))))))
 	  time))
 
@@ -649,8 +693,10 @@
 	:config
 	(add-hook 'after-init-hook
 			  (lambda ()
-				(set-face-foreground 'org-pomodoro-mode-line (plist-get lia/base16-colors :base0A))
-				(set-face-foreground 'org-pomodoro-mode-line-break (plist-get lia/base16-colors :base0C))))))
+				(set-face-foreground 'org-pomodoro-mode-line
+									 (plist-get lia/base16-colors :base0A))
+				(set-face-foreground 'org-pomodoro-mode-line-break
+									 (plist-get lia/base16-colors :base0C))))))
 
 ;; page break lines
 (use-package page-break-lines
@@ -664,16 +710,19 @@
 
   (add-hook 'after-init-hook
 			(lambda ()
-			  (set-face-attribute 'powerline-active1 nil
-								  :foreground (plist-get lia/base16-colors :base05)
-								  :background (plist-get lia/base16-colors :base01))
+			  (set-face-attribute
+			   'powerline-active1 nil
+			   :foreground (plist-get lia/base16-colors :base05)
+			   :background (plist-get lia/base16-colors :base01))
 
-			  (set-face-attribute 'powerline-active2 nil
-								  :background (plist-get lia/base16-colors :base01))
+			  (set-face-attribute
+			   'powerline-active2 nil
+			   :background (plist-get lia/base16-colors :base01))
 
-			  (set-face-attribute 'powerline-inactive1 nil
-								  :foreground (plist-get lia/base16-colors :base03)
-								  :background (plist-get lia/base16-colors :base01))))
+			  (set-face-attribute
+			   'powerline-inactive1 nil
+			   :foreground (plist-get lia/base16-colors :base03)
+			   :background (plist-get lia/base16-colors :base01))))
 
   ;; modeline from spacemacs
   (use-package spaceline
@@ -699,9 +748,12 @@
 	(setq spaceline-face-func
 		  (lambda (face active)
 			(cond
-			 ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
-			 ((eq 'face2 face) (if active 'lia/mode-line-face 'powerline-inactive1))
-			 ((eq 'line face) (if active 'powerline-active2 'powerline-inactive1))
+			 ((eq 'face1 face)
+			  (if active 'powerline-active1 'powerline-inactive1))
+			 ((eq 'face2 face)
+			  (if active 'lia/mode-line-face 'powerline-inactive1))
+			 ((eq 'line face)
+			  (if active 'powerline-active2 'powerline-inactive1))
 			 ((eq 'highlight face) (if active
 									   (funcall spaceline-highlight-face-func)
 									 'powerline-inactive1)))))
@@ -735,7 +787,6 @@
   (smartparens-global-mode t))
 
 ;; use tabs for indentation, spaces for alignment
-;; relevent image: https://camo.githubusercontent.com/38467eb65de742741e216b6df7f986f2d7a621c6/687474703a2f2f7777772e656d61637377696b692e6f72672f706963732f7374617469632f54616273537061636573426f74682e706e67
 (use-package smart-tabs-mode
   :config
   (smart-tabs-insinuate 'c
@@ -827,7 +878,8 @@
 (defun font-candidate (&rest fonts)
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
-(set-frame-font (font-candidate '"Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
+(set-frame-font
+ (font-candidate '"Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
