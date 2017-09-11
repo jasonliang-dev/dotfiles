@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-latex-beamer-theme
+# key: beamer-theme
+# --
+#+latex_header: \mode<beamer>
+#+latex_header: \usetheme{${1:Bergen}}
+#+latex_header: \usecolortheme{${2:rose}}$0

@@ -616,7 +616,7 @@
 
   ;; custom todo keywords
   (setq org-todo-keywords
-        '((sequence "☀ TODO(t)"
+        '((sequence "❗ TODO(t)"
                     "⚑ WAITING(w)"
                     "|"
                     "✓ DONE(d)"
