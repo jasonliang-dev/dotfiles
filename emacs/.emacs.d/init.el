@@ -184,6 +184,7 @@
    :states '(normal visual motion insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
+   "RET" 'eshell
    "SPC" 'ace-window
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
@@ -198,14 +199,9 @@
    "F"   'flycheck-previous-error
    "gk"  'general-describe-keybindings
    "gs"  'magit-status
-   "h"   '((lambda ()
-             (interactive)
-             (find-file (concat lia/dropbox-directory "help")))
-           :which-key "my help")
    "j"   'avy-goto-word-1
    "k"   'kill-this-buffer
    "r"   'er/expand-region
-   "s"   'eshell
    "t"   'neotree-toggle
    "u"   'undo-tree-visualize
    "U"   'universal-argument
@@ -216,6 +212,15 @@
    "oi"  'org-toggle-inline-images
    "ol"  'org-insert-link
    "oo"  'ace-link-org
+   "1"   '((lambda ()
+             (interactive)
+             (find-file (concat lia/dropbox-directory "help")))
+           :which-key "my help")
+   "2"   '((lambda ()
+             (interactive)
+             (find-file (concat user-emacs-directory "init.el")))
+           :which-key "emacs config")
+   "8"   'fci-mode
 
    ;; helm bindings
    "/" 'helm-swoop
@@ -410,7 +415,8 @@
 (use-package fill-column-indicator
   :config
   (setq fci-rule-column 80)
-  (add-hook 'prog-mode-hook 'fci-mode))
+  ;;(add-hook 'prog-mode-hook 'fci-mode)
+  )
 
 ;; syntax checking
 (use-package flycheck
@@ -565,79 +571,47 @@
 
 (use-package org
   :config
-  (setq org-blank-before-new-entry '((heading) (plain-list-item)) ; blank lines between entries
-        org-ellipsis " ⤵" ; custom ellipsis
-        org-hide-emphasis-markers t ; hide formating characters
-        org-log-done 'time ; add timestamps when task is done, or rescheduled
+  ;; blank lines between entries
+  (setq org-blank-before-new-entry
+        '((heading) (plain-list-item)))
+  
+  ;; custom ellipsis
+  (setq org-ellipsis " ⤵")
+
+  ;; add timestamps when task is done, or rescheduled
+  (setq org-log-done 'time
         org-log-redeadline 'time
         org-log-reschedule 'time)
 
-  ;; better looking org headlines
-  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html#orgheadline4
-  (let* ((variable-tuple (cond
-                          ((x-list-fonts "Roboto")
-                           '(:font "Roboto"))
-                          ((x-list-fonts "Source Sans Pro")
-                           '(:font "Source Sans Pro"))
-                          ((x-list-fonts "Lucida Grande")
-                           '(:font "Lucida Grande"))
-                          ((x-list-fonts "Verdana")
-                           '(:font "Verdana"))
-                          ((x-family-fonts "Sans Serif")
-                           '(:family "Sans Serif"))
-                          (nil (warn "Cannot find a Sans Serif Font."))))
-         (headline           `(:inherit default :weight bold :height 140)))
-
-    (custom-theme-set-faces 'user
-                            `(org-level-8 ((t (,@headline ,@variable-tuple))))
-                            `(org-level-7 ((t (,@headline ,@variable-tuple))))
-                            `(org-level-6 ((t (,@headline ,@variable-tuple))))
-                            `(org-level-5 ((t (,@headline ,@variable-tuple))))
-                            `(org-level-4 ((t (,@headline ,@variable-tuple))))
-                            `(org-level-3 ((t (,@headline ,@variable-tuple
-                                                          :height 160))))
-                            `(org-level-2 ((t (,@headline ,@variable-tuple
-                                                          :height 180))))
-                            `(org-level-1 ((t (,@headline ,@variable-tuple
-                                                          :height 200))))
-                            `(org-document-title ((t (,@headline
-                                                      ,@variable-tuple
-                                                      :height 250
-                                                      :underline nil))))))
+  ;; make org headlines bold
+  (set-face-bold 'org-level-1 t)
+  (set-face-bold 'org-level-2 t)
+  (set-face-bold 'org-level-3 t)
+  (set-face-bold 'org-level-4 t)
+  (set-face-bold 'org-level-5 t)
+  (set-face-bold 'org-level-6 t)
+  (set-face-bold 'org-level-7 t)
+  (set-face-bold 'org-level-8 t)
 
   ;; set agenda files
   (setq org-agenda-files
-		(list (concat lia/dropbox-directory "org/planner.org")))
+        (list (concat lia/dropbox-directory "org/planner.org")))
+
+  ;; pretty fonts in source code
+  (setq org-src-fontify-natively t)
 
   ;; org source code languages
-  (setq org-src-fontify-natively t)
   (org-babel-do-load-languages
-   'org-babel-load-languages '((css . t)
-                               (emacs-lisp . t)
-                               (java . t)
-                               (js . t)
-                               (latex . t)
-                               (lisp . t)
-                               (org . t)
-                               (perl . t)
-                               (python . t)
-                               (ruby . t)
-                               (sh . t)))
+   'org-babel-load-languages '((emacs-lisp . t)
+                               (latex . t)))
 
   ;; custom todo keywords
   (setq org-todo-keywords
-        '((sequence "TODO(t)"
-                    "IN-PROGRESS(i)"
-                    "ON HOLD(h)"
-                    "WAITING(w)"
+        '((sequence "☀ TODO(t)"
+                    "⚑ WAITING(w)"
                     "|"
-                    "DONE(d)"
-                    "CANCELED(c)")
-          (sequence "[ ](T)"
-                    "[-](I)"
-                    "[*](W)"
-                    "|"
-                    "[X](D)")))
+                    "✓ DONE(d)"
+                    "❌ CANCELED(c)")))
 
   ;; I meant 3:00 in the afternoon! not 3:00am!
   ;; https://emacs.stackexchange.com/a/3320
@@ -722,7 +696,7 @@
                'powerline-inactive1 nil
                :foreground (plist-get lia/base16-colors :base03)
                :background (plist-get lia/base16-colors :base01))))
-
+  
   ;; modeline from spacemacs
   (use-package spaceline
     :config
@@ -843,9 +817,7 @@
 
 ;; distraction free editing
 ;; basically goyo vim
-(use-package writeroom-mode
-  :config
-  )
+(use-package writeroom-mode)
 
 ;; templates
 (use-package yasnippet
