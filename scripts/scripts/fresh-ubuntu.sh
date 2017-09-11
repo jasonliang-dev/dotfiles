@@ -19,6 +19,7 @@ sudo apt install\
      openbox\
      paper-icon-theme\
      papirus-icon-theme\
+     rofi\
      thunar\
      tint2\
      vim-gtk\

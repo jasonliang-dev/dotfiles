@@ -13,7 +13,7 @@
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
   <placement>
-    <policy>UnderMouse</policy>
+    <policy>Smart</policy>
     <center>yes</center>
     <monitor>Primary</monitor>
     <primaryMonitor>1</primaryMonitor>

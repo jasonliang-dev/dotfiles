@@ -8,10 +8,9 @@ else
     exit 1
 fi
 
-#compton &
+compton &
 dunst &
 ~/scripts/feh.sh &
-setxkbmap -option "caps:escape" &
-setxkbmap -option "compose:ralt" &
+setxkbmap -option caps:escape &
 xset m 0 0 &
 xset r rate 270 27 &
