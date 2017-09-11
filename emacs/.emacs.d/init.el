@@ -329,7 +329,15 @@
    "/" 'pdf-occur
    "o" 'pdf-outline
    "f" 'pdf-links-action-perform
-   "b" 'pdf-view-midnight-minor-mode))
+   "b" 'pdf-view-midnight-minor-mode)
+
+  ;; tetris
+  ;; this is emacs after all.
+  (general-define-key
+   :keymaps 'tetris-mode-map
+   "x" 'tetris-rotate-next
+   "z" 'tetris-rotate-prev)
+  )
 
 ;; quickly select different windows
 (use-package ace-window
@@ -397,6 +405,7 @@
 (use-package diminish
   :config
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+  (diminish 'all-the-icons-dired-mode)
   (diminish 'flyspell-mode)
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
