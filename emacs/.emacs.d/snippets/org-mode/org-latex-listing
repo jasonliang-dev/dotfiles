@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-latex-listing
+# key: listing
+# --
+\begin{lstlisting}[language=$1]
+$0
+\end{lstlisting}

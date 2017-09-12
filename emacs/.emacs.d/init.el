@@ -310,7 +310,7 @@
   ;; pdfs
   ;; https://github.com/noctuid/evil-guide#example-integration-with-pdf-tools
   (general-define-key
-   :states 'emacs
+   :states '(normal emacs)
    :keymaps 'doc-view-mode-map
    "h" (general-simulate-keys "p" t)
    "j" (general-simulate-keys "C-n" t)
@@ -363,6 +363,22 @@
 (use-package all-the-icons-dired
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+;; use auctex for tex/latex documents
+(use-package auctex
+  :defer t
+  :config
+  ;; https://www.emacswiki.org/emacs/AUCTeX#toc2
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (setq reftex-plug-into-AUCTeX t))
 
 (use-package avy
   :config
@@ -678,7 +694,22 @@
                 (set-face-foreground 'org-pomodoro-mode-line
                                      (plist-get lia/base16-colors :base0A))
                 (set-face-foreground 'org-pomodoro-mode-line-break
-                                     (plist-get lia/base16-colors :base0C))))))
+                                     (plist-get lia/base16-colors :base0C)))))
+
+  ;; better agenda
+  (use-package org-super-agenda
+	:disabled
+	:ensure nil
+	:config
+	(let ((org-super-agenda-groups
+		   '((:auto-category t))))
+	  (org-agenda-list))
+	(org-super-agenda-mode t))
+
+  ;; org export to bootstrap
+  (use-package ox-twbs))
+
+
 
 ;; page break lines
 (use-package page-break-lines
@@ -785,16 +816,6 @@
   :commands sublimity-mode
   :config
   (require 'sublimity-scroll))
-
-;; better agenda
-(use-package org-super-agenda
-  :disabled
-  :ensure nil
-  :config
-  (let ((org-super-agenda-groups
-         '((:auto-category t))))
-    (org-agenda-list))
-  (org-super-agenda-mode t))
 
 ;; neat features for web development
 (use-package web-mode

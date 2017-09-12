@@ -2,6 +2,6 @@
 # name: org-latex-beamer-theme
 # key: beamer-theme
 # --
-#+latex_header: \mode<beamer>
-#+latex_header: \usetheme{${1:Bergen}}
-#+latex_header: \usecolortheme{${2:rose}}$0
+#+LATEX_HEADER: \mode<beamer>
+#+LATEX_HEADER: \usetheme{${1:Bergen}}
+#+LATEX_HEADER: \usecolortheme{${2:rose}}$0
