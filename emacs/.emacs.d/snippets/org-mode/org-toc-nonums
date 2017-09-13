@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: org-toc-nonums
+# key: toc-nonum
+# --
+#+LATEX: \setcounter{secnumdepth}{0}

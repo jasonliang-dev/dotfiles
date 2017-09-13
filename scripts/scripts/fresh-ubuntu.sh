@@ -9,6 +9,7 @@ sudo add-apt-repository ppa:tista/adapta
 
 sudo apt update
 
+# install some things
 sudo apt install\
      adapta-gtk-theme\
      arc-theme\
@@ -22,4 +23,10 @@ sudo apt install\
      rofi\
      thunar\
      tint2\
-     vim-gtk\
+     vim-gtk
+
+# install some more things
+sudo apt install\
+	 emacs\
+	 texlive\
+	 python-pygments

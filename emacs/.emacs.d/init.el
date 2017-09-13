@@ -221,6 +221,10 @@
              (interactive)
              (find-file (concat user-emacs-directory "init.el")))
            :which-key "emacs config")
+   "3"   '((lambda ()
+             (interactive)
+             (find-file (concat lia/dropbox-directory "org")))
+		   :which-key "org files")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -533,7 +537,6 @@
 
 ;; Ever heard of NERDTREE? Basically that.
 (use-package neotree
-  :commands neotree-toggle
   :config
   (setq neo-smart-open t
         projectile-switch-project-action 'neotree-projectile-action
@@ -543,38 +546,40 @@
 
   ;; change neotree's text colours
   ;; oh boy, here we go.
-  (set-face-foreground 'neo-banner-face
-                       (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-header-face
-                       (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-root-dir-face
-                       (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-dir-link-face
-                       (plist-get lia/base16-colors :base0D))
-  (set-face-foreground 'neo-file-link-face
-                       (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-expand-btn-face
-                       (plist-get lia/base16-colors :base0C))
-  (set-face-foreground 'neo-vc-default-face
-                       (plist-get lia/base16-colors :base05))
-  (set-face-foreground 'neo-vc-user-face
-                       (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-up-to-date-face
-                       (plist-get lia/base16-colors :base03))
-  (set-face-foreground 'neo-vc-edited-face
-                       (plist-get lia/base16-colors :base0E))
-  (set-face-foreground 'neo-vc-needs-merge-face
-                       (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-unlocked-changes-face
-                       (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-added-face
-                       (plist-get lia/base16-colors :base0B))
-  (set-face-foreground 'neo-vc-conflict-face
-                       (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-missing-face
-                       (plist-get lia/base16-colors :base08))
-  (set-face-foreground 'neo-vc-ignored-face
-                       (plist-get lia/base16-colors :base03))
+  (add-hook 'after-init-hook
+			(lambda ()
+			  (set-face-foreground 'neo-banner-face
+								   (plist-get lia/base16-colors :base0C))
+			  (set-face-foreground 'neo-header-face
+								   (plist-get lia/base16-colors :base05))
+			  (set-face-foreground 'neo-root-dir-face
+								   (plist-get lia/base16-colors :base0C))
+			  (set-face-foreground 'neo-dir-link-face
+								   (plist-get lia/base16-colors :base0D))
+			  (set-face-foreground 'neo-file-link-face
+								   (plist-get lia/base16-colors :base05))
+			  (set-face-foreground 'neo-expand-btn-face
+								   (plist-get lia/base16-colors :base0C))
+			  (set-face-foreground 'neo-vc-default-face
+								   (plist-get lia/base16-colors :base05))
+			  (set-face-foreground 'neo-vc-user-face
+								   (plist-get lia/base16-colors :base08))
+			  (set-face-foreground 'neo-vc-up-to-date-face
+								   (plist-get lia/base16-colors :base03))
+			  (set-face-foreground 'neo-vc-edited-face
+								   (plist-get lia/base16-colors :base0E))
+			  (set-face-foreground 'neo-vc-needs-merge-face
+								   (plist-get lia/base16-colors :base08))
+			  (set-face-foreground 'neo-vc-unlocked-changes-face
+								   (plist-get lia/base16-colors :base08))
+			  (set-face-foreground 'neo-vc-added-face
+								   (plist-get lia/base16-colors :base0B))
+			  (set-face-foreground 'neo-vc-conflict-face
+								   (plist-get lia/base16-colors :base08))
+			  (set-face-foreground 'neo-vc-missing-face
+								   (plist-get lia/base16-colors :base08))
+			  (set-face-foreground 'neo-vc-ignored-face
+								   (plist-get lia/base16-colors :base03))))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action))
@@ -601,6 +606,7 @@
 
   (nlinum-relative-setup-evil))
 
+;; org mode
 (use-package org
   :config
   ;; blank lines between entries
@@ -636,6 +642,13 @@
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
                                (latex . t)))
+
+  ;; use minted for highlighting code in latex pdfs
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted
+		org-latex-pdf-process
+		'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+		  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   ;; custom todo keywords
   (setq org-todo-keywords
