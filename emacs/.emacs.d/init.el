@@ -185,7 +185,7 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "RET" 'eshell
-   "SPC" 'ace-window
+   "SPC" 'avy-goto-word-1
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
    "c"   'comment-region
@@ -199,13 +199,14 @@
    "F"   'flycheck-previous-error
    "gk"  'general-describe-keybindings
    "gs"  'magit-status
-   "j"   'avy-goto-word-1
    "k"   'kill-this-buffer
    "r"   'er/expand-region
+   "s"   'google-this-search
    "t"   'neotree-toggle
    "u"   'undo-tree-visualize
    "U"   'universal-argument
-   "w"   'lia/window-switch-split
+   "w"   'ace-window
+   "W"   'lia/window-switch-split
    "ll"  'nlinum-mode
    "lr"  'nlinum-relative-toggle
    "oa"  'org-agenda
@@ -500,6 +501,12 @@
     "XX......"
     "XXX....."
     "XXXX...."))
+
+;; google
+(use-package google-this
+  :diminish (google-this-mode . "🅖")
+  :config
+  (google-this-mode t))
 
 ;; git
 (use-package magit
