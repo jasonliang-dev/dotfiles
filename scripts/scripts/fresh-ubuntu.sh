@@ -28,5 +28,5 @@ sudo apt install\
 # install some more things
 sudo apt install\
 	 emacs\
-	 texlive\
+	 texlive-full\
 	 python-pygments

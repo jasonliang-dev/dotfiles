@@ -191,7 +191,6 @@
    "c"   'comment-region
    "d"   '((lambda ()
              (interactive)
-             (neotree-hide)
              (deer))
            :which-key "deer")
    "e"   'emmet-expand-line
@@ -224,7 +223,7 @@
    "3"   '((lambda ()
              (interactive)
              (find-file (concat lia/dropbox-directory "org")))
-		   :which-key "org files")
+           :which-key "org files")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -356,7 +355,7 @@
 
 ;; always keep code indented nicely
 (use-package aggressive-indent
-  :diminish (aggressive-indent-mode . "🅘")
+  :diminish (aggressive-indent-mode . "🄸")
   :config
   (global-aggressive-indent-mode t)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode))
@@ -393,7 +392,7 @@
 ;; it's not that I have trouble finding the cursor
 ;; I think this just looks cool
 (use-package beacon
-  :diminish (beacon-mode . "🅑")
+  :diminish beacon-mode
   :config
   (setq beacon-dont-blink-major-modes '(dired-mode
                                         neotree-mode
@@ -407,7 +406,7 @@
 
 ;; text completion
 (use-package company
-  :diminish (company-mode . "🅒")
+  :diminish (company-mode . "🄲")
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -434,7 +433,7 @@
 
 ;; emmet
 (use-package emmet-mode
-  :diminish (emmet-mode . "🅔")
+  :diminish (emmet-mode . "🄴")
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
@@ -508,7 +507,7 @@
 
 ;; google
 (use-package google-this
-  :diminish (google-this-mode . "🅖")
+  :diminish (google-this-mode . "🄶")
   :config
   (google-this-mode t))
 
@@ -547,39 +546,39 @@
   ;; change neotree's text colours
   ;; oh boy, here we go.
   (add-hook 'after-init-hook
-			(lambda ()
-			  (set-face-foreground 'neo-banner-face
-								   (plist-get lia/base16-colors :base0C))
-			  (set-face-foreground 'neo-header-face
-								   (plist-get lia/base16-colors :base05))
-			  (set-face-foreground 'neo-root-dir-face
-								   (plist-get lia/base16-colors :base0C))
-			  (set-face-foreground 'neo-dir-link-face
-								   (plist-get lia/base16-colors :base0D))
-			  (set-face-foreground 'neo-file-link-face
-								   (plist-get lia/base16-colors :base05))
-			  (set-face-foreground 'neo-expand-btn-face
-								   (plist-get lia/base16-colors :base0C))
-			  (set-face-foreground 'neo-vc-default-face
-								   (plist-get lia/base16-colors :base05))
-			  (set-face-foreground 'neo-vc-user-face
-								   (plist-get lia/base16-colors :base08))
-			  (set-face-foreground 'neo-vc-up-to-date-face
-								   (plist-get lia/base16-colors :base03))
-			  (set-face-foreground 'neo-vc-edited-face
-								   (plist-get lia/base16-colors :base0E))
-			  (set-face-foreground 'neo-vc-needs-merge-face
-								   (plist-get lia/base16-colors :base08))
-			  (set-face-foreground 'neo-vc-unlocked-changes-face
-								   (plist-get lia/base16-colors :base08))
-			  (set-face-foreground 'neo-vc-added-face
-								   (plist-get lia/base16-colors :base0B))
-			  (set-face-foreground 'neo-vc-conflict-face
-								   (plist-get lia/base16-colors :base08))
-			  (set-face-foreground 'neo-vc-missing-face
-								   (plist-get lia/base16-colors :base08))
-			  (set-face-foreground 'neo-vc-ignored-face
-								   (plist-get lia/base16-colors :base03))))
+            (lambda ()
+              (set-face-foreground 'neo-banner-face
+                                   (plist-get lia/base16-colors :base0C))
+              (set-face-foreground 'neo-header-face
+                                   (plist-get lia/base16-colors :base05))
+              (set-face-foreground 'neo-root-dir-face
+                                   (plist-get lia/base16-colors :base0C))
+              (set-face-foreground 'neo-dir-link-face
+                                   (plist-get lia/base16-colors :base0D))
+              (set-face-foreground 'neo-file-link-face
+                                   (plist-get lia/base16-colors :base05))
+              (set-face-foreground 'neo-expand-btn-face
+                                   (plist-get lia/base16-colors :base0C))
+              (set-face-foreground 'neo-vc-default-face
+                                   (plist-get lia/base16-colors :base05))
+              (set-face-foreground 'neo-vc-user-face
+                                   (plist-get lia/base16-colors :base08))
+              (set-face-foreground 'neo-vc-up-to-date-face
+                                   (plist-get lia/base16-colors :base03))
+              (set-face-foreground 'neo-vc-edited-face
+                                   (plist-get lia/base16-colors :base0E))
+              (set-face-foreground 'neo-vc-needs-merge-face
+                                   (plist-get lia/base16-colors :base08))
+              (set-face-foreground 'neo-vc-unlocked-changes-face
+                                   (plist-get lia/base16-colors :base08))
+              (set-face-foreground 'neo-vc-added-face
+                                   (plist-get lia/base16-colors :base0B))
+              (set-face-foreground 'neo-vc-conflict-face
+                                   (plist-get lia/base16-colors :base08))
+              (set-face-foreground 'neo-vc-missing-face
+                                   (plist-get lia/base16-colors :base08))
+              (set-face-foreground 'neo-vc-ignored-face
+                                   (plist-get lia/base16-colors :base03))))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action))
@@ -608,6 +607,7 @@
 
 ;; org mode
 (use-package org
+  :diminish (org-beamer-mode . "🄱")
   :config
   ;; blank lines between entries
   (setq org-blank-before-new-entry
@@ -641,14 +641,15 @@
   ;; org source code languages
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
-                               (latex . t)))
+                               (latex . t)
+							   (js . t)))
 
   ;; use minted for highlighting code in latex pdfs
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted
-		org-latex-pdf-process
-		'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-		  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+        org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   ;; custom todo keywords
   (setq org-todo-keywords
@@ -718,13 +719,13 @@
 
   ;; better agenda
   (use-package org-super-agenda
-	:disabled
-	:ensure nil
-	:config
-	(let ((org-super-agenda-groups
-		   '((:auto-category t))))
-	  (org-agenda-list))
-	(org-super-agenda-mode t))
+    :disabled
+    :ensure nil
+    :config
+    (let ((org-super-agenda-groups
+           '((:auto-category t))))
+      (org-agenda-list))
+    (org-super-agenda-mode t))
 
   ;; org export to bootstrap
   (use-package ox-twbs))
@@ -733,7 +734,7 @@
 
 ;; page break lines
 (use-package page-break-lines
-  :diminish (page-break-lines-mode . "🅛"))
+  :diminish (page-break-lines-mode . "🄻"))
 
 ;; powerline
 (use-package powerline
@@ -802,7 +803,7 @@
   (projectile-mode t)
   ;; https://github.com/sviridov/.emacs.d/blob/master/config/base/init-diminish.el#L25
   (setq-default projectile-mode-line
-                '(:eval (format "🅟【%s】" (projectile-project-name)))))
+                '(:eval (format "🄿【%s】" (projectile-project-name)))))
 
 ;; rainbow brackets
 (use-package rainbow-delimiters
@@ -871,7 +872,7 @@
 
 ;; templates
 (use-package yasnippet
-  :diminish (yas-minor-mode . "🅨")
+  :diminish (yas-minor-mode . "🅈")
   :config
   (yas-global-mode t)
   ;; yasnippet collection
@@ -900,7 +901,7 @@
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
- (font-candidate '"Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
+ (font-candidate '"Fira Mono 10" "Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)

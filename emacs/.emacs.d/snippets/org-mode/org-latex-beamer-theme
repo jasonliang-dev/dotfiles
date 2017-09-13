@@ -3,5 +3,4 @@
 # key: beamer-theme
 # --
 #+LATEX_HEADER: \mode<beamer>
-#+LATEX_HEADER: \usetheme{${1:Bergen}}
-#+LATEX_HEADER: \usecolortheme{${2:rose}}$0
+#+BEAMER_THEME: ${1:metropolis}$0

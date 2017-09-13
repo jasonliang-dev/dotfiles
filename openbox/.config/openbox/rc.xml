@@ -24,37 +24,37 @@
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveWindow">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuHeader">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuItem">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Source Sans Pro</name>
+      <name>Fira Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
