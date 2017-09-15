@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: org-latex-margin
+# key: margin
+# --
+#+LATEX_HEADER: \usepackage[margin=${1:1in}]{geometry}$0

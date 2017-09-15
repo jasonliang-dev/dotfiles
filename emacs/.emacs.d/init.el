@@ -901,7 +901,7 @@
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
- (font-candidate '"Fira Mono 10" "Monego 10" "Source Code Pro 10" "Ubuntu Mono 12") nil t)
+ (font-candidate '"Fira Mono 9" "Monego 9" "Source Code Pro 9" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
