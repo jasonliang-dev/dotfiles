@@ -120,7 +120,7 @@
                     evil-normal-state-cursor
                     `(,(plist-get lia/base16-colors :base0B) box)
                     evil-replace-state-cursor
-                    `(,(plist-get lia/base16-colors :base08) bar)
+                    `(,(plist-get lia/base16-colors :base08) hbar)
                     evil-visual-state-cursor
                     `(,(plist-get lia/base16-colors :base09) box)))))
 

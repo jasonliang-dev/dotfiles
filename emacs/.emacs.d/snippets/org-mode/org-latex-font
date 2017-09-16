@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-latex-font
+# key: font
+# --
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmainfont{$1}
+#+LATEX_HEADER: \setsansfont{$2}$0
