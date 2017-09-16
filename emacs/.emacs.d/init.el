@@ -611,7 +611,7 @@
   :config
   ;; blank lines between entries
   (setq org-blank-before-new-entry
-        '((heading) (plain-list-item)))
+        '((heading . nil) (plain-list-item . nil)))
   
   ;; custom ellipsis
   (setq org-ellipsis " ⤵")
