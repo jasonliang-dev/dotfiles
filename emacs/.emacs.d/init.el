@@ -103,9 +103,14 @@
   ;; https://emacs.stackexchange.com/questions/6029/is-it-possible-to-execute-a-function-or-command-at-a-specific-time
   (load-theme 'base16-tomorrow t)
   (defvar lia/base16-colors base16-tomorrow-colors)
-  (run-at-time "18:00" nil (lambda ()
-                             (load-theme 'base16-material t)
-                             (setq lia/base16-colors base16-material-colors)))
+  (defvar lia/dark-theme-timer
+	(run-at-time "18:00" nil
+				 (lambda ()
+				   (load-theme 'base16-material t)
+				   (setq lia/base16-colors base16-material-colors))))
+  ;; Don't switch themes in the middle of an emacs session.
+  (add-hook 'after-init-hook
+			(lambda () (cancel-timer lia/dark-theme-timer)))
 
   ;; Set the cursor color based on the evil state
   ;; https://github.com/belak/base16-emacs#evil-mode
