@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: org-latex-bib
+# key: bib
+# --
+\newpage
+
+\begin{thebibliography}{1}
+
+\bibitem{$1} $0
+
+\end{thebibliography}
