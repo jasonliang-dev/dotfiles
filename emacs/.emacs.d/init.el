@@ -194,11 +194,7 @@
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
    "c"   'comment-region
-   "d"   '((lambda ()
-             (interactive)
-             (deer))
-           :which-key "deer")
-   "e"   'emmet-expand-line
+   "d"   '((lambda () (interactive) (deer)) :which-key "deer")
    "f"   'flycheck-next-error
    "F"   'flycheck-previous-error
    "gk"  'general-describe-keybindings
@@ -213,10 +209,12 @@
    "W"   'lia/window-switch-split
    "ll"  'nlinum-mode
    "lr"  'nlinum-relative-toggle
+   "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
    "oi"  'org-toggle-inline-images
    "ol"  'org-insert-link
    "oo"  'ace-link-org
+   "ow"  'writeroom-mode
    "1"   '((lambda ()
              (interactive)
              (find-file (concat lia/dropbox-directory "help")))
