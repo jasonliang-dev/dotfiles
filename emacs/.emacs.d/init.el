@@ -195,6 +195,7 @@
    "br"  'revert-buffer
    "c"   'comment-region
    "d"   '((lambda () (interactive) (deer)) :which-key "deer")
+   "e"   'org-export-dispatch
    "f"   'flycheck-next-error
    "F"   'flycheck-previous-error
    "gk"  'general-describe-keybindings
@@ -214,6 +215,7 @@
    "oi"  'org-toggle-inline-images
    "ol"  'org-insert-link
    "oo"  'ace-link-org
+   "ot"  'org-todo
    "ow"  'writeroom-mode
    "1"   '((lambda ()
              (interactive)
