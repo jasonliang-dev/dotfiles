@@ -188,7 +188,7 @@
   (general-define-key
    :states '(normal visual motion insert emacs)
    :prefix "SPC"
-   :non-normal-prefix "M-SPC"
+   :non-normal-prefix "C-SPC"
    "RET" 'eshell
    "SPC" 'avy-goto-word-1
    "TAB" 'mode-line-other-buffer
@@ -649,12 +649,10 @@
                                (latex . t)
 							   (js . t)))
 
-  ;; use minted for highlighting code in latex pdfs
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted
-        org-latex-pdf-process
-        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;; use xelatex as well as shell escape when exporting org document
+  (setq org-latex-pdf-process
+		'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+		  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   ;; custom todo keywords
   (setq org-todo-keywords
@@ -906,7 +904,7 @@
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
- (font-candidate '"Fira Mono 9" "Monego 9" "Source Code Pro 9" "Ubuntu Mono 12") nil t)
+ (font-candidate '"Fira Mono 9" "Source Code Pro 9" "Monego 9" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
