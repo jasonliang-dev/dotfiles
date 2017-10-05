@@ -136,6 +136,9 @@
   :init
   (helm-mode 1)
   :config
+  ;; get Dash docsets
+  (use-package helm-dash)
+
   ;; helm integration with projectile
   (use-package helm-projectile
     :config
@@ -389,6 +392,7 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-AUCTeX t))
 
+;; jump around quickly
 (use-package avy
   :config
   (avy-setup-default))
@@ -413,7 +417,20 @@
 (use-package company
   :diminish (company-mode . "🄲")
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  ;; quick documentation popup
+  (use-package company-quickhelp
+	:config
+	(company-quickhelp-mode 1))
+
+  ;; javascript
+  (use-package company-tern
+	:config
+	(add-to-list 'company-backend 'company-tern))
+
+  ;; html, web mode
+  (use-package company-web))
 
 ;; a better startup screen
 (use-package dashboard
@@ -515,6 +532,11 @@
   :diminish (google-this-mode . "🄶")
   :config
   (google-this-mode t))
+
+;; improved javascript mode
+(use-package js2-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
 ;; git
 (use-package magit
@@ -619,7 +641,10 @@
         '((heading . nil) (plain-list-item . nil)))
   
   ;; custom ellipsis
-  (setq org-ellipsis " ⤵")
+  (setq org-ellipsis " ▼")
+
+  ;; some images are too big. scale them
+  (setq org-image-actual-width (/ (display-pixel-width) 3))
 
   ;; add timestamps when task is done, or rescheduled
   (setq org-log-done 'time
