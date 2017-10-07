@@ -371,13 +371,13 @@
   :config
   ;; quick documentation popup
   (use-package company-quickhelp
-	:config
-	(company-quickhelp-mode 1))
+    :config
+    (company-quickhelp-mode 1))
 
   ;; javascript
   (use-package company-tern
-	:config
-	(add-to-list 'company-backend 'company-tern))
+    :config
+    (add-to-list 'company-backend 'company-tern))
 
   ;; html, web mode
   (use-package company-web))
@@ -560,12 +560,12 @@
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
                                (latex . t)
-							   (js . t)))
+                               (js . t)))
 
   ;; use xelatex as well as shell escape when exporting org document
   (setq org-latex-pdf-process
-		'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-		  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   ;; custom todo keywords
   (setq org-todo-keywords
@@ -633,10 +633,10 @@
           spaceline-separator-dir-right '(right . right)
           spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
-	(spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-minor-modes-off)
     (spaceline-toggle-buffer-size-off)
     (spaceline-toggle-buffer-encoding-abbrev-off)
-	(spaceline-spacemacs-theme)))
+    (spaceline-spacemacs-theme)))
 
 ;; features for projects
 (use-package projectile
@@ -736,7 +736,7 @@
 (blink-cursor-mode 0)
 
 ;; highlight the current line
-;;(global-hl-line-mode)
+(global-hl-line-mode)
 
 ;; enable wordwrap
 (global-visual-line-mode t)
