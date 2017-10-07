@@ -437,26 +437,6 @@
   :init
   (global-flycheck-mode)
   :config
-  ;; https://github.com/flycheck/flycheck/blob/master/flycheck.el#L3380
-  (setq flycheck-indication-mode 'right-fringe)
-  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-    (vector #b00000000
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00011001
-            #b00110110
-            #b01101100
-            #b11011000
-            #b01101100
-            #b00110110
-            #b00011001
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00000000))
   (use-package helm-flycheck))
 
 ;; dim surrounding text
@@ -595,33 +575,6 @@
                     "✓ DONE(d)"
                     "❌ CANCELED(c)")))
 
-  ;; I meant 3:00 in the afternoon! not 3:00am!
-  ;; https://emacs.stackexchange.com/a/3320
-  (defvar time-range-with-pm-suffix '("1:00" . "6:59"))
-  (defun org-analyze-date-dwim (original-fun ans org-def org-defdecode)
-    (let* ((time (funcall original-fun ans org-def org-defdecode))
-           (minute (nth 1 time))
-           (hour (nth 2 time))
-           (minutes (+ minute (* 60 hour)))
-           s)
-      (when (and (< hour 12)
-                 (not (string-match "am" ans))
-                 (>= minutes (org-hh:mm-string-to-minutes
-                              (car time-range-with-pm-suffix)))
-                 (<= minutes (org-hh:mm-string-to-minutes
-                              (cdr time-range-with-pm-suffix))))
-        (setf (nth 2 time) (+ hour 12))
-        (when (boundp 'org-end-time-was-given)
-          (setq s org-end-time-was-given)
-          (if (and s (string-match "^\\([0-9]+\\)\\(:[0-9]+\\)$" s))
-              (setq org-end-time-was-given
-                    (concat (number-to-string
-                             (+ 12 (string-to-number (match-string 1 s))))
-                            (match-string 2 s))))))
-      time))
-
-  (advice-add 'org-read-date-analyze :around #'org-analyze-date-dwim)
-
   ;; cool looking bullets in org
   (use-package org-bullets
     :init
@@ -658,7 +611,6 @@
 
   ;; org export to bootstrap
   (use-package ox-twbs))
-
 
 
 ;; page break lines
@@ -708,18 +660,6 @@
   :config
   (require 'smartparens-config)
   (smartparens-global-mode t))
-
-;; use tabs for indentation, spaces for alignment
-(use-package smart-tabs-mode
-  :config
-  (smart-tabs-insinuate 'c
-                        'c++
-                        'java
-                        'javascript
-                        'cperl
-                        'python
-                        'ruby
-                        'nxml))
 
 ;; make the editor more sublime-y
 (use-package sublimity
@@ -857,17 +797,6 @@
           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
             (kill-buffer buffer)))
         (buffer-list)))
-
-(defun lia/the-the ()
-  "Search forward for for a duplicated word."
-  (interactive)
-  (message "Searching for for duplicated words ...")
-  (push-mark)
-
-  (if (re-search-forward
-       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
-      (message "Found duplicated word.")
-    (message "End of buffer")))
 
 (defun lia/window-switch-split ()
   "Switch between horizontal/vertical layout."
