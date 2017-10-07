@@ -96,40 +96,6 @@
     (setq vimish-fold-header-width nil)
     (evil-vimish-fold-mode t)))
 
-;; base16 colours
-(use-package base16-theme
-  :disabled
-  :config
-  ;; load light theme until it's past 6:00pm, then use dark theme
-  ;; https://emacs.stackexchange.com/questions/6029/is-it-possible-to-execute-a-function-or-command-at-a-specific-time
-  (load-theme 'base16-tomorrow t)
-  (defvar lia/base16-colors base16-tomorrow-colors)
-  (defvar lia/dark-theme-timer
-	(run-at-time "18:00" nil
-				 (lambda ()
-				   (load-theme 'base16-material t)
-				   (setq lia/base16-colors base16-material-colors))))
-  ;; Don't switch themes in the middle of an emacs session.
-  (add-hook 'after-init-hook
-			(lambda () (cancel-timer lia/dark-theme-timer)))
-
-  ;; Set the cursor color based on the evil state
-  ;; https://github.com/belak/base16-emacs#evil-mode
-  (add-hook 'after-init-hook
-            (lambda ()
-              (setq evil-emacs-state-cursor
-                    `(,(plist-get lia/base16-colors :base0D) box)
-                    evil-insert-state-cursor
-                    `(,(plist-get lia/base16-colors :base0D) bar)
-                    evil-motion-state-cursor
-                    `(,(plist-get lia/base16-colors :base0E) box)
-                    evil-normal-state-cursor
-                    `(,(plist-get lia/base16-colors :base0B) box)
-                    evil-replace-state-cursor
-                    `(,(plist-get lia/base16-colors :base08) hbar)
-                    evil-visual-state-cursor
-                    `(,(plist-get lia/base16-colors :base09) box)))))
-
 ;; doom themes
 (use-package doom-themes
   :config
