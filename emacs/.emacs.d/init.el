@@ -100,7 +100,7 @@
 (use-package doom-themes
   :config
   ;; Load the theme
-  (load-theme 'doom-one t)
+  (load-theme 'doom-vibrant t)
 
   ;; Enable custom neotree theme
   (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
@@ -258,9 +258,9 @@
   (general-define-key
    :states 'normal
    :keymaps 'neotree-mode-map
+   "C-r" 'neotree-refresh
    "q"   'neotree-hide
    "h"   'neotree-hidden-file-toggle
-   "R"   'neotree-refresh
    "M"   'neotree-rename-node
    "C"   'neotree-create-node
    "D"   'neotree-delete-node
@@ -520,7 +520,7 @@
   :config
   (setq neo-smart-open t
         projectile-switch-project-action 'neotree-projectile-action
-        neo-window-width 35
+        neo-window-width 40
         neo-window-fixed-size nil
         neo-theme (if (display-graphic-p) 'icons 'arrow))
 
@@ -547,7 +547,8 @@
   (setq nlinum-relative-current-symbol ""
         nlinum-relative-redisplay-delay 0)
 
-  (nlinum-relative-setup-evil))
+  (nlinum-relative-setup-evil)
+  (add-hook 'prog-mode-hook 'nlinum-relative-mode))
 
 ;; org mode
 (use-package org
@@ -690,10 +691,10 @@
           spaceline-separator-dir-right '(right . right)
           spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
-    ;;(spaceline-toggle-minor-modes-off)
+	(spaceline-toggle-minor-modes-off)
     (spaceline-toggle-buffer-size-off)
     (spaceline-toggle-buffer-encoding-abbrev-off)
-    (spaceline-spacemacs-theme)))
+	(spaceline-spacemacs-theme)))
 
 ;; features for projects
 (use-package projectile
