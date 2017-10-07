@@ -96,18 +96,6 @@
     (setq vimish-fold-header-width nil)
     (evil-vimish-fold-mode t)))
 
-;; doom themes
-(use-package doom-themes
-  :config
-  ;; Load the theme
-  (load-theme 'doom-vibrant t)
-
-  ;; Enable custom neotree theme
-  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
 ;; A completion framework
 ;; helm is heavy, but full of features
 (use-package helm
@@ -415,6 +403,18 @@
   (diminish 'auto-revert-mode)
   (diminish 'undo-tree-mode))
 
+;; doom themes
+(use-package doom-themes
+  :config
+  ;; Load the theme
+  (load-theme 'doom-vibrant t)
+
+  ;; Enable custom neotree theme
+  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 ;; emmet
 (use-package emmet-mode
   :diminish (emmet-mode . "🄴")
@@ -568,16 +568,6 @@
   (setq org-log-done 'time
         org-log-redeadline 'time
         org-log-reschedule 'time)
-
-  ;; make org headlines bold
-  (set-face-bold 'org-level-1 t)
-  (set-face-bold 'org-level-2 t)
-  (set-face-bold 'org-level-3 t)
-  (set-face-bold 'org-level-4 t)
-  (set-face-bold 'org-level-5 t)
-  (set-face-bold 'org-level-6 t)
-  (set-face-bold 'org-level-7 t)
-  (set-face-bold 'org-level-8 t)
 
   ;; set agenda files
   (setq org-agenda-files
