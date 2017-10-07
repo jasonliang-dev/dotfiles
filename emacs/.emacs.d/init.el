@@ -98,6 +98,7 @@
 
 ;; base16 colours
 (use-package base16-theme
+  :disabled
   :config
   ;; load light theme until it's past 6:00pm, then use dark theme
   ;; https://emacs.stackexchange.com/questions/6029/is-it-possible-to-execute-a-function-or-command-at-a-specific-time
@@ -129,6 +130,18 @@
                     evil-visual-state-cursor
                     `(,(plist-get lia/base16-colors :base09) box)))))
 
+;; doom themes
+(use-package doom-themes
+  :config
+  ;; Load the theme
+  (load-theme 'doom-one t)
+
+  ;; Enable custom neotree theme
+  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 ;; A completion framework
 ;; helm is heavy, but full of features
 (use-package helm
@@ -145,24 +158,7 @@
     (helm-projectile-on))
 
   ;;  search matches in another buffer
-  (use-package helm-swoop
-    :config
-    (add-hook 'after-init-hook
-              (lambda ()
-                (set-face-attribute
-                 'helm-swoop-target-line-face nil
-                 :background (plist-get lia/base16-colors :base01)
-                 :foreground (plist-get lia/base16-colors :base05))
-
-                (set-face-attribute
-                 'helm-swoop-target-line-block-face nil
-                 :background (plist-get lia/base16-colors :base01)
-                 :foreground (plist-get lia/base16-colors :base05))
-
-                (set-face-attribute
-                 'helm-swoop-target-word-face nil
-                 :background (plist-get lia/base16-colors :base0D)
-                 :foreground (plist-get lia/base16-colors :base05))))))
+  (use-package helm-swoop))
 
 ;; Another completion framework
 ;; ivy is lightweight and simple
@@ -508,14 +504,6 @@
   (global-git-gutter-mode t)
   :config
   (setq fringes-outside-margins t)
-  (add-hook 'after-init-hook
-            (lambda ()
-              (set-face-foreground 'git-gutter-fr:added
-                                   (plist-get lia/base16-colors :base0B))
-              (set-face-foreground 'git-gutter-fr:modified
-                                   (plist-get lia/base16-colors :base0A))
-              (set-face-foreground 'git-gutter-fr:deleted
-                                   (plist-get lia/base16-colors :base08))))
   ;; https://github.com/hlissner/.emacs.d/blob/master/modules/ui/doom/config.el#L97
   (fringe-helper-define 'git-gutter-fr:added '(center repeated)
     "XXX.....")
@@ -569,43 +557,6 @@
         neo-window-width 35
         neo-window-fixed-size nil
         neo-theme (if (display-graphic-p) 'icons 'arrow))
-
-  ;; change neotree's text colours
-  ;; oh boy, here we go.
-  (add-hook 'after-init-hook
-            (lambda ()
-              (set-face-foreground 'neo-banner-face
-                                   (plist-get lia/base16-colors :base0C))
-              (set-face-foreground 'neo-header-face
-                                   (plist-get lia/base16-colors :base05))
-              (set-face-foreground 'neo-root-dir-face
-                                   (plist-get lia/base16-colors :base0C))
-              (set-face-foreground 'neo-dir-link-face
-                                   (plist-get lia/base16-colors :base0D))
-              (set-face-foreground 'neo-file-link-face
-                                   (plist-get lia/base16-colors :base05))
-              (set-face-foreground 'neo-expand-btn-face
-                                   (plist-get lia/base16-colors :base0C))
-              (set-face-foreground 'neo-vc-default-face
-                                   (plist-get lia/base16-colors :base05))
-              (set-face-foreground 'neo-vc-user-face
-                                   (plist-get lia/base16-colors :base08))
-              (set-face-foreground 'neo-vc-up-to-date-face
-                                   (plist-get lia/base16-colors :base03))
-              (set-face-foreground 'neo-vc-edited-face
-                                   (plist-get lia/base16-colors :base0E))
-              (set-face-foreground 'neo-vc-needs-merge-face
-                                   (plist-get lia/base16-colors :base08))
-              (set-face-foreground 'neo-vc-unlocked-changes-face
-                                   (plist-get lia/base16-colors :base08))
-              (set-face-foreground 'neo-vc-added-face
-                                   (plist-get lia/base16-colors :base0B))
-              (set-face-foreground 'neo-vc-conflict-face
-                                   (plist-get lia/base16-colors :base08))
-              (set-face-foreground 'neo-vc-missing-face
-                                   (plist-get lia/base16-colors :base08))
-              (set-face-foreground 'neo-vc-ignored-face
-                                   (plist-get lia/base16-colors :base03))))
 
   ;; http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/#neotreelinkhttpsgithubcomjaypeiemacsneotree
   (setq projectile-switch-project-action 'neotree-projectile-action))
@@ -736,14 +687,7 @@
     (when (file-exists-p lia/gcal-file) (load-file lia/gcal-file)))
 
   ;; pomodoro
-  (use-package org-pomodoro
-    :config
-    (add-hook 'after-init-hook
-              (lambda ()
-                (set-face-foreground 'org-pomodoro-mode-line
-                                     (plist-get lia/base16-colors :base0A))
-                (set-face-foreground 'org-pomodoro-mode-line-break
-                                     (plist-get lia/base16-colors :base0C)))))
+  (use-package org-pomodoro)
 
   ;; better agenda
   (use-package org-super-agenda
@@ -769,22 +713,6 @@
   :config
   (setq powerline-default-separator 'slant
         powerline-height 35)
-
-  (add-hook 'after-init-hook
-            (lambda ()
-              (set-face-attribute
-               'powerline-active1 nil
-               :foreground (plist-get lia/base16-colors :base05)
-               :background (plist-get lia/base16-colors :base01))
-
-              (set-face-attribute
-               'powerline-active2 nil
-               :background (plist-get lia/base16-colors :base01))
-
-              (set-face-attribute
-               'powerline-inactive1 nil
-               :foreground (plist-get lia/base16-colors :base03)
-               :background (plist-get lia/base16-colors :base01))))
   
   ;; modeline from spacemacs
   (use-package spaceline
@@ -795,30 +723,6 @@
           spaceline-separator-dir-left '(right . right)
           spaceline-separator-dir-right '(right . right)
           spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-
-    (add-hook 'after-init-hook
-              (lambda ()
-                (eval
-                 `(defface lia/mode-line-face
-                    '((t :foreground ,(plist-get lia/base16-colors :base05)
-                         :background ,(plist-get lia/base16-colors :base02)
-                         :inherit 'mode-line))
-                    "Custom mode line face"
-                    :group 'lia/faces))))
-
-    ;; https://github.com/TheBB/spaceline/blob/e6ccec6c80ee2bbddbad5a88cb9d2cd2db8a1a33/spaceline.el#L122
-    (setq spaceline-face-func
-          (lambda (face active)
-            (cond
-             ((eq 'face1 face)
-              (if active 'powerline-active1 'powerline-inactive1))
-             ((eq 'face2 face)
-              (if active 'lia/mode-line-face 'powerline-inactive1))
-             ((eq 'line face)
-              (if active 'powerline-active2 'powerline-inactive1))
-             ((eq 'highlight face) (if active
-                                       (funcall spaceline-highlight-face-func)
-                                     'powerline-inactive1)))))
 
     ;;(spaceline-toggle-minor-modes-off)
     (spaceline-toggle-buffer-size-off)
