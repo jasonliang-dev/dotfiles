@@ -172,8 +172,8 @@
    "ow"  'writeroom-mode
    "1"   '((lambda ()
              (interactive)
-             (find-file (concat lia/dropbox-directory "help")))
-           :which-key "my help")
+             (find-file (concat lia/dropbox-directory "references")))
+           :which-key "references")
    "2"   '((lambda ()
              (interactive)
              (find-file (concat user-emacs-directory "init.el")))
