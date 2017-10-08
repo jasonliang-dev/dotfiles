@@ -227,7 +227,10 @@
    "C-h" 'evil-window-left
    "C-j" 'evil-window-down
    "C-k" 'evil-window-up
-   "C-l" 'evil-window-right)
+   "C-l" 'evil-window-right
+
+   "C-e" 'end-of-line
+   "C-y" 'yank)
 
   ;; vimish-fold
   (general-define-key
@@ -377,7 +380,8 @@
   ;; javascript
   (use-package company-tern
     :config
-    (add-to-list 'company-backend 'company-tern))
+    (add-to-list 'company-backend 'company-tern)
+	(add-hook 'js2-mode-hook (lambda () (tern-mode))))
 
   ;; html, web mode
   (use-package company-web))
