@@ -426,6 +426,15 @@
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
 
+;; erc highlight nicknames
+(use-package erc-hl-nicks)
+
+;; erc show images
+(use-package erc-image
+  :config
+  (add-to-list 'erc-modules 'image)
+  (erc-update-modules))
+
 ;; expand region
 (use-package expand-region)
 
@@ -786,6 +795,9 @@
 (setq mouse-wheel-scroll-amount '(5)    ; mouse scroll amount
       mouse-wheel-progressive-speed nil ; don't accelerate scrolling
       mouse-wheel-follow-mouse 't)      ; scroll window under mouse
+
+;; erc hide joins, quits
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ;; https://www.emacswiki.org/emacs/KillingBuffers#toc2
 (defun lia/kill-other-buffers ()
