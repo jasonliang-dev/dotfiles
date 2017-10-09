@@ -114,26 +114,6 @@
   ;;  search matches in another buffer
   (use-package helm-swoop))
 
-;; Another completion framework
-;; ivy is lightweight and simple
-(use-package ivy
-  :disabled
-  :diminish ivy-mode
-  :config
-  (ivy-mode t)
-  ;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy
-  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-  (setq ivy-use-virtual-buffers t)
-  ;; number of result lines to display
-  (setq ivy-height 16)
-  ;; does not count candidates
-  (setq ivy-count-format "")
-
-  ;; ivy integeration with projectile
-  (use-package counsel-projectile
-    :config
-    (counsel-projectile-on)))
-
 ;; manage keybindings
 (use-package general
   :config
@@ -188,14 +168,7 @@
    "/" 'helm-swoop
    "m" 'helm-mini
    "p" 'helm-show-kill-ring
-   "x" 'helm-M-x
-
-   ;; ivy bindings
-   ;;"/" 'swiper
-   ;;"m" 'ivy-switch-buffer
-   ;;"p" 'counsel-yank-pop
-   ;;"x" 'counsel-M-x
-   )
+   "x" 'helm-M-x)
 
   ;; global bindings
   (general-define-key
@@ -210,13 +183,7 @@
    ;; helm bindings
    "C-x C-f" 'helm-find-files
    "C-x C-r" 'helm-recentf
-   "M-x" 'helm-M-x
-
-   ;; ivy bindings
-   ;;"C-x C-f" 'counsel-find-file
-   ;;"C-x C-r" 'counsel-recentf
-   ;;"M-x" 'counsel-M-x
-   )
+   "M-x" 'helm-M-x)
 
   ;; evil mode
   (general-define-key
@@ -758,7 +725,7 @@
 (global-prettify-symbols-mode t)
 
 ;; Show matching parentheses
-(defvar show-paren-delay 0.2)
+;;(defvar show-paren-delay 0.2)
 (show-paren-mode t)
 
 ;; set the fringe color to the background color
