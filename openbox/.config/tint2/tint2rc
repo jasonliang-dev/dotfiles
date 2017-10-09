@@ -3,18 +3,18 @@
 # full documentation of the configuration options.
 #-------------------------------------
 # Backgrounds
-# Background 1: Panel, Tooltip
+# Background 1: Clock, Panel, Tooltip
 rounded = 0
 border_width = 0
 border_sides = T
-background_color = #2e3c43 93
-border_color = #2e3c43 93
-background_color_hover = #2e3c43 93
-border_color_hover = #2e3c43 93
-background_color_pressed = #2e3c43 93
-border_color_pressed = #2e3c43 93
+background_color = #2e3c43 100
+border_color = #2e3c43 100
+background_color_hover = #2e3c43 100
+border_color_hover = #2e3c43 100
+background_color_pressed = #2e3c43 100
+border_color_pressed = #2e3c43 100
 
-# Background 2: Active task, Clock
+# Background 2: Active task
 rounded = 0
 border_width = 2
 border_sides = T
@@ -147,7 +147,7 @@ time1_timezone =
 time2_timezone = 
 clock_font_color = #ffffff 100
 clock_padding = 20 0
-clock_background_id = 2
+clock_background_id = 1
 clock_tooltip = 
 clock_tooltip_timezone = 
 clock_lclick_command = 
