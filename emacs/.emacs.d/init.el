@@ -499,16 +499,16 @@
                                 ;; Guesstimate number of buffer lines.
                                 (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
                           "d "))))
-  (add-hook 'nlinum-mode-hook #'lia/nlinum-mode-hook))
+  (add-hook 'nlinum-mode-hook #'lia/nlinum-mode-hook)
 
-;; relative line numbers
-(use-package nlinum-relative
-  :config
-  (setq nlinum-relative-current-symbol ""
-        nlinum-relative-redisplay-delay 0)
+  ;; relative line numbers
+  (use-package nlinum-relative
+	:config
+	(setq nlinum-relative-current-symbol ""
+		  nlinum-relative-redisplay-delay 0)
 
-  (nlinum-relative-setup-evil)
-  (add-hook 'prog-mode-hook 'nlinum-relative-mode))
+	(nlinum-relative-setup-evil)
+	(add-hook 'prog-mode-hook 'nlinum-relative-mode)))
 
 ;; org mode
 (use-package org
