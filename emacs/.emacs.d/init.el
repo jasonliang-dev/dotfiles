@@ -15,8 +15,7 @@
       (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
-;; sometimes I use emacs in Windows
-;; the dropbox directory is different
+;; dropbox directory
 (defconst lia/dropbox-directory "~/Dropbox/")
 
 ;; remove bars
@@ -205,6 +204,15 @@
    :keymaps 'prog-mode-map
    "TAB" 'vimish-fold-toggle)
 
+  ;; company bindings
+  (eval-after-load 'company
+	(general-define-key
+	 :states 'insert
+	 :keymaps 'company-mode-map
+	 "TAB" 'company-complete
+	 "C-n" 'company-select-next
+	 "C-p" 'company-select-previous))
+
   ;; magit quit
   (general-define-key
    :keymaps 'magit-status-mode-map
@@ -339,6 +347,11 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
+  ;; idle completion
+  (setq company-idle-delay 0.2)
+  ;; wrap around top and bottom of completion list
+  (setq company-selection-wrap-around t)
+
   ;; quick documentation popup
   (use-package company-quickhelp
     :config
@@ -350,7 +363,7 @@
     (add-to-list 'company-backend 'company-tern)
 	(add-hook 'js2-mode-hook (lambda () (tern-mode))))
 
-  ;; html, web mode
+  ;; completion for html, web mode
   (use-package company-web))
 
 ;; a better startup screen
@@ -369,9 +382,10 @@
   :config
   (eval-after-load 'org-indent '(diminish 'org-indent-mode))
   (diminish 'all-the-icons-dired-mode)
-  (diminish 'flyspell-mode)
-  (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
+  (diminish 'flyspell-mode)
+  (diminish 'tern-mode)
+  (diminish 'visual-line-mode)
   (diminish 'undo-tree-mode))
 
 ;; doom themes
@@ -405,6 +419,7 @@
 ;; expand region
 (use-package expand-region)
 
+;; indicator at column 80
 (use-package fill-column-indicator
   :config
   (setq fci-rule-column 80)
@@ -417,6 +432,12 @@
   :init
   (global-flycheck-mode)
   :config
+  ;; use tidy in web mode
+  (flycheck-add-mode 'html-tidy 'web-mode)
+  ;; use csslint in css
+  (flycheck-add-mode 'css-csslint 'css-mode)
+
+  ;; use helm with flycheck
   (use-package helm-flycheck))
 
 ;; dim surrounding text
@@ -538,9 +559,7 @@
 
   ;; org source code languages
   (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t)
-                               (latex . t)
-                               (js . t)))
+   'org-babel-load-languages '((emacs-lisp . t) (latex . t) (js . t)))
 
   ;; use xelatex as well as shell escape when exporting org document
   (setq org-latex-pdf-process
@@ -577,7 +596,8 @@
     (when (file-exists-p lia/gcal-file) (load-file lia/gcal-file)))
 
   ;; pomodoro
-  (use-package org-pomodoro)
+  (use-package org-pomodoro
+	:disabled)
 
   ;; better agenda
   (use-package org-super-agenda
@@ -641,6 +661,15 @@
   (require 'smartparens-config)
   (smartparens-global-mode t))
 
+;; live javascript interaction
+(use-package skewer-mode
+  :diminish (skewer-mode . "🅂")
+  :config
+  ;; manually set the mode hooks
+  (add-hook 'js2-mode-hook 'skewer-mode)
+  (add-hook 'css-mode-hook 'skewer-css-mode)
+  (add-hook 'html-mode-hook 'skewer-html-mode))
+
 ;; make the editor more sublime-y
 (use-package sublimity
   :commands sublimity-mode
@@ -665,7 +694,8 @@
     (setq web-mode-markup-indent-offset 4)
     (setq web-mode-css-indent-offset 4)
     (setq web-mode-code-indent-offset 4)
-    (emmet-mode))
+    (emmet-mode)
+	(skewer-html-mode))
   (add-hook 'web-mode-hook 'lia/web-mode-hook))
 
 ;; display available bindings
@@ -710,7 +740,7 @@
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
- (font-candidate '"Fira Mono 9" "Source Code Pro 9" "Monego 9" "Ubuntu Mono 12") nil t)
+ (font-candidate '"Iosevka 10" "Fira Mono 9" "Source Code Pro 9" "Monego 9" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
