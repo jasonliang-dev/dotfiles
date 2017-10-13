@@ -95,8 +95,7 @@
     (setq vimish-fold-header-width nil)
     (evil-vimish-fold-mode t)))
 
-;; A completion framework
-;; helm is heavy, but full of features
+;; completion framework
 (use-package helm
   :diminish helm-mode
   :init
@@ -110,7 +109,7 @@
     :config
     (helm-projectile-on))
 
-  ;;  search matches in another buffer
+  ;; search matches in another buffer
   (use-package helm-swoop))
 
 ;; manage keybindings
@@ -740,7 +739,8 @@
   "Return existing font which first match in FONTS."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
- (font-candidate '"Iosevka 10" "Fira Mono 9" "Source Code Pro 9" "Monego 9" "Ubuntu Mono 12") nil t)
+ (font-candidate '"Iosevka 10" "Fira Mono 9" "Source Code Pro 9"
+				 "Monego 9" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
