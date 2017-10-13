@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-feh --bg-fill ~/Pictures/wp.[jp][pn]g
+feh --randomize --bg-fill ~/Dropbox/wallpapers/*
