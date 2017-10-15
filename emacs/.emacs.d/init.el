@@ -17,6 +17,7 @@
 
 ;; dropbox directory
 (defconst lia/dropbox-directory "~/Dropbox/")
+(defconst lia/planner-file (concat lia/dropbox-directory "org/planner.org"))
 
 ;; remove bars
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -144,23 +145,23 @@
    "lr"  'nlinum-relative-toggle
    "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
+   "oc"  '((lambda () (interactive) (org-capture nil "t"))
+		   :which-key org-capture)
    "oi"  'org-toggle-inline-images
+   "ok"  'org-archive-subtree-default
    "ol"  'org-insert-link
    "oo"  'ace-link-org
    "ot"  'org-todo
    "ow"  'writeroom-mode
-   "1"   '((lambda ()
-             (interactive)
-             (find-file (concat lia/dropbox-directory "references")))
-           :which-key "references")
-   "2"   '((lambda ()
-             (interactive)
-             (find-file (concat user-emacs-directory "init.el")))
-           :which-key "emacs config")
-   "3"   '((lambda ()
-             (interactive)
-             (find-file (concat lia/dropbox-directory "org")))
-           :which-key "org files")
+   "1"   '((lambda () (interactive)
+			 (find-file lia/dropbox-directory))
+		   :which-key "Dropbox")
+   "2"   '((lambda () (interactive)
+			 (find-file (concat user-emacs-directory "init.el")))
+		   :which-key "Emacs Config")
+   "3"   '((lambda () (interactive)
+			 (find-file lia/planner-file))
+		   :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -233,7 +234,7 @@
    "TAB" 'neotree-quick-look
    "RET" 'neotree-enter)
 
-  ;; org mode
+  ;; org mode bindings
   (general-define-key
    :keymaps 'org-mode-map
    "C-c >" 'org-time-stamp-inactive)
@@ -552,7 +553,21 @@
 
   ;; set agenda files
   (setq org-agenda-files
-        (list (concat lia/dropbox-directory "org/planner.org")))
+        (list lia/planner-file))
+
+  ;; set up org capture file
+  (setq org-default-notes-file lia/planner-file)
+
+  ;; custom todo keywords
+  (setq org-todo-keywords
+		'((sequence "[ ](t)" "[-](p)" "[?](w)" "|" "[X](d)" "[*](c)")))
+
+  ;; org capture capture templates
+  ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
+  ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
+  (setq org-capture-templates
+		'(("t" "Todo" entry (file+headline lia/planner-file "Tasks")
+		   "* [ ] %?\n")))
 
   ;; pretty fonts in source code
   (setq org-src-fontify-natively t)
@@ -565,14 +580,6 @@
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  ;; custom todo keywords
-  (setq org-todo-keywords
-        '((sequence "❗ TODO(t)"
-                    "⚑ WAITING(w)"
-                    "|"
-                    "✓ DONE(d)"
-                    "❌ CANCELED(c)")))
 
   ;; cool looking bullets in org
   (use-package org-bullets
