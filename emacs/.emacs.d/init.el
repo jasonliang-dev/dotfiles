@@ -146,7 +146,7 @@
    "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
    "oc"  '((lambda () (interactive) (org-capture nil "t"))
-		   :which-key org-capture)
+           :which-key org-capture)
    "oi"  'org-toggle-inline-images
    "ok"  'org-archive-subtree-default
    "ol"  'org-insert-link
@@ -154,14 +154,14 @@
    "ot"  'org-todo
    "ow"  'writeroom-mode
    "1"   '((lambda () (interactive)
-			 (find-file lia/dropbox-directory))
-		   :which-key "Dropbox")
+             (find-file lia/dropbox-directory))
+           :which-key "Dropbox")
    "2"   '((lambda () (interactive)
-			 (find-file (concat user-emacs-directory "init.el")))
-		   :which-key "Emacs Config")
+             (find-file (concat user-emacs-directory "init.el")))
+           :which-key "Emacs Config")
    "3"   '((lambda () (interactive)
-			 (find-file lia/planner-file))
-		   :which-key "Planner")
+             (find-file lia/planner-file))
+           :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -207,12 +207,12 @@
 
   ;; company bindings
   (eval-after-load 'company
-	(general-define-key
-	 :states 'insert
-	 :keymaps 'company-mode-map
-	 "TAB" 'company-complete
-	 "C-n" 'company-select-next
-	 "C-p" 'company-select-previous))
+    (general-define-key
+     :states 'insert
+     :keymaps 'company-mode-map
+     "TAB" 'company-complete
+     "C-n" 'company-select-next
+     "C-p" 'company-select-previous))
 
   ;; magit quit
   (general-define-key
@@ -362,7 +362,7 @@
   (use-package company-tern
     :config
     (add-to-list 'company-backend 'company-tern)
-	(add-hook 'js2-mode-hook (lambda () (tern-mode))))
+    (add-hook 'js2-mode-hook (lambda () (tern-mode))))
 
   ;; completion for html, web mode
   (use-package company-web))
@@ -525,12 +525,12 @@
 
   ;; relative line numbers
   (use-package nlinum-relative
-	:config
-	(setq nlinum-relative-current-symbol ""
-		  nlinum-relative-redisplay-delay 0)
+    :config
+    (setq nlinum-relative-current-symbol ""
+          nlinum-relative-redisplay-delay 0)
 
-	(nlinum-relative-setup-evil)
-	(add-hook 'prog-mode-hook 'nlinum-relative-mode)))
+    (nlinum-relative-setup-evil)
+    (add-hook 'prog-mode-hook 'nlinum-relative-mode)))
 
 ;; org mode
 (use-package org
@@ -560,14 +560,14 @@
 
   ;; custom todo keywords
   (setq org-todo-keywords
-		'((sequence "[ ](t)" "[-](p)" "[?](w)" "|" "[X](d)" "[*](c)")))
+        '((sequence "[ ](t)" "[-](p)" "[?](w)" "|" "[X](d)" "[*](c)")))
 
   ;; org capture capture templates
   ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
   ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
   (setq org-capture-templates
-		'(("t" "Todo" entry (file+headline lia/planner-file "Tasks")
-		   "* [ ] %?\n")))
+        '(("t" "Todo" entry (file+headline lia/planner-file "Tasks")
+           "* [ ] %?\n")))
 
   ;; pretty fonts in source code
   (setq org-src-fontify-natively t)
@@ -604,7 +604,7 @@
 
   ;; pomodoro
   (use-package org-pomodoro
-	:disabled)
+    :disabled)
 
   ;; better agenda
   (use-package org-super-agenda
@@ -702,7 +702,7 @@
     (setq web-mode-css-indent-offset 4)
     (setq web-mode-code-indent-offset 4)
     (emmet-mode)
-	(skewer-html-mode))
+    (skewer-html-mode))
   (add-hook 'web-mode-hook 'lia/web-mode-hook))
 
 ;; display available bindings
