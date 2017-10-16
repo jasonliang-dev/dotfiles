@@ -17,6 +17,8 @@
 
 ;; dropbox directory
 (defconst lia/dropbox-directory "~/Dropbox/")
+
+;; planner file as org document
 (defconst lia/planner-file (concat lia/dropbox-directory "org/planner.org"))
 
 ;; remove bars
@@ -145,8 +147,7 @@
    "lr"  'nlinum-relative-toggle
    "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
-   "oc"  '((lambda () (interactive) (org-capture nil "t"))
-           :which-key org-capture)
+   "oc"  'org-capture
    "oi"  'org-toggle-inline-images
    "ok"  'org-archive-subtree-default
    "ol"  'org-insert-link
@@ -154,14 +155,14 @@
    "ot"  'org-todo
    "ow"  'writeroom-mode
    "1"   '((lambda () (interactive)
-             (find-file lia/dropbox-directory))
-           :which-key "Dropbox")
+			 (find-file lia/dropbox-directory))
+		   :which-key "Dropbox")
    "2"   '((lambda () (interactive)
-             (find-file (concat user-emacs-directory "init.el")))
-           :which-key "Emacs Config")
+			 (find-file (concat user-emacs-directory "init.el")))
+		   :which-key "Emacs Config")
    "3"   '((lambda () (interactive)
-             (find-file lia/planner-file))
-           :which-key "Planner")
+			 (find-file lia/planner-file))
+		   :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -207,12 +208,12 @@
 
   ;; company bindings
   (eval-after-load 'company
-    (general-define-key
-     :states 'insert
-     :keymaps 'company-mode-map
-     "TAB" 'company-complete
-     "C-n" 'company-select-next
-     "C-p" 'company-select-previous))
+	(general-define-key
+	 :states 'insert
+	 :keymaps 'company-mode-map
+	 "TAB" 'company-complete
+	 "C-n" 'company-select-next
+	 "C-p" 'company-select-previous))
 
   ;; magit quit
   (general-define-key
@@ -566,8 +567,12 @@
   ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
   ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline lia/planner-file "Tasks")
-           "* [ ] %?\n")))
+        '(("c" "Task" entry (file+headline lia/planner-file "Tasks")
+           "* [ ] %?\n")
+          ("f" "Task with file" entry (file+headline lia/planner-file "Tasks")
+           "* [ ] %?\n  %a\n")
+		  ("d" "Event" entry (file+headline lia/planner-file "Events")
+		   "* %?\n  SCHEDULED: %^T\n")))
 
   ;; pretty fonts in source code
   (setq org-src-fontify-natively t)
