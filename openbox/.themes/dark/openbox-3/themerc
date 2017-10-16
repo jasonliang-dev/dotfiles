@@ -1,7 +1,7 @@
 ## COLOURS
 
 # Set border colour
-window.active.client.color: #89DDFF
+window.active.client.color: #B2CCD6
 window.inactive.client.color: #546E7A
 
 # title colours
@@ -10,7 +10,7 @@ window.active.label.text.color: #EEFFFF
 window.inactive.label.text.color: #546E7A
 
 # Set buttons color
-window.active.button.*.image.color: #89DDFF
+window.active.button.*.image.color: #B2CCD6
 window.inactive.button.*.image.color: #546E7A
 
 # Set menu colors

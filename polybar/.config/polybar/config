@@ -1,0 +1,155 @@
+[colors]
+; base16 material
+base00 = #263238
+base01 = #2E3C43
+base02 = #314549
+base03 = #546E7A
+base04 = #B2CCD6
+base05 = #EEFFFF
+base06 = #EEFFFF
+base07 = #FFFFFF
+base08 = #F07178
+base09 = #F78C6C
+base0A = #FFCB6B
+base0B = #C3E88D
+base0C = #89DDFF
+base0D = #82AAFF
+base0E = #C792EA
+base0F = #FF5370
+
+background = ${self.base01}
+background-alt = ${self.base03}
+foreground = ${self.base05}
+foreground-alt = ${self.base04}
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[bar/top]
+width = 100%
+height = 32
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+border-bottom-size = 0
+border-bottom-color = ${colors.background}
+
+spacing = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = "fira sans:size=9;2"
+font-1 = "fontawesome:size=10;2"
+font-2 = "Wuncon Siji:pixelsize=10;2"
+modules-left = xwindow
+modules-center = ewmh
+modules-right = backlight volume battery date
+
+tray-position = left
+tray-padding = 8
+tray-detached = false
+tray-transparent = false
+tray-background = ${colors.foreground-alt}
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:50:...%
+format-padding = 8
+format-background = ${colors.background-alt}
+
+[module/ewmh]
+type = internal/xworkspaces
+format = <label-state>
+format-padding = 8
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+label-active = "    "
+
+label-empty = "    "
+
+label-occupied = "    "
+
+label-urgent = "    "
+label-urgent-foreground = ${colors.base09}
+
+[module/date]
+type = internal/date
+interval = 10
+
+date = %A, %B %d
+time = %I:%M %p
+
+label = " %date%     %time%"
+format = <label>
+format-padding = 8
+format-background = ${colors.foreground-alt}
+format-foreground = ${colors.background}
+
+[module/backlight]
+type = internal/xbacklight
+
+format = <ramp> <label>
+format-padding = 0
+format-background = ${colors.background-alt}
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 8
+format-volume-background = ${colors.background-alt}
+
+label-volume = %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted =  muted
+label-muted-foreground = ${colors.foreground-alt}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-padding = 0
+format-charging-background = ${colors.background-alt}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 0
+format-discharging-background = ${colors.background-alt}
+
+format-full-prefix = "    "
+format-full-prefix-foreground = ${colors.foreground-alt}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
