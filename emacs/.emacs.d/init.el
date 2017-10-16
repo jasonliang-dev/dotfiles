@@ -18,6 +18,9 @@
 ;; dropbox directory
 (defconst lia/dropbox-directory "~/Dropbox/")
 
+;; planner file as org document
+(defconst lia/planner-file (concat lia/dropbox-directory "org/planner.org"))
+
 ;; remove bars
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -143,23 +146,22 @@
    "lr"  'nlinum-relative-toggle
    "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
+   "oc"  'org-capture
    "oi"  'org-toggle-inline-images
+   "ok"  'org-archive-subtree-default
    "ol"  'org-insert-link
    "oo"  'ace-link-org
    "ot"  'org-todo
    "ow"  'writeroom-mode
-   "1"   '((lambda ()
-             (interactive)
-             (find-file (concat lia/dropbox-directory "references")))
-           :which-key "references")
-   "2"   '((lambda ()
-             (interactive)
-             (find-file (concat user-emacs-directory "init.el")))
-           :which-key "emacs config")
-   "3"   '((lambda ()
-             (interactive)
-             (find-file (concat lia/dropbox-directory "org")))
-           :which-key "org files")
+   "1"   '((lambda () (interactive)
+			 (find-file lia/dropbox-directory))
+		   :which-key "Dropbox")
+   "2"   '((lambda () (interactive)
+			 (find-file (concat user-emacs-directory "init.el")))
+		   :which-key "Emacs Config")
+   "3"   '((lambda () (interactive)
+			 (find-file lia/planner-file))
+		   :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -232,7 +234,7 @@
    "TAB" 'neotree-quick-look
    "RET" 'neotree-enter)
 
-  ;; org mode
+  ;; org mode bindings
   (general-define-key
    :keymaps 'org-mode-map
    "C-c >" 'org-time-stamp-inactive)
@@ -360,7 +362,7 @@
   (use-package company-tern
     :config
     (add-to-list 'company-backend 'company-tern)
-	(add-hook 'js2-mode-hook (lambda () (tern-mode))))
+    (add-hook 'js2-mode-hook (lambda () (tern-mode))))
 
   ;; completion for html, web mode
   (use-package company-web))
@@ -523,12 +525,12 @@
 
   ;; relative line numbers
   (use-package nlinum-relative
-	:config
-	(setq nlinum-relative-current-symbol ""
-		  nlinum-relative-redisplay-delay 0)
+    :config
+    (setq nlinum-relative-current-symbol ""
+          nlinum-relative-redisplay-delay 0)
 
-	(nlinum-relative-setup-evil)
-	(add-hook 'prog-mode-hook 'nlinum-relative-mode)))
+    (nlinum-relative-setup-evil)
+    (add-hook 'prog-mode-hook 'nlinum-relative-mode)))
 
 ;; org mode
 (use-package org
@@ -551,7 +553,25 @@
 
   ;; set agenda files
   (setq org-agenda-files
-        (list (concat lia/dropbox-directory "org/planner.org")))
+        (list lia/planner-file))
+
+  ;; set up org capture file
+  (setq org-default-notes-file lia/planner-file)
+
+  ;; custom todo keywords
+  (setq org-todo-keywords
+        '((sequence "[ ](t)" "[-](p)" "[?](w)" "|" "[X](d)" "[*](c)")))
+
+  ;; org capture capture templates
+  ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
+  ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
+  (setq org-capture-templates
+        '(("c" "Task" entry (file+headline lia/planner-file "Tasks")
+           "* [ ] %?\n")
+          ("f" "Task with file" entry (file+headline lia/planner-file "Tasks")
+           "* [ ] %?\n  %a\n")
+		  ("d" "Event" entry (file+headline lia/planner-file "Events")
+		   "* %?\n  SCHEDULED: %^T\n")))
 
   ;; pretty fonts in source code
   (setq org-src-fontify-natively t)
@@ -564,14 +584,6 @@
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  ;; custom todo keywords
-  (setq org-todo-keywords
-        '((sequence "❗ TODO(t)"
-                    "⚑ WAITING(w)"
-                    "|"
-                    "✓ DONE(d)"
-                    "❌ CANCELED(c)")))
 
   ;; cool looking bullets in org
   (use-package org-bullets
@@ -596,7 +608,7 @@
 
   ;; pomodoro
   (use-package org-pomodoro
-	:disabled)
+    :disabled)
 
   ;; better agenda
   (use-package org-super-agenda
@@ -694,7 +706,7 @@
     (setq web-mode-css-indent-offset 4)
     (setq web-mode-code-indent-offset 4)
     (emmet-mode)
-	(skewer-html-mode))
+    (skewer-html-mode))
   (add-hook 'web-mode-hook 'lia/web-mode-hook))
 
 ;; display available bindings
