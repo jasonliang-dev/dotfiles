@@ -22,6 +22,8 @@ background-alt = ${self.base03}
 foreground = ${self.base05}
 foreground-alt = ${self.base04}
 
+underline = #FFB2CCD6
+
 [global/wm]
 margin-top = 0
 margin-bottom = 0
@@ -33,14 +35,16 @@ height = 32
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-border-bottom-size = 0
+underline-size = 2
+
+border-bottom-size = 1
 border-bottom-color = ${colors.background}
 
 spacing = 0
-padding-left = 8
-padding-right = 8
-module-margin-left = 8
-module-margin-right = 8
+padding-left = 4
+padding-right = 4
+module-margin-left = 4
+module-margin-right = 4
 
 font-0 = "fira sans:size=9;2"
 font-1 = "fontawesome:size=10;2"
@@ -58,10 +62,11 @@ tray-background = ${colors.background}
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:50:...%
+format-window = <label>
+format-underline = ${colors.underline}
 
 [module/ewmh]
 type = internal/xworkspaces
-format = <label-state>
 
 label-active = "    "
 
@@ -80,12 +85,14 @@ date = %A, %B %d
 time = %I:%M %p
 
 label = " %date%     %time%"
+format-underline = ${colors.underline}
 
 [module/backlight]
 type = internal/xbacklight
 
-format = <ramp> <label>
 label = %percentage%%
+format = <ramp> <label>
+format-underline = ${colors.underline}
 
 ; Only applies if <ramp> is used
 ramp-0 = 🌕
@@ -98,11 +105,13 @@ ramp-4 = 🌑
 type = internal/volume
 
 format-volume = <ramp-volume> <label-volume>
+format-volume-underline = ${colors.underline}
 
 label-volume = %percentage%%
 
 label-muted =  muted
 label-muted-foreground = ${colors.foreground-alt}
+label-muted-underline =${colors.underline}
 
 ramp-volume-0 = 
 ramp-volume-1 = 
@@ -113,25 +122,23 @@ type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 98
+format-underline = ${colors.underline}
 
 format-charging = <animation-charging> <label-charging>
 
 format-discharging = <ramp-capacity> <label-discharging>
 
 format-full-prefix = "    "
-format-full-prefix-foreground = ${colors.foreground-alt}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
