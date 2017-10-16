@@ -72,9 +72,9 @@ label-active = "    "
 
 label-empty = "    "
 
-label-occupied = "    "
+label-occupied = "    "
 
-label-urgent = "    "
+label-urgent = "    "
 label-urgent-foreground = ${colors.base09}
 
 [module/date]
@@ -122,13 +122,15 @@ type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 98
-format-underline = ${colors.underline}
 
 format-charging = <animation-charging> <label-charging>
+format-charging-underline = ${colors.underline}
 
 format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${colors.underline}
 
-format-full-prefix = "    "
+format-full-prefix = 
+format-full-underline = ${colors.underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
