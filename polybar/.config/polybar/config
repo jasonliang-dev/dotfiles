@@ -37,10 +37,10 @@ border-bottom-size = 0
 border-bottom-color = ${colors.background}
 
 spacing = 0
-padding-left = 0
-padding-right = 0
-module-margin-left = 0
-module-margin-right = 0
+padding-left = 8
+padding-right = 8
+module-margin-left = 8
+module-margin-right = 8
 
 font-0 = "fira sans:size=9;2"
 font-1 = "fontawesome:size=10;2"
@@ -49,24 +49,19 @@ modules-left = xwindow
 modules-center = ewmh
 modules-right = backlight volume battery date
 
-tray-position = left
-tray-padding = 8
+tray-position = right
+tray-padding = 0
 tray-detached = false
 tray-transparent = false
-tray-background = ${colors.foreground-alt}
+tray-background = ${colors.background}
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:50:...%
-format-padding = 8
-format-background = ${colors.background-alt}
 
 [module/ewmh]
 type = internal/xworkspaces
 format = <label-state>
-format-padding = 8
-format-background = ${colors.background}
-format-foreground = ${colors.foreground}
 
 label-active = "    "
 
@@ -85,17 +80,11 @@ date = %A, %B %d
 time = %I:%M %p
 
 label = " %date%     %time%"
-format = <label>
-format-padding = 8
-format-background = ${colors.foreground-alt}
-format-foreground = ${colors.background}
 
 [module/backlight]
 type = internal/xbacklight
 
 format = <ramp> <label>
-format-padding = 0
-format-background = ${colors.background-alt}
 label = %percentage%%
 
 ; Only applies if <ramp> is used
@@ -109,11 +98,8 @@ ramp-4 = 🌑
 type = internal/volume
 
 format-volume = <ramp-volume> <label-volume>
-format-volume-padding = 8
-format-volume-background = ${colors.background-alt}
 
 label-volume = %percentage%%
-label-volume-foreground = ${root.foreground}
 
 label-muted =  muted
 label-muted-foreground = ${colors.foreground-alt}
@@ -129,12 +115,8 @@ adapter = ACAD
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-padding = 0
-format-charging-background = ${colors.background-alt}
 
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-padding = 0
-format-discharging-background = ${colors.background-alt}
 
 format-full-prefix = "    "
 format-full-prefix-foreground = ${colors.foreground-alt}
