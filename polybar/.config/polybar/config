@@ -49,8 +49,8 @@ module-margin-right = 4
 font-0 = "fira sans:size=9;2"
 font-1 = "fontawesome:size=10;2"
 font-2 = "Wuncon Siji:pixelsize=10;2"
-modules-left = ewmh
-modules-center = xwindow
+modules-left = ewmh xwindow
+modules-center = 
 modules-right = backlight volume battery date
 
 tray-position = right
@@ -61,20 +61,20 @@ tray-background = ${colors.background}
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:50:...%
+label =  %title:0:50:...%
 format-window = <label>
 format-underline = ${colors.underline}
 
 [module/ewmh]
 type = internal/xworkspaces
 
-label-active = "    "
+label-active = "    "
 
-label-empty = "    "
+label-empty = "    "
 
-label-occupied = "    "
+label-occupied = "    "
 
-label-urgent = "    "
+label-urgent = "    "
 label-urgent-foreground = ${colors.base09}
 
 [module/date]
