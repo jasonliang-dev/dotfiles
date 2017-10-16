@@ -49,8 +49,8 @@ module-margin-right = 4
 font-0 = "fira sans:size=9;2"
 font-1 = "fontawesome:size=10;2"
 font-2 = "Wuncon Siji:pixelsize=10;2"
-modules-left = xwindow
-modules-center = ewmh
+modules-left = ewmh
+modules-center = xwindow
 modules-right = backlight volume battery date
 
 tray-position = right
