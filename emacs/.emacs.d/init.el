@@ -11,8 +11,8 @@
 ;;; Code:
 
 ;; Move built in customization stuff to a different file
-(setq custom-file
-      (concat user-emacs-directory "custom.el"))
+(defconst custom-file
+  (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
 ;; dropbox directory
@@ -469,6 +469,9 @@
   :config
   (google-this-mode t))
 
+;; live html development
+(use-package impatient-mode)
+
 ;; improved javascript mode
 (use-package js2-mode
   :config
@@ -569,9 +572,7 @@
         '(("c" "Task" entry (file+headline lia/planner-file "Tasks")
            "* [ ] %?\n")
           ("f" "Task with file" entry (file+headline lia/planner-file "Tasks")
-           "* [ ] %?\n  %a\n")
-		  ("d" "Event" entry (file+headline lia/planner-file "Events")
-		   "* %?\n  SCHEDULED: %^T\n")))
+           "* [ ] %?\n  %a\n")))
 
   ;; pretty fonts in source code
   (setq org-src-fontify-natively t)
