@@ -22,7 +22,7 @@ background-alt = ${self.base03}
 foreground = ${self.base05}
 foreground-alt = ${self.base04}
 
-underline = #FFB2CCD6
+underline = ${self.base03}
 
 [global/wm]
 margin-top = 0
@@ -41,27 +41,28 @@ border-bottom-size = 1
 border-bottom-color = ${colors.background}
 
 spacing = 0
-padding-left = 4
-padding-right = 4
-module-margin-left = 4
-module-margin-right = 4
+padding-left = 6
+padding-right = 6
+module-margin-left = 6
+module-margin-right = 6
 
 font-0 = "fira sans:size=9;2"
 font-1 = "fontawesome:size=10;2"
 font-2 = "Wuncon Siji:pixelsize=10;2"
-modules-left = ewmh xwindow
-modules-center = 
-modules-right = backlight volume battery date
+modules-left = ewmh
+modules-center = date
+modules-right = backlight volume battery
 
 tray-position = right
+tray-offset-y = -40
 tray-padding = 0
-tray-detached = false
+tray-detached = true
 tray-transparent = false
 tray-background = ${colors.background}
 
 [module/xwindow]
 type = internal/xwindow
-label =  %title:0:50:...%
+label = "  %title:0:40:...%"
 format-window = <label>
 format-underline = ${colors.underline}
 
@@ -69,6 +70,7 @@ format-underline = ${colors.underline}
 type = internal/xworkspaces
 
 label-active = "    "
+label-active-underline = ${colors.underline}
 
 label-empty = "    "
 
@@ -84,14 +86,14 @@ interval = 10
 date = %A, %B %d
 time = %I:%M %p
 
-label = " %date%     %time%"
+label = "  %date%        %time%"
 format-underline = ${colors.underline}
 
 [module/backlight]
 type = internal/xbacklight
 
 label = %percentage%%
-format = <ramp> <label>
+format = "<ramp>  <label>"
 format-underline = ${colors.underline}
 
 ; Only applies if <ramp> is used
@@ -104,12 +106,12 @@ ramp-4 = 🌑
 [module/volume]
 type = internal/volume
 
-format-volume = <ramp-volume> <label-volume>
+format-volume = "<ramp-volume>  <label-volume>"
 format-volume-underline = ${colors.underline}
 
 label-volume = %percentage%%
 
-label-muted =  muted
+label-muted = "  muted"
 label-muted-foreground = ${colors.foreground-alt}
 label-muted-underline =${colors.underline}
 
@@ -123,13 +125,13 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 
-format-charging = <animation-charging> <label-charging>
+format-charging = "<animation-charging>  <label-charging>"
 format-charging-underline = ${colors.underline}
 
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = "<ramp-capacity>  <label-discharging>"
 format-discharging-underline = ${colors.underline}
 
-format-full-prefix = 
+format-full-prefix = "  "
 format-full-underline = ${colors.underline}
 
 ramp-capacity-0 = 
