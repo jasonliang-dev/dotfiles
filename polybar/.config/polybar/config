@@ -22,7 +22,7 @@ background-alt = ${self.base03}
 foreground = ${self.base05}
 foreground-alt = ${self.base04}
 
-underline = ${self.base03}
+underline = ${self.background}
 
 [global/wm]
 margin-top = 0
@@ -37,8 +37,8 @@ foreground = ${colors.foreground}
 
 underline-size = 2
 
-border-bottom-size = 1
-border-bottom-color = ${colors.background}
+border-bottom-size = 2
+border-bottom-color = ${colors.base03}
 
 spacing = 0
 padding-left = 6
@@ -46,9 +46,9 @@ padding-right = 6
 module-margin-left = 6
 module-margin-right = 6
 
-font-0 = "fira sans:size=9;2"
-font-1 = "fontawesome:size=10;2"
-font-2 = "Wuncon Siji:pixelsize=10;2"
+font-0 = "fira sans:size=9;1"
+font-1 = "fontawesome:size=10;1.5"
+font-2 = "Wuncon Siji:pixelsize=10;1"
 modules-left = ewmh
 modules-center = date
 modules-right = backlight volume battery
@@ -69,22 +69,23 @@ format-underline = ${colors.underline}
 [module/ewmh]
 type = internal/xworkspaces
 
-label-active = "    "
-label-active-underline = ${colors.underline}
+label-active = "    "
+label-active-foreground = ${colors.base0C}
 
-label-empty = "    "
+label-empty = "    "
+label-empty-foreground = ${colors.background-alt}
 
-label-occupied = "    "
+label-occupied = "    "
 
-label-urgent = "    "
+label-urgent = "    "
 label-urgent-foreground = ${colors.base09}
 
 [module/date]
 type = internal/date
 interval = 10
 
-date = %A, %B %d
-time = %I:%M %p
+date = %a, %b %d
+time = %I:%M
 
 label = "  %date%        %time%"
 format-underline = ${colors.underline}
