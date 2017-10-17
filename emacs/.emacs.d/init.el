@@ -556,7 +556,8 @@
 
   ;; set agenda files
   (setq org-agenda-files
-        (list lia/planner-file))
+        (list lia/planner-file
+			  (concat lia/dropbox-directory "org/timetable.org")))
 
   ;; set up org capture file
   (setq org-default-notes-file lia/planner-file)
@@ -665,6 +666,11 @@
 
 ;; emulate ranger in dired
 (use-package ranger)
+
+;; `compile' alternative
+(use-package smart-compile
+  :config
+  (add-to-list 'smart-compile-alist '("\\.java$" . "javac %f")))
 
 ;; deal with pairs of parentheses better
 (use-package smartparens
