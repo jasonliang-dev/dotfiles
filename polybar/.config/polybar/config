@@ -17,7 +17,7 @@ base0D = #82AAFF
 base0E = #C792EA
 base0F = #FF5370
 
-background = ${self.base01}
+background = ${self.base00}
 background-alt = ${self.base03}
 foreground = ${self.base05}
 foreground-alt = ${self.base04}
@@ -35,7 +35,7 @@ height = 32
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 2
+underline-size = 0
 
 border-bottom-size = 2
 border-bottom-color = ${colors.base03}
@@ -87,7 +87,8 @@ interval = 10
 date = %a, %b %d
 time = %I:%M
 
-label = "  %date%        %time%"
+label = "      %date%        %time%    "
+format-background = ${colors.base01}
 format-underline = ${colors.underline}
 
 [module/backlight]
