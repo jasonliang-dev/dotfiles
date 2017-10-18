@@ -374,8 +374,8 @@
   (setq dashboard-startup-banner
         (concat user-emacs-directory "icon/emacs-sexy.png")
         dashboard-items '((recents . 10)
-                          (bookmarks .10)
-                          (projects . 10)
+						  (bookmarks . 10)
+						  ;;(projects . 10)
                           (agenda . 10))))
 
 ;; hide or shorten minor modes
@@ -397,6 +397,12 @@
 
   ;; Enable custom neotree theme
   (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+  (set-face-attribute 'doom-neotree-dir-face nil :family "Fira Sans Condensed")
+  (set-face-attribute 'doom-neotree-file-face nil :family "Fira Sans Condensed")
+  (set-face-attribute 'doom-neotree-hidden-file-face nil :family "Fira Sans Condensed")
+  (set-face-attribute 'doom-neotree-text-file-face nil :family "Fira Sans Condensed")
+  (set-face-attribute 'doom-neotree-media-file-face nil :family "Fira Sans Condensed")
+  (set-face-attribute 'doom-neotree-data-file-face nil :family "Fira Sans Condensed")
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
@@ -564,7 +570,7 @@
 
   ;; custom todo keywords
   (setq org-todo-keywords
-        '((sequence "[ ](t)" "[-](p)" "[?](w)" "|" "[X](d)" "[*](c)")))
+        '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)" "[x](c)")))
 
   ;; org capture capture templates
   ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
@@ -609,8 +615,7 @@
     (when (file-exists-p lia/gcal-file) (load-file lia/gcal-file)))
 
   ;; pomodoro
-  (use-package org-pomodoro
-    :disabled)
+  (use-package org-pomodoro)
 
   ;; better agenda
   (use-package org-super-agenda
