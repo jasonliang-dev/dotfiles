@@ -46,9 +46,9 @@ padding-right = 6
 module-margin-left = 6
 module-margin-right = 6
 
-font-0 = "fira sans:size=9;1"
-font-1 = "fontawesome:size=10;1.5"
-font-2 = "Wuncon Siji:pixelsize=10;1"
+font-0 = "fira sans:size=9;2"
+font-1 = "fontawesome:size=10;2.5"
+font-2 = "Wuncon Siji:pixelsize=10;2"
 modules-left = ewmh
 modules-center = date
 modules-right = backlight volume battery
