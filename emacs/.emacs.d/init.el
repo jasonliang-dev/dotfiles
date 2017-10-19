@@ -154,14 +154,14 @@
    "ot"  'org-todo
    "ow"  'writeroom-mode
    "1"   '((lambda () (interactive)
-			 (find-file lia/dropbox-directory))
-		   :which-key "Dropbox")
+             (find-file lia/dropbox-directory))
+           :which-key "Dropbox")
    "2"   '((lambda () (interactive)
-			 (find-file (concat user-emacs-directory "init.el")))
-		   :which-key "Emacs Config")
+             (find-file (concat user-emacs-directory "init.el")))
+           :which-key "Emacs Config")
    "3"   '((lambda () (interactive)
-			 (find-file lia/planner-file))
-		   :which-key "Planner")
+             (find-file lia/planner-file))
+           :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -207,12 +207,12 @@
 
   ;; company bindings
   (eval-after-load 'company
-	(general-define-key
-	 :states 'insert
-	 :keymaps 'company-mode-map
-	 "TAB" 'company-complete
-	 "C-n" 'company-select-next
-	 "C-p" 'company-select-previous))
+    (general-define-key
+     :states 'insert
+     :keymaps 'company-mode-map
+     "TAB" 'company-complete
+     "C-n" 'company-select-next
+     "C-p" 'company-select-previous))
 
   ;; magit quit
   (general-define-key
@@ -374,8 +374,8 @@
   (setq dashboard-startup-banner
         (concat user-emacs-directory "icon/emacs-sexy.png")
         dashboard-items '((recents . 10)
-						  (bookmarks . 10)
-						  ;;(projects . 10)
+                          (bookmarks . 10)
+                          ;;(projects . 10)
                           (agenda . 10))))
 
 ;; hide or shorten minor modes
@@ -563,7 +563,7 @@
   ;; set agenda files
   (setq org-agenda-files
         (list lia/planner-file
-			  (concat lia/dropbox-directory "org/timetable.org")))
+              (concat lia/dropbox-directory "org/timetable.org")))
 
   ;; set up org capture file
   (setq org-default-notes-file lia/planner-file)
@@ -764,7 +764,7 @@
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (set-frame-font
  (font-candidate '"Iosevka 10" "Fira Mono 9" "Source Code Pro 9"
-				 "Monego 9" "Ubuntu Mono 12") nil t)
+                 "Monego 9" "Ubuntu Mono 12") nil t)
 
 ;; stop the cursor from blinking
 (blink-cursor-mode 0)
