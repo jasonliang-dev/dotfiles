@@ -53,7 +53,7 @@ modules-left = ewmh
 modules-center = date
 modules-right = backlight volume battery
 
-tray-position = right
+tray-position = 
 tray-offset-y = -40
 tray-padding = 0
 tray-detached = true

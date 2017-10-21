@@ -3,6 +3,7 @@
 compton &
 dunst &
 ~/scripts/feh.sh &
+tint2 &
 ~/scripts/polybar.sh &
 setxkbmap -option caps:escape &
 xset m 0 0 &

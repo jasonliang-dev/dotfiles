@@ -718,8 +718,8 @@
   <menu>
     <hideDelay>200</hideDelay>
     <middle>no</middle>
-    <submenuShowDelay>20</submenuShowDelay>
-    <submenuHideDelay>100</submenuHideDelay>
+    <submenuShowDelay>10</submenuShowDelay>
+    <submenuHideDelay>50</submenuHideDelay>
   </menu>
   <applications>
     <application class="Firefox">
