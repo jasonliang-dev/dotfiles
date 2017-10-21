@@ -36,6 +36,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 underline-size = 0
+overline-size = 2
 
 border-bottom-size = 2
 border-bottom-color = ${colors.base03}
@@ -90,6 +91,7 @@ time = %I:%M
 label = "      %date%        %time%    "
 format-background = ${colors.base01}
 format-underline = ${colors.underline}
+format-overline = ${colors.base0C}
 
 [module/backlight]
 type = internal/xbacklight
