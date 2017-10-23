@@ -124,16 +124,21 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    "RET" 'eshell
-   "SPC" 'avy-goto-word-1
+   "SPC" '((lambda () (interactive)
+			 (lia/run-external "~/scripts/term.sh"))
+		   :which-key "terminal")
+   "C-SPC" '((lambda () (interactive)
+			   (lia/run-external "~/scripts/files.sh"))
+			 :which-key "file manager")
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
    "c"   'comment-region
    "d"   '((lambda () (interactive) (deer)) :which-key "deer")
-   "e"   'org-export-dispatch
    "f"   'flycheck-next-error
    "F"   'flycheck-previous-error
-   "gk"  'general-describe-keybindings
+   "gg"  'general-describe-keybindings
    "gs"  'magit-status
+   "j"   'avy-goto-word-1
    "k"   'kill-this-buffer
    "r"   'er/expand-region
    "s"   'google-this-search
@@ -147,21 +152,17 @@
    "o"   '(:ignore t :which-key "org")
    "oa"  'org-agenda
    "oc"  'org-capture
-   "oi"  'org-toggle-inline-images
-   "ok"  'org-archive-subtree-default
-   "ol"  'org-insert-link
    "oo"  'ace-link-org
-   "ot"  'org-todo
    "ow"  'writeroom-mode
    "1"   '((lambda () (interactive)
-             (find-file lia/dropbox-directory))
-           :which-key "Dropbox")
+			 (find-file lia/dropbox-directory))
+		   :which-key "Dropbox")
    "2"   '((lambda () (interactive)
-             (find-file (concat user-emacs-directory "init.el")))
-           :which-key "Emacs Config")
+			 (find-file (concat user-emacs-directory "init.el")))
+		   :which-key "Emacs Config")
    "3"   '((lambda () (interactive)
-             (find-file lia/planner-file))
-           :which-key "Planner")
+			 (find-file lia/planner-file))
+		   :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -210,7 +211,7 @@
     (general-define-key
      :states 'insert
      :keymaps 'company-mode-map
-     "TAB" 'company-complete
+	 "C-TAB" 'company-complete
      "C-n" 'company-select-next
      "C-p" 'company-select-previous))
 
@@ -238,6 +239,15 @@
   (general-define-key
    :keymaps 'org-mode-map
    "C-c >" 'org-time-stamp-inactive)
+  (general-define-key
+   :keymaps 'org-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "oe"  'org-export-dispatch
+   "oi"  'org-toggle-inline-images
+   "ok"  'org-archive-subtree-default
+   "ol"  'org-insert-link
+   "ot"  'org-todo)
 
   ;; org agenda
   (general-define-key
@@ -358,7 +368,7 @@
     :config
     (company-quickhelp-mode 1))
 
-  ;; javascript
+  ;; javascript completion
   (use-package company-tern
     :config
     (add-to-list 'company-backend 'company-tern)
@@ -481,7 +491,15 @@
 ;; improved javascript mode
 (use-package js2-mode
   :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+  ;; js refactoring
+  (use-package js2-refactor
+	:config
+	(add-hook 'js2-mode-hook #'js2-refactor-mode)
+
+	;; prefix key
+	(js2r-add-keybindings-with-prefix "C-c C-r")))
 
 ;; git
 (use-package magit
@@ -834,6 +852,14 @@
           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
             (kill-buffer buffer)))
         (buffer-list)))
+
+;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
+(defun lia/run-external (command)
+  "Run a shell COMMAND that use the current directory."
+  (interactive "s")
+  (shell-command (concat command " "
+						 (file-name-directory (or load-file-name buffer-file-name))
+						 " > /dev/null 2>&1 & disown") nil nil))
 
 (defun lia/window-switch-split ()
   "Switch between horizontal/vertical layout."

@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-xdg-open $HOME
+#xdg-open $HOME
+thunar || nautilus 2> /dev/null
