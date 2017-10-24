@@ -125,11 +125,11 @@
    :non-normal-prefix "C-SPC"
    "RET" 'eshell
    "SPC" '((lambda () (interactive)
-			 (lia/run-external "~/scripts/term.sh"))
-		   :which-key "terminal")
+             (lia/run-external "~/scripts/term.sh"))
+           :which-key "terminal")
    "C-SPC" '((lambda () (interactive)
-			   (lia/run-external "~/scripts/files.sh"))
-			 :which-key "file manager")
+               (lia/run-external "~/scripts/files.sh"))
+             :which-key "file manager")
    "TAB" 'mode-line-other-buffer
    "br"  'revert-buffer
    "c"   'comment-region
@@ -155,14 +155,14 @@
    "oo"  'ace-link-org
    "ow"  'writeroom-mode
    "1"   '((lambda () (interactive)
-			 (find-file lia/dropbox-directory))
-		   :which-key "Dropbox")
+             (find-file lia/dropbox-directory))
+           :which-key "Dropbox")
    "2"   '((lambda () (interactive)
-			 (find-file (concat user-emacs-directory "init.el")))
-		   :which-key "Emacs Config")
+             (find-file (concat user-emacs-directory "init.el")))
+           :which-key "Emacs Config")
    "3"   '((lambda () (interactive)
-			 (find-file lia/planner-file))
-		   :which-key "Planner")
+             (find-file lia/planner-file))
+           :which-key "Planner")
    "8"   'fci-mode
 
    ;; helm bindings
@@ -211,7 +211,7 @@
     (general-define-key
      :states 'insert
      :keymaps 'company-mode-map
-	 "C-TAB" 'company-complete
+     "C-TAB" 'company-complete
      "C-n" 'company-select-next
      "C-p" 'company-select-previous))
 
@@ -496,11 +496,11 @@
 
   ;; js refactoring
   (use-package js2-refactor
-	:config
-	(add-hook 'js2-mode-hook #'js2-refactor-mode)
+    :config
+    (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
-	;; prefix key
-	(js2r-add-keybindings-with-prefix "C-c C-r")))
+    ;; prefix key
+    (js2r-add-keybindings-with-prefix "C-c C-r")))
 
 ;; git
 (use-package magit
