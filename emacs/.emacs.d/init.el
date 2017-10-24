@@ -240,6 +240,7 @@
    :keymaps 'org-mode-map
    "C-c >" 'org-time-stamp-inactive)
   (general-define-key
+   :states '(normal visual motion insert emacs)
    :keymaps 'org-mode-map
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
@@ -857,9 +858,7 @@
 (defun lia/run-external (command)
   "Run a shell COMMAND that use the current directory."
   (interactive "s")
-  (shell-command (concat command " "
-						 (file-name-directory (or load-file-name buffer-file-name))
-						 " > /dev/null 2>&1 & disown") nil nil))
+  (shell-command (concat command " . > /dev/null 2>&1 & disown") nil nil))
 
 (defun lia/window-switch-split ()
   "Switch between horizontal/vertical layout."
