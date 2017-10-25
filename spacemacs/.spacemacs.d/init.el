@@ -38,9 +38,10 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom
+            shell-default-shell 'eshell)
      auto-completion
      better-defaults
      colors
@@ -55,6 +56,8 @@ values."
      spell-checking
      syntax-checking
      version-control
+
+     spacelia
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -120,7 +123,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner "~/dotfiles/emacs/.emacs.d/icon/emacs-sexy.png"
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -333,83 +336,37 @@ you should place your code here."
 
   (defconst lia/dropbox-directory "~/Dropbox/")
 
+  ;; dammit.
+  (require 'helm-bookmark)
+
   ;; always follow symlinks under version control
   (setq vc-follow-symlinks t)
+
+  ;; I hate that highlight stays after a search
+  (global-evil-search-highlight-persist 0)
 
   ;; evil multiple cursors
   (global-evil-mc-mode 1)
 
-  ;; leader key
-  (general-define-key
-   :states '(normal visual motion insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
-   "RET" '((lambda () (interactive)
-             (lia/run-external "~/scripts/term.sh"))
-           :which-key "terminal")
-   "C-SPC" '((lambda () (interactive)
-               (lia/run-external "~/scripts/files.sh"))
-             :which-key "file manager"))
-
-  ;; evil bindings
-  (general-define-key
-   :states '(normal visual motion)
-   ;; move by visual line
-   "j" 'evil-next-visual-line
-   "k" 'evil-previous-visual-line
-
-   ;; quickly navigate windows
-   "C-h" 'evil-window-left
-   "C-j" 'evil-window-down
-   "C-k" 'evil-window-up
-   "C-l" 'evil-window-right
-
-   ;; yes. Don't judge me.
-   "C-e" 'end-of-line
-   "C-y" 'yank)
-
-  ;; move buffer
-  (general-define-key
-   "C-S-h"   'buf-move-left
-   "C-S-j"   'buf-move-down
-   "C-S-k"   'buf-move-up
-   "C-S-l"   'buf-move-right)
-
-  ;; auto complete bindings
-  (eval-after-load 'company
-    (general-define-key
-     :states 'insert
-     :keymaps 'company-mode-map
-     "C-TAB" 'company-complete
-     "C-n" 'company-select-next
-     "C-p" 'company-select-previous))
-
-  (load-theme 'doom-vibrant)
-  ;; Enable custom neotree theme
-  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-  (set-face-attribute 'doom-neotree-dir-face nil :family "Fira Sans Condensed")
-  (set-face-attribute 'doom-neotree-file-face nil :family "Fira Sans Condensed")
-  (set-face-attribute 'doom-neotree-hidden-file-face nil :family "Fira Sans Condensed")
-  (set-face-attribute 'doom-neotree-text-file-face nil :family "Fira Sans Condensed")
-  (set-face-attribute 'doom-neotree-media-file-face nil :family "Fira Sans Condensed")
-  (set-face-attribute 'doom-neotree-data-file-face nil :family "Fira Sans Condensed")
+  ;; linum leading and trailing space
+  (setq linum-format " %d ")
+  (setq linum-relative-format " %3s ")
 
   ;; enable rainbow mode in css
   (add-hook 'css-mode-hook 'rainbow-mode)
 
   ;; change the modeline
-  (set-face-attribute 'powerline-active1 nil
-                      :background "#212026"
-                      :foreground "#BBC2CF")
+  (set-face-background 'powerline-active1 "#BEBEBE")
   (set-face-background 'powerline-active2 nil)
   (setq powerline-default-separator 'slant
         powerline-height 35)
   (setq spaceline-minor-modes-separator ""
         spaceline-separator-dir-left '(right . right)
         spaceline-separator-dir-right '(right . right))
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-toggle-buffer-size-off)
   (spaceline-toggle-buffer-encoding-abbrev-off)
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-hud-off)
+  (spaceline-toggle-minor-modes-off)
 
   ;; some inline images are too big. scale them
   (setq org-image-actual-width (/ (display-pixel-width) 3))
@@ -425,10 +382,14 @@ you should place your code here."
   ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
   ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
   (setq org-capture-templates
-        '(("c" "Task" entry (file+headline lia/planner-file "Tasks")
-           "* [ ] %?\n")
-          ("f" "Task with file" entry (file+headline lia/planner-file "Tasks")
-           "* [ ] %?\n  %a\n")))
+        '(("c" "Task" entry
+           (file+headline
+            (concat lia/dropbox-directory "org/planner.org")
+            "Tasks") "* [ ] %?\n")
+          ("f" "Task with file" entry
+           (file+headline
+            (concat lia/dropbox-directory "org/planner.org")
+            "Tasks") "* [ ] %?\n  %a\n")))
 
   ;; custom todo keywords
   (setq org-todo-keywords
@@ -441,14 +402,27 @@ you should place your code here."
   ;; change org heading bullets
   (setq org-bullets-bullet-list '("•"))
 
-  ;; remove the fringe colour
-  (set-face-background 'fringe nil)
+  ;; leader key
+  (general-define-key
+   :states '(normal visual motion insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "RET" '((lambda () (interactive)
+             (lia/run-external "~/scripts/term.sh"))
+           :which-key "terminal")
+   "C-SPC" '((lambda () (interactive)
+               (lia/run-external "~/scripts/files.sh"))
+             :which-key "file manager"))
 
   ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
   (defun lia/run-external (command)
     "Run a shell COMMAND that use the current directory."
     (interactive "s")
     (shell-command (concat command " . > /dev/null 2>&1 & disown") nil nil))
+
+  ;; remove the fringe colour
+  (set-face-background 'fringe nil)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -464,7 +438,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (company-auctex auctex-latexmk doom-vibrant-theme buffer-move auctex writeroom-mode visual-fill-column rainbow-mode rainbow-identifiers color-identifiers-mode yasnippet-snippets web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode general all-the-icons memoize font-lock+ unfill smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete doom-themes ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help company-auctex auctex-latexmk doom-vibrant-theme buffer-move auctex writeroom-mode visual-fill-column rainbow-mode rainbow-identifiers color-identifiers-mode yasnippet-snippets web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode general all-the-icons memoize font-lock+ unfill smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete doom-themes ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

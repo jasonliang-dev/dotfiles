@@ -1,0 +1,23 @@
+#+TITLE: spacelia layer
+
+# The maximum height of the logo should be 200 pixels.
+[[img/spacelia.png]]
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+
+* Description
+  Personal layer for spacemacs.
+
+* Install
+  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+  add =spacelia= to the existing =dotspacemacs-configuration-layers= list in this
+  file.
+
+  # Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+  # Examples:
+  # [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
+  # [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+  # If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
