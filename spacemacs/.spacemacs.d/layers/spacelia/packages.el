@@ -70,7 +70,6 @@ Each entry is either:
     :config
     (setq beacon-blink-when-buffer-changes t
           beacon-blink-when-point-moves-vertically 10
-          beacon-color (face-attribute 'region :background nil t)
           beacon-dont-blink-major-modes '(dired-mode
                                           neotree-mode
                                           magit-status-mode
@@ -107,7 +106,6 @@ Each entry is either:
 (defun spacelia/init-general ()
   (use-package general
     :config
-
     ;; evil bindings
     (general-define-key
      :states '(normal visual motion)

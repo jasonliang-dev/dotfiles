@@ -146,7 +146,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Iosevka"
+   dotspacemacs-default-font '("Input"
                                :size 13
                                :weight normal
                                :width normal
@@ -419,6 +419,9 @@ you should place your code here."
     "Run a shell COMMAND that use the current directory."
     (interactive "s")
     (shell-command (concat command " . > /dev/null 2>&1 & disown") nil nil))
+
+  ;; hide the cursor in inactive buffer
+  (setq-default cursor-in-non-selected-windows nil)
 
   ;; remove the fringe colour
   (set-face-background 'fringe nil)
