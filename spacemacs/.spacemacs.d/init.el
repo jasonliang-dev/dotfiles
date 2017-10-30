@@ -63,11 +63,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(buffer-move
-                                      doom-themes
-                                      general
-                                      yasnippet-snippets
-                                      writeroom-mode)
+   dotspacemacs-additional-packages '()
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -339,89 +335,95 @@ you should place your code here."
   ;; dammit.
   (require 'helm-bookmark)
 
+  ;; hide the cursor in inactive buffer
+  (setq-default cursor-in-non-selected-windows nil)
+
   ;; always follow symlinks under version control
   (setq vc-follow-symlinks t)
 
-  ;; I hate that highlight stays after a search
-  (global-evil-search-highlight-persist 0)
+  (use-package evil
+    :config
+    ;; I hate that highlight stays after a search
+    (global-evil-search-highlight-persist 0)
 
-  ;; evil multiple cursors
-  (global-evil-mc-mode 1)
+    ;; fine undo history
+    (setq evil-want-fine-undo t)
 
-  ;; linum leading and trailing space
-  (setq linum-format " %d ")
-  (setq linum-relative-format " %3s ")
+    (use-package evil-mc
+      :config
+      ;; enable evil multiple cursors
+      (global-evil-mc-mode 1)))
 
-  ;; enable rainbow mode in css
-  (add-hook 'css-mode-hook 'rainbow-mode)
+  (use-package linum
+    :config
+    (setq linum-format " %d ")
 
-  ;; change the modeline
-  (set-face-background 'powerline-active1 "#BEBEBE")
-  (set-face-background 'powerline-active2 nil)
-  (setq powerline-default-separator 'slant
-        powerline-height 35)
-  (setq spaceline-minor-modes-separator ""
-        spaceline-separator-dir-left '(right . right)
-        spaceline-separator-dir-right '(right . right))
-  (spaceline-toggle-buffer-encoding-abbrev-off)
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-hud-off)
-  (spaceline-toggle-minor-modes-off)
+    (use-package linum-relative
+      :config
+      (setq linum-relative-format " %3s ")))
 
-  ;; some inline images are too big. scale them
-  (setq org-image-actual-width (/ (display-pixel-width) 3))
+  (use-package rainbow-mode
+    :config
+    ;; enable rainbow mode in css
+    (add-hook 'css-mode-hook 'rainbow-mode))
 
-  ;; set agenda files
-  (setq org-agenda-files
-        (list (concat lia/dropbox-directory "org/planner.org")
-              (concat lia/dropbox-directory "org/timetable.org")))
+  (use-package powerline
+    :config
+    (set-face-background 'powerline-active1 "#BEBEBE")
+    (set-face-background 'powerline-active2 nil)
+    (setq powerline-default-separator 'slant
+          powerline-height 35)
 
-  ;; set up org capture file
-  (setq org-default-notes-file (concat lia/dropbox-directory "org/planner.org"))
-  ;; org capture capture templates
-  ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
-  ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
-  (setq org-capture-templates
-        '(("c" "Task" entry
-           (file+headline
-            (concat lia/dropbox-directory "org/planner.org")
-            "Tasks") "* [ ] %?\n")
-          ("f" "Task with file" entry
-           (file+headline
-            (concat lia/dropbox-directory "org/planner.org")
-            "Tasks") "* [ ] %?\n  %a\n")))
+    (use-package spaceline
+      :config
+      (setq spaceline-minor-modes-separator ""
+            spaceline-separator-dir-left '(right . right)
+            spaceline-separator-dir-right '(right . right))
 
-  ;; custom todo keywords
-  (setq org-todo-keywords
-        '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)" "[x](c)")))
+      (spaceline-toggle-buffer-encoding-abbrev-off)
+      (spaceline-toggle-buffer-size-off)
+      (spaceline-toggle-hud-off)
+      (spaceline-toggle-minor-modes-off)))
 
-  ;; org source code languages
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t) (latex . t) (js . t)))
+  (use-package org
+    :config
+    ;; enable visual line mode for org
+    (add-hook 'org-mode-hook 'visual-line-mode)
 
-  ;; change org heading bullets
-  (setq org-bullets-bullet-list '("•"))
+    ;; some inline images are too big. scale them
+    (setq org-image-actual-width (/ (display-pixel-width) 3))
 
-  ;; leader key
-  (general-define-key
-   :states '(normal visual motion insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
-   "RET" '((lambda () (interactive)
-             (lia/run-external "~/scripts/term.sh"))
-           :which-key "terminal")
-   "C-SPC" '((lambda () (interactive)
-               (lia/run-external "~/scripts/files.sh"))
-             :which-key "file manager"))
+    ;; set agenda files
+    (setq org-agenda-files
+          (list (concat lia/dropbox-directory "org/planner.org")
+                (concat lia/dropbox-directory "org/timetable.org")))
 
-  ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
-  (defun lia/run-external (command)
-    "Run a shell COMMAND that use the current directory."
-    (interactive "s")
-    (shell-command (concat command " . > /dev/null 2>&1 & disown") nil nil))
+    ;; set up org capture file
+    (setq org-default-notes-file (concat lia/dropbox-directory "org/planner.org"))
+    ;; org capture capture templates
+    ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
+    ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
+    (setq org-capture-templates
+          '(("c" "Task" entry
+             (file+headline
+              (concat lia/dropbox-directory "org/planner.org")
+              "Tasks") "* [ ] %?\n")
+            ("f" "Task with file" entry
+             (file+headline
+              (concat lia/dropbox-directory "org/planner.org")
+              "Tasks") "* [ ] %?\n  %a\n")))
 
-  ;; hide the cursor in inactive buffer
-  (setq-default cursor-in-non-selected-windows nil)
+    ;; custom todo keywords
+    (setq org-todo-keywords
+          '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)" "[x](c)")))
+
+    ;; org source code languages
+    (org-babel-do-load-languages
+     'org-babel-load-languages '((emacs-lisp . t) (latex . t) (js . t)))
+
+    (use-package org-bullets
+      :config
+      (setq org-bullets-bullet-list '("•"))))
 
   ;; remove the fringe colour
   (set-face-background 'fringe nil)

@@ -35,6 +35,7 @@
     doom-themes
     general
     yasnippet-snippets
+    writegood-mode
     writeroom-mode)
 
 
@@ -106,6 +107,18 @@ Each entry is either:
 (defun spacelia/init-general ()
   (use-package general
     :config
+    ;; leader key
+    (general-define-key
+     :states '(normal visual motion insert emacs)
+     :prefix "SPC"
+     :non-normal-prefix "C-SPC"
+     "RET" '((lambda () (interactive)
+               (lia/run-external "~/scripts/term.sh"))
+             :which-key "terminal")
+     "C-SPC" '((lambda () (interactive)
+                 (lia/run-external "~/scripts/files.sh"))
+               :which-key "file manager"))
+
     ;; evil bindings
     (general-define-key
      :states '(normal visual motion)
@@ -140,6 +153,11 @@ Each entry is either:
 
 (defun spacelia/init-yasnippet-snippets ()
   (use-package yasnippet-snippets))
+
+(defun spacelia/init-writegood-mode ()
+  (use-package writegood-mode
+    :config
+    (add-hook 'org-mode-hook 'writegood-mode)))
 
 (defun spacelia/init-writeroom-mode ()
   (use-package writeroom-mode))
