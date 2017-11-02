@@ -112,6 +112,7 @@ Each entry is either:
      :states '(normal visual motion insert emacs)
      :prefix "SPC"
      :non-normal-prefix "C-SPC"
+     "M-RET" 'org-meta-return
      "RET" '((lambda () (interactive)
                (lia/run-external "~/scripts/term.sh"))
              :which-key "terminal")
@@ -136,8 +137,9 @@ Each entry is either:
      "C-e" 'end-of-line
      "C-y" 'yank)
 
-    ;; move buffer
+    ;; global key binds
     (general-define-key
+     ;; move buffer
      "C-S-h"   'buf-move-left
      "C-S-j"   'buf-move-down
      "C-S-k"   'buf-move-up

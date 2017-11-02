@@ -143,7 +143,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Input"
-                               :size 13
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -354,6 +354,13 @@ you should place your code here."
       ;; enable evil multiple cursors
       (global-evil-mc-mode 1)))
 
+  (use-package flycheck
+    :config
+    ;; use tidy in web mode
+    (flycheck-add-mode 'html-tidy 'web-mode)
+    ;; use csslint in css
+    (flycheck-add-mode 'css-csslint 'css-mode))
+
   (use-package linum
     :config
     (setq linum-format " %d ")
@@ -399,7 +406,8 @@ you should place your code here."
                 (concat lia/dropbox-directory "org/timetable.org")))
 
     ;; set up org capture file
-    (setq org-default-notes-file (concat lia/dropbox-directory "org/planner.org"))
+    (setq org-default-notes-file
+          (concat lia/dropbox-directory "org/planner.org"))
     ;; org capture capture templates
     ;; http://orgmode.org/manual/Capture-templates.html#Capture-templates
     ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
@@ -417,13 +425,35 @@ you should place your code here."
     (setq org-todo-keywords
           '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)" "[x](c)")))
 
+    ;; list bullets
+    (font-lock-add-keywords
+     'org-mode
+     '(("^ +\\([-*]\\) "
+        (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+    ;; https://emacs.stackexchange.com/questions/3038/using-a-different-font-for-each-major-mode
+    ;; Use variable width font faces in current buffer
+    (defun lia/buffer-face-mode-variable ()
+      "Set font to a variable width (proportional) fonts in current buffer"
+      (interactive)
+      (setq buffer-face-mode-face '(:family "Merriweather" :height 95))
+      (buffer-face-mode))
+    ;; Use monospaced font faces in current buffer
+    (defun lia/buffer-face-mode-fixed ()
+      "Sets a fixed width (monospace) font in current buffer"
+      (interactive)
+      (setq buffer-face-mode-face '(:family "Input"))
+      (buffer-face-mode))
+
+    (add-hook 'org-mode-hook 'lia/buffer-face-mode-variable)
+
     ;; org source code languages
     (org-babel-do-load-languages
      'org-babel-load-languages '((emacs-lisp . t) (latex . t) (js . t)))
 
     (use-package org-bullets
       :config
-      (setq org-bullets-bullet-list '("•"))))
+      (setq org-bullets-bullet-list '(" "))))
 
   ;; remove the fringe colour
   (set-face-background 'fringe nil)
@@ -439,7 +469,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
+    ("9f569b5e066dd6ca90b3578ff46659bc09a8764e81adf6265626d7dc0fac2a64" "5900bec889f57284356b8216a68580bfa6ece73a6767dfd60196e56d050619bc" "087515a8c089c17ec198d3de2f7c51f4f818fb5c38b94d07e41f04bb1852700c" "e297f54d0dc0575a9271bb0b64dad2c05cff50b510a518f5144925f627bb5832" "d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote

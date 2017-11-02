@@ -1,7 +1,11 @@
 alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
 alias cl='cd "$@" && ls'
 alias  l='ls -l'
 alias la='ls -a'
+alias lg='ls | grep'
 alias ll='ls -al'
 alias ls='ls --color=auto'
 
