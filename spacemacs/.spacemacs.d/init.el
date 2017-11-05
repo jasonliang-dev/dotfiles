@@ -354,13 +354,6 @@ you should place your code here."
       ;; enable evil multiple cursors
       (global-evil-mc-mode 1)))
 
-  (use-package flycheck
-    :config
-    ;; use tidy in web mode
-    (flycheck-add-mode 'html-tidy 'web-mode)
-    ;; use csslint in css
-    (flycheck-add-mode 'css-csslint 'css-mode))
-
   (use-package linum
     :config
     (setq linum-format " %d ")
@@ -436,16 +429,18 @@ you should place your code here."
     (defun lia/buffer-face-mode-variable ()
       "Set font to a variable width (proportional) fonts in current buffer"
       (interactive)
-      (setq buffer-face-mode-face '(:family "Merriweather" :height 95))
-      (buffer-face-mode))
-    ;; Use monospaced font faces in current buffer
-    (defun lia/buffer-face-mode-fixed ()
-      "Sets a fixed width (monospace) font in current buffer"
-      (interactive)
-      (setq buffer-face-mode-face '(:family "Input"))
+      (setq buffer-face-mode-face '(:family "Merriweather" :height 100))
       (buffer-face-mode))
 
     (add-hook 'org-mode-hook 'lia/buffer-face-mode-variable)
+
+    ;; change org mode heading size
+    (custom-theme-set-faces 'user
+                            `(org-level-4 ((t (:height 110))))
+                            `(org-level-3 ((t (:height 125))))
+                            `(org-level-2 ((t (:height 150))))
+                            `(org-level-1 ((t (:height 175))))
+                            `(org-document-title ((t (:height 250 :underline nil)))))
 
     ;; org source code languages
     (org-babel-do-load-languages
