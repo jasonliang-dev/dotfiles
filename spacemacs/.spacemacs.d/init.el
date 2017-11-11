@@ -424,23 +424,17 @@ you should place your code here."
      '(("^ +\\([-*]\\) "
         (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-    ;; https://emacs.stackexchange.com/questions/3038/using-a-different-font-for-each-major-mode
-    ;; Use variable width font faces in current buffer
-    (defun lia/buffer-face-mode-variable ()
-      "Set font to a variable width (proportional) fonts in current buffer"
-      (interactive)
-      (setq buffer-face-mode-face '(:family "Merriweather" :height 100))
-      (buffer-face-mode))
-
-    (add-hook 'org-mode-hook 'lia/buffer-face-mode-variable)
-
     ;; change org mode heading size
     (custom-theme-set-faces 'user
-                            `(org-level-4 ((t (:height 110))))
-                            `(org-level-3 ((t (:height 125))))
-                            `(org-level-2 ((t (:height 150))))
-                            `(org-level-1 ((t (:height 175))))
-                            `(org-document-title ((t (:height 250 :underline nil)))))
+                            `(org-level-8 ((t (:family "Merriweather"))))
+                            `(org-level-7 ((t (:family "Merriweather"))))
+                            `(org-level-6 ((t (:family "Merriweather"))))
+                            `(org-level-5 ((t (:family "Merriweather"))))
+                            `(org-level-4 ((t (:family "Merriweather"))))
+                            `(org-level-3 ((t (:family "Merriweather" :height 110))))
+                            `(org-level-2 ((t (:family "Merriweather" :height 120))))
+                            `(org-level-1 ((t (:family "Merriweather" :height 150))))
+                            `(org-document-title ((t (:family "Merriweather" :height 200 :underline nil)))))
 
     ;; org source code languages
     (org-babel-do-load-languages

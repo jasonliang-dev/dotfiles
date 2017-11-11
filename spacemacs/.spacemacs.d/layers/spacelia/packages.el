@@ -128,10 +128,15 @@ Each entry is either:
      "k" 'evil-previous-visual-line
 
      ;; quickly navigate windows
-     "C-h" 'evil-window-left
-     "C-j" 'evil-window-down
-     "C-k" 'evil-window-up
-     "C-l" 'evil-window-right
+     ;; goodbye bad habits
+     ;; "C-h" 'evil-window-left
+     ;; "C-j" 'evil-window-down
+     ;; "C-k" 'evil-window-up
+     ;; "C-l" 'evil-window-right
+     "gh" 'evil-window-left
+     "gj" 'evil-window-down
+     "gk" 'evil-window-up
+     "gl" 'evil-window-right
 
      ;; yes. Don't judge me.
      "C-e" 'end-of-line
