@@ -24,37 +24,37 @@
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveWindow">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuHeader">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuItem">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Fira Sans</name>
+      <name>Google Sans</name>
       <size>9</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
@@ -723,7 +723,6 @@
   </menu>
   <applications>
     <application class="Firefox">
-      <decor>no</decor>
       <desktop>1</desktop>
     </application>
     <application class="Opera">
@@ -733,6 +732,9 @@
     <application class="Navigator">
       <decor>no</decor>
       <desktop>1</desktop>
+    </application>
+    <application class="discord">
+      <desktop>4</desktop>
     </application>
   </applications>
   <dock>
