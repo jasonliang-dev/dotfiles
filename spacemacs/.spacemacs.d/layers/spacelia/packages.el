@@ -30,8 +30,7 @@
 ;;; Code:
 
 (defconst spacelia-packages
-  '(beacon
-    buffer-move
+  '(buffer-move
     doom-themes
     general
     yasnippet-snippets
@@ -66,18 +65,6 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun spacelia/init-beacon ()
-  (use-package beacon
-    :config
-    (setq beacon-blink-when-buffer-changes t
-          beacon-blink-when-point-moves-vertically 10
-          beacon-dont-blink-major-modes '(dired-mode
-                                          neotree-mode
-                                          magit-status-mode
-                                          magit-popup-mode
-                                          ranger-mode))
-    (beacon-mode t)))
-
 (defun spacelia/init-buffer-move ()
   (use-package buffer-move))
 
@@ -85,7 +72,7 @@ Each entry is either:
   (use-package doom-themes
     :config
     ;; use custom theme
-    (load-theme 'doom-vibrant)
+    (load-theme 'doom-one)
     ;; Enable custom neotree theme
     (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
     (set-face-attribute 'doom-neotree-dir-face nil

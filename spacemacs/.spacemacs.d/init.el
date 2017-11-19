@@ -372,7 +372,7 @@ you should place your code here."
     (set-face-background 'powerline-active1 "#BEBEBE")
     (set-face-background 'powerline-active2 nil)
     (setq powerline-default-separator 'slant
-          powerline-height 35)
+          powerline-height 30)
 
     (use-package spaceline
       :config
@@ -442,10 +442,7 @@ you should place your code here."
 
     (use-package org-bullets
       :config
-      (setq org-bullets-bullet-list '(" "))))
-
-  ;; remove the fringe colour
-  (set-face-background 'fringe nil)
+      (setq org-bullets-bullet-list '("⚫"))))
 
   )
 
@@ -458,7 +455,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("9f569b5e066dd6ca90b3578ff46659bc09a8764e81adf6265626d7dc0fac2a64" "5900bec889f57284356b8216a68580bfa6ece73a6767dfd60196e56d050619bc" "087515a8c089c17ec198d3de2f7c51f4f818fb5c38b94d07e41f04bb1852700c" "e297f54d0dc0575a9271bb0b64dad2c05cff50b510a518f5144925f627bb5832" "d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
+    ("10e3d04d524c42b71496e6c2e770c8e18b153fcfcc838947094dad8e5aa02cef" "4b207752aa69c0b182c6c3b8e810bbf3afa429ff06f274c8ca52f8df7623eb60" "4a7abcca7cfa2ccdf4d7804f1162dd0353ce766b1277e8ee2ac7ee27bfbb408f" "31e64af34ba56d5a3e85e4bebefe2fb8d9d431d4244c6e6d95369a643786a40e" "9f569b5e066dd6ca90b3578ff46659bc09a8764e81adf6265626d7dc0fac2a64" "5900bec889f57284356b8216a68580bfa6ece73a6767dfd60196e56d050619bc" "087515a8c089c17ec198d3de2f7c51f4f818fb5c38b94d07e41f04bb1852700c" "e297f54d0dc0575a9271bb0b64dad2c05cff50b510a518f5144925f627bb5832" "d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
@@ -468,4 +465,12 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-document-title ((t (:family "Merriweather" :height 200 :underline nil))))
+ '(org-level-1 ((t (:family "Merriweather" :height 150))))
+ '(org-level-2 ((t (:family "Merriweather" :height 120))))
+ '(org-level-3 ((t (:family "Merriweather" :height 110))))
+ '(org-level-4 ((t (:family "Merriweather"))))
+ '(org-level-5 ((t (:family "Merriweather"))))
+ '(org-level-6 ((t (:family "Merriweather"))))
+ '(org-level-7 ((t (:family "Merriweather"))))
+ '(org-level-8 ((t (:family "Merriweather")))))
