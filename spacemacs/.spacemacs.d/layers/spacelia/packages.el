@@ -75,19 +75,6 @@ Each entry is either:
     (load-theme 'doom-one)
     ;; Enable custom neotree theme
     (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-    (set-face-attribute 'doom-neotree-dir-face nil
-                        :family "Fira Sans Condensed")
-    (set-face-attribute 'doom-neotree-file-face nil
-                        :family "Fira Sans Condensed")
-    (set-face-attribute 'doom-neotree-hidden-file-face nil
-                        :family "Fira Sans Condensed")
-    (set-face-attribute 'doom-neotree-text-file-face nil
-                        :family "Fira Sans Condensed")
-    (set-face-attribute 'doom-neotree-media-file-face nil
-                        :family "Fira Sans Condensed")
-    (set-face-attribute 'doom-neotree-data-file-face nil
-                        :family "Fira Sans Condensed")
-
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config)))
 
@@ -101,10 +88,10 @@ Each entry is either:
      :non-normal-prefix "C-SPC"
      "M-RET" 'org-meta-return
      "RET" '((lambda () (interactive)
-               (lia/run-external "~/scripts/term.sh"))
+               (lia/run-external "~/scripts/term.sh ."))
              :which-key "terminal")
      "C-SPC" '((lambda () (interactive)
-                 (lia/run-external "~/scripts/files.sh"))
+                 (lia/run-external "xdg-open ."))
                :which-key "file manager"))
 
     ;; evil bindings
@@ -113,17 +100,6 @@ Each entry is either:
      ;; move by visual line
      "j" 'evil-next-visual-line
      "k" 'evil-previous-visual-line
-
-     ;; quickly navigate windows
-     ;; goodbye bad habits
-     ;; "C-h" 'evil-window-left
-     ;; "C-j" 'evil-window-down
-     ;; "C-k" 'evil-window-up
-     ;; "C-l" 'evil-window-right
-     "gh" 'evil-window-left
-     "gj" 'evil-window-down
-     "gk" 'evil-window-up
-     "gl" 'evil-window-right
 
      ;; yes. Don't judge me.
      "C-e" 'end-of-line
