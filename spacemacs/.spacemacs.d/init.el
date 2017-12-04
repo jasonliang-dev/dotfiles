@@ -54,6 +54,7 @@ values."
      markdown
      org
      spell-checking
+     (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
      version-control
 
@@ -354,6 +355,25 @@ you should place your code here."
       ;; enable evil multiple cursors
       (global-evil-mc-mode 1)))
 
+  (use-package flycheck
+    :config
+    ;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+    (defun lia/use-eslint-from-node-modules ()
+      (let* ((root (locate-dominating-file
+                    (or (buffer-file-name) default-directory)
+                    "node_modules"))
+             (eslint (and root
+                          (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                            root))))
+        (when (and eslint (file-executable-p eslint))
+          (setq-local flycheck-javascript-eslint-executable eslint))))
+
+    (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
+
+  (use-package js2-mode
+    :config
+    (setq js2-strict-missing-semi-warning nil))
+
   (use-package linum
     :config
     (setq linum-format " %d ")
@@ -438,6 +458,8 @@ you should place your code here."
       :config
       (setq org-bullets-bullet-list '("►"))))
 
+  (add-hook 'prog-mode-hook 'lia/my-code-style)
+
   (set-face-background 'fringe nil)
 
   )
@@ -451,7 +473,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("759416a7a5f5cb6b8cb26e6db2cf70026aa2324083a888015ee2cad0320f7f19" "d2c61aa11872e2977a07969f92630a49e30975220a079cd39bec361b773b4eb3" "60668f4b17b8b8780d50976c0788abed190353d21d3371b8f244dd44c103b0ea" "10e3d04d524c42b71496e6c2e770c8e18b153fcfcc838947094dad8e5aa02cef" "4b207752aa69c0b182c6c3b8e810bbf3afa429ff06f274c8ca52f8df7623eb60" "4a7abcca7cfa2ccdf4d7804f1162dd0353ce766b1277e8ee2ac7ee27bfbb408f" "31e64af34ba56d5a3e85e4bebefe2fb8d9d431d4244c6e6d95369a643786a40e" "9f569b5e066dd6ca90b3578ff46659bc09a8764e81adf6265626d7dc0fac2a64" "5900bec889f57284356b8216a68580bfa6ece73a6767dfd60196e56d050619bc" "087515a8c089c17ec198d3de2f7c51f4f818fb5c38b94d07e41f04bb1852700c" "e297f54d0dc0575a9271bb0b64dad2c05cff50b510a518f5144925f627bb5832" "d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "759416a7a5f5cb6b8cb26e6db2cf70026aa2324083a888015ee2cad0320f7f19" "d2c61aa11872e2977a07969f92630a49e30975220a079cd39bec361b773b4eb3" "60668f4b17b8b8780d50976c0788abed190353d21d3371b8f244dd44c103b0ea" "10e3d04d524c42b71496e6c2e770c8e18b153fcfcc838947094dad8e5aa02cef" "4b207752aa69c0b182c6c3b8e810bbf3afa429ff06f274c8ca52f8df7623eb60" "4a7abcca7cfa2ccdf4d7804f1162dd0353ce766b1277e8ee2ac7ee27bfbb408f" "31e64af34ba56d5a3e85e4bebefe2fb8d9d431d4244c6e6d95369a643786a40e" "9f569b5e066dd6ca90b3578ff46659bc09a8764e81adf6265626d7dc0fac2a64" "5900bec889f57284356b8216a68580bfa6ece73a6767dfd60196e56d050619bc" "087515a8c089c17ec198d3de2f7c51f4f818fb5c38b94d07e41f04bb1852700c" "e297f54d0dc0575a9271bb0b64dad2c05cff50b510a518f5144925f627bb5832" "d507c9e58cb0eb8508e15c8fedc2d4e0b119123fab0546c5fd30cadd3705ac86" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
