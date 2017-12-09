@@ -53,7 +53,6 @@ values."
      latex
      markdown
      org
-     spell-checking
      (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
      version-control
@@ -140,13 +139,13 @@ values."
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
-   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13
                                :weight normal
-                               :width condensed
+                               :width normal
                                :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -336,6 +335,9 @@ you should place your code here."
   ;; dammit.
   (require 'helm-bookmark)
 
+  ;; use my own coding style by default
+  (add-hook 'prog-mode-hook 'lia/my-code-style)
+
   ;; hide the cursor in inactive buffer
   (setq-default cursor-in-non-selected-windows nil)
 
@@ -434,10 +436,6 @@ you should place your code here."
               (concat lia/dropbox-directory "org/planner.org")
               "Tasks") "* [ ] %?\n  %a\n")))
 
-    ;; custom todo keywords
-    (setq org-todo-keywords
-          '((sequence "[ ](t)" "[-](i)" "[*](w)" "|" "[X](d)" "[x](c)")))
-
     ;; list bullets
     (font-lock-add-keywords
      'org-mode
@@ -457,8 +455,6 @@ you should place your code here."
     (use-package org-bullets
       :config
       (setq org-bullets-bullet-list '("►"))))
-
-  (add-hook 'prog-mode-hook 'lia/my-code-style)
 
   (set-face-background 'fringe nil)
 
