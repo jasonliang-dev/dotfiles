@@ -61,19 +61,13 @@
     </font>
   </theme>
   <desktops>
-    <number>10</number>
+    <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>一</name>
-      <name>二</name>
-      <name>三</name>
-      <name>四</name>
-      <name>五</name>
-      <name>六</name>
-      <name>七</name>
-      <name>八</name>
-      <name>九</name>
-      <name>十</name>
+      <name></name>
+      <name></name>
+      <name></name>
+      <name></name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
