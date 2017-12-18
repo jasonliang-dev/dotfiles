@@ -62,11 +62,6 @@
 		<command>~/scripts/feh.sh simple</command>
 	  </action>
 	</item>
-	<item label="Tile">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh tile</command>
-	  </action>
-	</item>
   </menu>
 
   <menu id="system" label="System">
