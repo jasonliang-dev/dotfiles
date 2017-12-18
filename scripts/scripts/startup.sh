@@ -2,7 +2,7 @@
 
 compton &
 dunst &
-~/scripts/feh.sh &
+~/scripts/feh.sh tile &
 tint2 &
 ~/scripts/polybar.sh &
 setxkbmap -option caps:escape &

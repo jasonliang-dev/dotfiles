@@ -9,6 +9,10 @@ case "$1" in
 	"mnt") wp_dir="${wp_dir}mnt/" ;;
 	"moe") wp_dir="${wp_dir}moe/" ;;
 	"simple") wp_dir="${wp_dir}simple/" ;;
+	"tile")
+      feh --randomize --bg-tile "${wp_dir}tile/"
+      exit 0
+      ;;
 esac
 
 feh --randomize --bg-fill ${wp_dir}*
