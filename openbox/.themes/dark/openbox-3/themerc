@@ -28,7 +28,7 @@ border.width: 0
 
 # Set border width
 window.client.padding.width: 0
-window.client.padding.height: 4
+window.client.padding.height: 2
 
 ## TITLE
 
@@ -36,7 +36,7 @@ window.client.padding.height: 4
 *.text.justify: center
 
 # Add some padding
-padding.width: 20
+padding.width: 16
 padding.height: 8
 
 # Set title colors
