@@ -28,7 +28,7 @@ border.width: 0
 
 # Set border width
 window.client.padding.width: 0
-window.client.padding.height: 2
+window.client.padding.height: 4
 
 ## TITLE
 

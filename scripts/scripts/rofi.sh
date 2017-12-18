@@ -4,8 +4,8 @@ rofi \
     -fuzzy \
     -lines 3 \
     -eh 1 \
-    -width 500 \
-    -padding 80 \
+    -width 100 \
+    -padding 800 \
     -opacity 90 \
     -bw 0 \
     -color-enabled \

@@ -24,38 +24,38 @@
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveWindow">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuHeader">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="MenuItem">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Google Sans</name>
-      <size>9</size>
+      <name>Source Sans Pro</name>
+      <size>10</size>
       <weight>Normal</weight>
       <slant>Normal</slant>
     </font>
@@ -64,10 +64,10 @@
     <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name></name>
-      <name></name>
-      <name></name>
-      <name></name>
+      <name>  web</name>
+      <name>  code</name>
+      <name>  art</name>
+      <name>  music</name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
