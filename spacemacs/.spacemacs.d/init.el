@@ -68,7 +68,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(vi-tilde-fringe)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -388,7 +388,7 @@ you should place your code here."
 
     (use-package linum-relative
       :config
-      (setq linum-relative-format " %3s ")))
+      (setq linum-relative-format " %4s ")))
 
   (use-package rainbow-mode
     :config
@@ -397,7 +397,7 @@ you should place your code here."
 
   (use-package powerline
     :config
-    (set-face-foreground 'powerline-active1 "black")
+    ;;(set-face-foreground 'powerline-active1 "black")
     ;;(set-face-background 'powerline-active2 nil)
     (setq powerline-default-separator 'slant
           powerline-height 30)
