@@ -72,7 +72,7 @@ Each entry is either:
   (use-package doom-themes
     :config
     ;; use custom theme
-    ;;(load-theme 'doom-one)
+    (load-theme 'doom-one)
     ;; Enable custom neotree theme
     (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
     ;; Corrects (and improves) org-mode's native fontification.

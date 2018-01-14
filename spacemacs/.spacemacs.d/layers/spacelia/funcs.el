@@ -19,16 +19,26 @@
   (setq-local css-indent-offset n) ; css-mode
   )
 
-(defun lia/school-code-style ()
+(defun lia/tab-indent-style ()
   (interactive)
   ;; use tab instead of space
   (setq-local indent-tabs-mode t)
   ;; indent 4 spaces width
-  (lia/setup-indent 2))
+  (lia/setup-indent 4))
 
-(defun lia/my-code-style ()
+(defun lia/my-indent-style ()
   (interactive)
   ;; use space instead of tab
   (setq indent-tabs-mode nil)
   ;; indent 2 spaces width
   (lia/setup-indent 2))
+
+(defun lia/1045-indent-style ()
+  (interactive)
+  (setq indent-tabs-mode nil)
+  (lia/setup-indent 4))
+
+(defun lia/1181-indent-style ()
+  (interactive)
+  (setq indent-tabs-mode nil)
+  (lia/setup-indent 3))
