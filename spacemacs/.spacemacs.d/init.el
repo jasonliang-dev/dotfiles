@@ -128,9 +128,7 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 8)
-                                (projects . 8)
-                                (agenda . 10))
+   dotspacemacs-startup-lists '((recents . 5))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -145,7 +143,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Iosevka"
-                               :size 14
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -179,7 +177,7 @@ values."
    dotspacemacs-retain-visual-state-on-shift t
    ;; If non-nil, J and K move lines up and down when in visual mode.
    ;; (default nil)
-   dotspacemacs-visual-line-move-text nil
+   dotspacemacs-visual-line-move-text t
    ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
@@ -229,7 +227,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -239,7 +237,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -335,6 +333,9 @@ you should place your code here."
   ;; dammit.
   (require 'helm-bookmark)
 
+  ;; are you sure boy?
+  (setq confirm-kill-emacs 'y-or-n-p)
+
   ;; use my own coding style by default
   (add-hook 'prog-mode-hook 'lia/my-indent-style)
 
@@ -359,7 +360,7 @@ you should place your code here."
   (global-evil-mc-mode 1)
 
   ;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-  (add-hook 'js2-mode-hook
+  (add-hook 'flycheck-mode-hook
             (lambda ()
               (let* ((root (locate-dominating-file
                             (or (buffer-file-name) default-directory)
@@ -372,11 +373,12 @@ you should place your code here."
 
   ;; set js2-mode variables here because js2 refuses to load for some reason
   (with-eval-after-load 'js2-mode
-    (setq-default js2-strict-missing-semi-warning nil
+    (setq-default js2-strict-inconsistent-return-warning nil
+                  js2-strict-missing-semi-warning nil
                   js2-strict-trailing-comma-warning nil))
 
   ;; format line numbers
-  (setq linum-format " %d "
+  (setq linum-format " %4d "
         linum-relative-format " %4s ")
 
   ;; use rainbow mode for css
@@ -405,11 +407,30 @@ you should place your code here."
    '(("^ +\\([-*]\\) "
       (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
+  ;; org source code blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (java . t)
+     (js . t)
+     (latex . t)
+     (lisp . t)
+     (org . t)
+     (python . t)
+     (ruby . t)
+     (sh . t)
+     (sql . t)
+     (sqlite . t)))
+
   ;; use xelatex for org export
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  ;; use minted
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
 
   ;; change org header bullet
   (setq org-bullets-bullet-list '("►"))
@@ -435,4 +456,13 @@ you should place your code here."
  '(custom-safe-themes
    (quote
     ("a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" default)))
- '(evil-want-Y-yank-to-eol nil))
+ '(evil-want-Y-yank-to-eol nil)
+ '(package-selected-packages
+   (quote
+    (yasnippet-snippets xterm-color ws-butler writeroom-mode writegood-mode winum which-key web-mode web-beautify volatile-highlights uuidgen use-package unfill toc-org tagedit sql-indent spaceline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md general fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump doom-themes diminish diff-hl define-word company-web company-tern company-statistics company-emacs-eclim company-auctex column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode buffer-move auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

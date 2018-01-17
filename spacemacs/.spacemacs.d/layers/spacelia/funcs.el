@@ -29,16 +29,17 @@
 (defun lia/my-indent-style ()
   (interactive)
   ;; use space instead of tab
-  (setq indent-tabs-mode nil)
+  (setq-local indent-tabs-mode nil)
   ;; indent 2 spaces width
   (lia/setup-indent 2))
 
 (defun lia/1045-indent-style ()
   (interactive)
-  (setq indent-tabs-mode nil)
+  (setq-local indent-tabs-mode nil)
   (lia/setup-indent 4))
 
 (defun lia/1181-indent-style ()
   (interactive)
-  (setq indent-tabs-mode nil)
+  (setq-local indent-tabs-mode nil)
+  (c-set-offset 'substatement-open 0)
   (lia/setup-indent 3))
