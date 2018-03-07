@@ -342,6 +342,9 @@ you should place your code here."
   ;; use THE WORST BRACKET PLACEMENT STYLE for java
   (add-hook 'java-mode-hook 'lia/1181-indent-style)
 
+  ;; indent the `case' in switch statements
+  (c-set-offset 'case-label '+)
+
   ;; hide the cursor in inactive buffer
   (setq-default cursor-in-non-selected-windows nil)
 
