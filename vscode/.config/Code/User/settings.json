@@ -2,8 +2,8 @@
     "editor.fontFamily": "'Iosevka Term', 'Source Code Pro', 'monospace'",
     "editor.fontSize": 13,
     "editor.lineHeight": 20,
+    "editor.minimap.enabled": false,
     "editor.tabSize": 2,
-    "git.autofetch": true,
     "java.errors.incompleteClasspath.severity": "ignore",
     "workbench.colorTheme": "Atom One Light",
     "workbench.iconTheme": "vscode-icons",
@@ -11,4 +11,5 @@
         "editor.tabSize": 3
     },
     "workbench.startupEditor": "newUntitledFile",
+    "git.autofetch": true,
 }
