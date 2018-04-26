@@ -2,11 +2,19 @@ source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
 antigen bundle git
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme agnoster
+antigen bundle zsh-users/zsh-autosuggestions
+antigen theme caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 antigen apply
 
 # User configuration
+
+BULLETTRAIN_PROMPT_ORDER=(
+  time
+  dir
+  git
+)
+
+BULLETTRAIN_DIR_FG=black
 
 export EDITOR='vim'
 
