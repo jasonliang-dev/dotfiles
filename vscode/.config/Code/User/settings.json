@@ -1,0 +1,14 @@
+{
+    "editor.fontFamily": "'Iosevka Term', 'Source Code Pro', 'monospace'",
+    "editor.fontSize": 13,
+    "editor.lineHeight": 20,
+    "editor.tabSize": 2,
+    "git.autofetch": true,
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "workbench.colorTheme": "Atom One Light",
+    "workbench.iconTheme": "vscode-icons",
+    "[java]": {
+        "editor.tabSize": 3
+    },
+    "workbench.startupEditor": "newUntitledFile",
+}
