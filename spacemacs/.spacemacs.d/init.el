@@ -143,7 +143,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Iosevka"
+   dotspacemacs-default-font '("Iosevka Term"
                                :size 14
                                :weight normal
                                :width normal
@@ -462,7 +462,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" default)))
+    ("aa0a998c0aa672156f19a1e1a3fb212cdc10338fb50063332a0df1646eb5dfea" "a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
