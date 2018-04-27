@@ -9,7 +9,6 @@ antigen apply
 # User configuration
 
 BULLETTRAIN_PROMPT_ORDER=(
-  time
   dir
   git
 )
