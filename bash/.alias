@@ -9,6 +9,9 @@ alias ll='ls -al'
 alias ls='ls --color=auto'
 
 alias j='node'
+alias js='node'
+
+alias tmux='TERM=xterm-256color tmux'
 
 alias e='emacsclient'
 alias t='tmux'
