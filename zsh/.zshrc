@@ -3,17 +3,10 @@ source $HOME/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-users/zsh-autosuggestions
-antigen theme caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 antigen apply
 
 # User configuration
-
-BULLETTRAIN_PROMPT_ORDER=(
-  dir
-  git
-)
-
-BULLETTRAIN_DIR_FG=black
 
 export EDITOR='vim'
 
