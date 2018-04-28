@@ -3,7 +3,8 @@ source $HOME/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-users/zsh-autosuggestions
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 antigen apply
 
 # User configuration
