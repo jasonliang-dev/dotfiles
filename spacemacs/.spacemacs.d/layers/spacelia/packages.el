@@ -32,7 +32,6 @@
 (defconst spacelia-packages
   '(buffer-move
     doom-themes
-    elcord
     general
     yasnippet-snippets
     writegood-mode
@@ -78,12 +77,6 @@ Each entry is either:
     (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config)))
-
-(defun spacelia/init-elcord ()
-  (use-package elcord
-    :config
-    ;; enable elcord-mode
-    (elcord-mode)))
 
 (defun spacelia/init-general ()
   (use-package general

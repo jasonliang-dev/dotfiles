@@ -20,3 +20,5 @@ ncmpcpp/.config/mpd/state
 ncmpcpp/.config/mpd/sticker.sql
 ncmpcpp/.ncmpcpp/error.log
 termite/.config/gtk-3.0/settings.ini
+vim/.vim/.netrwhist
+vim/.vim/bundle/

@@ -12,23 +12,28 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " use the following plugins
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'airblade/vim-gitgutter'
+" :'<,'>sort /\//
+Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer --tern-completer --java-completer' }
+Plugin 'w0rp/ale'
 Plugin 'chriskempson/base16-vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
-Plugin 'mbbill/undotree'
-Plugin 'pangloss/vim-javascript'
-Plugin 'ryanoasis/vim-devicons'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
+Plugin 'SirVer/ultisnips'
+Plugin 'mbbill/undotree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'w0rp/ale'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'pangloss/vim-javascript'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'honza/vim-snippets'
+Plugin 'mhinz/vim-startify'
+Plugin 'tpope/vim-surround'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -66,6 +71,9 @@ set splitright
 
 " never auto indent when pasting
 set nopaste
+
+" remove netrw banner
+let g:netrw_banner = 0
 " }}}
 " Appearance {{{
 " use base16 colourscheme
@@ -77,12 +85,18 @@ let base16colorspace=256
 " enable syntax hiing
 syntax enable
 
+" error color
+hi Error cterm=underline ctermfg=Red ctermbg=NONE
+
 " line numbers colors
 hi CursorLineNr ctermbg=NONE
 hi LineNr ctermbg=NONE
 
+" bracket highlight color
+hi MatchParen cterm=bold ctermbg=NONE
+
 " search color
-hi Search cterm=NONE ctermfg=black ctermbg=blue
+hi Search cterm=NONE ctermfg=Black ctermbg=Blue
 
 " use relative line numbers
 set number
@@ -108,10 +122,16 @@ let &t_EI = "\<Esc>[2 q"
 " requires patched font
 let g:airline_powerline_fonts = 1
 
+" separators don't play very well
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
 " change airline sections
-let g:airline_section_x = '%2l,%2c'
+let g:airline_section_x = '%3p%%  %2l,%2c'
 let g:airline_section_y = ''
-let g:airline_section_z = '%3p%%'
+let g:airline_section_z = ''
 
 " use base16 airline theme
 let g:airline_theme='base16'
@@ -127,42 +147,26 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_error = 'E:'
 let g:ale_sign_warning = 'W:'
 " }}}
-" ctrlp {{{
-" map CtrlP to, well uh, CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" show buffers
-nnoremap <leader>bl :CtrlPBuffer<CR>
-
-" show all
-nnoremap <leader>bb :CtrlPMixed<CR>
-
-" use ctrl-n and ctrl-p to select
-let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")':   ['<c-j>', '<c-n>'],
-    \ 'PrtSelectMove("k")':   ['<c-k>', '<c-p>'],
-    \ 'PrtHistory(-1)':       ['<down>'],
-    \ 'PrtHistory(1)':        ['<up>'],
-    \ }
-
-" show hidden files
-let g:ctrlp_show_hidden = 1
-
-" let CtrlP ignore some files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+" emmet {{{
+let g:user_emmet_leader_key=','
 " }}}
 " fugitive {{{
 " bindings
 nnoremap <leader>gs :Gstatus<CR>
+" }}}
+" fzf {{{
+" show hidden files and ignore directories like `node_modules`
+" let $FZF_DEFAULT_COMMAND = 'grep -ril . * .* --exclude-dir=node_modules --exclude-dir=\.git'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git --ignore node_modules -g ""'
+
+" map it to `;`
+nnoremap ; :Files<CR>
+
+" list buffers
+nnoremap <leader>bl :Buffers<CR>
+
+" list tags in project
+nnoremap <leader>tt :Tags<CR>
 " }}}
 " gitgutter {{{
 " disable bindings
@@ -184,7 +188,7 @@ hi GitGutterDelete ctermbg=NONE
 hi GitGutterChangeDelete ctermbg=NONE
 " }}}
 " undotree {{{
-nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 " }}}
 " utlisnips {{{
 " bindings
@@ -194,6 +198,10 @@ let g:UltiSnipsJumpBackwardTrigger="<S-C-K>"
 
 " use my snippets
 let g:UltiSnipsSnippetDirectories=['lia-snippets']
+" }}}
+" youcompleteme {{{
+" close the preview window please
+let g:ycm_autoclose_preview_window_after_completion=1
 " }}}
 " }}}
 " Bindings {{{
@@ -231,22 +239,28 @@ nnoremap <leader>wo <C-W>o
 " toggle spelling
 nnoremap <leader>ts :set spell!<CR>
 
-" toggle cursor highlight
-
-
-" clear hied text
-nnoremap <leader><leader> :nohl<CR>
+" clear highlighted text
+nnoremap <ESC> :nohl<CR>
 
 " switch buffers
-nnoremap <leader><Esc> :b#<CR>
-nnoremap <leader><Tab> :bnext<CR>
-nnoremap <leader><S-Tab> :bprevious<CR>
+nnoremap <leader><tab> :b#<CR>
+nnoremap <leader>h :bprevious!<CR>
+nnoremap <leader>l :bnext!<CR>
 
 " delete buffer
 nnoremap <leader>bd :bd<CR>
 
+" delete all buffers
+nnoremap <leader>bD :bufdo bd<CR>
+
+" jump to tag definition
+nnoremap <leader>j :tag <C-r><C-w><CR>
+
 " open netrw
 nnoremap <leader>ff :Explore<CR>
+
+" open terminal
+nnoremap <leader><return> :vertical terminal<CR>
 
 " edit vimrc
 nnoremap <leader>fed :e $MYVIMRC<CR>

@@ -143,8 +143,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Iosevka Term"
-                               :size 14
+   dotspacemacs-default-font '("Iosevka"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -338,10 +338,10 @@ you should place your code here."
   (setq confirm-kill-emacs 'y-or-n-p)
 
   ;; use my own coding style by default
-  (add-hook 'prog-mode-hook 'lia/my-indent-style)
+  (add-hook 'prog-mode-hook '(lambda () (lia/indent-style 2)))
 
   ;; use THE WORST BRACKET PLACEMENT STYLE for java
-  (add-hook 'java-mode-hook 'lia/1181-indent-style)
+  (add-hook 'java-mode-hook 'lia/java-indent-style)
 
   ;; indent the `case' in switch statements
   (c-set-offset 'case-label '+)
@@ -462,7 +462,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("aa0a998c0aa672156f19a1e1a3fb212cdc10338fb50063332a0df1646eb5dfea" "a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" default)))
+    ("9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" "aa0a998c0aa672156f19a1e1a3fb212cdc10338fb50063332a0df1646eb5dfea" "a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote

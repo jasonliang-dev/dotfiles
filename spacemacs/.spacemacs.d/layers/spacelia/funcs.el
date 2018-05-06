@@ -26,21 +26,15 @@
   ;; use tab instead of space
   (setq-local indent-tabs-mode t)
   ;; indent 4 spaces width
-  (lia/setup-indent 2))
+  (lia/setup-indent 4))
 
-(defun lia/my-indent-style ()
+(defun lia/indent-style (n)
   (interactive)
   ;; use space instead of tab
   (setq-local indent-tabs-mode nil)
-  ;; indent 2 spaces width
-  (lia/setup-indent 2))
+  (lia/setup-indent n))
 
-(defun lia/1045-indent-style ()
-  (interactive)
-  (setq-local indent-tabs-mode nil)
-  (lia/setup-indent 4))
-
-(defun lia/1181-indent-style ()
+(defun lia/java-indent-style ()
   (interactive)
   (setq-local indent-tabs-mode nil)
   (c-set-offset 'substatement-open 0)
