@@ -31,7 +31,6 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'honza/vim-snippets'
-Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-surround'
 Plugin 'christoomey/vim-tmux-navigator'
 

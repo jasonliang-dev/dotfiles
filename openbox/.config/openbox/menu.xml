@@ -1,101 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
-
-  <menu id="run" label="Run">
-	<item label="Web">
-	  <action name="Execute">
-		<command>firefox</command>
-	  </action>
-	</item>
-	<item label="Terminal">
-	  <action name="Execute">
-		<command>~/scripts/term.sh</command>
-	  </action>
-	</item>
-	<item label="Files">
-	  <action name="Execute">
-		<command>~/scripts/files.sh</command>
-	  </action>
-	</item>
-	<item label="Emacs">
-	  <action name="Execute">
-		<command>emacs</command>
-	  </action>
-	</item>
-  </menu>
-
-  <menu id="feh" label="Feh">
-	<item label="All Wallpapers">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh</command>
-	  </action>
-	</item>
-	<separator/>
-	<item label="Anime">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh anime</command>
-	  </action>
-	</item>
-	<item label="Comfy">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh comfy</command>
-	  </action>
-	</item>
-	<item label="Flat">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh flat</command>
-	  </action>
-	</item>
-	<item label="Mnt">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh mnt</command>
-	  </action>
-	</item>
-	<item label="Moe">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh moe</command>
-	  </action>
-	</item>
-	<item label="Simple">
-	  <action name="Execute">
-		<command>~/scripts/feh.sh simple</command>
-	  </action>
-	</item>
-  </menu>
-
   <menu id="system" label="System">
-	<item label="Exit">
-	  <action name="Execute">
-		<command>openbox --exit</command>
-	  </action>
-	</item>
-	<item label="Suspend">
-	  <action name="Execute">
-		<command>systemctl suspend</command>
-	  </action>
-	</item>
-	<item label="Reboot">
-	  <action name="Execute">
-		<command>systemctl reboot</command>
-	  </action>
-	</item>
-	<item label="Poweroff">
-	  <action name="Execute">
-		<command>systemctl poweroff</command>
-	  </action>
-	</item>
+    <item label="Exit">
+      <action name="Execute">
+        <command>openbox --exit</command>
+      </action>
+    </item>
+    <item label="Suspend">
+      <action name="Execute">
+        <command>systemctl suspend</command>
+      </action>
+    </item>
+    <item label="Reboot">
+      <action name="Execute">
+        <command>systemctl reboot</command>
+      </action>
+    </item>
+    <item label="Poweroff">
+      <action name="Execute">
+        <command>systemctl poweroff</command>
+      </action>
+    </item>
   </menu>
-
   <menu id="root-menu" label="Openbox 3">
-	<menu id="run"/>
-	<menu id="feh"/>
-	<menu id="system"/>
-	<separator />
-	<item label="Reconfigure">
-	  <action name="Reconfigure" />
-	</item>
+    <menu id="system"/>
+    <separator />
+    <item label="Reconfigure">
+      <action name="Reconfigure" />
+    </item>
   </menu>
-
 </openbox_menu>
 

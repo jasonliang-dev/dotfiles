@@ -1,24 +1,24 @@
 ## COLOURS
 
 # Set border colour
-window.active.client.color: #89DDFF
-window.inactive.client.color: #546E7A
+window.active.client.color: #F1FFF
+window.inactive.client.color: #66818D
 
 # title colours
-window.*.title.bg.color: #2E3C43
-window.active.label.text.color: #EEFFFF
-window.inactive.label.text.color: #546E7A
+window.*.title.bg.color: #334148
+window.active.label.text.color: #F1FFFF
+window.inactive.label.text.color: #66818D
 
 # Set buttons color
-window.active.button.*.image.color: #89DDFF
-window.inactive.button.*.image.color: #546E7A
+window.active.button.*.image.color: #F1FFFF
+window.inactive.button.*.image.color: #66818D
 
 # Set menu colors
-menu.*.bg.color: #2E3C43
-menu.*.text.color: #B2CCD6
-menu.items.active.text.color: #EEFFFF
-menu.border.color: #2E3C43
-menu.separator.color: #343D46
+menu.*.bg.color: #334148
+menu.*.text.color: #BFD5DE
+menu.items.active.text.color: #F1FFFF
+menu.border.color: #334148
+menu.separator.color: #334148
 
 ## BORDERS
 
@@ -48,7 +48,7 @@ window.*.*.bg: Parentrelative
 menu.*.bg: Solid Flat
 
 # Padding
-menu.border.width: 16
-menu.overlap.x: -27
+menu.border.width: 24
+menu.overlap.x: -28
 menu.overlap.y: 0
 menu.separator.padding.height: 3

@@ -64,10 +64,10 @@
     <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>  web</name>
-      <name>  code</name>
-      <name>  art</name>
-      <name>  music</name>
+      <name>web</name>
+      <name>code</name>
+      <name>music</name>
+      <name>chat</name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
