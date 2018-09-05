@@ -29,6 +29,7 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-surround'
@@ -145,6 +146,15 @@ let g:airline#extensions#ale#enabled = 1
 " change signs
 let g:ale_sign_error = 'E:'
 let g:ale_sign_warning = 'W:'
+
+" use prettier
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_prettier_use_local_config = 1
+
+" fix errors on save
+let g:ale_fix_on_save = 1
 " }}}
 " emmet {{{
 let g:user_emmet_leader_key=','
@@ -197,6 +207,10 @@ let g:UltiSnipsJumpBackwardTrigger="<S-C-K>"
 
 " use my snippets
 let g:UltiSnipsSnippetDirectories=['lia-snippets']
+" }}}
+" vim-javascript {{{
+" temp fix for jsx brace highlight
+let g:jsx_ext_required = 0
 " }}}
 " youcompleteme {{{
 " close the preview window please
