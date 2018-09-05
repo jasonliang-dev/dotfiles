@@ -12,5 +12,6 @@
     },
     "workbench.startupEditor": "newUntitledFile",
     "git.autofetch": true,
-    "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "editor.formatOnSave": true
 }
