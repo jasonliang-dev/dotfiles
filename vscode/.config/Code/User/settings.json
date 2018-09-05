@@ -5,11 +5,12 @@
     "editor.minimap.enabled": false,
     "editor.tabSize": 2,
     "java.errors.incompleteClasspath.severity": "ignore",
-    "workbench.colorTheme": "Atom One Light",
+    "workbench.colorTheme": "One Dark Pro",
     "workbench.iconTheme": "vscode-icons",
     "[java]": {
         "editor.tabSize": 3
     },
     "workbench.startupEditor": "newUntitledFile",
     "git.autofetch": true,
+    "editor.formatOnSave": true,
 }

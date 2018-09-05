@@ -16,6 +16,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer --tern-completer --java-completer' }
 Plugin 'w0rp/ale'
 Plugin 'chriskempson/base16-vim'
+Plugin 'Raimondi/delimitMate'
 Plugin 'mattn/emmet-vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
@@ -25,7 +26,6 @@ Plugin 'mbbill/undotree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'ryanoasis/vim-devicons'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
@@ -119,7 +119,7 @@ let &t_EI = "\<Esc>[2 q"
 " airline {{{
 " make airline all fancy
 " requires patched font
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 
 " separators don't play very well
 let g:airline_left_sep=''
