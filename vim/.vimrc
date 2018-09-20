@@ -17,6 +17,7 @@ Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer --tern-com
 Plugin 'w0rp/ale'
 Plugin 'chriskempson/base16-vim'
 Plugin 'Raimondi/delimitMate'
+Plugin 'elmcast/elm-vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
@@ -55,6 +56,9 @@ set softtabstop=2
 
 " file specific indentation
 autocmd FileType java setlocal shiftwidth=3 softtabstop=3
+
+" don't auto insert comments
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " command menu autocomplete
 set wildmenu
@@ -157,7 +161,8 @@ let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fix_on_save = 1
 " }}}
 " emmet {{{
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='\'
+let g:user_emmet_expandabbr_key = '<C-e>'
 " }}}
 " fugitive {{{
 " bindings
@@ -213,6 +218,10 @@ let g:UltiSnipsSnippetDirectories=['lia-snippets']
 let g:jsx_ext_required = 0
 " }}}
 " youcompleteme {{{
+" elm autocomplete
+let g:ycm_semantic_triggers = {
+      \ 'elm' : ['.'],
+      \}
 " close the preview window please
 let g:ycm_autoclose_preview_window_after_completion=1
 " }}}

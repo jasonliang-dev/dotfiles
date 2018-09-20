@@ -1,17 +1,20 @@
 {
-    "editor.fontFamily": "'Iosevka Term', 'Source Code Pro', 'monospace'",
-    "editor.fontSize": 13,
-    "editor.lineHeight": 20,
-    "editor.minimap.enabled": false,
-    "editor.tabSize": 2,
-    "java.errors.incompleteClasspath.severity": "ignore",
-    "workbench.colorTheme": "One Dark Pro",
-    "workbench.iconTheme": "vscode-icons",
-    "[java]": {
-        "editor.tabSize": 3
-    },
-    "workbench.startupEditor": "newUntitledFile",
-    "git.autofetch": true,
-    "files.eol": "\n",
-    "editor.formatOnSave": true
+  "editor.fontFamily": "'Iosevka Term', 'Source Code Pro', 'monospace'",
+  "editor.fontSize": 13,
+  "editor.lineHeight": 20,
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "vscode-icons",
+  "[java]": {
+    "editor.tabSize": 3
+  },
+  "[elm]": {
+    "editor.tabSize": 4
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  "git.autofetch": true,
+  "files.eol": "\n",
+  "editor.formatOnSave": true
 }

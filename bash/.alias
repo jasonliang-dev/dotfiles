@@ -13,6 +13,7 @@ alias js='node'
 
 alias tmux='TERM=xterm-256color tmux'
 alias a='tmux attach'
+alias at='tmux attach -t'
 
 alias e='emacsclient'
 alias t='tmux'
