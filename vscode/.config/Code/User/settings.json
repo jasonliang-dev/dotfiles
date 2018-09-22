@@ -16,5 +16,6 @@
   "workbench.startupEditor": "newUntitledFile",
   "git.autofetch": true,
   "files.eol": "\n",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2 }"
 }
