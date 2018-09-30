@@ -5,7 +5,8 @@ window.active.client.color: #F1FFF
 window.inactive.client.color: #66818D
 
 # title colours
-window.*.title.bg.color: #334148
+window.active.title.bg.color: #334148
+window.inactive.title.bg.color: #F1FFFF
 window.active.label.text.color: #F1FFFF
 window.inactive.label.text.color: #66818D
 
@@ -28,7 +29,7 @@ border.width: 0
 
 # Set border width
 window.client.padding.width: 0
-window.client.padding.height: 2
+window.client.padding.height: 0
 
 ## TITLE
 
