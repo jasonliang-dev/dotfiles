@@ -1,21 +1,22 @@
 {
-  "editor.fontFamily": "'Iosevka Term', 'Source Code Pro', 'monospace'",
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2 }",
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
   "editor.fontSize": 13,
+  "editor.formatOnSave": true,
   "editor.lineHeight": 20,
   "editor.minimap.enabled": false,
   "editor.tabSize": 2,
+  "files.eol": "\n",
+  "git.autofetch": true,
   "java.errors.incompleteClasspath.severity": "ignore",
-  "workbench.colorTheme": "One Dark Pro",
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Material Theme",
+  "workbench.iconTheme": "eq-material-theme-icons",
+  "workbench.startupEditor": "newUntitledFile",
   "[java]": {
     "editor.tabSize": 3
   },
   "[elm]": {
     "editor.tabSize": 4
-  },
-  "workbench.startupEditor": "newUntitledFile",
-  "git.autofetch": true,
-  "files.eol": "\n",
-  "editor.formatOnSave": true,
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2 }"
+  }
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-compton &
+# compton &
 dunst &
 ~/scripts/feh.sh tile &
 tint2 &
