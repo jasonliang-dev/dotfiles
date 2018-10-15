@@ -215,24 +215,11 @@ let g:UltiSnipsSnippetDirectories=['lia-snippets']
 " temp fix for jsx brace highlight
 let g:jsx_ext_required = 0
 " }}}
-" youcompleteme {{{
-" elm autocomplete
-let g:ycm_semantic_triggers = {
-      \ 'elm' : ['.'],
-      \}
-" close the preview window please
-let g:ycm_autoclose_preview_window_after_completion=1
-" }}}
 " }}}
 " Bindings {{{
 " move by visual line
 nnoremap j gj
 nnoremap k gk
-
-" copy and paste using the system clipboard
-" TODO: find out why this doesn't work
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
 
 " change directory to current file
 nnoremap <leader>D :lcd %:p:h<CR>
@@ -274,7 +261,7 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bD :bufdo bd<CR>
 
 " open netrw
-nnoremap <leader>ff :Explore<CR>
+nnoremap <leader>ff :Sex<CR>
 
 " open terminal
 nnoremap <leader><return> :vertical terminal<CR>
