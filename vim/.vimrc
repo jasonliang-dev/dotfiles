@@ -13,7 +13,6 @@ Plugin 'VundleVim/Vundle.vim'
 
 " use the following plugins
 " :'<,'>sort /\//
-Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer --tern-completer --java-completer' }
 Plugin 'w0rp/ale'
 Plugin 'chriskempson/base16-vim'
 Plugin 'Raimondi/delimitMate'
@@ -31,7 +30,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-surround'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -206,9 +204,9 @@ nnoremap <leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 " }}}
 " utlisnips {{{
 " bindings
-let g:UltiSnipsExpandTrigger="<C-K>"
-let g:UltiSnipsJumpForwardTrigger="<C-K>"
-let g:UltiSnipsJumpBackwardTrigger="<S-C-K>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " use my snippets
 let g:UltiSnipsSnippetDirectories=['lia-snippets']
@@ -262,7 +260,7 @@ nnoremap <leader>wo <C-W>o
 nnoremap <leader>ts :set spell!<CR>
 
 " clear highlighted text
-nnoremap <ESC> :nohl<CR>
+nnoremap <ESC><ESC> :nohl<CR>
 
 " switch buffers
 nnoremap <leader><tab> :b#<CR>
@@ -274,9 +272,6 @@ nnoremap <leader>bd :bd<CR>
 
 " delete all buffers
 nnoremap <leader>bD :bufdo bd<CR>
-
-" jump to tag definition
-nnoremap <leader>j :tag <C-r><C-w><CR>
 
 " open netrw
 nnoremap <leader>ff :Explore<CR>
