@@ -222,7 +222,7 @@ nnoremap j gj
 nnoremap k gk
 
 " change directory to current file
-nnoremap <leader>D :lcd %:p:h<CR>
+nnoremap <leader>d :lcd %:p:h<CR>
 
 " easy split navigation
 nnoremap <leader>wj <C-W><C-J>
@@ -261,10 +261,13 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bD :bufdo bd<CR>
 
 " open netrw
-nnoremap <leader>ff :Sex<CR>
+nnoremap <leader>ff :Explore<CR>
 
 " open terminal
-nnoremap <leader><return> :vertical terminal<CR>
+nnoremap <leader><return> :!$HOME/scripts/term.sh > /dev/null 2>&1 &<CR><CR>
+
+" open file explorer
+nnoremap <leader><leader><return> :!$HOME/scripts/files.sh > /dev/null 2>&1 &<CR><CR>
 
 " edit vimrc
 nnoremap <leader>fed :e $MYVIMRC<CR>
