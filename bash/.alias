@@ -40,5 +40,7 @@ alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias sf='screenfetch'
 alias ytdl='youtube-dl'
 
+alias thanks='echo Anytime'
+
 alias c='clear'
 alias x='exit'
