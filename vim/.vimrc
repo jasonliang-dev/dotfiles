@@ -267,7 +267,7 @@ nnoremap <leader>ff :Explore<CR>
 nnoremap <leader><return> :!$HOME/scripts/term.sh > /dev/null 2>&1 &<CR><CR>
 
 " open file explorer
-nnoremap <leader><leader><return> :!$HOME/scripts/files.sh > /dev/null 2>&1 &<CR><CR>
+nnoremap <leader><leader><return> :!xdg-open . > /dev/null 2>&1 &<CR><CR>
 
 " edit vimrc
 nnoremap <leader>fed :e $MYVIMRC<CR>
