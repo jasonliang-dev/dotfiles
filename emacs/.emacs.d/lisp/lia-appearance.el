@@ -8,10 +8,18 @@
 
 ;;; Code:
 
+;; remove gui bars
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
+;; highlight current line
+(global-hl-line-mode)
+
+;; highlight matching paren
+(show-paren-mode t)
+
+;; set font size
 (set-face-attribute 'default nil :height 110)
 
 ;;; Fira code

@@ -36,6 +36,12 @@
   :config
   (evil-mode))
 
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-magit)
+
 (use-package clang-format
   :config
   (add-hook 'c-mode-hook #'lia/clang-format-on-save)
@@ -61,14 +67,18 @@
   :hook
   (after-init . doom-modeline-init))
 
+(use-package emmet-mode
+  ;; C-j to expand
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode))
+
 (use-package flycheck
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
   (global-flycheck-mode)
 
   (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
-
-;; (use-package format-all)
 
 (use-package magit)
 

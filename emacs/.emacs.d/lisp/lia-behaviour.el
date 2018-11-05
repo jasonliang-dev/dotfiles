@@ -8,11 +8,21 @@
 
 ;;; Code:
 
+;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; don't show welcome screen
 (setq inhibit-startup-screen t)
 
+;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
+
+;; move backup~ files to its own directory
+(setq backup-directory-alist
+      `((".*" . ,(concat user-emacs-directory "backups"))))
+
+;; no #autosave# files
+(setq auto-save-default nil)
 
 ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
 (defun lia/run-external (command)
