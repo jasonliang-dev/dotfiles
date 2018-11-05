@@ -38,31 +38,54 @@
   :config
   (evil-mode))
 
-(use-package company
+(use-package clang-format
   :config
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (add-hook 'before-save-hook 'clang-format-buffer))))
+
+(use-package company
+  :hook
+  (after-init . global-company-mode)
+  :config
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 (use-package doom-themes
   :init
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-spacegrey t)
-  (doom-themes-visual-bell-config))
+  (load-theme 'doom-one t))
+
+(use-package doom-modeline
+  :init
+  (setq doom-modeline-height 35)
+  :hook
+  (after-init . doom-modeline-init))
 
 (use-package flycheck
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+
+  (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
+
+;; (use-package format-all)
 
 (use-package magit)
 
 (use-package helm
   :config
   (require 'helm-config)
-  (global-set-key (kbd "M-x") #'helm-M-x)
+  ;; (global-set-key (kbd "M-x") #'helm-M-x)
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  (global-set-key (kbd "C-x C-b") #'helm-mini)
   (helm-mode 1))
+
+(use-package prettier-js
+  :config
+  (add-hook 'js-mode-hook 'prettier-js-mode))
 
 (use-package smartparens
   :config
@@ -72,6 +95,19 @@
 (use-package smooth-scrolling
   :config
   (smooth-scrolling-mode 1))
+
+(defun lia/use-eslint-from-node-modules ()
+  "If exists, use local eslint.
+https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable"
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

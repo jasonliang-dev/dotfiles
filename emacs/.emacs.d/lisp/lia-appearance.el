@@ -12,6 +12,8 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
+(set-face-attribute 'default nil :height 110)
+
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
