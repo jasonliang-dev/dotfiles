@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;;
-;; Change how Emacs behaves (+ Keybindings).
+;; Change how Emacs behaves
 ;;
 
 ;;; Code:
@@ -27,21 +27,20 @@
 ;; no #autosave# files
 (setq auto-save-default nil)
 
-(global-set-key (kbd "C-`") 'eshell)
+;; indent `case' in switch/case
+(c-set-offset 'case-label '+)
 
-;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
-(defun lia/run-external (command)
-  "Run a shell COMMAND that use the current directory."
-  (interactive "s")
-  (shell-command (concat command " . > /dev/null 2>&1 & disown") nil nil))
+(defun lia/set-indent (n)
+  "Set the indentation level to a value N."
+  (interactive)
+  (setq-default c-basic-offset n)
+  (setq-default javascript-indent-level n) ;javascript-mode
+  (setq-default js-indent-level n) ; js-mode, what's the difference?
+                                   ; who knows?
+  (setq-default js-switch-indent-offset n) ; switch-case indentation
+  (setq-default css-indent-ofset n))
 
-(global-set-key (kbd "C-c RET")
-		#'(lambda () (interactive)
-		    (lia/run-external "~/scripts/term.sh")))
-
-(global-set-key (kbd "C-c SPC")
-		#'(lambda () (interactive)
-		    (lia/run-external "~/scripts/files.sh")))
+(lia/set-indent 2)
 
 (provide 'lia-behaviour)
 

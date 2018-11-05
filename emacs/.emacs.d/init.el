@@ -8,7 +8,7 @@
 
 (require 'package)
 
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (require 'lia-appearance)
 (require 'lia-behaviour)
@@ -131,6 +131,38 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 (use-package which-key
   :config
   (which-key-mode))
+
+(use-package general
+  :config
+  ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
+  (defun lia/run-external (command)
+    "Run a shell COMMAND that use the current directory."
+    (interactive "s")
+    (shell-command
+     (concat command " . > /dev/null 2>&1 & disown") nil nil))
+
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "TAB" 'mode-line-other-buffer
+   "`"   'eshell
+   "k"   'kill-this-buffer
+   "wh"  'windmove-left
+   "wj"  'windmove-down
+   "wk"  'windmove-up
+   "wl"  'windmove-right
+   "ws"  'evil-window-split
+   "wv"  'evil-window-vsplit
+   "f"   'helm-find-files
+   "b"   'helm-mini
+   "1"   '(lambda() (interactive)
+            (find-file "~/.emacs.d/init.el"))
+   "RET" '(lambda () (interactive)
+            (lia/run-external "~/scripts/term.sh"))
+   "SPC" '(lambda () (interactive)
+            (lia/run-external "~/scripts/files.sh")))
+   )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
