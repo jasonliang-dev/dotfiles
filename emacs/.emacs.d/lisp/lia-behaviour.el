@@ -14,6 +14,9 @@
 ;; don't show welcome screen
 (setq inhibit-startup-screen t)
 
+;; show column number
+(setq column-number-mode t)
+
 ;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
 

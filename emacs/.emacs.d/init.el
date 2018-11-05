@@ -44,8 +44,9 @@
 
 (use-package clang-format
   :config
-  (add-hook 'c-mode-hook #'lia/clang-format-on-save)
-  (add-hook 'c++-mode-hook #'lia/clang-format-on-save))
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c C-f") #'clang-format-buffer))))
 
 (use-package company
   :hook
@@ -66,13 +67,15 @@
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-spacegrey t))
 
 (use-package doom-modeline
   :init
   (setq doom-modeline-height 35)
   :hook
   (after-init . doom-modeline-init))
+
+(use-package elm-mode)
 
 (use-package emmet-mode
   ;; C-j to expand
@@ -84,6 +87,18 @@
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
   (global-flycheck-mode)
+
+  (defun lia/use-eslint-from-node-modules ()
+    "If exists, use local eslint.
+https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable"
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
 
   (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
 
@@ -110,23 +125,9 @@
   :config
   (smooth-scrolling-mode 1))
 
-(defun lia/use-eslint-from-node-modules ()
-  "If exists, use local eslint.
-https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable"
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(defun lia/clang-format-on-save ()
-  "Format on save."
-  (add-hook 'before-save-hook 'clang-format-buffer))
-
-
+(use-package which-key
+  :config
+  (which-key-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -135,7 +136,7 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit company flycheck use-package helm evil-visual-mark-mode))))
+    (which-key magit company flycheck use-package helm evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
