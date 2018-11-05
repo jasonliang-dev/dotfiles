@@ -27,6 +27,8 @@
 ;; no #autosave# files
 (setq auto-save-default nil)
 
+(global-set-key (kbd "C-`") 'eshell)
+
 ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
 (defun lia/run-external (command)
   "Run a shell COMMAND that use the current directory."
