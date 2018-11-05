@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: org-latex-header
-# key: lh
-# --
-#+LATEX_HEADER: $0

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: org-latex-beamer-theme
-# key: beamer-theme
-# --
-#+LATEX_HEADER: \mode<beamer>
-#+BEAMER_THEME: ${1:metropolis}$0

@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: @param
-# key: @p
-# --
- * @param ${1:param}$0
