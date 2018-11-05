@@ -2,9 +2,7 @@
 
 ;;; Commentary:
 
-;;
-;; Just a simple Emacs config
-;;
+;;; Just a simple Emacs config;
 
 ;;; Code:
 
@@ -40,9 +38,8 @@
 
 (use-package clang-format
   :config
-  (add-hook 'c-mode-common-hook
-            '(lambda ()
-               (add-hook 'before-save-hook 'clang-format-buffer))))
+  (add-hook 'c-mode-hook #'lia/clang-format-on-save)
+  (add-hook 'c++-mode-hook #'lia/clang-format-on-save))
 
 (use-package company
   :hook
@@ -78,7 +75,7 @@
 (use-package helm
   :config
   (require 'helm-config)
-  ;; (global-set-key (kbd "M-x") #'helm-M-x)
+  (global-set-key (kbd "M-x") #'helm-M-x)
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (global-set-key (kbd "C-x C-b") #'helm-mini)
   (helm-mode 1))
@@ -107,6 +104,11 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
                                         root))))
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(defun lia/clang-format-on-save ()
+  "Format on save."
+  (add-hook 'before-save-hook 'clang-format-buffer))
+            
 
 
 (custom-set-variables
