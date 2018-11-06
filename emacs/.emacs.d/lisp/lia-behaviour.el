@@ -19,6 +19,8 @@
   (define-key company-active-map (kbd "C-n") #'company-select-next)
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
+(use-package dumb-jump)
+
 (use-package flycheck
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -44,6 +46,14 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   :config
   (require 'helm-config)
   (helm-mode 1))
+
+(use-package helm-projectile
+  :config
+  (helm-projectile-on))
+
+(use-package projectile
+  :config
+  (projectile-mode t))
 
 (use-package smartparens
   :config
