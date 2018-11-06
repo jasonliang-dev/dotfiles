@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;;; Just a simple Emacs config;
+;;; Just a Emacs config
 
 ;;; Code:
 
