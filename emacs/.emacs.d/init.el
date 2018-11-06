@@ -24,6 +24,8 @@
 
 (setq use-package-always-ensure t)
 
+(defvar lia/global-indent 2)
+
 ;; load files in lisp directory
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
@@ -33,6 +35,8 @@
 (require 'lia-appearance)
 (require 'lia-behaviour)
 (require 'lia-language)
+
+(lia/set-indent lia/global-indent)
 
 ;;
 

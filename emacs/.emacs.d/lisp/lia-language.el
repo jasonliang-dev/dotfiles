@@ -20,15 +20,23 @@
   (add-hook 'c-mode-hook 'lia/format-buffer-binding)
   (add-hook 'c++-mode-hook 'lia/format-buffer-binding))
 
-;; html/css
+;; web (html, css, php, javascript)
+
+(use-package web-mode
+  :init
+  (setq web-mode-markup-indent-offset lia/global-indent)
+  (setq web-mode-css-indent-offset lia/global-indent)
+  (setq web-mode-code-indent-offset lia/global-indent)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 
 (use-package emmet-mode
   ;; C-j to expand
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
-
-;; javascript
 
 (use-package company-tern
   :config
