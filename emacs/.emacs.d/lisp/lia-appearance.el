@@ -8,6 +8,21 @@
 
 ;;; Code:
 
+(require 'use-package)
+
+(use-package doom-themes
+  :init
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-spacegrey t))
+
+(use-package doom-modeline
+  :init
+  (setq doom-modeline-height 35)
+  :hook
+  (after-init . doom-modeline-init))
+
 ;; remove gui bars
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)

@@ -8,11 +8,6 @@
 
 (require 'package)
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
-(require 'lia-appearance)
-(require 'lia-behaviour)
-
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -29,140 +24,17 @@
 
 (setq use-package-always-ensure t)
 
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-search-module 'evil-search)
-  :config
-  (evil-mode))
+;; load files in lisp directory
 
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode 1))
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
-(use-package evil-magit)
+(require 'lia-evil)
+(require 'lia-keybind)
+(require 'lia-appearance)
+(require 'lia-behaviour)
+(require 'lia-language)
 
-(use-package clang-format
-  :config
-
-  (defun lia/format-buffer-binding ()
-    (local-set-key (kbd "C-c C-f") #'clang-format-buffer))
-
-  (add-hook 'c-mode-hook 'lia/format-buffer-binding)
-  (add-hook 'c++-mode-hook 'lia/format-buffer-binding))
-
-(use-package company
-  :hook
-  (after-init . global-company-mode)
-  :config
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous))
-
-(use-package company-tern
-  :config
-  (add-to-list 'company-backends 'company-tern)
-  (add-hook 'js-mode-hook (lambda ()
-                            (tern-mode)
-                            (company-mode))))
-
-(use-package doom-themes
-  :init
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  :config
-  (load-theme 'doom-spacegrey t))
-
-(use-package doom-modeline
-  :init
-  (setq doom-modeline-height 35)
-  :hook
-  (after-init . doom-modeline-init))
-
-(use-package elm-mode)
-
-(use-package emmet-mode
-  ;; C-j to expand
-  :config
-  (add-hook 'sgml-mode-hook 'emmet-mode)
-  (add-hook 'css-mode-hook  'emmet-mode))
-
-(use-package flycheck
-  :init
-  (setq flycheck-emacs-lisp-load-path 'inherit)
-  (global-flycheck-mode)
-
-  (defun lia/use-eslint-from-node-modules ()
-    "If exists, use local eslint.
-https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable"
-    (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
-                  "node_modules"))
-           (eslint (and root
-                        (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                          root))))
-      (when (and eslint (file-executable-p eslint))
-        (setq-local flycheck-javascript-eslint-executable eslint))))
-
-  (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
-
-(use-package magit)
-
-(use-package helm
-  :config
-  (require 'helm-config)
-  (global-set-key (kbd "M-x") #'helm-M-x)
-  (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (global-set-key (kbd "C-x C-b") #'helm-mini)
-  (helm-mode 1))
-
-(use-package prettier-js
-  :config
-  (add-hook 'js-mode-hook 'prettier-js-mode))
-
-(use-package smartparens
-  :config
-  (require 'smartparens-config)
-  (smartparens-global-mode t))
-
-(use-package smooth-scrolling
-  :config
-  (smooth-scrolling-mode 1))
-
-(use-package which-key
-  :config
-  (which-key-mode))
-
-(use-package general
-  :config
-  ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
-  (defun lia/run-external (command)
-    "Run a shell COMMAND that use the current directory."
-    (interactive "s")
-    (shell-command
-     (concat command " . > /dev/null 2>&1 & disown") nil nil))
-
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
-   "TAB" 'mode-line-other-buffer
-   "`"   'eshell
-   "k"   'kill-this-buffer
-   "wh"  'windmove-left
-   "wj"  'windmove-down
-   "wk"  'windmove-up
-   "wl"  'windmove-right
-   "ws"  'evil-window-split
-   "wv"  'evil-window-vsplit
-   "f"   'helm-find-files
-   "b"   'helm-mini
-   "1"   '(lambda() (interactive)
-            (find-file "~/.emacs.d/init.el"))
-   "RET" '(lambda () (interactive)
-            (lia/run-external "~/scripts/term.sh"))
-   "SPC" '(lambda () (interactive)
-            (lia/run-external "~/scripts/files.sh")))
-   )
+;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
