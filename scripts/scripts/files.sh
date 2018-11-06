@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 #xdg-open $HOME
-thunar || nautilus 2> /dev/null
+thunar || nautilus || io.elementary.files 2> /dev/null

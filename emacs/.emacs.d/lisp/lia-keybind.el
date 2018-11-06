@@ -23,23 +23,23 @@
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "TAB" 'mode-line-other-buffer
-   "`"   'eshell
-   ";"   'avy-goto-char-timer
-   "k"   'kill-this-buffer
-   "wh"  'windmove-left
-   "wj"  'windmove-down
-   "wk"  'windmove-up
-   "wl"  'windmove-right
-   "ws"  'evil-window-split
-   "wv"  'evil-window-vsplit
-   "f"   'helm-find-files
-   "b"   'helm-mini
-   "1"   '(lambda() (interactive)
-            (find-file "~/.emacs.d/init.el"))
-   "RET" '(lambda () (interactive)
+   "TAB"   'mode-line-other-buffer
+   "`"     'eshell
+   ";"     'avy-goto-char-timer
+   "k"     'kill-this-buffer
+   "wh"    'windmove-left
+   "wj"    'windmove-down
+   "wk"    'windmove-up
+   "wl"    'windmove-right
+   "ws"    'evil-window-split
+   "wv"    'evil-window-vsplit
+   "f"     'helm-find-files
+   "b"     'helm-mini
+   "1"     '(lambda() (interactive)
+              (find-file "~/.emacs.d/init.el"))
+   "RET"   '(lambda () (interactive)
             (lia/run-external "~/scripts/term.sh"))
-   "SPC" '(lambda () (interactive)
+   "C-SPC" '(lambda () (interactive)
             (lia/run-external "~/scripts/files.sh")))
 
   (general-define-key
