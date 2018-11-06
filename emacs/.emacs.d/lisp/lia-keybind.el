@@ -27,6 +27,7 @@
    "`"     'eshell
    ";"     'avy-goto-char-timer
    "k"     'kill-this-buffer
+   "gs"    'magit-status
    "wh"    'windmove-left
    "wj"    'windmove-down
    "wk"    'windmove-up
