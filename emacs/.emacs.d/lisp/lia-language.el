@@ -28,7 +28,9 @@
   (setq web-mode-css-indent-offset lia/global-indent)
   (setq web-mode-code-indent-offset lia/global-indent)
   :mode
-  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'"))
+  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'")
+  :config
+  (add-hook 'web-mode-hook 'emmet-mode))
 
 (use-package emmet-mode
   ;; C-j to expand
