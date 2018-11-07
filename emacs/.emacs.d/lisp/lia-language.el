@@ -27,10 +27,8 @@
   (setq web-mode-markup-indent-offset lia/global-indent)
   (setq web-mode-css-indent-offset lia/global-indent)
   (setq web-mode-code-indent-offset lia/global-indent)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+  :mode
+  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'"))
 
 (use-package emmet-mode
   ;; C-j to expand
@@ -52,6 +50,11 @@
 ;; other
 
 (use-package elm-mode)
+
+(use-package markdown-mode
+  :mode
+  ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
+  :init (setq markdown-command "multimarkdown"))
 
 (provide 'lia-language)
 
