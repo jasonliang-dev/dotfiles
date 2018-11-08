@@ -32,9 +32,12 @@
   :config
   (add-hook 'web-mode-hook 'emmet-mode))
 
+(use-package less-css-mode)
+
 (use-package emmet-mode
   ;; C-j to expand
   :config
+  (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode))
 
@@ -57,6 +60,8 @@
   :mode
   ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
   :init (setq markdown-command "multimarkdown"))
+
+(use-package json-mode)
 
 (provide 'lia-language)
 

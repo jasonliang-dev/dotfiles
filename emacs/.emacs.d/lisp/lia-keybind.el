@@ -24,6 +24,7 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    "TAB"   'mode-line-other-buffer
+   "ESC"   'evil-ex-nohighlight
    "`"     'eshell
    ";"     'avy-goto-char-timer
    "k"     'kill-this-buffer

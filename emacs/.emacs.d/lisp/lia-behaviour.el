@@ -101,7 +101,7 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (setq-default js-indent-level n) ; js-mode, what's the difference?
                                    ; who knows?
   (setq-default js-switch-indent-offset n) ; switch-case indentation
-  (setq-default css-indent-ofset n))
+  (setq-default css-indent-offset n))
 
 (provide 'lia-behaviour)
 
