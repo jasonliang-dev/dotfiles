@@ -27,18 +27,23 @@
    "ESC"   'evil-ex-nohighlight
    "`"     'eshell
    ";"     'avy-goto-char-timer
+   "f"     'helm-find-files
+   "b"     'helm-mini
+   "p"     'projectile-command-map
    "k"     'kill-this-buffer
    "g"     'magit-status
    "j"     'dumb-jump-go
-   "p"     'projectile-command-map
+
    "wh"    'windmove-left
    "wj"    'windmove-down
    "wk"    'windmove-up
    "wl"    'windmove-right
    "ws"    'evil-window-split
    "wv"    'evil-window-vsplit
-   "f"     'helm-find-files
-   "b"     'helm-mini
+
+   "oa"    'org-agenda
+   "oc"    '(lambda() (interactive) (org-capture nil "a"))
+
    "1"     '(lambda() (interactive) (find-file "~/.emacs.d/init.el"))
    "2"     '(lambda() (interactive) (find-file "~/Dropbox/org/outline.org"))
    "RET"   '(lambda () (interactive) (lia/run-external "~/scripts/term.sh"))
