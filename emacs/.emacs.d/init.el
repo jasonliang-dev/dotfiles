@@ -35,6 +35,7 @@
 (require 'lia-appearance)
 (require 'lia-behaviour)
 (require 'lia-language)
+(require 'lia-org)
 
 (lia/set-indent lia/global-indent)
 

@@ -39,12 +39,10 @@
    "wv"    'evil-window-vsplit
    "f"     'helm-find-files
    "b"     'helm-mini
-   "1"     '(lambda() (interactive)
-              (find-file "~/.emacs.d/init.el"))
-   "RET"   '(lambda () (interactive)
-            (lia/run-external "~/scripts/term.sh"))
-   "C-SPC" '(lambda () (interactive)
-            (lia/run-external "~/scripts/files.sh")))
+   "1"     '(lambda() (interactive) (find-file "~/.emacs.d/init.el"))
+   "2"     '(lambda() (interactive) (find-file "~/Dropbox/org/outline.org"))
+   "RET"   '(lambda () (interactive) (lia/run-external "~/scripts/term.sh"))
+   "C-SPC" '(lambda () (interactive) (lia/run-external "~/scripts/files.sh")))
 
   (general-define-key
    "M-x"     'helm-M-x

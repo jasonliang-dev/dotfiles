@@ -15,7 +15,8 @@
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-spacegrey t))
+  (load-theme 'doom-one t)
+  (doom-themes-org-config))
 
 (use-package doom-modeline
   :init
