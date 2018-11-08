@@ -51,8 +51,8 @@
 
   (general-define-key
    "M-x"     'helm-M-x
-   "C-X C-f" 'helm-find-files
-   "C-X C-b" 'helm-find-files)
+   "C-x C-f" 'helm-find-files
+   "C-x C-b" 'helm-mini)
   )
 
 (provide 'lia-keybind)
