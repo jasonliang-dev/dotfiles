@@ -8,10 +8,6 @@
 
 ;;; Code:
 
-;; default todo cycle
-(setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED")))
-
 (setq org-agenda-files '("~/Dropbox/org/"))
 
 ;; target file for notes. capture notes here.
