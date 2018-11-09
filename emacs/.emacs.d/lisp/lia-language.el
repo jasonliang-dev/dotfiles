@@ -14,6 +14,9 @@
 
 (use-package clang-format)
 
+;; .h files open in c++ mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 ;; web (html, css, php, javascript)
 
 (use-package web-mode

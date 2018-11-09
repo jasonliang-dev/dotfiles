@@ -81,18 +81,23 @@
    :states 'normal
    :keymaps 'org-agenda-mode-map
    "RET" 'org-agenda-switch-to
+   "."   'org-agenda-goto-today
+   "a"   'org-agenda-archive-default-with-confirmation
    "c"   'org-agenda-goto-calendar
    "q"   'org-agenda-quit
    "r"   'org-agenda-redo
+   "s"   'org-save-all-org-buffers
    "t"   'org-agenda-todo
+   "u"   'org-agenda-undo
+
+   "1"   'org-agenda-day-view
+   "2"   'org-agenda-week-view
+   "3"   'org-agenda-fortnight-view
+   "4"   'org-agenda-month-view
+   "5"   'org-agenda-year-view
+
    "H"   'org-agenda-do-date-earlier
    "L"   'org-agenda-do-date-later
-
-   "1"  'org-agenda-day-view
-   "2"  'org-agenda-week-view
-   "3"  'org-agenda-fortnight-view
-   "4"  'org-agenda-month-view
-   "5"  'org-agenda-year-view
 
    "j"   'org-agenda-next-line
    "k"   'org-agenda-previous-line

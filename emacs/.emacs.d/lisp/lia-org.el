@@ -35,8 +35,7 @@
 
 ;; start agenda in normal mode
 (eval-after-load 'org-agenda
- '(progn
-    (evil-set-initial-state 'org-agenda-mode 'normal)))
+ '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
 
 (provide 'lia-org)
 

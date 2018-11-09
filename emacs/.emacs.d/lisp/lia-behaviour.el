@@ -87,9 +87,6 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 ;; no #autosave# files
 (setq auto-save-default nil)
 
-;; .h files open in c++ mode
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)
 
