@@ -12,13 +12,7 @@
 
 ;; c/c++
 
-(use-package clang-format
-  :config
-  (defun lia/format-buffer-binding ()
-    (local-set-key (kbd "C-c C-f") #'clang-format-buffer))
-
-  (add-hook 'c-mode-hook 'lia/format-buffer-binding)
-  (add-hook 'c++-mode-hook 'lia/format-buffer-binding))
+(use-package clang-format)
 
 ;; web (html, css, php, javascript)
 
