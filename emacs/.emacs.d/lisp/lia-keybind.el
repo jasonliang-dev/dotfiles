@@ -51,7 +51,7 @@
    "wq"    'delete-window
 
    ;; org
-   "a"     'org-agenda-list
+   "a"     '(lambda() (interactive) (org-agenda nil "c"))
    "oa"    'org-agenda
    "oc"    '(lambda() (interactive) (org-capture nil "a"))
 
