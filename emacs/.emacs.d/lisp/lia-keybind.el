@@ -12,12 +12,20 @@
 
 (use-package general
   :config
-  ;; https://emacs.stackexchange.com/questions/7650/how-to-open-a-external-terminal-from-emacs
-  (defun lia/run-external (command)
+  ;; https://emacs.stackexchange.com/q/7650
+  (defun run-external (command)
     "Run a shell COMMAND that use the current directory."
     (interactive "s")
     (shell-command
      (concat command " . > /dev/null 2>&1 & disown") nil nil))
+
+  ;; https://emacs.stackexchange.com/q/7742
+  (defun browse-file-directory ()
+    "Open the current file's directory however the OS would."
+    (interactive)
+    (if default-directory
+        (browse-url-of-file (expand-file-name default-directory))
+      (error "No `default-directory' to open")))
 
   ;; leader key
   (general-define-key
@@ -57,7 +65,7 @@
    ;; org
    "a"     '(lambda() (interactive) (org-agenda nil "c"))
    "oa"    'org-agenda
-   "oc"    '(lambda() (interactive) (org-capture nil "a"))
+   "oc"    '(lambda() (interactive) (org-capture nil "c"))
 
    ;; visit files
    "1"     '(lambda() (interactive) (find-file "~/.emacs.d/init.el"))
@@ -65,8 +73,8 @@
    "3"     '(lambda() (interactive) (find-file "~/Dropbox/org/outline.org"))
 
    ;; run external
-   "RET"   '(lambda () (interactive) (lia/run-external "~/scripts/term.sh"))
-   "C-SPC" '(lambda () (interactive) (lia/run-external "~/scripts/files.sh")))
+   "RET"   '(lambda () (interactive) (run-external "~/scripts/term.sh"))
+   "C-SPC" 'browse-file-directory)
 
   ;; helm
   (general-define-key
@@ -109,6 +117,11 @@
    "K"   'org-agenda-previous-date-line
    "h"   'org-agenda-earlier
    "l"   'org-agenda-later)
+
+  ;; others
+  (general-define-key
+   :states 'normal
+   "C-e" 'evil-end-of-line)
   )
 
 (provide 'lia-keybind)
