@@ -73,6 +73,13 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   :config
   (which-key-mode))
 
+(use-package yasnippet
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
+
+(use-package yasnippet-snippets)
+
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 

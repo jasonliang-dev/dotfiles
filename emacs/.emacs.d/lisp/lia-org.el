@@ -8,6 +8,8 @@
 
 ;;; Code:
 
+(require 'use-package)
+
 (use-package org-bullets
   :config
   (setq org-bullets-bullet-list '(" "))
