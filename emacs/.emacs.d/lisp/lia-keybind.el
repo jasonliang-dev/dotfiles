@@ -36,6 +36,10 @@
    "k"     'kill-this-buffer
    "p"     'projectile-command-map
 
+   ;; toggles
+   "tl"    'linum-mode
+   "tr"    'linum-relative-toggle
+
    ;; window navigation
    "H"     'evil-window-move-far-left
    "J"     'evil-window-move-very-bottom

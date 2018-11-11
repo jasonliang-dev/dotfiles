@@ -51,6 +51,11 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   :config
   (helm-projectile-on))
 
+(use-package linum-relative
+  :init
+  ;; display current line number
+  (setq linum-relative-current-symbol ""))
+
 (use-package projectile
   :config
   (projectile-mode t))
