@@ -20,7 +20,7 @@
 ;; .h files open in c++ mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;; web (html, css, php, javascript)
+;; web (html, css, php)
 
 (use-package web-mode
   :mode
@@ -33,6 +33,17 @@
   :hook ((web-mode . emmet-mode)
          (sgnl-mode . emmet-mode)
          (css-mode . emmet-mode)))
+
+;; javascript
+
+(use-package js2-mode
+  :general
+  (:states
+   'normal
+   :keymaps 'js-mode-map
+   "C-]" 'js2-jump-to-definition)
+  :mode "\\.js\\'"
+  :hook (js2-mode . js2-imenu-extras-mode))
 
 (use-package company-tern
   :hook ((js-mode . tern-mode)
