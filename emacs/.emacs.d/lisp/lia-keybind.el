@@ -30,50 +30,53 @@
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "ESC"   'evil-ex-nohighlight
-   "TAB"   'mode-line-other-buffer
-   "?"     'which-key-show-major-mode
-   ";"     'avy-goto-char-timer
-   "`"     'eshell
-   "b"     'helm-mini
-   "f"     'helm-find-files
-   "g"     'magit-status
-   "j"     'dumb-jump-go
-   "k"     'kill-this-buffer
-   "p"     'projectile-command-map
-   "u"     'undo-tree-visualize
+   ""    '(nil :wk "leader key")
+   "ESC" '(evil-ex-nohighlight :wk "clear highlight")
+   "TAB" '(mode-line-other-buffer :wk "other buffer")
+   ";"   '(avy-goto-char-timer :wk "avy jump to")
+   "`"   '(eshell :wk "terminal")
+   "b"   '(helm-mini :wk "buffers")
+   "f"   '(helm-find-files :wk "find files")
+   "g"   '(magit-status :wk "git status")
+   "i"   '("C-c C-f" :wk "format buffer")
+   "j"   '(dumb-jump-go :wk "jump")
+   "k"   '(kill-this-buffer :wk "kill buffer")
+   "p"   '(projectile-command-map :wk "projectile prefix")
+   "u"   '(undo-tree-visualize :wk "show undo tree")
 
    ;; toggles
-   "tl"    'linum-mode
-   "tr"    'linum-relative-toggle
+   "t"  '(:ignore t :wk "toggles")
+   "tl" '(linum-mode :wk "line numbers")
+   "tr" '(linum-relative-toggle :wk "relative line numbers")
 
    ;; window navigation
-   "H"     'evil-window-move-far-left
-   "J"     'evil-window-move-very-bottom
-   "K"     'evil-window-move-very-top
-   "L"     'evil-window-move-far-right
-   "wh"    'windmove-left
-   "wj"    'windmove-down
-   "wk"    'windmove-up
-   "wl"    'windmove-right
-   "ws"    'evil-window-split
-   "wv"    'evil-window-vsplit
-   "wo"    'delete-other-windows
-   "wq"    'delete-window
+   "H"  '(evil-window-move-far-left :wk "move window left")
+   "J"  '(evil-window-move-very-bottom :wk "move window right")
+   "K"  '(evil-window-move-very-top :wk "move window up")
+   "L"  '(evil-window-move-far-right :wk "move window down")
+   "w"  '(:ignore t :wk "window")
+   "wh" '(windmove-left :wk "go left")
+   "wj" '(windmove-down :wk "go down")
+   "wk" '(windmove-up :wk "go up")
+   "wl" '(windmove-right :wk "go right")
+   "ws" '(evil-window-split :wk "horizontal split")
+   "wv" '(evil-window-vsplit :wk "vertical split")
+   "wo" '(delete-other-windows :wk "maximize")
+   "wq" '(delete-window :wk "close")
 
    ;; org
-   "a"     '(lambda() (interactive) (org-agenda nil "c"))
-   "oa"    'org-agenda
-   "oc"    '(lambda() (interactive) (org-capture nil "c"))
+   "a"  '((lambda() (interactive) (org-agenda nil "c")) :wk "my agenda")
+   "oa" '(org-agenda :wk "agenda commands")
+   "oc" '((lambda() (interactive) (org-capture nil "c")) :wk "add to todo list")
 
    ;; visit files
-   "1"     '(lambda() (interactive) (find-file "~/.emacs.d/init.el"))
-   "2"     '(lambda() (interactive) (find-file "~/Dropbox/org/todo.org"))
-   "3"     '(lambda() (interactive) (find-file "~/Dropbox/org/outline.org"))
+   "1" '((lambda() (interactive) (find-file "~/.emacs.d/init.el")) :wk "init.el")
+   "2" '((lambda() (interactive) (find-file "~/Dropbox/org/todo.org")) :wk "todo list")
+   "3" '((lambda() (interactive) (find-file "~/Dropbox/org/outline.org")) :wk "notes")
 
    ;; run external
-   "RET"   '(lambda () (interactive) (run-external "~/scripts/term.sh"))
-   "C-SPC" 'browse-file-directory))
+   "RET"   '((lambda () (interactive) (run-external "~/scripts/term.sh")) :wk "external terminal")
+   "C-SPC" '(browse-file-directory :wk "open file explorer")))
 
 (provide 'lia-keybind)
 

@@ -12,9 +12,8 @@
 
 (use-package clang-format
   :general
-  (:states
-   '(normal visual insert emacs)
-   :keymaps '(c-mode-map c++-mode-map)
+  (:keymaps
+   '(c-mode-map c++-mode-map)
    "C-c C-f" #'clang-format-buffer))
 
 ;; .h files open in c++ mode
@@ -38,10 +37,9 @@
 
 (use-package js2-mode
   :general
-  (:states
-   'normal
-   :keymaps 'js-mode-map
-   "C-]" 'js2-jump-to-definition)
+  (:keymaps
+   'js-mode-map
+   [remap evil-jump-to-tag] 'js2-jump-to-definition)
   :mode "\\.js\\'"
   :hook (js2-mode . js2-imenu-extras-mode))
 
