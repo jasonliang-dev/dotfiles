@@ -75,7 +75,6 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (smooth-scrolling-mode 1))
 
 (use-package which-key
-  :commands which-key-mode
   :config
   (which-key-mode))
 
