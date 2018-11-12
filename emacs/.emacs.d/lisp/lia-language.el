@@ -20,34 +20,25 @@
 ;; web (html, css, php, javascript)
 
 (use-package web-mode
-  :init
-  (setq web-mode-markup-indent-offset lia/global-indent)
-  (setq web-mode-css-indent-offset lia/global-indent)
-  (setq web-mode-code-indent-offset lia/global-indent)
   :mode
-  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'")
-  :config
-  (add-hook 'web-mode-hook 'emmet-mode))
+  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'"))
 
 (use-package less-css-mode)
 
 (use-package emmet-mode
   ;; C-j to expand
-  :config
-  (add-hook 'web-mode-hook 'emmet-mode)
-  (add-hook 'sgml-mode-hook 'emmet-mode)
-  (add-hook 'css-mode-hook  'emmet-mode))
+  :hook ((web-mode . emmet-mode)
+         (sgnl-mode . emmet-mode)
+         (css-mode . emmet-mode)))
 
 (use-package company-tern
+  :hook ((js-mode . tern-mode)
+         (js-mode . company-mode))
   :config
-  (add-to-list 'company-backends 'company-tern)
-  (add-hook 'js-mode-hook (lambda ()
-                            (tern-mode)
-                            (company-mode))))
+  (add-to-list 'company-backends 'company-tern))
 
 (use-package prettier-js
-  :config
-  (add-hook 'js-mode-hook 'prettier-js-mode))
+  :hook (js-mode . prettier-js-mode))
 
 ;; other
 

@@ -6,8 +6,6 @@
 
 ;;; Code:
 
-(require 'package)
-
 ;; avoid garbage collection until the end
 (setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6)
@@ -16,11 +14,17 @@
 (defvar lia/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
+;; disable automatic package loading
+(setq package-enable-at-startup nil)
+
+;; don't add customize at the end of `init.el'
+(setq package--init-file-ensured t)
+
+(require 'package)
+
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-
-(setq package-enable-at-startup nil)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -32,8 +36,6 @@
 
 (setq use-package-always-ensure t)
 
-(defvar lia/global-indent 2)
-
 ;; load files in lisp directory
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
@@ -44,8 +46,6 @@
 (require 'lia-behaviour)
 (require 'lia-language)
 (require 'lia-org)
-
-(lia/set-indent lia/global-indent)
 
 ;; set gc and file handler back to default
 (add-hook 'emacs-startup-hook
@@ -61,7 +61,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spaceline which-key magit company flycheck use-package helm evil-visual-mark-mode))))
+    (org-bullets json-mode markdown-mode elm-mode prettier-js company-tern emmet-mode less-css-mode web-mode clang-format yasnippet-snippets yasnippet which-key smooth-scrolling smartparens linum-relative helm-projectile helm flycheck dumb-jump company avy doom-modeline doom-themes general evil-magit evil-surround evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

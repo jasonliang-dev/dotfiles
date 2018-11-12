@@ -11,9 +11,8 @@
 (require 'use-package)
 
 (use-package org-bullets
-  :config
-  (setq org-bullets-bullet-list '(" "))
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  :init (setq org-bullets-bullet-list '(" "))
+  :hook (org-mode . org-bullets-mode))
 
 (setq org-agenda-files '("~/Dropbox/org/"))
 
@@ -38,7 +37,9 @@
       '(("c" "My agenda"
          ((agenda "")
           (alltodo ""
-                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done 'scheduled 'deadline))
+                   ((org-agenda-skip-function
+                     '(org-agenda-skip-entry-if
+                       'todo 'done 'scheduled 'deadline))
                     (org-agenda-overriding-header "Unscheduled tasks")))))))
 ;; log time when done
 (setq org-log-done (quote time))

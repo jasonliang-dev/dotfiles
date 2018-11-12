@@ -74,9 +74,9 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (which-key-mode))
 
 (use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
   :config
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode))
+  (yas-reload-all))
 
 (use-package yasnippet-snippets)
 
@@ -103,14 +103,18 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 (c-set-offset 'case-label '+)
 
 (defun lia/set-indent (n)
-  "Set the indentation level to a value N."
+  "Set the indentation level to N spaces."
   (interactive)
   (setq-default c-basic-offset n)
-  (setq-default javascript-indent-level n) ;javascript-mode
-  (setq-default js-indent-level n) ; js-mode, what's the difference?
-                                   ; who knows?
+  (setq-default javascript-indent-level n)
+  (setq-default js-indent-level n)
   (setq-default js-switch-indent-offset n) ; switch-case indentation
-  (setq-default css-indent-offset n))
+  (setq-default css-indent-offset n)
+  (setq-default web-mode-markup-indent-offset n)
+  (setq-default web-mode-css-indent-offset n)
+  (setq-default web-mode-code-indent-offset n))
+
+(lia/set-indent 2)
 
 (provide 'lia-behaviour)
 
