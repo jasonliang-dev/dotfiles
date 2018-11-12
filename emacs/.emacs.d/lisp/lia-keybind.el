@@ -66,6 +66,7 @@
 
    ;; org
    "a"  '((lambda() (interactive) (org-agenda nil "c")) :wk "my agenda")
+   "o"  '(:ignore t :wk "org")
    "oa" '(org-agenda :wk "agenda commands")
    "oc" '((lambda() (interactive) (org-capture nil "c")) :wk "add to todo list")
 
