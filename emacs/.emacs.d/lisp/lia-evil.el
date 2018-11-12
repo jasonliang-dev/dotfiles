@@ -2,9 +2,7 @@
 
 ;;; Commentary:
 
-;;
 ;; anything evil-mode related goes here
-;;
 
 ;;; Code:
 

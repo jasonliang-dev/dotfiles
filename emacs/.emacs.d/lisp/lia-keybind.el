@@ -2,9 +2,7 @@
 
 ;;; Commentary:
 
-;;
-;; set keybindings
-;;
+;; leader key bindings
 
 ;;; Code:
 
@@ -43,6 +41,7 @@
    "j"     'dumb-jump-go
    "k"     'kill-this-buffer
    "p"     'projectile-command-map
+   "u"     'undo-tree-visualize
 
    ;; toggles
    "tl"    'linum-mode
@@ -74,55 +73,7 @@
 
    ;; run external
    "RET"   '(lambda () (interactive) (run-external "~/scripts/term.sh"))
-   "C-SPC" 'browse-file-directory)
-
-  ;; helm
-  (general-define-key
-   "M-x"     'helm-M-x
-   "C-x C-f" 'helm-find-files
-   "C-x C-b" 'helm-mini)
-
-  ;; c/c++
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :keymaps '(c-mode-map c++-mode-map)
-   "C-c C-f" #'clang-format-buffer)
-
-  ;; org-agenda
-  (general-define-key
-   :states 'normal
-   :keymaps 'org-agenda-mode-map
-   "RET" 'org-agenda-switch-to
-   "."   'org-agenda-goto-today
-   "a"   'org-agenda-archive-default-with-confirmation
-   "c"   'org-agenda-goto-calendar
-   "q"   'org-agenda-quit
-   "r"   'org-agenda-redo
-   "s"   'org-save-all-org-buffers
-   "t"   'org-agenda-todo
-   "u"   'org-agenda-undo
-
-   "1"   'org-agenda-day-view
-   "2"   'org-agenda-week-view
-   "3"   'org-agenda-fortnight-view
-   "4"   'org-agenda-month-view
-   "5"   'org-agenda-year-view
-
-   "H"   'org-agenda-do-date-earlier
-   "L"   'org-agenda-do-date-later
-
-   "j"   'org-agenda-next-line
-   "k"   'org-agenda-previous-line
-   "J"   'org-agenda-next-date-line
-   "K"   'org-agenda-previous-date-line
-   "h"   'org-agenda-earlier
-   "l"   'org-agenda-later)
-
-  ;; others
-  (general-define-key
-   :states 'normal
-   "C-e" 'evil-end-of-line)
-  )
+   "C-SPC" 'browse-file-directory))
 
 (provide 'lia-keybind)
 

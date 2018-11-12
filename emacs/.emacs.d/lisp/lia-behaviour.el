@@ -2,9 +2,7 @@
 
 ;;; Commentary:
 
-;;
 ;; Change how Emacs behaves
-;;
 
 ;;; Code:
 
@@ -15,9 +13,10 @@
 (use-package company
   :hook
   (after-init . global-company-mode)
-  :config
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous))
+  :general
+  (company-active-map
+   "C-n" #'company-select-next
+   "C-p" #'company-select-previous))
 
 (use-package dumb-jump)
 
@@ -43,6 +42,10 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 (use-package magit)
 
 (use-package helm
+  :general
+  ("M-x"     'helm-M-x
+   "C-x C-f" 'helm-find-files
+   "C-x C-b" 'helm-mini)
   :config
   (require 'helm-config)
   (helm-mode 1))
@@ -53,8 +56,10 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 
 (use-package linum-relative
   :init
-  ;; display current line number
-  (setq linum-relative-current-symbol ""))
+  (setq linum-format " %4d " ;; add padding
+        linum-relative-format " %4s "
+        ;; display current line number
+        linum-relative-current-symbol ""))
 
 (use-package projectile
   :config
@@ -70,6 +75,7 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (smooth-scrolling-mode 1))
 
 (use-package which-key
+  :commands which-key-mode
   :config
   (which-key-mode))
 

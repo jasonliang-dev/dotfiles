@@ -2,9 +2,7 @@
 
 ;;; Commentary:
 
-;;
 ;; language specific configs
-;;
 
 ;;; Code:
 
@@ -12,7 +10,12 @@
 
 ;; c/c++
 
-(use-package clang-format)
+(use-package clang-format
+  :general
+  (:states
+   '(normal visual insert emacs)
+   :keymaps '(c-mode-map c++-mode-map)
+   "C-c C-f" #'clang-format-buffer))
 
 ;; .h files open in c++ mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
