@@ -17,8 +17,9 @@
 ;; disable automatic package loading
 (setq package-enable-at-startup nil)
 
-;; don't add customize at the end of `init.el'
-(setq package--init-file-ensured t)
+;; put emacs customize stuff in a separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (require 'package)
 
@@ -38,7 +39,7 @@
 
 ;; load files in lisp directory
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'lia-evil)
 (require 'lia-keybind)
@@ -53,27 +54,5 @@
             (setq gc-cons-threshold 16777216
                   gc-cons-percentage 0.1
                   file-name-handler-alist lia/file-name-handler-alist)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (org-bullets json-mode markdown-mode elm-mode prettier-js company-tern emmet-mode less-css-mode web-mode clang-format yasnippet-snippets yasnippet which-key smooth-scrolling smartparens linum-relative helm-projectile helm flycheck dumb-jump company avy doom-modeline doom-themes general evil-magit evil-surround evil use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald" :height 1.3))))
- '(org-level-2 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald" :height 1.2))))
- '(org-level-3 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald" :height 1.1))))
- '(org-level-4 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald" :height 1.1))))
- '(org-level-5 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald"))))
- '(org-level-6 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald"))))
- '(org-level-7 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald"))))
- '(org-level-8 ((t (:inherit default :foreground "#bbc2cf" :font "Oswald")))))
 
 ;;; init.el ends here

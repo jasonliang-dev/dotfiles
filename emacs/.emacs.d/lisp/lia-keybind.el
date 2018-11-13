@@ -71,7 +71,7 @@
    "oc" '((lambda() (interactive) (org-capture nil "c")) :wk "add to todo list")
 
    ;; visit files
-   "1" '((lambda() (interactive) (find-file "~/.emacs.d/init.el")) :wk "init.el")
+   "1" '((lambda() (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :wk "init.el")
    "2" '((lambda() (interactive) (find-file "~/Dropbox/org/todo.org")) :wk "todo list")
    "3" '((lambda() (interactive) (find-file "~/Dropbox/org/outline.org")) :wk "notes")
 
