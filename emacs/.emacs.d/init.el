@@ -19,6 +19,10 @@
 
 ;; put emacs customize stuff in a separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+
 (load custom-file)
 
 (require 'package)
