@@ -50,7 +50,11 @@
         org-log-redeadline 'time
         org-log-reschedule 'time
         ;; hide bold italic markers
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
+        ;; syntax highlighting in source blocks
+        org-src-fontify-natively t
+        ;; edit source blocks in current window
+        org-src-window-setup 'current-window)
 
   ;; capture format
   (setq org-capture-templates
@@ -76,7 +80,11 @@
     '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
 
   ;; wrap lines in org mode
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+
+  ;; run source code blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C . t))))
 
 (use-package org-bullets
   :init (setq org-bullets-bullet-list '(" "))
