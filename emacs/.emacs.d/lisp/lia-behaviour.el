@@ -8,6 +8,10 @@
 
 (require 'use-package)
 
+(use-package autopair
+  :config
+  (autopair-global-mode))
+
 (use-package avy)
 
 (use-package company
@@ -64,11 +68,6 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 (use-package projectile
   :config
   (projectile-mode t))
-
-(use-package smartparens
-  :config
-  (require 'smartparens-config)
-  (smartparens-global-mode t))
 
 (use-package smooth-scrolling
   :config
