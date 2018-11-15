@@ -41,6 +41,7 @@
    "i"   '("C-c C-f" :wk "format buffer")
    "j"   '(dumb-jump-go :wk "jump")
    "k"   '(kill-this-buffer :wk "kill buffer")
+   "l"   '(org-open-at-point :wk "open link")
    "p"   '(projectile-command-map :wk "projectile")
    "u"   '(undo-tree-visualize :wk "show undo tree")
 
