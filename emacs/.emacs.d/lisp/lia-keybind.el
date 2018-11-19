@@ -43,6 +43,7 @@
    "k"   '(kill-this-buffer :wk "kill buffer")
    "l"   '(org-open-at-point :wk "open link")
    "p"   '(projectile-command-map :wk "projectile")
+   "r"   '(revert-buffer :wk "reload file")
    "u"   '(undo-tree-visualize :wk "show undo tree")
 
    ;; toggles
