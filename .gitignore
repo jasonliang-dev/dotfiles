@@ -12,6 +12,7 @@ emacs/.emacs.d/org-gcal/
 emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/recentf
 emacs/.emacs.d/url/
+emacs/.emacs.d/session.*
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log
 ncmpcpp/.config/mpd/pid
