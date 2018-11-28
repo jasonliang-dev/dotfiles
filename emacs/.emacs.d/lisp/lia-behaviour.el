@@ -96,6 +96,12 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 ;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
 
+;; slow down mouse scroll speed
+(setq mouse-wheel-scroll-amount '(1))
+
+;; no scroll acceleration please
+(setq mouse-wheel-progressive-speed nil)
+
 ;; move backup~ files to its own directory
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups"))))
