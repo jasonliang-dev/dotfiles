@@ -13,7 +13,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-city-lights t)
   (doom-themes-org-config))
 
 (use-package doom-modeline

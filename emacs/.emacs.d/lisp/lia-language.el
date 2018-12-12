@@ -54,7 +54,9 @@
 
 ;; other
 
-(use-package elm-mode)
+(use-package elm-mode
+  :init
+  (setq elm-format-on-save t))
 
 (use-package markdown-mode
   :mode
