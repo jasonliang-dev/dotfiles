@@ -9,24 +9,25 @@
 (require 'use-package)
 
 (use-package autopair
-  :config (autopair-global-mode))
+  :hook (after-init . autopair-global-mode))
 
-(use-package avy)
+(use-package avy
+  :defer t)
 
 (use-package company
-  :hook
-  (after-init . global-company-mode)
+  :hook (after-init . global-company-mode)
   :general
   (company-active-map
    "C-n" #'company-select-next
    "C-p" #'company-select-previous))
 
-(use-package dumb-jump)
+(use-package dumb-jump
+  :defer t)
 
 (use-package flycheck
+  :hook (after-init . global-flycheck-mode)
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
-  (global-flycheck-mode)
 
   (defun lia/use-eslint-from-node-modules ()
     "If exists, use local eslint.
@@ -49,6 +50,7 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
     (require 'evil-magit)))
 
 (use-package helm
+  :defer t
   :general
   ("M-x"     'helm-M-x
    "C-x C-f" 'helm-find-files
@@ -58,9 +60,10 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (helm-mode 1))
 
 (use-package helm-projectile
-  :config (helm-projectile-on))
+  :hook (after-init . helm-projectile-on))
 
 (use-package linum-relative
+  :defer t
   :init
   (setq linum-format " %4d " ;; add padding
         linum-relative-format " %4s "
