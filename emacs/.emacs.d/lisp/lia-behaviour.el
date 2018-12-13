@@ -30,8 +30,7 @@
   (setq flycheck-emacs-lisp-load-path 'inherit)
 
   (defun lia/use-eslint-from-node-modules ()
-    "If exists, use local eslint.
-https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable"
+    "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
     (let* ((root (locate-dominating-file
                   (or (buffer-file-name) default-directory)
                   "node_modules"))
