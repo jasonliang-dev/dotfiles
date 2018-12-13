@@ -19,7 +19,8 @@
   :config
   (global-evil-surround-mode 1))
 
-(use-package evil-magit)
+(use-package evil-magit
+  :defer t)
 
 (provide 'lia-evil)
 

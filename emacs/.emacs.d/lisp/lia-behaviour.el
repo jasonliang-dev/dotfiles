@@ -42,7 +42,11 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 
   (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
 
-(use-package magit)
+(use-package magit
+  :defer t
+  :init
+  (with-eval-after-load 'magit
+    (require 'evil-magit)))
 
 (use-package helm
   :general
