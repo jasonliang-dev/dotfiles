@@ -247,7 +247,7 @@ nnoremap <leader>wo <C-W>o
 nnoremap <leader>ts :set spell!<CR>
 
 " clear highlighted text
-nnoremap <ESC><ESC> :nohl<CR>
+nnoremap <leader><ESC> :nohl<CR>
 
 " switch buffers
 nnoremap <leader><tab> :b#<CR>

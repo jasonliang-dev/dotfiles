@@ -9,8 +9,7 @@
 (require 'use-package)
 
 (use-package autopair
-  :config
-  (autopair-global-mode))
+  :config (autopair-global-mode))
 
 (use-package avy)
 
@@ -55,8 +54,7 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
   (helm-mode 1))
 
 (use-package helm-projectile
-  :config
-  (helm-projectile-on))
+  :config (helm-projectile-on))
 
 (use-package linum-relative
   :init
@@ -66,21 +64,18 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
         linum-relative-current-symbol ""))
 
 (use-package projectile
-  :config
-  (projectile-mode t))
+  :init (setq projectile-enable-caching t)
+  :config (projectile-mode t))
 
 (use-package smooth-scrolling
-  :config
-  (smooth-scrolling-mode 1))
+  :config (smooth-scrolling-mode 1))
 
 (use-package which-key
-  :config
-  (which-key-mode))
+  :config (which-key-mode))
 
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode)
-  :config
-  (yas-reload-all))
+  :config (yas-reload-all))
 
 (use-package yasnippet-snippets)
 
@@ -89,6 +84,9 @@ https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-esli
 
 ;; don't show welcome screen
 (setq inhibit-startup-screen t)
+
+;; disable bell
+(setq ring-bell-function 'ignore)
 
 ;; show column number
 (setq column-number-mode t)

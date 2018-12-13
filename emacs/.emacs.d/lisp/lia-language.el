@@ -19,19 +19,27 @@
 ;; .h files open in c++ mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;; web (html, css, php)
+;; web
 
 (use-package web-mode
-  :mode
-  ("\\.php\\'" "\\.twig\\'" "\\.html?\\'"))
-
-(use-package less-css-mode)
+  :init (setq web-mode-enable-auto-pairing nil)
+  :mode ("\\.html?\\'" "\\.twig\\'" "\\.vue\\'"))
 
 (use-package emmet-mode
   ;; C-j to expand
-  :hook ((web-mode . emmet-mode)
+  :hook ((css-mode . emmet-mode)
+         (php-mode . emmet-mode)
          (sgnl-mode . emmet-mode)
-         (css-mode . emmet-mode)))
+         (web-mode . emmet-mode)))
+
+;; css
+
+(use-package less-css-mode)
+
+;; php
+
+(use-package php-mode
+  :mode ("\\.php\\'"))
 
 ;; javascript
 
@@ -55,8 +63,7 @@
 ;; other
 
 (use-package elm-mode
-  :init
-  (setq elm-format-on-save t))
+  :init (setq elm-format-on-save t))
 
 (use-package markdown-mode
   :mode
