@@ -51,15 +51,29 @@
    "tr" '(linum-relative-toggle :wk "relative line numbers")
 
    ;; projectile
-   "p"   '(projectile-command-map :ignore t :wk "projectile")
-   "pb"  '(helm-projectile-switch-to-buffer :wk "switch to buffer")
-   "pd"  '(helm-projectile-find-dir :wk "find directory")
-   "pf"  '(helm-projectile-find-file :wk "find file")
-   "pF"  '(helm-projectile-find-file-dwim :wk "find file with context")
-   "ph"  '(helm-projectile :wk "helm projectile")
-   "pp"  '(helm-projectile-switch-project :wk "switch project")
-   "pr"  '(helm-projectile-recentf :wk "recent files")
-   "sgp" '(helm-projectile-grep :wk "grep")
+   "p"   '(:ignore t :wk "projectile")
+   "p!"  'projectile-run-shell-command-in-root
+   "p%"  'projectile-replace-regexp
+   "p&"  'projectile-run-async-shell-command-in-root
+   "pD"  'projectile-dired
+   "pF"  'helm-projectile-find-file-dwim
+   "pG"  'projectile-regenerate-tags
+   "pI"  'projectile-invalidate-cache
+   "pR"  'projectile-replace
+   "pT"  'projectile-test-project
+   "pa"  'projectile-toggle-between-implementation-and-test
+   "pb"  'helm-projectile-switch-to-buffer
+   "pc"  'projectile-compile-project
+   "pd"  'helm-projectile-find-dir
+   "pd"  'projectile-find-dir
+   "pf"  'helm-projectile-find-file
+   "pg"  'projectile-find-tag
+   "ph"  'helm-projectile
+   "pk"  'projectile-kill-buffers
+   "pp"  'helm-projectile-switch-project
+   "pr"  'helm-projectile-recentf
+   "pv"  'projectile-vc
+   "sgp" 'helm-projectile-grep
 
    ;; window navigation
    "H"  '(evil-window-move-far-left :wk "move window left")
