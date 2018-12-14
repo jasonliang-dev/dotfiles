@@ -17,15 +17,9 @@
 (setq file-name-handler-alist nil)
 
 ;; disable automatic package loading
-(setq package-enable-at-startup nil)
-
-;; put emacs customize stuff in a separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-(unless (file-exists-p custom-file)
-  (write-region "" nil custom-file))
-
-(load custom-file)
+(setq package-enable-at-startup nil
+      ;; don't add `custom-set-variables' to init.el
+      package--init-file-ensured t)
 
 (require 'package)
 
