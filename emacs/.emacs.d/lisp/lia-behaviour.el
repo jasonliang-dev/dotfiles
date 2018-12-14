@@ -24,6 +24,9 @@
 (use-package dumb-jump
   :defer t)
 
+(use-package editorconfig
+  :hook (after-init . editorconfig-mode))
+
 (use-package flycheck
   :hook (after-init . global-flycheck-mode)
   :init
