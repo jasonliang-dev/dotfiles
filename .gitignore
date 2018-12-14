@@ -2,6 +2,7 @@
 *~
 \#*
 emacs/.emacs.d/.emacs.desktop
+emacs/.emacs.d/.emacs.desktop.lock
 emacs/.emacs.d/bookmarks
 emacs/.emacs.d/custom.el
 emacs/.emacs.d/elpa/
