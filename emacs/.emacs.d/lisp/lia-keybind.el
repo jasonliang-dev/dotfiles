@@ -50,6 +50,10 @@
    "tl" '(linum-mode :wk "line numbers")
    "tr" '(linum-relative-toggle :wk "relative line numbers")
 
+   ;; helm
+   "ss" 'helm-swoop
+   "sS" 'helm-multi-swoop-all
+
    ;; projectile
    "p"   '(:ignore t :wk "projectile")
    "p!"  'projectile-run-shell-command-in-root

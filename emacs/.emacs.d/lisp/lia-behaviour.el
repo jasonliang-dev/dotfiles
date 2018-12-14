@@ -58,6 +58,9 @@
   (require 'helm-config)
   (helm-mode 1))
 
+(use-package helm-swoop
+  :defer t)
+
 (use-package helm-projectile
   :commands (helm-projectile-switch-to-buffer
              helm-projectile-find-dir
