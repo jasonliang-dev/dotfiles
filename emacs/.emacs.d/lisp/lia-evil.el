@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-evil.el --- Emacs Config
 
 ;;; Commentary:
@@ -5,8 +7,6 @@
 ;; anything evil-mode related goes here
 
 ;;; Code:
-
-(require 'use-package)
 
 (use-package evil
   :init

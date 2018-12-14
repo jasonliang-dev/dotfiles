@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-behaviour.el --- Emacs Config
 
 ;;; Commentary:
@@ -5,8 +7,6 @@
 ;; Change how Emacs behaves
 
 ;;; Code:
-
-(require 'use-package)
 
 (use-package autopair
   :hook (after-init . autopair-global-mode))
@@ -104,16 +104,17 @@
   :config (projectile-mode t))
 
 (use-package smooth-scrolling
-  :config (smooth-scrolling-mode 1))
+  :hook (after-init . smooth-scrolling-mode))
 
 (use-package which-key
-  :config (which-key-mode))
+  :hook (after-init . which-key-mode))
 
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode)
   :config (yas-reload-all))
 
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :defer t)
 
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -131,7 +132,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; slow down mouse scroll speed
-(setq mouse-wheel-scroll-amount '(1))
+(setq mouse-wheel-scroll-amount '(2))
 
 ;; no scroll acceleration please
 (setq mouse-wheel-progressive-speed nil)
@@ -159,6 +160,24 @@
   (setq-default web-mode-code-indent-offset n))
 
 (lia/set-indent 2)
+
+;; https://emacsredux.com/blog/2013/06/25/boost-performance-by-leveraging-byte-compilation/
+
+(defun lia/byte-compile-init-dir ()
+  "Byte-compile all your dotfiles."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0))
+
+(defun lia/remove-elc-on-save ()
+  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))
+            nil
+            t))
+
+(add-hook 'emacs-lisp-mode-hook 'lia/remove-elc-on-save)
 
 (provide 'lia-behaviour)
 

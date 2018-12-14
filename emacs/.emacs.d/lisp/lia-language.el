@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-language.el --- Emacs Config
 
 ;;; Commentary:
@@ -6,11 +8,10 @@
 
 ;;; Code:
 
-(require 'use-package)
-
 ;; c/c++
 
 (use-package clang-format
+  :defer t
   :general
   (:keymaps
    '(c-mode-map c++-mode-map)
@@ -34,7 +35,8 @@
 
 ;; css
 
-(use-package less-css-mode)
+(use-package less-css-mode
+  :defer t)
 
 ;; php
 
@@ -63,6 +65,7 @@
 ;; other
 
 (use-package elm-mode
+  :defer t
   :init (setq elm-format-on-save t))
 
 (use-package markdown-mode
@@ -70,7 +73,8 @@
   ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
   :init (setq markdown-command "multimarkdown"))
 
-(use-package json-mode)
+(use-package json-mode
+  :defer t)
 
 (provide 'lia-language)
 

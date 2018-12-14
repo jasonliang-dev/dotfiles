@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-keybind.el --- Emacs Config
 
 ;;; Commentary:
@@ -5,8 +7,6 @@
 ;; leader key bindings
 
 ;;; Code:
-
-(require 'use-package)
 
 (use-package general
   :config

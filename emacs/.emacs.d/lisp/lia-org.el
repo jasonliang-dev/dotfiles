@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-org.el --- Emacs Config
 
 ;;; Commentary:
@@ -5,8 +7,6 @@
 ;; org-mode things
 
 ;;; Code:
-
-(require 'use-package)
 
 (use-package org
   :general

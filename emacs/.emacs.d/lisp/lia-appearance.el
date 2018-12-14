@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; lia-appearance.el --- Emacs Config
 
 ;;; Commentary:
@@ -5,8 +7,6 @@
 ;; Change the appearance of Emacs
 
 ;;; Code:
-
-(require 'use-package)
 
 (use-package doom-themes
   :init
