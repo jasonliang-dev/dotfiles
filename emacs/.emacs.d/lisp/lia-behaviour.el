@@ -50,13 +50,13 @@
 
 (use-package helm
   :defer t
+  :hook (after-init . helm-mode)
   :general
   ("M-x"     'helm-M-x
    "C-x C-f" 'helm-find-files
    "C-x C-b" 'helm-mini)
   :config
-  (require 'helm-config)
-  (helm-mode 1))
+  (require 'helm-config))
 
 (use-package helm-swoop
   :defer t)
