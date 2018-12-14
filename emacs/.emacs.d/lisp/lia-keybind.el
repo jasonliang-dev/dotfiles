@@ -42,7 +42,6 @@
    "j"   '(dumb-jump-go :wk "jump")
    "k"   '(kill-this-buffer :wk "kill buffer")
    "l"   '(org-open-at-point :wk "open link")
-   "p"   '(projectile-command-map :wk "projectile")
    "r"   '(revert-buffer :wk "reload file")
    "u"   '(undo-tree-visualize :wk "show undo tree")
 
@@ -50,6 +49,17 @@
    "t"  '(:ignore t :wk "toggles")
    "tl" '(linum-mode :wk "line numbers")
    "tr" '(linum-relative-toggle :wk "relative line numbers")
+
+   ;; projectile
+   "p"   '(projectile-command-map :ignore t :wk "projectile")
+   "pb"  '(helm-projectile-switch-to-buffer :wk "switch to buffer")
+   "pd"  '(helm-projectile-find-dir :wk "find directory")
+   "pf"  '(helm-projectile-find-file :wk "find file")
+   "pF"  '(helm-projectile-find-file-dwim :wk "find file with context")
+   "ph"  '(helm-projectile :wk "helm projectile")
+   "pp"  '(helm-projectile-switch-project :wk "switch project")
+   "pr"  '(helm-projectile-recentf :wk "recent files")
+   "sgp" '(helm-projectile-grep :wk "grep")
 
    ;; window navigation
    "H"  '(evil-window-move-far-left :wk "move window left")

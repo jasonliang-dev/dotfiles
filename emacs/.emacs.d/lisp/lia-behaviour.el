@@ -59,7 +59,14 @@
   (helm-mode 1))
 
 (use-package helm-projectile
-  :hook (after-init . helm-projectile-on))
+  :commands (helm-projectile-switch-to-buffer
+             helm-projectile-find-dir
+             helm-projectile-dired-find-dir
+             helm-projectile-recentf
+             helm-projectile-find-file
+             helm-projectile-grep
+             helm-projectile
+             helm-projectile-switch-project))
 
 (use-package linum-relative
   :defer t
