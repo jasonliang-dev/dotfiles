@@ -9,6 +9,7 @@
 ;;; Code:
 
 (use-package org
+  :defer t
   :general
   (:states
    'normal

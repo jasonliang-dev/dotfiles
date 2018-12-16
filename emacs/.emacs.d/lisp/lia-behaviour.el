@@ -25,10 +25,10 @@
   :defer t)
 
 (use-package editorconfig
-  :hook (after-init . editorconfig-mode))
+  :hook (prog-mode . editorconfig-mode))
 
 (use-package flycheck
-  :hook (after-init . global-flycheck-mode)
+  :hook (prog-mode . global-flycheck-mode)
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
 
@@ -53,7 +53,6 @@
 
 (use-package helm
   :defer t
-  :hook (after-init . helm-mode)
   :general
   ("M-x"     'helm-M-x
    "C-x C-f" 'helm-find-files
