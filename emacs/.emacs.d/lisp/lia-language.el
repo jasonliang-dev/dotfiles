@@ -41,7 +41,7 @@
 ;; php
 
 (use-package php-mode
-  :mode ("\\.php\\'"))
+  :mode "\\.php\\'")
 
 ;; javascript
 
@@ -64,6 +64,10 @@
 
 (use-package prettier-js
   :hook (js-mode . prettier-js-mode))
+
+(use-package rjsx-mode
+  :mode "\\.jsx\\'"
+  :magic ("/\\*\\* @jsx React\\.DOM \\*/" "^import React"))
 
 ;; other
 
