@@ -17,10 +17,8 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
-  :init
-  ;; (setq doom-modeline-height 35)
-  :hook
-  (after-init . doom-modeline-init))
+  :init (setq doom-modeline-height 35)
+  :hook (after-init . doom-modeline-init))
 
 ;; remove gui bars
 (menu-bar-mode -1)
