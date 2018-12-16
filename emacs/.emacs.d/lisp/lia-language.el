@@ -51,7 +51,10 @@
    'js-mode-map
    [remap evil-jump-to-tag] 'js2-jump-to-definition)
   :mode "\\.js\\'"
-  :hook (js2-mode . js2-imenu-extras-mode))
+  :hook (js2-mode . js2-imenu-extras-mode)
+  :init
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-missing-semi-one-line-override nil))
 
 (use-package company-tern
   :hook ((js-mode . tern-mode)
