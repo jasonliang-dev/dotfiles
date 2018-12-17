@@ -106,7 +106,14 @@
 
    ;; run external
    "RET"   '((lambda () (interactive) (run-external "~/scripts/term.sh")) :wk "external terminal")
-   "C-SPC" '(browse-file-directory :wk "open file explorer")))
+   "C-SPC" '(browse-file-directory :wk "open file explorer"))
+
+  ;; global bindings
+  (general-define-key
+   "C-s" 'save-buffer
+   "<f5>" 'revert-buffer))
+
+
 
 (provide 'lia-keybind)
 
