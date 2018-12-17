@@ -23,14 +23,31 @@
       ;;package--init-file-ensured t
       )
 
+;; be quiet at startup; don't load or display anything unnecessary
+;; shamelessly stolen from doom-emacs
+;; https://github.com/hlissner/doom-emacs/blob/5dacbb7cb1c6ac246a9ccd15e6c4290def67757c/core/core.el#L112
+(unless noninteractive
+  (advice-add #'display-startup-echo-area-message :override #'ignore)
+  (setq inhibit-startup-message t
+        inhibit-startup-echo-area-message user-login-name
+        inhibit-default-init t
+        initial-major-mode 'fundamental-mode
+        initial-scratch-message nil
+        mode-line-format nil))
+
+;; CUSTOM
+
 ;; put emacs customize stuff in a separate file
 ;; since `package--init-file-ensured' set to t doesn't work
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+;; create the custom file if it doesn't exist
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
 
 (load custom-file)
+
+;; PACKAGES
 
 (require 'package)
 
@@ -39,6 +56,7 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
+;; install use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -49,7 +67,6 @@
 (setq use-package-always-ensure t)
 
 ;; load files in lisp directory
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'lia-evil)
@@ -58,6 +75,8 @@
 (require 'lia-behaviour)
 (require 'lia-language)
 (require 'lia-org)
+
+;;
 
 ;; set gc and file handler back to default
 (add-hook 'emacs-startup-hook
