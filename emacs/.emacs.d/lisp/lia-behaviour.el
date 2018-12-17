@@ -108,9 +108,6 @@
   :init (setq projectile-enable-caching t)
   :config (projectile-mode t))
 
-(use-package smooth-scrolling
-  :hook (after-init . smooth-scrolling-mode))
-
 (use-package which-key
   :hook (after-init . which-key-mode))
 
@@ -136,18 +133,18 @@
 ;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
 
-;; slow down mouse scroll speed
-(setq mouse-wheel-scroll-amount '(2))
-
-;; no scroll acceleration please
-(setq mouse-wheel-progressive-speed nil)
-
 ;; move backup~ files to its own directory
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups"))))
 
 ;; no #autosave# files
 (setq auto-save-default nil)
+
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)) ;; one line at a time
+      mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
+      mouse-wheel-follow-mouse 't ;; scroll window under mouse
+      scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)
