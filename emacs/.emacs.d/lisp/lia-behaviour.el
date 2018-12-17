@@ -32,7 +32,7 @@
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
 
-  (defun lia/use-eslint-from-node-modules ()
+  (defun lia--use-eslint-from-node-modules ()
     "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
     (let* ((root (locate-dominating-file
                   (or (buffer-file-name) default-directory)
@@ -43,7 +43,7 @@
       (when (and eslint (file-executable-p eslint))
         (setq-local flycheck-javascript-eslint-executable eslint))))
 
-  (add-hook 'flycheck-mode-hook #'lia/use-eslint-from-node-modules))
+  (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
 
 (use-package magit
   :defer t
@@ -170,7 +170,7 @@
   (interactive)
   (byte-recompile-directory user-emacs-directory 0))
 
-(defun lia/remove-elc-on-save ()
+(defun lia-remove-elc-on-save ()
   "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
   (add-hook 'after-save-hook
             (lambda ()
@@ -179,7 +179,7 @@
             nil
             t))
 
-(add-hook 'emacs-lisp-mode-hook 'lia/remove-elc-on-save)
+(add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 
 (provide 'lia-behaviour)
 
