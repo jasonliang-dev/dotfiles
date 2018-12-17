@@ -31,6 +31,7 @@
   :hook ((css-mode . emmet-mode)
          (php-mode . emmet-mode)
          (sgnl-mode . emmet-mode)
+         (rjsx-mode . emmet-mode)
          (web-mode . emmet-mode)))
 
 ;; css
