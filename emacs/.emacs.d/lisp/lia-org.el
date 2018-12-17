@@ -1,6 +1,4 @@
-;; -*- lexical-binding: t; -*-
-
-;;; lia-org.el --- Emacs Config
+;;; lia-org.el --- Emacs Config -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

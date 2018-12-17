@@ -1,6 +1,4 @@
-;; -*- lexical-binding: t; -*-
-
-;;; lia-keybind.el --- Emacs Config
+;;; lia-keybind.el --- Emacs Config -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

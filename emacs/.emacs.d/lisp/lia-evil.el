@@ -1,6 +1,4 @@
-;; -*- lexical-binding: t; -*-
-
-;;; lia-evil.el --- Emacs Config
+;;; lia-evil.el --- Emacs Config -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
