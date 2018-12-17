@@ -42,6 +42,7 @@
    "j"   '(dumb-jump-go :wk "jump")
    "k"   '(kill-this-buffer :wk "kill buffer")
    "l"   '(org-open-at-point :wk "open link")
+   "q"   '(evil-quit :wk "close buffer")
    "r"   '(revert-buffer :wk "reload file")
    "u"   '(undo-tree-visualize :wk "show undo tree")
 
