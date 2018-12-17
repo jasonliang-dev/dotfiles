@@ -17,7 +17,9 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
-  :init (setq doom-modeline-height 35)
+  :init
+  (setq doom-modeline-height 35
+        doom-modeline-buffer-file-name-style 'relative-to-project)
   :hook (after-init . doom-modeline-init))
 
 (use-package rainbow-delimiters
