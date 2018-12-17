@@ -37,7 +37,13 @@
 (show-paren-mode t)
 
 ;; set font size
-(set-frame-font "Iosevka 11" nil t)
+
+;; +0.140s to startup time
+;; (set-frame-font "Iosevka 11" nil t)
+
+;; can't benchmark since esup crashes prematurely.
+;; but I think it shaves about 0.1s compared to `set-frame-font' above
+(add-to-list 'default-frame-alist '(font . "Iosevka 11"))
 
 (provide 'lia-appearance)
 
