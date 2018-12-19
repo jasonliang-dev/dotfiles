@@ -6,9 +6,6 @@
 
 ;;; Code:
 
-(use-package autopair
-  :hook (after-init . autopair-global-mode))
-
 (use-package avy
   :defer t)
 
@@ -115,6 +112,9 @@
 
 (use-package yasnippet-snippets
   :defer t)
+
+;; pair up delimiters
+(electric-pair-mode t)
 
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
