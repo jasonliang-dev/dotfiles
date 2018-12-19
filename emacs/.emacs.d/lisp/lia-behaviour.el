@@ -138,11 +138,16 @@
 ;; no #autosave# files
 (setq auto-save-default nil)
 
-;; scroll one line at a time (less "jumpy" than defaults)
+;; better mouse scrolling
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
       mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
-      mouse-wheel-follow-mouse 't ;; scroll window under mouse
-      scroll-step 1) ;; keyboard scroll one line at a time
+      mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+
+;; smooth scrolling
+(setq scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
 
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)
