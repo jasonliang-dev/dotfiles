@@ -75,7 +75,8 @@
    "r"   'neotree-rename-node)
   :init
   (setq neo-smart-open t
-        neo-theme 'icons))
+        neo-theme 'icons
+        neo-show-hidden-files t))
 
 (use-package helm
   :defer t
