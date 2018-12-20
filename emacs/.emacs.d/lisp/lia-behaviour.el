@@ -57,20 +57,20 @@
    "|"   'neotree-enter-vertical-split
    "-"   'neotree-enter-horizontal-split
    "'"   'neotree-quick-look
-   "."   'neotree-hidden-file-toggle
+   "."   'neotree-dir
+   "C-h" 'neotree-hidden-file-toggle
    "C"   'neotree-copy-node
    "H"   'neotree-select-previous-sibling-node
    "J"   'neotree-select-down-node
    "K"   'neotree-select-up-node
    "L"   'neotree-select-next-sibling-node
+   "R"   'neotree-refresh
    "c"   'neotree-create-node
    "d"   'neotree-delete-node
-   "f"   'neotree-dir
-   "g"   'neotree-refresh
-   "h"   'neotree-select-up-node
+   "h"   '+neotree/collapse-or-up
    "j"   'neotree-next-line
    "k"   'neotree-previous-line
-   "l"   'neotree-change-root
+   "l"   '+neotree/expand-or-open
    "q"   'neotree-hide
    "r"   'neotree-rename-node)
   :init
@@ -200,8 +200,50 @@
 
 (lia/set-indent 2)
 
+;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
+
+;;;###autoload
+(defun +neotree/expand-or-open ()
+  "Expand or open a neotree node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (progn
+            (neo-buffer--set-expand node t)
+            (neo-buffer--refresh t)
+            (when neo-auto-indent-point
+              (next-line)
+              (neo-point-auto-indent)))
+        (call-interactively 'neotree-enter)))))
+
+;;;###autoload
+(defun +neotree/collapse ()
+  "Collapse a neotree node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (when (file-directory-p node)
+        (neo-buffer--set-expand node nil)
+        (neo-buffer--refresh t))
+      (when neo-auto-indent-point
+        (neo-point-auto-indent)))))
+
+;;;###autoload
+(defun +neotree/collapse-or-up ()
+  "Collapse an expanded directory node or go to the parent node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (if (neo-buffer--expanded-node-p node)
+              (+neotree/collapse)
+            (neotree-select-up-node))
+        (neotree-select-up-node)))))
+
 ;; https://emacsredux.com/blog/2013/06/25/boost-performance-by-leveraging-byte-compilation/
 
+;;;###autoload
 (defun lia/byte-compile-init-dir ()
   "Byte-compile all your dotfiles."
   (interactive)

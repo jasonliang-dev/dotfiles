@@ -8,21 +8,6 @@
 
 (use-package general
   :config
-  ;; https://emacs.stackexchange.com/q/7650
-  (defun run-external (command)
-    "Run a shell COMMAND that use the current directory."
-    (interactive "s")
-    (shell-command
-     (concat command " . > /dev/null 2>&1 & disown") nil nil))
-
-  ;; https://emacs.stackexchange.com/q/7742
-  (defun browse-file-directory ()
-    "Open the current file's directory however the OS would."
-    (interactive)
-    (if default-directory
-        (browse-url-of-file (expand-file-name default-directory))
-      (error "No `default-directory' to open")))
-
   ;; leader key
   (general-define-key
    :states '(normal visual insert emacs)
@@ -114,7 +99,22 @@
    "C-s" 'save-buffer
    "<f5>" 'revert-buffer))
 
+;; https://emacs.stackexchange.com/q/7650
+;;;###autoload
+(defun run-external (command)
+  "Run a shell COMMAND that use the current directory."
+  (interactive "s")
+  (shell-command
+   (concat command " . > /dev/null 2>&1 & disown") nil nil))
 
+;; https://emacs.stackexchange.com/q/7742
+;;;###autoload
+(defun browse-file-directory ()
+  "Open the current file's directory however the OS would."
+  (interactive)
+  (if default-directory
+      (browse-url-of-file (expand-file-name default-directory))
+    (error "No `default-directory' to open")))
 
 (provide 'lia-keybind)
 

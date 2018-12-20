@@ -58,8 +58,7 @@
 (use-package company-tern
   :hook ((js-mode . tern-mode)
          (js-mode . company-mode))
-  :config
-  (add-to-list 'company-backends 'company-tern))
+  :config (add-to-list 'company-backends 'company-tern))
 
 (use-package prettier-js
   :hook (js-mode . prettier-js-mode))
@@ -75,8 +74,7 @@
   :init (setq elm-format-on-save t))
 
 (use-package markdown-mode
-  :mode
-  ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
+  :mode ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
   :init (setq markdown-command "multimarkdown"))
 
 (use-package json-mode
