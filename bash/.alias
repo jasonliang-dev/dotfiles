@@ -35,13 +35,19 @@ alias gs='git status'
 alias pull='git pull'
 alias push='git push'
 
-alias db='dropbox'
-alias ds='dropbox status'
+alias d='sudo docker'
+alias dc='d container'
+alias di='d images'
+alias dps='d ps'
+alias drm='d rm'
 
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias sf='screenfetch -n'
 alias nf='neofetch --off'
+
+alias db='dropbox'
+alias dbs='dropbox status'
 alias ytdl='youtube-dl'
 
 alias thanks='echo Anytime'
