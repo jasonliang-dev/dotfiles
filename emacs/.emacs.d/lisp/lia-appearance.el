@@ -23,6 +23,9 @@
         doom-modeline-buffer-file-name-style 'relative-to-project)
   :hook (after-init . doom-modeline-init))
 
+(use-package hide-mode-line
+  :hook (neotree-mode . hide-mode-line-mode))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 

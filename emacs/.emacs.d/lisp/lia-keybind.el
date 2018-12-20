@@ -48,7 +48,7 @@
    "t"  '(:ignore t :wk "toggles")
    "tl" '(linum-mode :wk "line numbers")
    "tr" '(linum-relative-toggle :wk "relative line numbers")
-   "tt" '(neotree-toggle :wk "toggle neotree")
+   "tt" '(neotree-toggle :wk "neotree")
 
    ;; helm
    "ss" 'helm-swoop
