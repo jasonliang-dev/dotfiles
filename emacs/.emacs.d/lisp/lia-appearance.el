@@ -13,6 +13,8 @@
   :config
   (load-theme 'doom-city-lights t)
   (doom-themes-neotree-config)
+  (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
+  (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed")
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -42,6 +44,7 @@
 
 ;; can't benchmark since esup crashes prematurely.
 ;; but I think it shaves about 0.1s compared to `set-frame-font' above
+;; depends on the machine you're running on ofc
 (add-to-list 'default-frame-alist '(font . "Iosevka 11"))
 
 (provide 'lia-appearance)
