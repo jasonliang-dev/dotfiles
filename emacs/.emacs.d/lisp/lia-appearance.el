@@ -37,6 +37,9 @@
 ;; highlight matching paren
 (show-paren-mode t)
 
+;; hide cursor except for selected window
+(setq-default cursor-in-non-selected-windows nil)
+
 ;; set font size
 
 ;; +0.140s to startup time
