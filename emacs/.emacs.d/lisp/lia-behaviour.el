@@ -74,9 +74,11 @@
    "q"   'neotree-hide
    "r"   'neotree-rename-node)
   :init
-  (setq neo-smart-open t
+  (setq neo-window-fixed-size nil
+        neo-smart-open t
+        neo-show-hidden-files t
         neo-theme 'icons
-        neo-show-hidden-files t))
+        neo-window-width 30))
 
 (use-package helm
   :defer t
