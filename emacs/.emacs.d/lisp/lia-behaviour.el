@@ -46,6 +46,37 @@
   (with-eval-after-load 'magit
     (require 'evil-magit)))
 
+(use-package neotree
+  :commands (neotree-toggle)
+  :general
+  (:states
+   'normal
+   :keymaps 'neotree-mode-map
+   "RET" 'neotree-enter
+   "TAB" 'neotree-quick-look
+   "|"   'neotree-enter-vertical-split
+   "-"   'neotree-enter-horizontal-split
+   "'"   'neotree-quick-look
+   "."   'neotree-hidden-file-toggle
+   "C"   'neotree-copy-node
+   "H"   'neotree-select-previous-sibling-node
+   "J"   'neotree-select-down-node
+   "K"   'neotree-select-up-node
+   "L"   'neotree-select-next-sibling-node
+   "c"   'neotree-create-node
+   "d"   'neotree-delete-node
+   "f"   'neotree-dir
+   "g"   'neotree-refresh
+   "h"   'neotree-select-up-node
+   "j"   'neotree-next-line
+   "k"   'neotree-previous-line
+   "l"   'neotree-change-root
+   "q"   'neotree-hide
+   "r"   'neotree-rename-node)
+  :init
+  (setq neo-smart-open t
+        neo-theme 'icons))
+
 (use-package helm
   :defer t
   :general

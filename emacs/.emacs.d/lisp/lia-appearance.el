@@ -12,6 +12,7 @@
         doom-themes-enable-italic t)
   :config
   (load-theme 'doom-city-lights t)
+  (doom-themes-neotree-config)
   (doom-themes-org-config))
 
 (use-package doom-modeline
