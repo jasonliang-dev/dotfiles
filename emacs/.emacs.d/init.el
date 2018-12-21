@@ -14,6 +14,13 @@
 (defvar lia/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
+;; set gc and file handler back to default after all the dust has settled
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold 16777216
+                  gc-cons-percentage 0.1
+                  file-name-handler-alist lia/file-name-handler-alist)))
+
 ;;
 
 ;; `package-initialize' is called twice. don't do that
@@ -62,8 +69,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-when-compile
-  (require 'use-package))
+(eval-when-compile (require 'use-package))
 
 ;; install packages declared by `use-package'
 ;; this doesn't work for me. is it because of lexical binding?
@@ -80,14 +86,5 @@
 (require 'lia-behaviour)
 (require 'lia-language)
 (require 'lia-org)
-
-;;
-
-;; set gc and file handler back to default
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold 16777216
-                  gc-cons-percentage 0.1
-                  file-name-handler-alist lia/file-name-handler-alist)))
 
 ;;; init.el ends here
