@@ -14,7 +14,9 @@
 (defvar lia/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
-;; disable automatic package loading
+;;
+
+;; `package-initialize' is called twice. don't do that
 (setq package-enable-at-startup nil
       ;; don't add `custom-set-variables' to init.el
       ;; okay, this doesn't work for some reason.
@@ -49,12 +51,13 @@
 
 (require 'package)
 
+;; add more package sources
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
-;; install use-package
+;; install use-package if not installed already
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -62,14 +65,17 @@
 (eval-when-compile
   (require 'use-package))
 
-(setq use-package-always-ensure t)
+;; install packages declared by `use-package'
+;; this doesn't work for me.
+;; just add :ensure t to everything instead
+;;(setq use-package-always-ensure t)
 
 ;; load files in lisp directory
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+(require 'lia-appearance)
 (require 'lia-evil)
 (require 'lia-keybind)
-(require 'lia-appearance)
 (require 'lia-behaviour)
 (require 'lia-language)
 (require 'lia-org)

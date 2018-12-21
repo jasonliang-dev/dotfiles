@@ -7,6 +7,7 @@
 ;;; Code:
 
 (use-package general
+  :ensure t
   :config
   ;; leader key
   (general-define-key

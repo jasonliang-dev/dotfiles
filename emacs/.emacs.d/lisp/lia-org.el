@@ -7,6 +7,7 @@
 ;;; Code:
 
 (use-package org
+  :ensure t
   :defer t
   :general
   (:states
@@ -86,6 +87,7 @@
    'org-babel-load-languages '((C . t))))
 
 (use-package org-bullets
+  :ensure t
   :init (setq org-bullets-bullet-list '(" "))
   :hook (org-mode . org-bullets-mode))
 

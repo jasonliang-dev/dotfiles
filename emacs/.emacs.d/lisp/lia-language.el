@@ -9,6 +9,7 @@
 ;; c/c++
 
 (use-package clang-format
+  :ensure t
   :defer t
   :general
   (:keymaps
@@ -21,11 +22,13 @@
 ;; web
 
 (use-package web-mode
+  :ensure t
   :init (setq web-mode-enable-auto-pairing nil)
   :mode ("\\.html?\\'" "\\.twig\\'" "\\.vue\\'"))
 
 (use-package emmet-mode
   ;; C-j to expand
+  :ensure t
   :hook ((css-mode . emmet-mode)
          (php-mode . emmet-mode)
          (sgnl-mode . emmet-mode)
@@ -35,16 +38,19 @@
 ;; css
 
 (use-package less-css-mode
+  :ensure t
   :defer t)
 
 ;; php
 
 (use-package php-mode
+  :ensure t
   :mode "\\.php\\'")
 
 ;; javascript
 
 (use-package js2-mode
+  :ensure t
   :general
   (:keymaps
    'js-mode-map
@@ -56,28 +62,36 @@
   (setq js2-missing-semi-one-line-override nil))
 
 (use-package company-tern
-  :hook ((js-mode . tern-mode)
-         (js-mode . company-mode))
+  :ensure t)
+
+(use-package tern
+  :ensure t
+  :hook (js-mode . tern-mode)
   :config (add-to-list 'company-backends 'company-tern))
 
 (use-package prettier-js
+  :ensure t
   :hook (js-mode . prettier-js-mode))
 
 (use-package rjsx-mode
+  :ensure t
   :mode "\\.jsx\\'"
   :magic ("/\\*\\* @jsx React\\.DOM \\*/" "^import React"))
 
 ;; other
 
 (use-package elm-mode
+  :ensure t
   :defer t
   :init (setq elm-format-on-save t))
 
 (use-package markdown-mode
+  :ensure t
   :mode ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
   :init (setq markdown-command "multimarkdown"))
 
 (use-package json-mode
+  :ensure t
   :defer t)
 
 (provide 'lia-language)

@@ -7,6 +7,7 @@
 ;;; Code:
 
 (use-package doom-themes
+  :ensure t
   :init
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
@@ -18,15 +19,18 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
+  :ensure t
   :init
   (setq doom-modeline-height 35
         doom-modeline-buffer-file-name-style 'relative-to-project)
   :hook (after-init . doom-modeline-init))
 
 (use-package hide-mode-line
+  :ensure t
   :hook (neotree-mode . hide-mode-line-mode))
 
 (use-package rainbow-delimiters
+  :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; remove gui bars

@@ -7,9 +7,11 @@
 ;;; Code:
 
 (use-package avy
+  :ensure t
   :defer t)
 
 (use-package company
+  :ensure t
   :hook (after-init . global-company-mode)
   :general
   (company-active-map
@@ -17,12 +19,15 @@
    "C-p" #'company-select-previous))
 
 (use-package dumb-jump
+  :ensure t
   :defer t)
 
 (use-package editorconfig
+  :ensure t
   :hook (prog-mode . editorconfig-mode))
 
 (use-package flycheck
+  :ensure t
   :hook (prog-mode . global-flycheck-mode)
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -41,12 +46,14 @@
   (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
 
 (use-package magit
+  :ensure t
   :defer t
   :init
   (with-eval-after-load 'magit
     (require 'evil-magit)))
 
 (use-package neotree
+  :ensure t
   :commands (neotree-toggle)
   :general
   (:states
@@ -81,6 +88,7 @@
         neo-window-width 30))
 
 (use-package helm
+  :ensure t
   :defer t
   :general
   ("M-x"     'helm-M-x
@@ -90,9 +98,11 @@
   (require 'helm-config))
 
 (use-package helm-swoop
+  :ensure t
   :defer t)
 
 (use-package helm-projectile
+  :ensure t
   :commands (helm-projectile-switch-to-buffer
              helm-projectile-find-dir
              helm-projectile-dired-find-dir
@@ -103,6 +113,7 @@
              helm-projectile-switch-project))
 
 (use-package linum-relative
+  :ensure t
   :defer t
   :init
   (setq linum-format " %4d " ;; add padding
@@ -111,6 +122,7 @@
         linum-relative-current-symbol ""))
 
 (use-package projectile
+  :ensure t
   :commands (projectile-ack
              projectile-ag
              projectile-compile-project
@@ -138,13 +150,16 @@
   :config (projectile-mode t))
 
 (use-package which-key
+  :ensure t
   :hook (after-init . which-key-mode))
 
 (use-package yasnippet
+  :ensure t
   :hook (prog-mode . yas-minor-mode)
   :config (yas-reload-all))
 
 (use-package yasnippet-snippets
+  :ensure t
   :defer t)
 
 ;; pair up delimiters
