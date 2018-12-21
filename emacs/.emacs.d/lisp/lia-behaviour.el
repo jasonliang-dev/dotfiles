@@ -39,10 +39,7 @@
 
 (use-package magit
   :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'magit
-    (require 'evil-magit)))
+  :defer t)
 
 (use-package neotree
   :ensure t
