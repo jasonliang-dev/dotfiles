@@ -48,6 +48,7 @@
   (:states
    'normal
    :keymaps 'neotree-mode-map
+   "SPC" nil
    "RET" 'neotree-enter
    "TAB" 'neotree-quick-look
    "|"   'neotree-enter-vertical-split
