@@ -66,7 +66,7 @@
   (require 'use-package))
 
 ;; install packages declared by `use-package'
-;; this doesn't work for me.
+;; this doesn't work for me. is it because of lexical binding?
 ;; just add :ensure t to everything instead
 ;;(setq use-package-always-ensure t)
 
@@ -76,6 +76,7 @@
 (require 'lia-appearance)
 (require 'lia-evil)
 (require 'lia-keybind)
+(require 'lia-completion)
 (require 'lia-behaviour)
 (require 'lia-language)
 (require 'lia-org)
