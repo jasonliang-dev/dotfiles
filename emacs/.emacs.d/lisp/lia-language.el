@@ -62,7 +62,8 @@
   (setq js2-missing-semi-one-line-override nil))
 
 (use-package company-tern
-  :ensure t)
+  :ensure t
+  :after (company tern))
 
 (use-package tern
   :ensure t
