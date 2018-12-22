@@ -15,6 +15,7 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    ""    '(nil :wk "leader key")
+   "SPC" '(helm-M-x :wk "run command")
    "ESC" '(evil-ex-nohighlight :wk "clear highlight")
    "TAB" '(mode-line-other-buffer :wk "other buffer")
    ";"   '(avy-goto-char-timer :wk "avy jump to")
