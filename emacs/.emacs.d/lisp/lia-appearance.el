@@ -13,9 +13,6 @@
         doom-themes-enable-italic t)
   :config
   (load-theme 'doom-vibrant t)
-  (doom-themes-neotree-config)
-  (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
-  (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed")
   (doom-themes-org-config))
 
 (use-package doom-modeline

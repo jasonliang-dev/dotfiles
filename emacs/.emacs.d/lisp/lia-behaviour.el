@@ -48,34 +48,18 @@
   (:states
    'normal
    :keymaps 'neotree-mode-map
-   "SPC" nil
-   "RET" 'neotree-enter
-   "TAB" 'neotree-quick-look
-   "|"   'neotree-enter-vertical-split
-   "-"   'neotree-enter-horizontal-split
-   "'"   'neotree-quick-look
-   "."   'neotree-dir
-   "C-h" 'neotree-hidden-file-toggle
-   "C"   'neotree-copy-node
-   "H"   'neotree-select-previous-sibling-node
-   "J"   'neotree-select-down-node
-   "K"   'neotree-select-up-node
-   "L"   'neotree-select-next-sibling-node
-   "R"   'neotree-refresh
-   "c"   'neotree-create-node
-   "d"   'neotree-delete-node
    "h"   '+neotree/collapse-or-up
-   "j"   'neotree-next-line
-   "k"   'neotree-previous-line
-   "l"   '+neotree/expand-or-open
-   "q"   'neotree-hide
-   "r"   'neotree-rename-node)
+   "l"   '+neotree/expand-or-open)
   :init
   (setq neo-window-fixed-size nil
         neo-smart-open t
         neo-show-hidden-files t
         neo-theme 'icons
-        neo-window-width 30))
+        neo-window-width 30)
+  :config
+  (doom-themes-neotree-config)
+  (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
+  (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed"))
 
 (use-package linum-relative
   :ensure t
