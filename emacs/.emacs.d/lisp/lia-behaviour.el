@@ -48,6 +48,7 @@
   (:states
    'normal
    :keymaps 'neotree-mode-map
+   "SPC" nil
    "h"   '+neotree/collapse-or-up
    "l"   '+neotree/expand-or-open)
   :init
