@@ -21,10 +21,15 @@
 
 (use-package evil-surround
   :ensure t
-  :hook (after-init . global-evil-surround-mode))
+  :after (evil))
 
 (use-package evil-magit
   :after (evil magit))
+
+(use-package evil-mc
+  :ensure t
+  :after (evil)
+  :config (global-evil-mc-mode 1))
 
 (provide 'lia-evil)
 
