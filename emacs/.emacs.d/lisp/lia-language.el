@@ -60,7 +60,8 @@
   :init
   (setq js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil
-        js2-include-node-externs t))
+        js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil))
 
 (use-package company-tern
   :ensure t
