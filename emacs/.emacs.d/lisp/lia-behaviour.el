@@ -62,15 +62,6 @@
   (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
   (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed"))
 
-(use-package linum-relative
-  :ensure t
-  :defer t
-  :init
-  (setq linum-format " %4d " ;; add padding
-        linum-relative-format " %4s "
-        ;; display current line number
-        linum-relative-current-symbol ""))
-
 (use-package projectile
   :ensure t
   :commands (projectile-ack

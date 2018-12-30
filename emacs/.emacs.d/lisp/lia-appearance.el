@@ -26,6 +26,15 @@
   :ensure t
   :hook (neotree-mode . hide-mode-line-mode))
 
+(use-package linum-relative
+  :ensure t
+  :hook (prog-mode . linum-relative-mode)
+  :init
+  (setq linum-format " %4d " ;; add padding
+        linum-relative-format " %4s "
+        ;; display current line number
+        linum-relative-current-symbol ""))
+
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
