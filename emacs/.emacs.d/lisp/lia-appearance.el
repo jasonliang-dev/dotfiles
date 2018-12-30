@@ -28,7 +28,7 @@
 
 (use-package linum-relative
   :ensure t
-  :hook (prog-mode . linum-relative-mode)
+  :defer t
   :init
   (setq linum-format " %4d " ;; add padding
         linum-relative-format " %4s "
