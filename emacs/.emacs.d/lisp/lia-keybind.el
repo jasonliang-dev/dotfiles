@@ -23,7 +23,6 @@
    "b"   '(helm-mini :wk "buffers")
    "f"   '(helm-find-files :wk "find files")
    "g"   '(magit-status :wk "git status")
-   "i"   '("C-c C-f" :wk "format buffer")
    "j"   '(dumb-jump-go :wk "jump")
    "k"   '(kill-this-buffer :wk "kill buffer")
    "l"   '(org-open-at-point :wk "open link")
@@ -80,6 +79,7 @@
    "wv" '(evil-window-vsplit :wk "vertical split")
    "wo" '(delete-other-windows :wk "maximize")
    "wq" '(delete-window :wk "close")
+   "w=" '(balance-windows :wk "equal splits")
 
    ;; org
    "a"  '((lambda() (interactive) (org-agenda nil "c")) :wk "my agenda")
