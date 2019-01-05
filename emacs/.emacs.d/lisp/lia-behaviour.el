@@ -88,7 +88,10 @@
              projectile-switch-to-buffer
              projectile-vc)
   :init (setq projectile-enable-caching t)
-  :config (projectile-mode t))
+  :config
+  (projectile-mode t)
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "vendor"))
 
 (use-package which-key
   :ensure t
