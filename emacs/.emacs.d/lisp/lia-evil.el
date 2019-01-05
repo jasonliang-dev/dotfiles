@@ -24,6 +24,7 @@
   :after (evil))
 
 (use-package evil-magit
+  :ensure t
   :after (evil magit))
 
 (provide 'lia-evil)
