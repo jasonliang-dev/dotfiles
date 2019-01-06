@@ -21,7 +21,8 @@
 
 (use-package evil-surround
   :ensure t
-  :after (evil))
+  :after (evil)
+  :config (global-evil-surround-mode))
 
 (use-package evil-magit
   :ensure t
