@@ -41,12 +41,6 @@
   :ensure t
   :defer t)
 
-;; php
-
-(use-package php-mode
-  :ensure t
-  :mode "\\.php\\'")
-
 ;; javascript
 
 (use-package js2-mode
@@ -85,8 +79,13 @@
 
 (use-package elm-mode
   :ensure t
-  :defer t
+  :mode "\\.elm\\'"
   :init (setq elm-format-on-save t))
+
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'"
+  :init (setq haskell-stylish-on-save t))
 
 (use-package markdown-mode
   :ensure t
@@ -96,6 +95,10 @@
 (use-package json-mode
   :ensure t
   :defer t)
+
+(use-package php-mode
+  :ensure t
+  :mode "\\.php\\'")
 
 (provide 'lia-language)
 
