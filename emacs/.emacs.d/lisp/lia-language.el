@@ -94,7 +94,7 @@
 
 (use-package json-mode
   :ensure t
-  :defer t)
+  :mode "\\.json\\'")
 
 (use-package php-mode
   :ensure t
