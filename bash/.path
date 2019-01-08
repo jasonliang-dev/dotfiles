@@ -4,3 +4,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
+
+export PATH=$PATH:$HOME/swift/usr/bin
+
+export PATH=$PATH:$HOME/.local/bin
