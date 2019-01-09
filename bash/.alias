@@ -19,9 +19,11 @@ alias tmux='TERM=xterm-256color tmux'
 alias a='tmux attach'
 alias at='tmux attach -t'
 
-alias e='emacsclient'
 alias t='tmux'
 alias v='vim'
+
+# not an alias but pretend that it is okay?
+e () { emacs "$@" & disown }
 
 alias g='git'
 alias ga='git add'
