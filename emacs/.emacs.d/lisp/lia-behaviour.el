@@ -22,7 +22,8 @@
   :ensure t
   :hook (prog-mode . global-flycheck-mode)
   :init
-  (setq flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-emacs-lisp-load-path 'inherit
+        flycheck-clang-include-path (list (expand-file-name "~/local/include/")))
 
   (defun lia--use-eslint-from-node-modules ()
     "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
