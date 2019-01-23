@@ -80,8 +80,8 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'lia-appearance)
-(require 'lia-evil)
 (require 'lia-keybind)
+(require 'lia-evil)
 (require 'lia-completion)
 (require 'lia-behaviour)
 (require 'lia-language)
