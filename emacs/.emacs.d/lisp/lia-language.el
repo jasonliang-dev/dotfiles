@@ -94,11 +94,15 @@
 
 (use-package json-mode
   :ensure t
-  :mode "\\.json\\'")
+  :mode ("\\.json\\'" ".eslintrc\\'" ".prettierrc\\'"))
 
 (use-package php-mode
   :ensure t
   :mode "\\.php\\'")
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yaml\\'")
 
 (provide 'lia-language)
 
