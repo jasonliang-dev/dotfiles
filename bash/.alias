@@ -34,6 +34,7 @@ alias gd='git diff'
 alias gl='git log'
 alias gr='git reset HEAD'
 alias gs='git status'
+alias gu='git reset HEAD'
 alias pull='git pull'
 alias push='git push'
 
