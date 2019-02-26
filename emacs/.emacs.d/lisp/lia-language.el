@@ -75,6 +75,12 @@
   :mode "\\.jsx\\'"
   :magic ("/\\*\\* @jsx React\\.DOM \\*/" "^import React"))
 
+;; english (yeah. I know...)
+
+(use-package writegood-mode
+  :ensure t
+  :commands (writegood-mode))
+
 ;; other
 
 (use-package elm-mode
