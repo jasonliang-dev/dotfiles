@@ -23,7 +23,7 @@ alias t='tmux'
 alias v='vim'
 
 # not an alias but pretend that it is okay?
-e () { emacs "$@" & disown }
+e () { emacs "$@" & disown; }
 
 alias g='git'
 alias ga='git add'
