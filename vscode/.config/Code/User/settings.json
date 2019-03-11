@@ -6,12 +6,12 @@
   "editor.formatOnSave": false,
   "editor.lineHeight": 20,
   "editor.minimap.enabled": false,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "files.eol": "\n",
   "git.autofetch": true,
   "git.confirmSync": false,
   "workbench.colorTheme": "Material Theme",
-  "workbench.iconTheme": "eq-material-theme-icons",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "newUntitledFile",
   "[elm]": {
     "editor.tabSize": 4
