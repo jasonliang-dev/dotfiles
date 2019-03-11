@@ -72,7 +72,13 @@
   :ensure t
   :commands (writegood-mode))
 
-;; other
+;; other programming languages
+
+(use-package cider
+  :ensure t
+  :commands (clojure-mode
+             clojurec-mode
+             clojurescript-mode))
 
 (use-package elm-mode
   :ensure t
@@ -84,6 +90,12 @@
   :mode "\\.hs\\'"
   :init (setq haskell-stylish-on-save t))
 
+(use-package php-mode
+  :ensure t
+  :mode "\\.php\\'")
+
+;; not programming languages
+
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" "\\.md\\'" "\\.markdown\\'")
@@ -92,10 +104,6 @@
 (use-package json-mode
   :ensure t
   :mode ("\\.json\\'" ".eslintrc\\'" ".prettierrc\\'"))
-
-(use-package php-mode
-  :ensure t
-  :mode "\\.php\\'")
 
 (use-package yaml-mode
   :ensure t
