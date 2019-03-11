@@ -57,15 +57,6 @@
         js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil))
 
-(use-package company-tern
-  :ensure t
-  :after (company tern))
-
-(use-package tern
-  :ensure t
-  :hook (js-mode . tern-mode)
-  :config (add-to-list 'company-backends 'company-tern))
-
 (use-package prettier-js
   :ensure t
   :hook (js-mode . prettier-js-mode))
