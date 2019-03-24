@@ -15,5 +15,6 @@
   "workbench.startupEditor": "newUntitledFile",
   "[elm]": {
     "editor.tabSize": 4
-  }
+  },
+  "window.zoomLevel": 0
 }
