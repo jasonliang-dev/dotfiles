@@ -15,7 +15,6 @@ alias ni='npm install'
 alias nid='npm install --save-dev'
 alias ns='npm start'
 
-alias tmux='TERM=xterm-256color tmux'
 alias a='tmux attach'
 alias at='tmux attach -t'
 
