@@ -43,6 +43,7 @@ alias di='d images'
 alias dps='d ps'
 alias drm='d rm'
 
+alias eslint-config-init='$HOME/scripts/eslint-config-init.sh'
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias sf='screenfetch -n'
