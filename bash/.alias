@@ -8,7 +8,7 @@ alias lg='ls | grep'
 alias ll='ls -al'
 alias ls='ls --color=auto'
 
-alias j='node'
+alias rb='ruby'
 alias js='node'
 alias n='npm'
 alias ni='npm install'
@@ -16,8 +16,6 @@ alias nid='npm install --save-dev'
 alias ns='npm start'
 
 alias a='tmux attach'
-alias at='tmux attach -t'
-
 alias t='tmux'
 alias v='vim'
 
@@ -37,20 +35,12 @@ alias gu='git reset HEAD'
 alias pull='git pull'
 alias push='git push'
 
-alias d='sudo docker'
-alias dc='d container'
-alias di='d images'
-alias dps='d ps'
-alias drm='d rm'
-
 alias eslint-config-init='$HOME/scripts/eslint-config-init.sh'
 alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
 alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
 alias sf='screenfetch -n'
 alias nf='neofetch --off'
 
-alias db='dropbox'
-alias dbs='dropbox status'
 alias ytdl='youtube-dl'
 alias mp3='youtube-dl --extract-audio --audio-format mp3'
 
