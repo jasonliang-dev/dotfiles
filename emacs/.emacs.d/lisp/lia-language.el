@@ -82,7 +82,11 @@
 
 (use-package elm-mode
   :ensure t
-  :mode "\\.elm\\'")
+  :mode "\\.elm\\'"
+  :general
+  (:keymaps
+   'elm-mode-map
+   "C-c C-f" 'elm-format-buffer))
 
 (use-package haskell-mode
   :ensure t
