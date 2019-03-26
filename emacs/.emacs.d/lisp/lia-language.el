@@ -82,13 +82,11 @@
 
 (use-package elm-mode
   :ensure t
-  :mode "\\.elm\\'"
-  :init (setq elm-format-on-save t))
+  :mode "\\.elm\\'")
 
 (use-package haskell-mode
   :ensure t
-  :mode "\\.hs\\'"
-  :init (setq haskell-stylish-on-save t))
+  :mode "\\.hs\\'")
 
 (use-package php-mode
   :ensure t
