@@ -1,3 +1,5 @@
+# -- navigation -----------------------
+
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -8,19 +10,10 @@ alias lg='ls | grep'
 alias ll='ls -al'
 alias ls='ls --color=auto'
 
-alias rb='ruby'
-alias js='node'
-alias n='npm'
-alias ni='npm install'
-alias nid='npm install --save-dev'
-alias ns='npm start'
+alias c='clear'
+alias x='exit'
 
-alias a='tmux attach'
-alias t='tmux'
-alias v='vim'
-
-# not an alias but pretend that it is okay?
-e () { emacs "$@" & disown; }
+# -- git ------------------------------
 
 alias g='git'
 alias ga='git add'
@@ -35,16 +28,29 @@ alias gu='git reset HEAD'
 alias pull='git pull'
 alias push='git push'
 
-alias eslint-config-init='$HOME/scripts/eslint-config-init.sh'
-alias info='clear; neofetch --color_blocks off --ascii_distro arch_small'
-alias pkgcount='(dpkg --list || pacman -Q) 2> /dev/null | wc -l'
+# -- applications ---------------------
+
+alias b='bundle'
+alias ror='bundle exec rails'
+
+alias js='node'
+alias n='npm'
+alias ni='npm install'
+alias nid='npm install --save-dev'
+alias ns='npm start'
+alias nr='npm run'
+
+alias a='tmux attach'
+alias t='tmux'
+alias v='vim'
+
+# not an alias but pretend that it is okay?
+e () { emacs "$@" & disown; }
+
 alias sf='screenfetch -n'
 alias nf='neofetch --off'
 
 alias ytdl='youtube-dl'
 alias mp3='youtube-dl --extract-audio --audio-format mp3'
 
-alias thanks='echo Anytime'
-
-alias c='clear'
-alias x='exit'
+alias eslint-config-init='$HOME/scripts/eslint-config-init.sh'
