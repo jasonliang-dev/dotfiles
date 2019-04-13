@@ -1,13 +1,14 @@
 #!/usr/bin/env sh
+
 rofi \
     -show run \
     -fuzzy \
     -lines 5 \
     -eh 1 \
     -width 50 \
-    -padding 100 \
+    -padding 80 \
     -bw 0 \
     -color-enabled \
-    -color-window "#DD263238","#00000000","#00000000" \
-    -color-normal "#00000000","#FFB2CCD6","#00000000","#00000000","#FFEEFFFF" \
-    -font "Roboto Light 24"
+    -color-window "#EE1D1F21","#00000000","#00000000" \
+    -color-normal "#00000000","#FF969896","#00000000","#00000000","#FFC5C8C6" \
+    -font "Roboto Regular 18"
