@@ -4,10 +4,10 @@ rofi \
     -fuzzy \
     -lines 5 \
     -eh 1 \
-    -width 100 \
-    -padding 800 \
+    -width 50 \
+    -padding 100 \
     -bw 0 \
     -color-enabled \
-    -color-window "#BB263238" \
-    -color-normal "#00000000","#B2CCD6","#00000000","#00000000","#EEFFFF" \
-    -font "Roboto Regular 24"
+    -color-window "#DD263238","#00000000","#00000000" \
+    -color-normal "#00000000","#FFB2CCD6","#00000000","#00000000","#FFEEFFFF" \
+    -font "Roboto Light 24"
