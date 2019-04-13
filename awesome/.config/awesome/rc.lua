@@ -360,6 +360,37 @@ globalkeys = gears.table.join(
     -- Menubar
     -- awful.key({ modkey }, "p", function() menubar.show() end,
               -- {description = "show the menubar", group = "launcher"}),
+
+    -- Brightness
+    awful.key({ }, "XF86MonBrightnessDown",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/brightness.sh down") end,
+       {description = "decrease brightness", group = "brightness"}),
+    awful.key({ }, "XF86MonBrightnessUp",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/brightness.sh up") end,
+       {description = "increase brightness", group = "brightness"}),
+
+    -- Media Keys
+    awful.key({ }, "XF86AudioMute",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh mute") end,
+       {description = "mute volume", group = "audio"}),
+    awful.key({ }, "XF86AudioLowerVolume",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh down") end,
+       {description = "lower volume", group = "audio"}),
+    awful.key({ }, "XF86AudioRaiseVolume",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh up") end,
+       {description = "raise volume", group = "audio"}),
+    awful.key({ }, "XF86AudioPlay",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh play") end,
+       {description = "play music", group = "audio"}),
+    awful.key({ }, "XF86AudioStop",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh stop") end,
+       {description = "stop music", group = "audio"}),
+    awful.key({ }, "XF86AudioPrev",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh prev") end,
+       {description = "previous song", group = "audio"}),
+    awful.key({ }, "XF86AudioNext",
+       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh next") end,
+       {description = "next song", group = "audio"})
 )
 
 clientkeys = gears.table.join(
