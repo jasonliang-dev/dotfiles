@@ -6,7 +6,7 @@ xset r rate 270 27
 xinput set-prop 12 "libinput Disable While Typing Enabled" 0
 ~/scripts/feh.sh tile
 
-# compton &
-dunst &
-tint2 &
+compton &
+# dunst &
+# tint2 &
 # ~/scripts/polybar.sh &
