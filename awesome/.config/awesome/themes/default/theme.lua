@@ -9,22 +9,40 @@ local theme = {}
 
 theme.font          = "Roboto Regular 9"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+-- Base16 Tomorrow Night
+theme.base00 = "#1d1f21"
+theme.base01 = "#282a2e"
+theme.base02 = "#373b41"
+theme.base03 = "#969896"
+theme.base04 = "#b4b7b4"
+theme.base05 = "#c5c8c6"
+theme.base06 = "#e0e0e0"
+theme.base07 = "#ffffff"
+theme.base08 = "#cc6666"
+theme.base09 = "#de935f"
+theme.base0A = "#f0c674"
+theme.base0B = "#b5bd68"
+theme.base0C = "#8abeb7"
+theme.base0D = "#81a2be"
+theme.base0E = "#b294bb"
+theme.base0F = "#a3685a"
+
+theme.bg_normal     = theme.base00
+theme.bg_focus      = theme.base01
+theme.bg_urgent     = theme.base09
+theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_normal     = theme.base03
+theme.fg_focus      = theme.base04
+theme.fg_urgent     = theme.base04
+theme.fg_minimize   = theme.base04
 
-theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(1)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.useless_gap   = dpi(8)
+theme.border_width  = dpi(0)
+theme.border_color  = theme.base01
+theme.border_normal = theme.base01
+theme.border_focus  = theme.base0D
 
 -- There are other variable sets
 -- overriding the default one when
@@ -38,6 +56,14 @@ theme.border_marked = "#91231c"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+theme.hotkeys_bg = theme.base00
+theme.hotkeys_fg = theme.base05
+theme.hotkeys_modifiers_fg = theme.base03
+theme.hotkeys_label_bg = theme.base0D
+theme.hotkeys_label_fg = theme.base00
+theme.hotkeys_group_margin = 36
+theme.hotkeys_font = "Roboto Bold 9"
+theme.hotkeys_description_font = "Roboto Regular 9"
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
