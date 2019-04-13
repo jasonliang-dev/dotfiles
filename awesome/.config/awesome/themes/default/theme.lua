@@ -61,9 +61,7 @@ theme.hotkeys_fg = theme.base05
 theme.hotkeys_modifiers_fg = theme.base03
 theme.hotkeys_label_bg = theme.base0D
 theme.hotkeys_label_fg = theme.base00
-theme.hotkeys_group_margin = 36
-theme.hotkeys_font = "Roboto Bold 9"
-theme.hotkeys_description_font = "Roboto Regular 9"
+theme.hotkeys_group_margin = dpi(36)
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
