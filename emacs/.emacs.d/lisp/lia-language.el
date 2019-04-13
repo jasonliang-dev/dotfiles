@@ -92,6 +92,10 @@
   :ensure t
   :mode "\\.hs\\'")
 
+(use-package lua-mode
+  :ensure t
+  :mode "\\.lua\\'")
+
 (use-package php-mode
   :ensure t
   :mode "\\.php\\'")
