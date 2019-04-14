@@ -262,7 +262,7 @@ awful.screen.connect_for_each_screen(function(s)
       s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
       -- Create a textclock widget
-      local mytextclock = wibox.widget.textclock(" %a, %b %d  %I:%M", 10)
+      local mytextclock = wibox.widget.textclock(" %A, %B %d  %I:%M%P", 10)
 
       -- Create the wibox
       s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -677,7 +677,12 @@ client.connect_signal(
 
       awful.titlebar(c) : setup
       {
-         awful.titlebar.widget.titlewidget(c),
+         wibox.widget.base.empty_widget(),
+         {
+            align = "center",
+            widget = awful.titlebar.widget.titlewidget(c)
+         },
+         wibox.widget.base.empty_widget(),
          layout = wibox.layout.align.horizontal
       }
 end)
