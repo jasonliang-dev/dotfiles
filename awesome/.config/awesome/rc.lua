@@ -396,18 +396,20 @@ globalkeys = gears.table.join(
       {description = "run prompt", group = "launcher"}),
 
    -- awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
-             -- {description = "run prompt", group = "launcher"}),
+      -- {description = "run prompt", group = "launcher"}),
 
-   -- awful.key({ modkey }, "x",
-      -- function ()
-         -- awful.prompt.run {
-            -- prompt = "Run Lua code: ",
-            -- textbox = awful.screen.focused().mypromptbox.widget,
-            -- exe_callback = awful.util.eval,
-            -- history_path = awful.util.get_cache_dir() .. "/history_eval"
-         -- }
-      -- end,
-      -- {description = "lua execute prompt", group = "awesome"}),
+   --[[
+   awful.key({ modkey }, "x",
+      function ()
+         awful.prompt.run {
+            prompt = "Run Lua code: ",
+            textbox = awful.screen.focused().mypromptbox.widget,
+            exe_callback = awful.util.eval,
+            history_path = awful.util.get_cache_dir() .. "/history_eval"
+         }
+      end,
+      {description = "lua execute prompt", group = "awesome"}),
+   --]]
    -- Menubar
    -- awful.key({ modkey }, "p", function() menubar.show() end,
       -- {description = "show the menubar", group = "launcher"}),
@@ -645,13 +647,14 @@ client.connect_signal(
          end)
       )
 
+      --[[
       awful.titlebar(c) : setup
       {
-         -- { -- Left
-            -- awful.titlebar.widget.iconwidget(c),
-            -- buttons = buttons,
-            -- layout  = wibox.layout.fixed.horizontal
-         -- },
+         { -- Left
+            awful.titlebar.widget.iconwidget(c),
+            buttons = buttons,
+            layout  = wibox.layout.fixed.horizontal
+         },
          { -- Middle
             { -- Title
                align = "center",
@@ -660,27 +663,37 @@ client.connect_signal(
             buttons = buttons,
             layout = wibox.layout.fixed.horizontal
          },
-         -- { -- Right
-            -- awful.titlebar.widget.floatingbutton (c),
-            -- awful.titlebar.widget.maximizedbutton(c),
-            -- awful.titlebar.widget.stickybutton   (c),
-            -- awful.titlebar.widget.ontopbutton    (c),
-            -- awful.titlebar.widget.closebutton    (c),
-            -- layout = wibox.layout.fixed.horizontal()
-         -- },
+         { -- Right
+            awful.titlebar.widget.floatingbutton (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.stickybutton   (c),
+            awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.closebutton    (c),
+            layout = wibox.layout.fixed.horizontal()
+         },
+         layout = wibox.layout.align.horizontal
+      }
+      --]]
+
+      awful.titlebar(c) : setup
+      {
+         awful.titlebar.widget.titlewidget(c),
          layout = wibox.layout.align.horizontal
       }
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
--- client.connect_signal(
-   -- "mouse::enter",
-   -- function(c)
-      -- if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-      -- and awful.client.focus.filter(c) then
-         -- client.focus = c
-      -- end
--- end)
+--[[
+client.connect_signal(
+   "mouse::enter",
+   function(c)
+      if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+      and awful.client.focus.filter(c) then
+         client.focus = c
+      end
+end)
+--]]
+
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
