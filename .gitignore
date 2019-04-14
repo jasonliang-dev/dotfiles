@@ -1,6 +1,7 @@
 *.elc
 *~
 \#*
+awesome/.config/awesome/lain
 emacs/.emacs.d/.emacs.desktop
 emacs/.emacs.d/.emacs.desktop.lock
 emacs/.emacs.d/bookmarks

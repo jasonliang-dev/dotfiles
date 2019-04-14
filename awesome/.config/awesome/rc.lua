@@ -18,6 +18,9 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+-- Lain
+local lain = require("lain")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -134,8 +137,13 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+-- Volume wiget
+local lain_vol = lain.widget.alsa {
+   timeout = 5,
+   settings = function()
+      widget:set_markup("Vol: " .. volume_now.level)
+   end
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -218,6 +226,9 @@ awful.screen.connect_for_each_screen(function(s)
       -- Create a tasklist widget
       s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
+      -- Create a textclock widget
+      local mytextclock = wibox.widget.textclock()
+
       -- Create the wibox
       s.mywibox = awful.wibar({ position = "top", screen = s })
 
@@ -234,6 +245,7 @@ awful.screen.connect_for_each_screen(function(s)
          { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            lain_vol.widget,
             mytextclock,
             s.mylayoutbox,
          },
@@ -374,13 +386,22 @@ globalkeys = gears.table.join(
 
    -- Media Keys
    awful.key({ }, "XF86AudioMute",
-      function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh mute") end,
+      function()
+         awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh mute")
+         lain_vol.update()
+      end,
       {description = "mute volume", group = "audio"}),
    awful.key({ }, "XF86AudioLowerVolume",
-      function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh down") end,
+      function()
+         awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh down")
+         lain_vol.update()
+      end,
       {description = "lower volume", group = "audio"}),
    awful.key({ }, "XF86AudioRaiseVolume",
-      function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh up") end,
+      function()
+         awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh up")
+         lain_vol.update()
+      end,
       {description = "raise volume", group = "audio"}),
    awful.key({ }, "XF86AudioPlay",
       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh play") end,
