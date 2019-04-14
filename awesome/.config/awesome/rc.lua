@@ -103,7 +103,7 @@ end
 
 -- {{{ Notifications
 naughty.config.defaults.timeout = 5
-naughty.config.presets.low.timeout = 2
+naughty.config.presets.low.timeout = 3
 naughty.config.presets.critical.timeout = 12
 
 naughty.config.defaults['icon_size'] = beautiful.notification_icon_size
@@ -241,7 +241,7 @@ awful.screen.connect_for_each_screen(function(s)
       s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
       -- Create a textclock widget
-      local mytextclock = wibox.widget.textclock()
+      local mytextclock = wibox.widget.textclock(" %a, %b %d  %I:%M", 10)
 
       -- Create the wibox
       s.mywibox = awful.wibar({ position = "top", screen = s })
