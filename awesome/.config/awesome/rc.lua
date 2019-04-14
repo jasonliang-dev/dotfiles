@@ -101,6 +101,16 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
+-- {{{ Notifications
+naughty.config.defaults.timeout = 5
+naughty.config.presets.low.timeout = 2
+naughty.config.presets.critical.timeout = 12
+
+naughty.config.defaults['icon_size'] = beautiful.notification_icon_size
+naughty.config.padding = beautiful.notification_padding
+naughty.config.spacing = beautiful.notification_spacing
+-- }}}
+
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {

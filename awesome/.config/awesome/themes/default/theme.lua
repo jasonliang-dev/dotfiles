@@ -7,7 +7,7 @@ local themes_path = os.getenv("HOME") .. "/.config/awesome/themes/default"
 
 local theme = {}
 
-theme.font          = "Roboto Regular 9"
+theme.font = "Roboto Regular 10"
 
 -- Base16 Tomorrow Night
 theme.base00 = "#1d1f21"
@@ -77,13 +77,16 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
+theme.notification_icon_size = dpi(48)
+theme.notification_padding = 32
+theme.notification_spacing = 16
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path .. "/submenu.png"
-theme.menu_height = dpi(15)
-theme.menu_width  = dpi(100)
+theme.menu_height = dpi(32)
+theme.menu_width  = dpi(200)
 
 -- You can add as many variables as
 -- you wish and access them by using
