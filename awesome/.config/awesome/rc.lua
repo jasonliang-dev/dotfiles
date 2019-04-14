@@ -424,6 +424,9 @@ clientkeys = gears.table.join(
          c:raise()
       end,
       {description = "toggle fullscreen", group = "client"}),
+   awful.key({ modkey }, "c",
+      function (c) awful.placement.centered(c, { honor_workarea = true }) end,
+      {description = "center client", group = "client"}),
    awful.key({ modkey, "Shift" }, "q", function (c) c:kill() end,
       {description = "quit", group = "client"}),
    awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle ,
