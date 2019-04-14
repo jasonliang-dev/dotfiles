@@ -147,7 +147,28 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibar
--- Volume wiget
+-- Battery widget
+local lain_bat = lain.widget.bat {
+   n_perc = {15, 25},
+   settings = function()
+      local bat_icon = ""
+      local perc = bat_now.perc
+
+      if perc < 15 then
+         bat_icon = ""
+      elseif perc < 40 then
+         bat_icon = ""
+      elseif perc < 60 then
+         bat_icon = ""
+      elseif perc < 80 then
+         bat_icon = ""
+      end
+
+      widget:set_markup(bat_icon .. " " .. bat_now.perc .. "%")
+   end
+}
+
+-- Volume widget
 local lain_vol = lain.widget.alsa {
    timeout = 5,
    settings = function()
@@ -259,6 +280,7 @@ awful.screen.connect_for_each_screen(function(s)
          { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            lain_bat.widget,
             lain_vol.widget,
             mytextclock,
             s.mylayoutbox,
