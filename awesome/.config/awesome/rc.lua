@@ -397,8 +397,15 @@ globalkeys = gears.table.join(
    -- Media Keys
    awful.key({ }, "XF86AudioMute",
       function()
-         awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh mute")
-         lain_vol.update()
+         -- Running the following line doesn't trigger the volume widget update
+         -- awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh mute")
+
+         -- Running the command async fixes this though
+         awful.spawn.easy_async_with_shell(
+            os.getenv("HOME") .. "/scripts/audio.sh mute",
+            function()
+               lain_vol.update()
+         end)
       end,
       {description = "mute volume", group = "audio"}),
    awful.key({ }, "XF86AudioLowerVolume",
