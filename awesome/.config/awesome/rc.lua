@@ -413,6 +413,7 @@ globalkeys = gears.table.join(
          lain_vol.update()
       end,
       {description = "raise volume", group = "audio"}),
+
    awful.key({ }, "XF86AudioPlay",
       function() awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh play") end,
       {description = "play music", group = "audio"}),
@@ -459,7 +460,7 @@ clientkeys = gears.table.join(
          c.maximized = not c.maximized
          c:raise()
       end ,
-      {description = "(un)maximize", group = "client"})
+      {description = "toggle maximize", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -613,40 +614,40 @@ client.connect_signal(
 
       awful.titlebar(c) : setup
       {
-         { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-         },
+         -- { -- Left
+            -- awful.titlebar.widget.iconwidget(c),
+            -- buttons = buttons,
+            -- layout  = wibox.layout.fixed.horizontal
+         -- },
          { -- Middle
             { -- Title
-               align  = "center",
+               align = "center",
                widget = awful.titlebar.widget.titlewidget(c)
             },
             buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
+            layout = wibox.layout.fixed.horizontal
          },
-         { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-         },
+         -- { -- Right
+            -- awful.titlebar.widget.floatingbutton (c),
+            -- awful.titlebar.widget.maximizedbutton(c),
+            -- awful.titlebar.widget.stickybutton   (c),
+            -- awful.titlebar.widget.ontopbutton    (c),
+            -- awful.titlebar.widget.closebutton    (c),
+            -- layout = wibox.layout.fixed.horizontal()
+         -- },
          layout = wibox.layout.align.horizontal
       }
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal(
-   "mouse::enter",
-   function(c)
-      if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-      and awful.client.focus.filter(c) then
-         client.focus = c
-      end
-end)
+-- client.connect_signal(
+   -- "mouse::enter",
+   -- function(c)
+      -- if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+      -- and awful.client.focus.filter(c) then
+         -- client.focus = c
+      -- end
+-- end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
