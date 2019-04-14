@@ -151,7 +151,11 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 local lain_vol = lain.widget.alsa {
    timeout = 5,
    settings = function()
-      widget:set_markup("Vol: " .. volume_now.level)
+      if volume_now.status == "on" then
+         widget:set_markup(" " .. volume_now.level .. "%")
+      else
+         widget:set_markup(" mute")
+      end
    end
 }
 
