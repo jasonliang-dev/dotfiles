@@ -675,7 +675,7 @@ client.connect_signal(
       }
       --]]
 
-      awful.titlebar(c) : setup
+      awful.titlebar(c, { size = beautiful.titlebar_size }) : setup
       {
          wibox.widget.base.empty_widget(),
          {
