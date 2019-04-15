@@ -181,6 +181,9 @@ local lain_vol = lain.widget.alsa {
    end
 }
 
+-- Create a textclock widget
+local mytextclock = wibox.widget.textclock(" %A, %B %d  %I:%M%P", 10)
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
    awful.button({ }, 1, function(t) t:view_only() end),
@@ -244,7 +247,7 @@ awful.screen.connect_for_each_screen(function(s)
       set_wallpaper(s)
 
       -- Each screen has its own tag table.
-      awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+      awful.tag(beautiful.tags_empty, s, awful.layout.layouts[1])
 
       -- Create a promptbox for each screen
       s.mypromptbox = awful.widget.prompt()
@@ -260,10 +263,21 @@ awful.screen.connect_for_each_screen(function(s)
       s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
       -- Create a tasklist widget
-      s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
-
-      -- Create a textclock widget
-      local mytextclock = wibox.widget.textclock(" %A, %B %d  %I:%M%P", 10)
+      -- https://www.reddit.com/r/awesomewm/comments/6cuuz8/awesome_fixed_width_tasklist_items/di9lkb5
+      s.mytasklist = awful.widget.tasklist (
+         s, -- args
+         awful.widget.tasklist.filter.currenttags, -- filter
+         tasklist_buttons, -- buttons
+         { -- style
+            align = "center",
+            spacing = 4,
+         },
+         function (w, buttons, label, data, objects) -- update
+            awful.widget.common.list_update(w, buttons, label, data, objects)
+            w:set_max_widget_size(300)
+         end,
+         wibox.layout.flex.horizontal() -- base widget
+      )
 
       -- Create the wibox
       s.mywibox = awful.wibar({ position = "top", screen = s })
