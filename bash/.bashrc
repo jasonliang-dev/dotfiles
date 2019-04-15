@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 source $HOME/.alias
-source $HOME/.path
+source $HOME/.env
 
 export EDITOR='vim'
 export VISUAL='vim'
