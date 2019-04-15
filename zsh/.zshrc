@@ -19,7 +19,3 @@ source $HOME/.alias
 source $HOME/.env
 
 (fortune -s && echo "") 2> /dev/null
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/jason/.sdkman"
-# [[ -s "/home/jason/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jason/.sdkman/bin/sdkman-init.sh"
