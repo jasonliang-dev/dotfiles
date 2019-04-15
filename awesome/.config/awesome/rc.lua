@@ -181,7 +181,8 @@ local lain_vol = lain.widget.alsa {
 }
 
 -- Create a textclock widget
-local mytextclock = wibox.widget.textclock(" %A, %B %d  %I:%M%P", 10)
+local mytextcalendar = wibox.widget.textclock(" %A, %B %d")
+local mytextclock = wibox.widget.textclock(" %I:%M%P")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -263,8 +264,8 @@ awful.screen.connect_for_each_screen(function(s)
 
       -- Create a tasklist widget
       -- https://www.reddit.com/r/awesomewm/comments/6cuuz8/awesome_fixed_width_tasklist_items/di9lkb5
-      s.mytasklist = awful.widget.tasklist (
-         s, -- args
+      s.mytasklist = awful.widget.tasklist(
+         s, -- screen
          awful.widget.tasklist.filter.currenttags, -- filter
          tasklist_buttons, -- buttons
          { -- style
@@ -273,32 +274,46 @@ awful.screen.connect_for_each_screen(function(s)
          },
          function (w, buttons, label, data, objects) -- update
             awful.widget.common.list_update(w, buttons, label, data, objects)
-            w:set_max_widget_size(300)
+            w:set_max_widget_size(beautiful.tasklist_width)
          end,
          wibox.layout.flex.horizontal() -- base widget
       )
 
       -- Create the wibox
-      s.mywibox = awful.wibar({ position = "top", screen = s })
+      s.mywibox = awful.wibar({ position = "bottom", screen = s })
 
       -- Add widgets to the wibox
+      local margin = wibox.container.margin
+      local outer_padding = 10
+      local inner_padding = 5
       s.mywibox:setup {
-         layout = wibox.layout.align.horizontal,
          { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
+            layout = wibox.layout.fixed.horizontal
          },
          s.mytasklist, -- Middle widget
          { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            lain_bat.widget,
-            lain_vol.widget,
-            mytextclock,
+            margin(
+               wibox.widget {
+                  margin(lain_bat.widget, inner_padding, inner_padding),
+                  margin(lain_vol.widget, inner_padding, inner_padding),
+                  layout = wibox.layout.fixed.horizontal,
+               }, outer_padding, outer_padding
+            ),
+            margin(
+               wibox.widget {
+                  margin(mytextcalendar, inner_padding, inner_padding),
+                  margin(mytextclock, inner_padding, inner_padding),
+                  layout = wibox.layout.fixed.horizontal,
+               }, outer_padding, outer_padding
+            ),
             s.mylayoutbox,
+            layout = wibox.layout.fixed.horizontal
          },
+         layout = wibox.layout.align.horizontal
       }
 end)
 -- }}}
@@ -696,7 +711,7 @@ client.connect_signal(
          wibox.container.margin(wibox.widget {
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
+            layout = wibox.layout.fixed.horizontal,
          }, nil, 10),
          layout = wibox.layout.align.horizontal
       }
