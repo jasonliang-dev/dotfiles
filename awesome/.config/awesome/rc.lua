@@ -693,12 +693,12 @@ client.connect_signal(
       awful.titlebar(c, { size = beautiful.titlebar_size }) : setup
       {
          wibox.widget.base.empty_widget(),
-         wibox.container.margin(awful.titlebar.widget.titlewidget(c), beautiful.titlebar_size / 2),
-         {
+         wibox.container.margin(awful.titlebar.widget.titlewidget(c), 20),
+         wibox.container.margin(wibox.widget {
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.closebutton(c),
             layout = wibox.layout.fixed.horizontal()
-         },
+         }, nil, 10),
          layout = wibox.layout.align.horizontal
       }
 end)
