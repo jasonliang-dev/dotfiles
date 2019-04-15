@@ -9,23 +9,23 @@ local theme = {}
 
 theme.font = "Roboto Regular 10"
 
--- Base16 Material
-theme.base00 = "#263238"
-theme.base01 = "#2e3c43"
-theme.base02 = "#314549"
-theme.base03 = "#546e7a"
-theme.base04 = "#b2ccd6"
-theme.base05 = "#eeffff"
-theme.base06 = "#eeffff"
-theme.base07 = "#ffffff"
-theme.base08 = "#f07178"
-theme.base09 = "#f78c6c"
-theme.base0A = "#ffcb6b"
-theme.base0B = "#c3e88d"
-theme.base0C = "#89ddff"
-theme.base0D = "#82aaff"
-theme.base0E = "#c792ea"
-theme.base0F = "#ff5370"
+-- Base16 Theme
+theme.base00 = "#282c34"
+theme.base01 = "#353b45"
+theme.base02 = "#3e4451"
+theme.base03 = "#545862"
+theme.base04 = "#565c64"
+theme.base05 = "#abb2bf"
+theme.base06 = "#b6bdca"
+theme.base07 = "#c8ccd4"
+theme.base08 = "#e06c75"
+theme.base09 = "#d19a66"
+theme.base0A = "#e5c07b"
+theme.base0B = "#98c379"
+theme.base0C = "#56b6c2"
+theme.base0D = "#61afef"
+theme.base0E = "#c678dd"
+theme.base0F = "#be5046"
 
 theme.bg_normal     = theme.base00
 theme.bg_focus      = theme.base01
@@ -33,10 +33,10 @@ theme.bg_urgent     = theme.base09
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = theme.base03
-theme.fg_focus      = theme.base04
-theme.fg_urgent     = theme.base04
-theme.fg_minimize   = theme.base04
+theme.fg_normal     = theme.base04
+theme.fg_focus      = theme.base05
+theme.fg_urgent     = theme.base05
+theme.fg_minimize   = theme.base05
 
 theme.useless_gap   = dpi(8)
 theme.border_width  = dpi(0)
@@ -98,10 +98,12 @@ theme.menu_width  = dpi(200)
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
+theme.tasklist_width = 300
 theme.titlebar_size = dpi(35)
-theme.tags_empty = {"","","","","","","","",""}
-theme.tags_occupied = {"","","","","","","","","",}
-theme.tags_focused = {"","","","","","","","","",}
+theme.tags_empty = {"一", "二", "三", "四", "五", "六", "七", "八", "九"}
+-- theme.tags_empty = {"","","","","","","","",""}
+-- theme.tags_occupied = {"","","","","","","","",""}
+-- theme.tags_focused = {"","","","","","","","",""}
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "/titlebar/close_normal.svg"

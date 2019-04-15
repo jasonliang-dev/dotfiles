@@ -61,7 +61,7 @@
 ;; can't benchmark since esup crashes prematurely.
 ;; but I think it shaves about 0.1s compared to `set-frame-font' above
 ;; depends on the machine you're running on ofc
-(add-to-list 'default-frame-alist '(font . "Iosevka 11"))
+(add-to-list 'default-frame-alist '(font . "Iosevka 10"))
 
 (provide 'lia-appearance)
 

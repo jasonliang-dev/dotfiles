@@ -169,7 +169,7 @@ local lain_bat = lain.widget.bat {
       end
 
       widget:set_markup(
-         utils.colorize_text(bat_icon .. " " .. bat_now.perc .. "%", beautiful.base04)
+         utils.colorize_text(bat_icon .. " " .. bat_now.perc .. "%", beautiful.base05)
       )
    end
 }
@@ -184,7 +184,7 @@ local lain_vol = lain.widget.alsa {
          display_text = " " .. volume_now.level .. "%"
       end
 
-      widget:set_markup(utils.colorize_text(display_text, beautiful.base04))
+      widget:set_markup(utils.colorize_text(display_text, beautiful.base05))
    end
 }
 
@@ -193,7 +193,8 @@ local mytextcalendar = wibox.widget.textclock(
    utils.colorize_text(" %a, %b %d", beautiful.base00)
 )
 local mytextclock = wibox.widget.textclock(
-   utils.colorize_text(" %I:%M%P", beautiful.base00)
+   utils.colorize_text(" %I:%M%P", beautiful.base00),
+   10
 )
 
 -- Create a wibox for each screen and add it
@@ -326,7 +327,7 @@ awful.screen.connect_for_each_screen(function(s)
          { -- Right widgets
             wibox.container.margin(wibox.widget.systray(), 0, 15),
             info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base02),
-            info_group({ mytextcalendar, mytextclock }, beautiful.base04),
+            info_group({ mytextcalendar, mytextclock }, beautiful.base05),
             layout = wibox.layout.fixed.horizontal
          },
          layout = wibox.layout.align.horizontal
