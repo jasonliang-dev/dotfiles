@@ -9,23 +9,23 @@ local theme = {}
 
 theme.font = "Roboto Regular 10"
 
--- Base16 Tomorrow Night
-theme.base00 = "#1d1f21"
-theme.base01 = "#282a2e"
-theme.base02 = "#373b41"
-theme.base03 = "#969896"
-theme.base04 = "#b4b7b4"
-theme.base05 = "#c5c8c6"
-theme.base06 = "#e0e0e0"
+-- Base16 Material
+theme.base00 = "#263238"
+theme.base01 = "#2e3c43"
+theme.base02 = "#314549"
+theme.base03 = "#546e7a"
+theme.base04 = "#b2ccd6"
+theme.base05 = "#eeffff"
+theme.base06 = "#eeffff"
 theme.base07 = "#ffffff"
-theme.base08 = "#cc6666"
-theme.base09 = "#de935f"
-theme.base0A = "#f0c674"
-theme.base0B = "#b5bd68"
-theme.base0C = "#8abeb7"
-theme.base0D = "#81a2be"
-theme.base0E = "#b294bb"
-theme.base0F = "#a3685a"
+theme.base08 = "#f07178"
+theme.base09 = "#f78c6c"
+theme.base0A = "#ffcb6b"
+theme.base0B = "#c3e88d"
+theme.base0C = "#89ddff"
+theme.base0D = "#82aaff"
+theme.base0E = "#c792ea"
+theme.base0F = "#ff5370"
 
 theme.bg_normal     = theme.base00
 theme.bg_focus      = theme.base01
