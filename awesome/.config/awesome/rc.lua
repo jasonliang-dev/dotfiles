@@ -401,10 +401,51 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift" }, "q", awesome.quit,
              -- {description = "quit awesome", group = "awesome"}),
 
-   awful.key({ modkey, "Shift" }, "l", function () awful.tag.incmwfact( 0.05) end,
-      {description = "increase master width factor", group = "layout"}),
-   awful.key({ modkey, "Shift" }, "h", function () awful.tag.incmwfact(-0.05) end,
-      {description = "decrease master width factor", group = "layout"}),
+   awful.key({ modkey, "Shift" }, "j",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if c ~= nil and (current_layout == "floating" or c.floating) then
+            c:relative_move(0, 40, 0, 0)
+         else
+            awful.client.swap.bydirection("down", c, nil)
+
+         end
+      end,
+      {description = "swap with direction down", group = "client"}),
+   awful.key({ modkey, "Shift" }, "k",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if c ~= nil and (current_layout == "floating" or c.floating) then
+            c:relative_move(0, -40, 0, 0)
+         else
+            awful.client.swap.bydirection("up", c, nil)
+         end
+      end,
+      {description = "swap with direction up", group = "client"}),
+   awful.key({ modkey, "Shift" }, "h",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if c ~= nil and (current_layout == "floating" or c.floating) then
+            c:relative_move(-40, 0, 0, 0)
+         else
+            awful.client.swap.bydirection("left", c, nil)
+         end
+      end,
+      {description = "swap with direction left", group = "client"}),
+   awful.key({ modkey, "Shift" }, "l",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if c ~= nil and (current_layout == "floating" or c.floating) then
+            c:relative_move(40, 0, 0, 0)
+         else
+            awful.client.swap.bydirection("right", c, nil)
+         end
+      end,
+      {description = "swap with direction right", group = "client"}),
    -- awful.key({ modkey, "Shift" }, "h", function () awful.tag.incnmaster( 1, nil, true) end,
              -- {description = "increase the number of master clients", group = "layout"}),
    -- awful.key({ modkey, "Shift" }, "l", function () awful.tag.incnmaster(-1, nil, true) end,
