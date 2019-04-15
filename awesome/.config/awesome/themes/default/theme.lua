@@ -65,6 +65,8 @@ theme.hotkeys_group_margin = dpi(36)
 
 theme.tasklist_disable_icon = true
 
+theme.wibar_height = 35
+
 -- Generate taglist squares:
 local taglist_square_size = dpi(8)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(

@@ -186,10 +186,10 @@ local lain_vol = lain.widget.alsa {
 
 -- Create a textclock widget
 local mytextcalendar = wibox.widget.textclock(
-   utils.colorize_text(" %a, %b %d", beautiful.base05)
+   utils.colorize_text(" %a, %b %d", beautiful.base00)
 )
 local mytextclock = wibox.widget.textclock(
-   utils.colorize_text(" %I:%M%P", beautiful.base05)
+   utils.colorize_text(" %I:%M%P", beautiful.base00)
 )
 
 -- Create a wibox for each screen and add it
@@ -312,6 +312,7 @@ awful.screen.connect_for_each_screen(function(s)
 
       s.mywibox:setup {
          { -- Left widgets
+            s.mylayoutbox,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
@@ -321,8 +322,7 @@ awful.screen.connect_for_each_screen(function(s)
          { -- Right widgets
             wibox.container.margin(wibox.widget.systray(), 0, 15),
             info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base02),
-            info_group({ mytextcalendar, mytextclock }, beautiful.base03),
-            s.mylayoutbox,
+            info_group({ mytextcalendar, mytextclock }, beautiful.base04),
             layout = wibox.layout.fixed.horizontal
          },
          layout = wibox.layout.align.horizontal
