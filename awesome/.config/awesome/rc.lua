@@ -57,6 +57,10 @@ terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
+-- Floating client move and resize step
+client_move_step = 50
+client_resize_step = 50
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -350,6 +354,16 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "a", function () mymainmenu:show() end,
       {description = "show main menu", group = "awesome"}),
 
+   -- Standard program
+   awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
+      {description = "open a terminal", group = "launcher"}),
+   awful.key({ modkey, "Control" }, "Return",
+      function () awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/files.sh") end,
+      {description = "open file browser", group = "launcher"}),
+   awful.key({ modkey, "Control" }, "r", awesome.restart,
+      {description = "reload awesome", group = "awesome"}),
+
+   -- Focus
    awful.key({ modkey }, "j",
       function ()
          awful.client.focus.bydirection("down")
@@ -375,27 +389,19 @@ globalkeys = gears.table.join(
       end,
       {description = "focus right", group = "client"}),
 
-
-   -- Standard program
-   awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
-      {description = "open a terminal", group = "launcher"}),
-   awful.key({ modkey, "Control" }, "Return",
-      function () awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/files.sh") end,
-      {description = "open file browser", group = "launcher"}),
-   awful.key({ modkey, "Control" }, "r", awesome.restart,
-      {description = "reload awesome", group = "awesome"}),
-
    -- Layout manipulation
    awful.key({ altkey }, "Tab", function () awful.client.focus.byidx(1) end,
       {description = "focus next", group = "client"}),
    awful.key({ altkey, "Shift" }, "Tab", function () awful.client.focus.byidx(-1) end,
       {description = "focus previous", group = "client"}),
+
+   -- Swap/Move client
    awful.key({ modkey, "Shift" }, "j",
       function ()
          local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
          local c = client.focus
          if c ~= nil and (current_layout == "floating" or c.floating) then
-            c:relative_move(0, 40, 0, 0)
+            c:relative_move(0, client_move_step, 0, 0)
          else
             awful.client.swap.bydirection("down", c, nil)
 
@@ -407,7 +413,7 @@ globalkeys = gears.table.join(
          local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
          local c = client.focus
          if c ~= nil and (current_layout == "floating" or c.floating) then
-            c:relative_move(0, -40, 0, 0)
+            c:relative_move(0, -client_move_step, 0, 0)
          else
             awful.client.swap.bydirection("up", c, nil)
          end
@@ -418,7 +424,7 @@ globalkeys = gears.table.join(
          local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
          local c = client.focus
          if c ~= nil and (current_layout == "floating" or c.floating) then
-            c:relative_move(-40, 0, 0, 0)
+            c:relative_move(-client_move_step, 0, 0, 0)
          else
             awful.client.swap.bydirection("left", c, nil)
          end
@@ -429,12 +435,61 @@ globalkeys = gears.table.join(
          local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
          local c = client.focus
          if c ~= nil and (current_layout == "floating" or c.floating) then
-            c:relative_move(40, 0, 0, 0)
+            c:relative_move(client_move_step, 0, 0, 0)
          else
             awful.client.swap.bydirection("right", c, nil)
          end
       end,
       {description = "swap with direction right", group = "client"}),
+
+   -- Resize Client
+   awful.key({ modkey, "Control" }, "j",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if current_layout == "floating" or c.floating == true then
+            c:relative_move(0, 0, 0, client_resize_step)
+         else
+            awful.client.incwfact(0.05)
+         end
+      end,
+      {description = "resize down", group = "layout"}),
+
+   awful.key({ modkey, "Control" }, "k",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         if current_layout == "floating" or c.floating == true then
+            c:relative_move(0, 0, 0, -client_resize_step)
+         else
+            awful.client.incwfact(-0.05)
+         end
+      end,
+      {description = "resize up", group = "layout"}),
+   awful.key({ modkey, "Control" }, "h",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         -- Floating: resize client
+         if current_layout == "floating" or c.floating == true then
+            c:relative_move(0, 0, -client_resize_step, 0)
+         else
+            awful.tag.incmwfact(-0.05)
+         end
+      end,
+      {description = "resize left", group = "layout"}),
+   awful.key({ modkey, "Control" }, "l",
+      function ()
+         local current_layout = awful.layout.getname(awful.layout.get(awful.screen.focused()))
+         local c = client.focus
+         -- Floating: resize client
+         if current_layout == "floating" or c.floating == true then
+            c:relative_move(0, 0, client_resize_step, 0)
+         else
+            awful.tag.incmwfact(0.05)
+         end
+      end,
+      {description = "resize right", group = "layout"}),
 
    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end,
       {description = "select next layout", group = "layout"}),
