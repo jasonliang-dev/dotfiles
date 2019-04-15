@@ -18,8 +18,8 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
--- Lain
 local lain = require("lain")
+local utils = require("utils")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -164,7 +164,9 @@ local lain_bat = lain.widget.bat {
          bat_icon = ""
       end
 
-      widget:set_markup(bat_icon .. " " .. bat_now.perc .. "%")
+      widget:set_markup(
+         utils.colorize_text(bat_icon .. " " .. bat_now.perc .. "%", beautiful.base04)
+      )
    end
 }
 
@@ -172,17 +174,23 @@ local lain_bat = lain.widget.bat {
 local lain_vol = lain.widget.alsa {
    timeout = 5,
    settings = function()
+      local display_text = " mute"
+
       if volume_now.status == "on" then
-         widget:set_markup(" " .. volume_now.level .. "%")
-      else
-         widget:set_markup(" mute")
+         display_text = " " .. volume_now.level .. "%"
       end
+
+      widget:set_markup(utils.colorize_text(display_text, beautiful.base04))
    end
 }
 
 -- Create a textclock widget
-local mytextcalendar = wibox.widget.textclock(" %A, %B %d")
-local mytextclock = wibox.widget.textclock(" %I:%M%P")
+local mytextcalendar = wibox.widget.textclock(
+   utils.colorize_text(" %a, %b %d", beautiful.base05)
+)
+local mytextclock = wibox.widget.textclock(
+   utils.colorize_text(" %I:%M%P", beautiful.base05)
+)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -283,9 +291,22 @@ awful.screen.connect_for_each_screen(function(s)
       s.mywibox = awful.wibar({ position = "bottom", screen = s })
 
       -- Add widgets to the wibox
-      local margin = wibox.container.margin
-      local outer_padding = 10
-      local inner_padding = 5
+
+      local function info_group(widgets, bg_color)
+         local outer_padding = 15
+         local inner_padding = 5
+
+         for i = 1, #widgets do
+            widgets[i] = wibox.container.margin(widgets[i], inner_padding, inner_padding)
+         end
+
+         widgets.layout = wibox.layout.fixed.horizontal
+
+         return wibox.container.background(
+            wibox.container.margin(wibox.widget(widgets), outer_padding, outer_padding), bg_color
+         )
+      end
+
       s.mywibox:setup {
          { -- Left widgets
             mylauncher,
@@ -295,21 +316,9 @@ awful.screen.connect_for_each_screen(function(s)
          },
          s.mytasklist, -- Middle widget
          { -- Right widgets
-            wibox.widget.systray(),
-            margin(
-               wibox.widget {
-                  margin(lain_bat.widget, inner_padding, inner_padding),
-                  margin(lain_vol.widget, inner_padding, inner_padding),
-                  layout = wibox.layout.fixed.horizontal,
-               }, outer_padding, outer_padding
-            ),
-            margin(
-               wibox.widget {
-                  margin(mytextcalendar, inner_padding, inner_padding),
-                  margin(mytextclock, inner_padding, inner_padding),
-                  layout = wibox.layout.fixed.horizontal,
-               }, outer_padding, outer_padding
-            ),
+            wibox.container.margin(wibox.widget.systray(), 0, 15),
+            info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base02),
+            info_group({ mytextcalendar, mytextclock }, beautiful.base03),
             s.mylayoutbox,
             layout = wibox.layout.fixed.horizontal
          },
