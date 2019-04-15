@@ -63,8 +63,10 @@ theme.hotkeys_label_bg = theme.base0D
 theme.hotkeys_label_fg = theme.base00
 theme.hotkeys_group_margin = dpi(36)
 
+theme.tasklist_disable_icon = true
+
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = dpi(8)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -95,33 +97,36 @@ theme.menu_width  = dpi(200)
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 theme.titlebar_size = dpi(35)
+theme.tags_empty = {"","","","","","","","",""}
+theme.tags_occupied = {"","","","","","","","","",}
+theme.tags_focused = {"","","","","","","","","",}
 
 -- Define the image to load
-theme.titlebar_close_button_normal = themes_path .. "/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = themes_path .. "/titlebar/close_focus.png"
+theme.titlebar_close_button_normal = themes_path .. "/titlebar/close_normal.svg"
+theme.titlebar_close_button_focus  = themes_path .. "/titlebar/close_focus.svg"
 
-theme.titlebar_minimize_button_normal = themes_path .. "/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = themes_path .. "/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal = themes_path .. "/titlebar/minimize_normal.svg"
+theme.titlebar_minimize_button_focus  = themes_path .. "/titlebar/minimize_focus.svg"
 
-theme.titlebar_ontop_button_normal_inactive = themes_path .. "/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = themes_path .. "/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = themes_path .. "/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = themes_path .. "/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = themes_path .. "/titlebar/ontop_normal_inactive.svg"
+theme.titlebar_ontop_button_focus_inactive  = themes_path .. "/titlebar/ontop_focus_inactive.svg"
+theme.titlebar_ontop_button_normal_active = themes_path .. "/titlebar/ontop_normal_active.svg"
+theme.titlebar_ontop_button_focus_active  = themes_path .. "/titlebar/ontop_focus_active.svg"
 
-theme.titlebar_sticky_button_normal_inactive = themes_path .. "/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = themes_path .. "/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = themes_path .. "/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = themes_path .. "/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = themes_path .. "/titlebar/sticky_normal_inactive.svg"
+theme.titlebar_sticky_button_focus_inactive  = themes_path .. "/titlebar/sticky_focus_inactive.svg"
+theme.titlebar_sticky_button_normal_active = themes_path .. "/titlebar/sticky_normal_active.svg"
+theme.titlebar_sticky_button_focus_active  = themes_path .. "/titlebar/sticky_focus_active.svg"
 
-theme.titlebar_floating_button_normal_inactive = themes_path .. "/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = themes_path .. "/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = themes_path .. "/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = themes_path .. "/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = themes_path .. "/titlebar/floating_normal_inactive.svg"
+theme.titlebar_floating_button_focus_inactive  = themes_path .. "/titlebar/floating_focus_inactive.svg"
+theme.titlebar_floating_button_normal_active = themes_path .. "/titlebar/floating_normal_active.svg"
+theme.titlebar_floating_button_focus_active  = themes_path .. "/titlebar/floating_focus_active.svg"
 
-theme.titlebar_maximized_button_normal_inactive = themes_path .. "/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path .. "/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = themes_path .. "/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = themes_path .. "/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = themes_path .. "/titlebar/maximized_normal_inactive.svg"
+theme.titlebar_maximized_button_focus_inactive  = themes_path .. "/titlebar/maximized_focus_inactive.svg"
+theme.titlebar_maximized_button_normal_active = themes_path .. "/titlebar/maximized_normal_active.svg"
+theme.titlebar_maximized_button_focus_active  = themes_path .. "/titlebar/maximized_focus_active.svg"
 
 theme.wallpaper = themes_path .. "/background.png"
 
