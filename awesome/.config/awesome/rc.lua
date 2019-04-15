@@ -150,6 +150,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Battery widget
 local lain_bat = lain.widget.bat {
    n_perc = {15, 25},
+   full_notify = "off",
    settings = function()
       local bat_icon = ""
       local perc = bat_now.perc
