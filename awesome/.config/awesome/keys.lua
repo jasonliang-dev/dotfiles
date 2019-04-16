@@ -227,20 +227,21 @@ keys.globalkeys = gears.table.join(
          awful.spawn.easy_async_with_shell(
             os.getenv("HOME") .. "/scripts/audio.sh mute",
             function()
-               lain_vol.update()
-         end)
+               awesome.emit_signal("volume_update")
+            end
+         )
       end,
       {description = "mute volume", group = "audio"}),
    awful.key({ }, "XF86AudioLowerVolume",
       function()
          awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh down")
-         lain_vol.update()
+         awesome.emit_signal("volume_update")
       end,
       {description = "lower volume", group = "audio"}),
    awful.key({ }, "XF86AudioRaiseVolume",
       function()
          awful.spawn.with_shell(os.getenv("HOME") .. "/scripts/audio.sh up")
-         lain_vol.update()
+         awesome.emit_signal("volume_update")
       end,
       {description = "raise volume", group = "audio"}),
 
