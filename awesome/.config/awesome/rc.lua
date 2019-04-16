@@ -19,7 +19,6 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local lain = require("lain")
-local utils = require("utils")
 local keys = require("keys")
 
 -- {{{ Error handling
@@ -145,9 +144,7 @@ local lain_bat = lain.widget.bat {
          bat_icon = ""
       end
 
-      widget:set_markup(
-         utils.colorize_text(bat_icon .. " " .. bat_now.perc .. "%", beautiful.base05)
-      )
+      widget:set_markup(lain.util.markup.fg.color(beautiful.base05, bat_icon .. " " .. bat_now.perc .. "%"))
    end
 }
 
@@ -161,16 +158,16 @@ local lain_vol = lain.widget.alsa {
          display_text = " " .. volume_now.level .. "%"
       end
 
-      widget:set_markup(utils.colorize_text(display_text, beautiful.base05))
+      widget:set_markup(lain.util.markup.fg.color(beautiful.base05, display_text))
    end
 }
 
 -- Create a textclock widget
 local mytextcalendar = wibox.widget.textclock(
-   utils.colorize_text(" %a, %b %d", beautiful.base00)
+   lain.util.markup.fg.color(beautiful.base00, " %a, %b %d")
 )
 local mytextclock = wibox.widget.textclock(
-   utils.colorize_text(" %I:%M%P", beautiful.base00),
+   lain.util.markup.fg.color(beautiful.base00, " %I:%M%P"),
    10
 )
 
