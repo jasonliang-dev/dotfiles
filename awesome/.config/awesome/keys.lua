@@ -284,14 +284,13 @@ keys.clientkeys = gears.table.join(
          -- The client currently has the input focus, so it cannot be
          -- minimized, since minimized clients can't have the focus.
          c.minimized = true
-      end ,
+      end,
       {description = "minimize", group = "client"}),
    awful.key({ modkey }, "w",
       function (c)
-         awful.titlebar.toggle(c)
          c.maximized = not c.maximized
          c:raise()
-      end ,
+      end,
       {description = "toggle maximize", group = "client"}),
    awful.key({ modkey }, "s",
       function (c)
