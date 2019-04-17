@@ -68,13 +68,8 @@ theme.tasklist_disable_icon = true
 theme.wibar_height = 35
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(8)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+theme.taglist_squares_sel = themes_path .. "/taglist/tag-sel.png"
+theme.taglist_squares_unsel = themes_path .. "/taglist/tag-unsel.png"
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -82,7 +77,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
 theme.notification_bg = theme.base02
-theme.notification_fg = theme.base04
+theme.notification_fg = theme.base05
 theme.notification_icon_size = dpi(48)
 theme.notification_padding = 32
 theme.notification_spacing = 16
@@ -100,10 +95,12 @@ theme.menu_width  = dpi(200)
 -- beautiful.variable in your rc.lua
 theme.tasklist_width = 300
 theme.titlebar_size = dpi(35)
-theme.tags_empty = {"一", "二", "三", "四", "五", "六", "七", "八", "九"}
--- theme.tags_empty = {"","","","","","","","",""}
--- theme.tags_occupied = {"","","","","","","","",""}
--- theme.tags_focused = {"","","","","","","","",""}
+theme.tags = {
+   { icon = themes_path .. "/taglist/1.png" },
+   { icon = themes_path .. "/taglist/2.png" },
+   { icon = themes_path .. "/taglist/3.png" },
+   { icon = themes_path .. "/taglist/4.png" },
+}
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "/titlebar/close_normal.svg"
@@ -132,7 +129,7 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path .. "/titlebar/maxi
 theme.titlebar_maximized_button_normal_active = themes_path .. "/titlebar/maximized_normal_active.svg"
 theme.titlebar_maximized_button_focus_active  = themes_path .. "/titlebar/maximized_focus_active.svg"
 
-theme.wallpaper = themes_path .. "/background.png"
+-- theme.wallpaper = themes_path .. "/background.png"
 
 -- You can use your own layout icons like this:
 theme.layout_floating  = themes_path .. "/layouts/floatingw.png"

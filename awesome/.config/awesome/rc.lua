@@ -79,6 +79,38 @@ awful.layout.layouts = {
 -- }}}
 
 -- {{{ Helper functions
+function create_tags(tags, screen, layout)
+    -- True if `layout` should be used as the layout of each created tag
+    local have_single_layout = (not layout) or (layout.arrange and layout.name)
+    local tag_widgets = {}
+
+    for id, tag in ipairs(tags) do
+        local l = layout
+
+        if not have_single_layout then
+            l = layout[id] or layout[1]
+        end
+
+        table.insert(
+           tag_widgets,
+           awful.tag.add(
+              id,
+              {
+                 icon = tag.icon,
+                 icon_only = true,
+                 screen = screen,
+                 layout = l
+              }
+           )
+        )
+        -- Select the first tag.
+        if id == 1 then
+            tag_widgets[id].selected = true
+        end
+    end
+
+    return tag_widgets
+end
 -- }}}
 
 -- {{{ Notifications
@@ -190,9 +222,8 @@ awful.screen.connect_for_each_screen(function(s)
 
       -- Each screen has its own tag table.
       local l = awful.layout.suit
-      local layouts = { l.floating, l.tile, l.tile, l.tile, l.floating,
-                        l.floating, l.floating, l.floating, l.floating }
-      awful.tag(beautiful.tags_empty, s, layouts)
+      local layouts = {l.floating, l.tile, l.tile, l.tile}
+      create_tags(beautiful.tags, s, layouts)
 
       -- Create an imagebox widget which will contain an icon indicating which layout we're using.
       -- We need one layoutbox per screen.
@@ -202,8 +233,19 @@ awful.screen.connect_for_each_screen(function(s)
                                awful.button({ }, 3, function () awful.layout.inc(-1) end),
                                awful.button({ }, 4, function () awful.layout.inc( 1) end),
                                awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
+      local taglist_layout = wibox.layout.flex.horizontal()
+      taglist_layout.forced_width = beautiful.xresources.apply_dpi(174) -- looks centered-ish...
+
       -- Create a taglist widget
-      s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, keys.taglist_buttons)
+      s.mytaglist = awful.widget.taglist(
+         s,
+         awful.widget.taglist.filter.all,
+         keys.taglist_buttons,
+         nil,
+         nil,
+         taglist_layout
+      )
 
       -- Create a tasklist widget
       -- https://www.reddit.com/r/awesomewm/comments/6cuuz8/awesome_fixed_width_tasklist_items/di9lkb5
