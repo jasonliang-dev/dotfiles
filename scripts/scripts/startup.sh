@@ -7,6 +7,7 @@ xinput set-prop 12 "libinput Disable While Typing Enabled" 0
 ~/scripts/feh.sh tile
 
 compton &
+nm-applet &
 # dunst &
 # tint2 &
 # ~/scripts/polybar.sh &
