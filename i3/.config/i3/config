@@ -220,7 +220,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 # }}}
 
 # startup {{{
-exec_always --no-startup-id ~/scripts/startup.sh
+exec_always --no-startup-id ~/scripts/startup.sh --polybar
 # }}}
 
 # }}}

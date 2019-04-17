@@ -1,1 +1,1 @@
-~/scripts/startup.sh
+~/scripts/startup.sh --tint2 --dunst
