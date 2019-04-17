@@ -11,6 +11,3 @@ antigen apply
 # User configuration
 
 source $HOME/.shell-start
-
-export EDITOR='vi'
-export VISUAL='vi'
