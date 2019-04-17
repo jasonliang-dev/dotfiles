@@ -119,8 +119,6 @@ else
    })
 end
 
-mylauncher = awful.widget.launcher({ menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -196,8 +194,6 @@ awful.screen.connect_for_each_screen(function(s)
                         l.floating, l.floating, l.floating, l.floating }
       awful.tag(beautiful.tags_empty, s, layouts)
 
-      -- Create a promptbox for each screen
-      s.mypromptbox = awful.widget.prompt()
       -- Create an imagebox widget which will contain an icon indicating which layout we're using.
       -- We need one layoutbox per screen.
       s.mylayoutbox = awful.widget.layoutbox(s)
@@ -248,15 +244,13 @@ awful.screen.connect_for_each_screen(function(s)
 
       s.mywibox:setup {
          { -- Left widgets
-            s.mylayoutbox,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
+            wibox.container.background(s.mylayoutbox, beautiful.base01),
+            wibox.container.margin(s.mytaglist, 4, 4),
             layout = wibox.layout.fixed.horizontal
          },
          s.mytasklist, -- Middle widget
          { -- Right widgets
-            wibox.container.margin(wibox.widget.systray(), 0, 15),
+            wibox.container.margin(wibox.widget.systray(), 15, 15),
             info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base02),
             info_group({ mytextcalendar, mytextclock }, beautiful.base05),
             layout = wibox.layout.fixed.horizontal
