@@ -194,10 +194,10 @@ local lain_vol = lain.widget.alsa {
 
 -- Create a textclock widget
 local mytextcalendar = wibox.widget.textclock(
-   lain.util.markup.fg.color(beautiful.base00, " %a, %b %d")
+   lain.util.markup.fg.color(beautiful.base05, " %a, %b %d")
 )
 local mytextclock = wibox.widget.textclock(
-   lain.util.markup.fg.color(beautiful.base00, " %I:%M%P"),
+   lain.util.markup.fg.color(beautiful.base05, " %I:%M%P"),
    10
 )
 
@@ -259,7 +259,7 @@ awful.screen.connect_for_each_screen(function(s)
          },
          function (w, buttons, label, data, objects) -- update
             awful.widget.common.list_update(w, buttons, label, data, objects)
-            w:set_max_widget_size(beautiful.tasklist_width)
+            w:set_max_widget_size(beautiful.tasklist_item_width)
          end,
          wibox.layout.flex.horizontal() -- base widget
       )
@@ -293,8 +293,8 @@ awful.screen.connect_for_each_screen(function(s)
          s.mytasklist, -- Middle widget
          { -- Right widgets
             wibox.container.margin(wibox.widget.systray(), 15, 15),
-            info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base02),
-            info_group({ mytextcalendar, mytextclock }, beautiful.base05),
+            info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base01),
+            info_group({ mytextcalendar, mytextclock }, beautiful.base02),
             layout = wibox.layout.fixed.horizontal
          },
          layout = wibox.layout.align.horizontal
@@ -387,16 +387,13 @@ client.connect_signal(
          end)
       )
 
+      local titlewidget = awful.titlebar.widget.titlewidget(c)
+      titlewidget.font = beautiful.titlebar_font
+
       awful.titlebar(c, { size = beautiful.titlebar_size }) : setup
       {
-         wibox.widget.base.empty_widget(),
-         wibox.container.margin(awful.titlebar.widget.titlewidget(c), 20),
-         wibox.container.margin(wibox.widget {
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal,
-         }, nil, 10),
-         layout = wibox.layout.align.horizontal
+         { widget = titlewidget, align = "center" },
+         layout = wibox.layout.stack()
       }
 end)
 

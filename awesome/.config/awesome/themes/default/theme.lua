@@ -93,8 +93,9 @@ theme.menu_width  = dpi(200)
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
-theme.tasklist_width = 300
 theme.titlebar_size = dpi(35)
+theme.titlebar_font = "Roboto Condensed Regular 9"
+theme.tasklist_item_width = 300
 theme.tags = {
    { icon = themes_path .. "/taglist/1.png" },
    { icon = themes_path .. "/taglist/2.png" },
