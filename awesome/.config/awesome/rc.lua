@@ -174,7 +174,7 @@ local lain_bat = lain.widget.bat {
          bat_icon = ""
       end
 
-      widget:set_markup(lain.util.markup.fg.color(beautiful.base05, bat_icon .. " " .. bat_now.perc .. "%"))
+      widget:set_markup(lain.util.markup.fg.color(beautiful.base05, bat_icon .. "  " .. bat_now.perc .. "%"))
    end
 }
 
@@ -182,10 +182,10 @@ local lain_bat = lain.widget.bat {
 local lain_vol = lain.widget.alsa {
    timeout = 5,
    settings = function()
-      local display_text = " mute"
+      local display_text = "  mute"
 
       if volume_now.status == "on" then
-         display_text = " " .. volume_now.level .. "%"
+         display_text = "  " .. volume_now.level .. "%"
       end
 
       widget:set_markup(lain.util.markup.fg.color(beautiful.base05, display_text))
@@ -194,10 +194,10 @@ local lain_vol = lain.widget.alsa {
 
 -- Create a textclock widget
 local mytextcalendar = wibox.widget.textclock(
-   lain.util.markup.fg.color(beautiful.base05, " %a, %b %d")
+   lain.util.markup.fg.color(beautiful.base05, "  %B %d")
 )
 local mytextclock = wibox.widget.textclock(
-   lain.util.markup.fg.color(beautiful.base05, " %I:%M%P"),
+   lain.util.markup.fg.color(beautiful.base05, "  %I:%M%P"),
    10
 )
 
