@@ -113,14 +113,12 @@ function create_tags(tags, screen, layout)
 end
 
 function update_tag_icons(tags)
-   gears.debug.dump(tags[1].icon)
-   gears.debug.dump(beautiful.tags[1].focused_icon)
    ---[[
    for i, tag in ipairs(tags) do
-      gears.debug.dump(tags[i])
-
       if tag.selected then
          tag.icon = beautiful.tags[i].focused_icon
+      elseif tag.urgent then
+         tag.icon = beautiful.tags[i].urgent_icon
       elseif #tag:clients() > 0 then
          tag.icon = beautiful.tags[i].occupied_icon
       else
@@ -284,8 +282,8 @@ awful.screen.connect_for_each_screen(function(s)
       -- Add widgets to the wibox
 
       local function info_group(widgets, bg_color)
-         local outer_padding = 15
-         local inner_padding = 5
+         local outer_padding = 10
+         local inner_padding = 8 
 
          for i = 1, #widgets do
             widgets[i] = wibox.container.margin(widgets[i], inner_padding, inner_padding)
@@ -300,19 +298,26 @@ awful.screen.connect_for_each_screen(function(s)
 
       s.mywibox:setup {
          { -- Left widgets
-            wibox.container.background(s.mylayoutbox, beautiful.base01),
-            wibox.container.margin(s.mytaglist, 4, 4),
+            wibox.container.margin(s.mytaglist, 0, 4),
             layout = wibox.layout.fixed.horizontal
          },
          s.mytasklist, -- Middle widget
          { -- Right widgets
-            wibox.container.margin(wibox.widget.systray(), 15, 15),
-            info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base01),
-            info_group({ mytextcalendar, mytextclock }, beautiful.base02),
+            wibox.container.margin(wibox.widget.systray(), 0, 0),
+            info_group({ lain_bat.widget, lain_vol.widget }, beautiful.base00),
+            info_group({ mytextcalendar, mytextclock }, beautiful.base01),
+            s.mylayoutbox,
             layout = wibox.layout.fixed.horizontal
          },
          layout = wibox.layout.align.horizontal
       }
+
+      awful.tag.attached_connect_signal(s, "property::selected", function () update_tag_icons(s.tags) end)
+      awful.tag.attached_connect_signal(s, "property::hide", function () update_tag_icons(s.tags) end)
+      awful.tag.attached_connect_signal(s, "property::activated", function () update_tag_icons(s.tags) end)
+      awful.tag.attached_connect_signal(s, "property::screen", function () update_tag_icons(s.tags) end)
+      awful.tag.attached_connect_signal(s, "property::index", function () update_tag_icons(s.tags) end)
+      awful.tag.attached_connect_signal(s, "property::urgent", function () update_tag_icons(s.tags) end)
 end)
 -- }}}
 
@@ -321,15 +326,16 @@ end)
 awful.rules.rules = {
    -- All clients will match this rule.
    { rule = { },
-     properties = { border_width = beautiful.border_width,
-                    border_color = beautiful.border_normal,
-                    focus = awful.client.focus.filter,
-                    raise = true,
-                    keys = keys.clientkeys,
-                    buttons = keys.clientbuttons,
-                    screen = awful.screen.preferred,
-                    placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                    size_hints_honor = false
+     properties = {
+        border_width = beautiful.border_width,
+        border_color = beautiful.border_normal,
+        focus = awful.client.focus.filter,
+        raise = true,
+        keys = keys.clientkeys,
+        buttons = keys.clientbuttons,
+        screen = awful.screen.preferred,
+        placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+        size_hints_honor = false
      },
      callback = awful.client.setslave
    },
@@ -415,6 +421,11 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("unmanage", function(c) update_tag_icons(awful.screen.focused().tags) end)
+client.connect_signal("untagged", function(c) update_tag_icons(awful.screen.focused().tags) end)
+client.connect_signal("tagged", function(c) update_tag_icons(awful.screen.focused().tags) end)
+client.connect_signal("screen", function(c) update_tag_icons(awful.screen.focused().tags) end)
 
 awesome.connect_signal("volume_update", function() lain_vol.update() end)
 

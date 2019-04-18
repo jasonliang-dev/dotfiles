@@ -61,6 +61,9 @@ theme.hotkeys_fg = theme.base05
 theme.hotkeys_modifiers_fg = theme.base03
 theme.hotkeys_group_margin = dpi(25)
 
+theme.taglist_bg_focus = theme.base00
+theme.taglist_bg_urgent = theme.base02
+
 theme.tasklist_disable_icon = true
 
 theme.wibar_height = 35
@@ -98,22 +101,26 @@ theme.tags = {
    {
       empty_icon = themes_path .. "/taglist/1_empty.png",
       focused_icon = themes_path .. "/taglist/1_focused.png",
-      occupied_icon = themes_path .. "/taglist/1_occupied.png"
+      occupied_icon = themes_path .. "/taglist/1_occupied.png",
+      urgent_icon = themes_path .. "/taglist/1_urgent.png"
    },
    {
       empty_icon = themes_path .. "/taglist/2_empty.png",
       focused_icon = themes_path .. "/taglist/2_focused.png",
-      occupied_icon = themes_path .. "/taglist/2_occupied.png"
+      occupied_icon = themes_path .. "/taglist/2_occupied.png",
+      urgent_icon = themes_path .. "/taglist/2_urgent.png"
    },
    {
       empty_icon = themes_path .. "/taglist/3_empty.png",
       focused_icon = themes_path .. "/taglist/3_focused.png",
-      occupied_icon = themes_path .. "/taglist/3_occupied.png"
+      occupied_icon = themes_path .. "/taglist/3_occupied.png",
+      urgent_icon = themes_path .. "/taglist/3_urgent.png"
    },
    {
       empty_icon = themes_path .. "/taglist/4_empty.png",
       focused_icon = themes_path .. "/taglist/4_focused.png",
-      occupied_icon = themes_path .. "/taglist/4_occupied.png"
+      occupied_icon = themes_path .. "/taglist/4_occupied.png",
+      urgent_icon = themes_path .. "/taglist/4_urgent.png"
    },
 }
 
