@@ -95,10 +95,26 @@ theme.titlebar_size = dpi(35)
 theme.titlebar_font = "Roboto Condensed Regular 9"
 theme.tasklist_item_width = 300
 theme.tags = {
-   { icon = themes_path .. "/taglist/1_empty.png" },
-   { icon = themes_path .. "/taglist/2_empty.png" },
-   { icon = themes_path .. "/taglist/3_empty.png" },
-   { icon = themes_path .. "/taglist/4_empty.png" },
+   {
+      empty_icon = themes_path .. "/taglist/1_empty.png",
+      focused_icon = themes_path .. "/taglist/1_focused.png",
+      occupied_icon = themes_path .. "/taglist/1_occupied.png"
+   },
+   {
+      empty_icon = themes_path .. "/taglist/2_empty.png",
+      focused_icon = themes_path .. "/taglist/2_focused.png",
+      occupied_icon = themes_path .. "/taglist/2_occupied.png"
+   },
+   {
+      empty_icon = themes_path .. "/taglist/3_empty.png",
+      focused_icon = themes_path .. "/taglist/3_focused.png",
+      occupied_icon = themes_path .. "/taglist/3_occupied.png"
+   },
+   {
+      empty_icon = themes_path .. "/taglist/4_empty.png",
+      focused_icon = themes_path .. "/taglist/4_focused.png",
+      occupied_icon = themes_path .. "/taglist/4_occupied.png"
+   },
 }
 
 -- Define the image to load

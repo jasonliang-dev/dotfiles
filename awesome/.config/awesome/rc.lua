@@ -84,19 +84,19 @@ function create_tags(tags, screen, layout)
     local have_single_layout = (not layout) or (layout.arrange and layout.name)
     local tag_widgets = {}
 
-    for id, tag in ipairs(tags) do
+    for i, tag in ipairs(tags) do
         local l = layout
 
         if not have_single_layout then
-            l = layout[id] or layout[1]
+            l = layout[i] or layout[1]
         end
 
         table.insert(
            tag_widgets,
            awful.tag.add(
-              id,
+              i,
               {
-                 icon = tag.icon,
+                 icon = tag.empty_icon,
                  icon_only = true,
                  screen = screen,
                  layout = l
@@ -104,12 +104,30 @@ function create_tags(tags, screen, layout)
            )
         )
         -- Select the first tag.
-        if id == 1 then
-            tag_widgets[id].selected = true
+        if i == 1 then
+            tag_widgets[i].selected = true
         end
     end
 
     return tag_widgets
+end
+
+function update_tag_icons(tags)
+   gears.debug.dump(tags[1].icon)
+   gears.debug.dump(beautiful.tags[1].focused_icon)
+   ---[[
+   for i, tag in ipairs(tags) do
+      gears.debug.dump(tags[i])
+
+      if tag.selected then
+         tag.icon = beautiful.tags[i].focused_icon
+      elseif #tag:clients() > 0 then
+         tag.icon = beautiful.tags[i].occupied_icon
+      else
+         tag.icon = beautiful.tags[i].empty_icon
+      end
+   end
+   --]]
 end
 -- }}}
 
@@ -223,7 +241,9 @@ awful.screen.connect_for_each_screen(function(s)
       -- Each screen has its own tag table.
       local l = awful.layout.suit
       local layouts = {l.floating, l.tile, l.tile, l.tile}
-      create_tags(beautiful.tags, s, layouts)
+      local tags = create_tags(beautiful.tags, s, layouts)
+      -- update_tag_icons(awful.screen.focused().tags)
+      update_tag_icons(tags)
 
       -- Create an imagebox widget which will contain an icon indicating which layout we're using.
       -- We need one layoutbox per screen.
@@ -234,17 +254,11 @@ awful.screen.connect_for_each_screen(function(s)
                                awful.button({ }, 4, function () awful.layout.inc( 1) end),
                                awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
-      local taglist_layout = wibox.layout.flex.horizontal()
-      taglist_layout.forced_width = beautiful.xresources.apply_dpi(174) -- looks centered-ish...
-
       -- Create a taglist widget
       s.mytaglist = awful.widget.taglist(
          s,
          awful.widget.taglist.filter.all,
-         keys.taglist_buttons,
-         nil,
-         nil,
-         taglist_layout
+         keys.taglist_buttons
       )
 
       -- Create a tasklist widget
