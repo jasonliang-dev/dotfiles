@@ -316,7 +316,8 @@ awful.rules.rules = {
                     screen = awful.screen.preferred,
                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
                     size_hints_honor = false
-     }
+     },
+     callback = awful.client.setslave
    },
 
    -- Floating clients.
