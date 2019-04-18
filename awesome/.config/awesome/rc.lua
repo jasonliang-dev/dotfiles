@@ -393,6 +393,7 @@ client.connect_signal(
       awful.titlebar(c, { size = beautiful.titlebar_size }) : setup
       {
          { widget = titlewidget, align = "center" },
+         buttons = buttons,
          layout = wibox.layout.stack()
       }
 end)
