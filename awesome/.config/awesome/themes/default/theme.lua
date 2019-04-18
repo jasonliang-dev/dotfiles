@@ -105,6 +105,12 @@ theme.tags = {
       urgent_icon = themes_path .. "/taglist/1_urgent.png"
    },
    {
+      empty_icon = themes_path .. "/taglist/4_empty.png",
+      focused_icon = themes_path .. "/taglist/4_focused.png",
+      occupied_icon = themes_path .. "/taglist/4_occupied.png",
+      urgent_icon = themes_path .. "/taglist/4_urgent.png"
+   },
+   {
       empty_icon = themes_path .. "/taglist/2_empty.png",
       focused_icon = themes_path .. "/taglist/2_focused.png",
       occupied_icon = themes_path .. "/taglist/2_occupied.png",
@@ -117,10 +123,10 @@ theme.tags = {
       urgent_icon = themes_path .. "/taglist/3_urgent.png"
    },
    {
-      empty_icon = themes_path .. "/taglist/4_empty.png",
-      focused_icon = themes_path .. "/taglist/4_focused.png",
-      occupied_icon = themes_path .. "/taglist/4_occupied.png",
-      urgent_icon = themes_path .. "/taglist/4_urgent.png"
+      empty_icon = themes_path .. "/taglist/10_empty.png",
+      focused_icon = themes_path .. "/taglist/10_focused.png",
+      occupied_icon = themes_path .. "/taglist/10_occupied.png",
+      urgent_icon = themes_path .. "/taglist/10_urgent.png"
    },
 }
 

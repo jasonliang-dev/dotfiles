@@ -283,7 +283,7 @@ awful.screen.connect_for_each_screen(function(s)
 
       local function info_group(widgets, bg_color)
          local outer_padding = 10
-         local inner_padding = 8 
+         local inner_padding = 5
 
          for i = 1, #widgets do
             widgets[i] = wibox.container.margin(widgets[i], inner_padding, inner_padding)
