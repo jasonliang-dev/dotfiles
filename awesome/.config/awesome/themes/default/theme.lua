@@ -59,17 +59,15 @@ theme.border_focus  = theme.base0D
 theme.hotkeys_bg = theme.base00
 theme.hotkeys_fg = theme.base05
 theme.hotkeys_modifiers_fg = theme.base03
-theme.hotkeys_label_bg = theme.base0D
-theme.hotkeys_label_fg = theme.base00
-theme.hotkeys_group_margin = dpi(36)
+theme.hotkeys_group_margin = dpi(25)
 
 theme.tasklist_disable_icon = true
 
 theme.wibar_height = 35
 
 -- Generate taglist squares:
-theme.taglist_squares_sel = themes_path .. "/taglist/tag-sel.png"
-theme.taglist_squares_unsel = themes_path .. "/taglist/tag-unsel.png"
+-- theme.taglist_squares_sel = themes_path .. "/taglist/tag-sel.png"
+-- theme.taglist_squares_unsel = themes_path .. "/taglist/tag-unsel.png"
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -97,10 +95,10 @@ theme.titlebar_size = dpi(35)
 theme.titlebar_font = "Roboto Condensed Regular 9"
 theme.tasklist_item_width = 300
 theme.tags = {
-   { icon = themes_path .. "/taglist/1.png" },
-   { icon = themes_path .. "/taglist/2.png" },
-   { icon = themes_path .. "/taglist/3.png" },
-   { icon = themes_path .. "/taglist/4.png" },
+   { icon = themes_path .. "/taglist/1_empty.png" },
+   { icon = themes_path .. "/taglist/2_empty.png" },
+   { icon = themes_path .. "/taglist/3_empty.png" },
+   { icon = themes_path .. "/taglist/4_empty.png" },
 }
 
 -- Define the image to load
