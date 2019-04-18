@@ -4,7 +4,20 @@
 
 - **Font**: Roboto
 - **Terminal**: `gnome-terminal`
+- **Terminal Font**: Iosevka
 - **Bar**: `tint2`
+- **Cat**: [cat](./cat/cat)
+
+## i3
+
+![](screenshots/i3.png)
+
+- **Font**: Source Sans Pro
+- **Terminal**: `gnome-terminal`
+- **Terminal Font**: Iosevka
+- **Bar**: `polybar`
+- **File Explorer**: `ranger`
+- **Text Editor**: Vim
 
 ## Emacs
 
@@ -18,5 +31,5 @@
 
 ![](screenshots/vim.png)
 
-- **Colorscheme**: [base16](https://github.com/chriskempson/base16-vim)
+- **Colorscheme**: [base16](https://github.com/chriskempson/base16-vim) (`base16-material`)
 - **Statusline**: [vim-airline](https://github.com/vim-airline/vim-airline)

@@ -12,7 +12,7 @@ set $mod Mod4
 set $dark  #4f5b66
 set $grey  #a7adba
 set $light #eff1f5
-set $blue  #96b5b4
+set $blue  #89DDFF
 set $warn  #d08770
 # }}}
 
@@ -50,7 +50,7 @@ workspace 1 gaps inner 0
 
 # window theme {{{
 #                       border background text   indicator
-client.focused          $grey  $grey      $grey  $blue
+client.focused          $blue  $blue      $blue  $blue
 client.focused_inactive $dark  $dark      $dark  $blue
 client.unfocused        $dark  $dark      $dark  $blue
 client.urgent           $warn  $warn      $warn  $warn
