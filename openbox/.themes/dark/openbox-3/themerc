@@ -6,7 +6,7 @@ window.inactive.client.color: #66818D
 
 # title colours
 window.active.title.bg.color: #334148
-window.inactive.title.bg.color: #F1FFFF
+window.inactive.title.bg.color: #334148
 window.active.label.text.color: #F1FFFF
 window.inactive.label.text.color: #66818D
 
