@@ -238,7 +238,7 @@ awful.screen.connect_for_each_screen(function(s)
 
       -- Each screen has its own tag table.
       local l = awful.layout.suit
-      local layouts = {l.floating, l.tile, l.tile, l.tile}
+      local layouts = {l.floating, l.max}
       local tags = create_tags(beautiful.tags, s, layouts)
       -- update_tag_icons(awful.screen.focused().tags)
       update_tag_icons(tags)
