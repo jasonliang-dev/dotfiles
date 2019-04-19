@@ -198,7 +198,7 @@ local lain_bat = lain.widget.bat {
 local lain_vol = lain.widget.alsa {
    timeout = 5,
    settings = function()
-      local display_text = "  mute"
+      local display_text = "  mute"
 
       if volume_now.status == "on" then
          display_text = "  " .. volume_now.level .. "%"
