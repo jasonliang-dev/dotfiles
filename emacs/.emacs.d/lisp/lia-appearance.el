@@ -20,7 +20,7 @@
   :init
   (setq doom-modeline-height 35
         doom-modeline-buffer-file-name-style 'relative-to-project)
-  :hook (after-init . doom-modeline-init))
+  :hook (after-init . doom-modeline-mode))
 
 (use-package hide-mode-line
   :ensure t
