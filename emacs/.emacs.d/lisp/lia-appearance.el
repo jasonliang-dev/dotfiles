@@ -12,7 +12,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -25,15 +25,6 @@
 (use-package hide-mode-line
   :ensure t
   :hook (neotree-mode . hide-mode-line-mode))
-
-(use-package linum-relative
-  :ensure t
-  :defer t
-  :init
-  (setq linum-format " %4d " ;; add padding
-        linum-relative-format " %4s "
-        ;; display current line number
-        linum-relative-current-symbol ""))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -52,6 +43,10 @@
 
 ;; hide cursor except for selected window
 (setq-default cursor-in-non-selected-windows nil)
+
+;; display line numbers
+(setq-default display-line-numbers-type 'relative)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; set font size
 
