@@ -90,7 +90,8 @@
 
 (use-package haskell-mode
   :ensure t
-  :mode "\\.hs\\'")
+  :mode "\\.hs\\'"
+  :hook (haskell-mode . (lambda () (lia/set-indent 4))))
 
 (use-package lua-mode
   :ensure t

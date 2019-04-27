@@ -137,6 +137,12 @@
 (defun lia/set-indent (n)
   "Set the indentation level to N spaces."
   (interactive)
+  (setq-default haskell-indentation-layout-offset n)
+  (setq-default haskell-indentation-starter-offset n)
+  (setq-default haskell-indentation-left-offset n)
+  (setq-default haskell-indentation-ifte-offset n)
+  (setq-default haskell-indentation-where-pre-offset n)
+  (setq-default haskell-indentation-where-post-offset n)
   (setq-default c-basic-offset n)
   (setq-default javascript-indent-level n)
   (setq-default js-indent-level n)
