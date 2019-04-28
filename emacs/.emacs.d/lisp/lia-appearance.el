@@ -48,7 +48,7 @@
 (setq-default display-line-numbers-type 'relative
               display-line-numbers-width 3
               display-line-numbers-widen t)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; set font size
 
