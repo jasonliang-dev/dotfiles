@@ -91,7 +91,8 @@
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
-  :hook (haskell-mode . (lambda () (lia/set-indent 4))))
+  :hook (haskell-mode . (lambda () (lia/set-indent 4)))
+  :init (setq haskell-process-type 'stack-ghci))
 
 (use-package lua-mode
   :ensure t
