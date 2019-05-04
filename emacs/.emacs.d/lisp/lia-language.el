@@ -97,6 +97,7 @@
    'haskell-mode-map
    "C-c C-f" '(lambda()
                 (interactive)
+                (save-buffer)
                 (shell-command
                  (concat "brittany --write-mode=inplace "
                          (shell-quote-argument buffer-file-name)))
