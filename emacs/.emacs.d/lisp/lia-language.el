@@ -91,7 +91,6 @@
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
-  :hook (haskell-mode . (lambda () (lia/set-indent 4)))
   :init (setq haskell-process-type 'stack-ghci)
   :general
   (:keymaps
@@ -99,7 +98,7 @@
    "C-c C-f" '(lambda()
                 (interactive)
                 (shell-command
-                 (concat "brittany --indent 4 --write-mode=inplace "
+                 (concat "brittany --write-mode=inplace "
                          (shell-quote-argument buffer-file-name)))
                 (revert-buffer t t))))
 
