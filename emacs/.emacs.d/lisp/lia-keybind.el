@@ -21,6 +21,7 @@
    ";"   '(avy-goto-char-timer :wk "avy jump to")
    "`"   '(eshell :wk "terminal")
    "b"   '(helm-mini :wk "buffers")
+   "e"   "C-x C-e"
    "f"   '(helm-find-files :wk "find files")
    "g"   '(magit-status :wk "git status")
    "j"   '(dumb-jump-go :wk "jump")
