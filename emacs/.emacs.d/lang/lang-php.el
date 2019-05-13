@@ -10,6 +10,6 @@
   :ensure t
   :mode "\\.php\\'")
 
-(provide 'lang-lua)
+(provide 'lang-php)
 
 ;;; lang-php.el ends here
