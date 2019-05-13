@@ -1,4 +1,4 @@
-;;; javascript.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-javascript.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -35,4 +35,4 @@
 
 (provide 'lang-javascript)
 
-;;; javascript.el ends here
+;;; lang-javascript.el ends here

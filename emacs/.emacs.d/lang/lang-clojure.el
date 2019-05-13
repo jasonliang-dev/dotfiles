@@ -1,4 +1,4 @@
-;;; clojure.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-clojure.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -14,4 +14,4 @@
 
 (provide 'lang-clojure)
 
-;;; clojure.el ends here
+;;; lang-clojure.el ends here

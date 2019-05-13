@@ -1,4 +1,4 @@
-;;; lua.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-lua.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -12,4 +12,4 @@
 
 (provide 'lang-lua)
 
-;;; lua.el ends here
+;;; lang-lua.el ends here

@@ -1,4 +1,4 @@
-;;; html.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-html.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -17,4 +17,4 @@
 
 (provide 'lang-html)
 
-;;; html.el ends here
+;;; lang-html.el ends here

@@ -1,4 +1,4 @@
-;;; haskell.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-haskell.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -27,4 +27,4 @@
 
 (provide 'lang-haskell)
 
-;;; haskell.el ends here
+;;; lang-haskell.el ends here

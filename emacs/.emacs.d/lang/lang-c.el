@@ -1,4 +1,4 @@
-;;; c.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-c.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -19,4 +19,4 @@
 
 (provide 'lang-c)
 
-;;; c.el ends here
+;;; lang-c.el ends here

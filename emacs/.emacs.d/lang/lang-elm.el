@@ -1,4 +1,4 @@
-;;; elm.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-elm.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -16,4 +16,4 @@
 
 (provide 'lang-elm)
 
-;;; elm.el ends here
+;;; lang-elm.el ends here

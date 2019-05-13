@@ -1,4 +1,4 @@
-;;; markdown.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-markdown.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -13,4 +13,4 @@
 
 (provide 'lang-markdown)
 
-;;; markdown.el ends here
+;;; lang-markdown.el ends here

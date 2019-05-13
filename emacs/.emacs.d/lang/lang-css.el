@@ -1,4 +1,4 @@
-;;; css.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-css.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -16,4 +16,4 @@
 
 (provide 'lang-css)
 
-;;; css.el ends here
+;;; lang-css.el ends here

@@ -1,4 +1,4 @@
-;;; data.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-data.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -16,4 +16,4 @@
 
 (provide 'lang-data)
 
-;;; data.el ends here
+;;; lang-data.el ends here

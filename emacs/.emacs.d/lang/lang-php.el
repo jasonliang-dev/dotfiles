@@ -1,4 +1,4 @@
-;;; php.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-php.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -12,4 +12,4 @@
 
 (provide 'lang-lua)
 
-;;; php.el ends here
+;;; lang-php.el ends here
