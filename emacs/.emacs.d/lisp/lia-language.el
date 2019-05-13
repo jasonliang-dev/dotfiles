@@ -85,7 +85,7 @@
 
 (use-package intero
   :ensure t
-  :hook (haskell-mode . intero-mode))
+  :commands (intero-mode))
 
 ;; english (yeah. I know...)
 
