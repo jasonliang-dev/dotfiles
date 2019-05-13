@@ -18,6 +18,11 @@
   :ensure t
   :hook (prog-mode . editorconfig-mode))
 
+(use-package emmet-mode
+  ;; C-j to expand
+  :ensure t
+  :hook (sgml-mode . emmet-mode))
+
 (use-package flycheck
   :ensure t
   :hook (prog-mode . global-flycheck-mode)
@@ -137,20 +142,20 @@
 (defun lia/set-indent (n)
   "Set the indentation level to N spaces."
   (interactive)
-  (setq-default haskell-indentation-layout-offset n)
-  (setq-default haskell-indentation-starter-offset n)
-  (setq-default haskell-indentation-left-offset n)
-  (setq-default haskell-indentation-ifte-offset n)
-  (setq-default haskell-indentation-where-pre-offset n)
-  (setq-default haskell-indentation-where-post-offset n)
-  (setq-default c-basic-offset n)
-  (setq-default javascript-indent-level n)
-  (setq-default js-indent-level n)
-  (setq-default js-switch-indent-offset n) ; switch-case indentation
-  (setq-default css-indent-offset n)
-  (setq-default web-mode-markup-indent-offset n)
-  (setq-default web-mode-css-indent-offset n)
-  (setq-default web-mode-code-indent-offset n))
+  (setq-default haskell-indentation-layout-offset n
+                haskell-indentation-starter-offset n
+                haskell-indentation-left-offset n
+                haskell-indentation-ifte-offset n
+                haskell-indentation-where-pre-offset n
+                haskell-indentation-where-post-offset n
+                c-basic-offset n
+                javascript-indent-level n
+                js-indent-level n
+                js-switch-indent-offset n ; switch-case indentation
+                css-indent-offset n
+                web-mode-markup-indent-offset n
+                web-mode-css-indent-offset n
+                web-mode-code-indent-offset n))
 
 (lia/set-indent 2)
 

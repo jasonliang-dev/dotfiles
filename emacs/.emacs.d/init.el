@@ -78,13 +78,14 @@
 
 ;; load files in lisp directory
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lang" user-emacs-directory))
 
-(require 'lia-appearance)
-(require 'lia-keybind)
-(require 'lia-evil)
-(require 'lia-completion)
-(require 'lia-behaviour)
-(require 'lia-language)
-(require 'lia-org)
+(require 'lia-appearance) ;; emacs appearance
+(require 'lia-keybind)    ;; leader and other global hotkeys
+(require 'lia-evil)       ;; evil mode specific configs
+(require 'lia-completion) ;; helm, code completion, snippets
+(require 'lia-behaviour)  ;; additional behaviours that don't fit in previous sections
+(require 'lia-language)   ;; language support
+(require 'lia-org)        ;; org mode configuration
 
 ;;; init.el ends here
