@@ -1,4 +1,4 @@
-;;; lang-html.el --- Language Support -*- lexical-binding: t; -*-
+;;; lang-web.el --- Language Support -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -15,6 +15,6 @@
   :ensure t
   :hook (web-mode . emmet-mode))
 
-(provide 'lang-html)
+(provide 'lang-web)
 
-;;; lang-html.el ends here
+;;; lang-web.el ends here
