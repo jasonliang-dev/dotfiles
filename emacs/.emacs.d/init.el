@@ -85,7 +85,19 @@
 (require 'lia-evil)       ;; evil mode specific configs
 (require 'lia-completion) ;; helm, code completion, snippets
 (require 'lia-behaviour)  ;; additional behaviours that don't fit in previous sections
-(require 'lia-language)   ;; language support
 (require 'lia-org)        ;; org mode configuration
+
+;; load languages
+(require 'lang-c)
+(require 'lang-clojure)
+(require 'lang-css)
+(require 'lang-data)
+(require 'lang-elm)
+(require 'lang-haskell)
+(require 'lang-web)
+(require 'lang-javascript)
+(require 'lang-lua)
+(require 'lang-markdown)
+(require 'lang-php)
 
 ;;; init.el ends here
