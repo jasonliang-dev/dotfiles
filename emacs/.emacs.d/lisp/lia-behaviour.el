@@ -165,8 +165,6 @@
                 web-mode-css-indent-offset n
                 web-mode-code-indent-offset n))
 
-(lia/set-indent 2)
-
 ;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
 
 ;;;###autoload

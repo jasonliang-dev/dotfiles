@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+;; -- STARTUP OPTIMIZATIONS ------------------------------------------
+
 ;; avoid garbage collection until the end
 (setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6)
@@ -20,8 +22,6 @@
             (setq gc-cons-threshold 16777216
                   gc-cons-percentage 0.1
                   file-name-handler-alist lia/file-name-handler-alist)))
-
-;;
 
 ;; `package-initialize' is called twice. don't do that
 (setq package-enable-at-startup nil
@@ -42,7 +42,7 @@
         initial-scratch-message nil
         mode-line-format nil))
 
-;; CUSTOM
+;; -- CUSTOMIZE FILE -------------------------------------------------
 
 ;; put emacs customize stuff in a separate file
 ;; since `package--init-file-ensured' set to t doesn't work
@@ -54,7 +54,7 @@
 
 (load custom-file)
 
-;; PACKAGES
+;; -- PACKAGE SETUP --------------------------------------------------
 
 (require 'package)
 
@@ -75,6 +75,8 @@
 ;; this doesn't work for me. is it because of lexical binding?
 ;; just add :ensure t to everything instead
 ;;(setq use-package-always-ensure t)
+
+;; -- LOAD LOCAL ELISP -----------------------------------------------
 
 ;; load files in lisp directory
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -99,5 +101,7 @@
 (require 'lang-lua)
 (require 'lang-markdown)
 (require 'lang-php)
+
+(lia/set-indent 2) ;; set default indentation level
 
 ;;; init.el ends here
