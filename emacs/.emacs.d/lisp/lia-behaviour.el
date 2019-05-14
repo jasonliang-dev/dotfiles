@@ -23,9 +23,17 @@
   :ensure t
   :hook (sgml-mode . emmet-mode))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :defer t
+  :init (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 (use-package flycheck
   :ensure t
-  :hook (prog-mode . global-flycheck-mode)
+  :hook (prog-mode . flycheck-mode)
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit
         flycheck-clang-include-path (list (expand-file-name "~/local/include/")))
