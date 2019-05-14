@@ -12,7 +12,7 @@
 (require 'lang-data)
 (require 'lang-elm)
 (require 'lang-haskell)
-(require 'lang-html)
+(require 'lang-web)
 (require 'lang-javascript)
 (require 'lang-lua)
 (require 'lang-markdown)

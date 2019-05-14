@@ -17,9 +17,9 @@
    [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
    [remap evil-end-of-line] 'evil-end-of-visual-line)
   :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-keybinding nil)
-  (setq evil-search-module 'evil-search))
+  (setq evil-want-C-u-scroll t
+        evil-want-keybinding nil
+        evil-search-module 'evil-search))
 
 (use-package evil-collection
   :ensure t
