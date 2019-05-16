@@ -87,7 +87,8 @@
    'org-babel-load-languages '((C . t))))
 
 (use-package org-bullets
-  :ensure t
+  :ensure nil
+  :disabled t
   :init (setq org-bullets-bullet-list '(" "))
   :hook (org-mode . org-bullets-mode))
 
