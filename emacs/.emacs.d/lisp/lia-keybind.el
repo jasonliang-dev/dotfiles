@@ -31,6 +31,7 @@
    "q"   '(evil-quit :wk "close buffer")
    "r"   '(revert-buffer :wk "reload file")
    "u"   '(undo-tree-visualize :wk "show undo tree")
+   "v"   '(er/expand-region :wk "expand region")
 
    ;; toggles
    "t"  '(:ignore t :wk "toggles")

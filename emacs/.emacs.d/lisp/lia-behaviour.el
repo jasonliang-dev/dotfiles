@@ -31,6 +31,25 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+(use-package expand-region
+  :ensure t
+  :commands (er/mark-word
+             er/mark-symbol
+             er/mark-symbol-with-prefix
+             er/mark-next-accessor
+             er/mark-method-call
+             er/mark-inside-quotes
+             er/mark-outside-quotes
+             er/mark-inside-pairs
+             er/mark-outside-pairs
+             er/mark-comment
+             er/mark-url
+             er/mark-email
+             er/mark-defun
+             er/mark-html-attribute
+             er/mark-inner-tag
+             er/mark-outer-tag))
+
 (use-package flycheck
   :ensure t
   :hook (prog-mode . flycheck-mode)
