@@ -34,6 +34,9 @@ let g:netrw_banner = 0
 
 " -- APPEARANCE -----------------------------------------------------
 
+" use base16 colourscheme
+colorscheme my-base16-default-dark
+
 " Access colors present in 256 colorspace
 let base16colorspace=256
 
