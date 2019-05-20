@@ -100,8 +100,9 @@
 
   ;; global bindings
   (general-define-key
-   "C-s" 'save-buffer
-   "<f5>" 'revert-buffer))
+   "C-s"     'save-buffer
+   "<f5>"    'revert-buffer
+   "C-c C-u" 'universal-argument))
 
 ;; https://emacs.stackexchange.com/q/7650
 ;;;###autoload
