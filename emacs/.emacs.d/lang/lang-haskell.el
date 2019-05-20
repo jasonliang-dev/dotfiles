@@ -15,14 +15,13 @@
    'haskell-mode-map
    "C-c C-f" '(lambda()
                 (interactive)
-                (let ((tmp-buf (generate-new-buffer "tmp"))
+                (let ((tmp-buf (generate-new-buffer "tmp-haskell-format"))
                       (formatted (shell-command-to-string
-                            (concat "brittany " (shell-quote-argument buffer-file-name)))))
+                                  (concat "brittany "
+                                          (shell-quote-argument buffer-file-name)))))
                   (with-current-buffer tmp-buf (insert formatted))
                   (replace-buffer-contents tmp-buf)
                   (kill-buffer tmp-buf)))))
-
-
 
 (use-package intero
   :ensure t
