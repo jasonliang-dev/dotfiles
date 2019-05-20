@@ -15,11 +15,14 @@
    'haskell-mode-map
    "C-c C-f" '(lambda()
                 (interactive)
-                (save-buffer)
-                (shell-command
-                 (concat "brittany --write-mode=inplace "
-                         (shell-quote-argument buffer-file-name)))
-                (revert-buffer t t))))
+                (let ((tmp-buf (generate-new-buffer "tmp"))
+                      (formatted (shell-command-to-string
+                            (concat "brittany " (shell-quote-argument buffer-file-name)))))
+                  (with-current-buffer tmp-buf (insert formatted))
+                  (replace-buffer-contents tmp-buf)
+                  (kill-buffer tmp-buf)))))
+
+
 
 (use-package intero
   :ensure t
