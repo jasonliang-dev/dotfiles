@@ -50,6 +50,12 @@
              er/mark-inner-tag
              er/mark-outer-tag))
 
+(use-package eyebrowse
+  :ensure t
+  :hook (after-init . eyebrowse-mode)
+  :config
+  (eyebrowse-setup-opinionated-keys))
+
 (use-package flycheck
   :ensure t
   :hook (prog-mode . flycheck-mode)
