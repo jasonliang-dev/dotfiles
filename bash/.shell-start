@@ -5,6 +5,9 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+[ -n "$PS1" ] && \
+    [ -z "$EMACS_TERM" ] && \
+    [ -s $BASE16_SHELL/profile_helper.sh ] && \
+    eval "$($BASE16_SHELL/profile_helper.sh)"
 
 (fortune riddles fortunes && echo "") 2> /dev/null

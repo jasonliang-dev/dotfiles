@@ -136,6 +136,10 @@
   :ensure t
   :hook (after-init . which-key-mode))
 
+;; don't execute base16-shell when running a terminal
+;; see: dotfiles/bash/.shell-start
+(setenv "EMACS_TERM" "true")
+
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
