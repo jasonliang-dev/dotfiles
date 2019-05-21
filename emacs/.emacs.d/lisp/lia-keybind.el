@@ -84,18 +84,16 @@
    "w=" '(balance-windows :wk "equal splits")
 
    ;; org
-   "a"  '((lambda() (interactive) (org-agenda nil "c")) :wk "my agenda")
+   "a"  '(lia/agenda :wk "my agenda")
    "o"  '(:ignore t :wk "org")
    "oa" '(org-agenda :wk "agenda commands")
-   "oc" '((lambda() (interactive) (org-capture nil "c")) :wk "add to todo list")
+   "oc" '(lia/org-capture :wk "add to todo list")
 
-   ;; visit files
-   "1" '((lambda() (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))) :wk "init.el")
-   "2" '((lambda() (interactive) (find-file "~/Dropbox/org/todo.org")) :wk "todo list")
-   "3" '((lambda() (interactive) (find-file "~/Dropbox/org/outline.org")) :wk "notes")
+   ;; edit `init.el'
+   "1" '(lia/config-file :wk "init.el")
 
    ;; run external
-   "RET"   '((lambda () (interactive) (run-external "~/scripts/term.sh")) :wk "external terminal")
+   "RET"   '(lia/external-terminal :wk "external terminal")
    "C-SPC" '(browse-file-directory :wk "open file explorer"))
 
   ;; global bindings
@@ -129,6 +127,26 @@ otherwise, run `ansi-term' with user shell."
   (if (eq system-type 'windows-nt)
       (eshell)
     (ansi-term (getenv "SHELL"))))
+
+(defun lia/external-terminal ()
+  "Open a new terminal window."
+  (interactive)
+  (run-external "EMACS_TERM=\"\" ~/scripts/term.sh"))
+
+(defun lia/config-file ()
+  "Edit Emacs config."
+  (interactive)
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
+
+(defun lia/agenda ()
+  "Show the agenda."
+  (interactive)
+  (org-agenda nil "c"))
+
+(defun lia/org-capture ()
+  "Add a todo item to the todo list."
+  (interactive)
+  (org-capture nil "c"))
 
 (provide 'lia-keybind)
 
