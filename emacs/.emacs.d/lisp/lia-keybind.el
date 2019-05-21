@@ -20,7 +20,7 @@
    "ESC" '(evil-ex-nohighlight :wk "clear highlight")
    "TAB" '(mode-line-other-buffer :wk "other buffer")
    ";"   '(avy-goto-char-timer :wk "avy jump to")
-   "`"   '(eshell :wk "terminal")
+   "`"   '(lia/terminal :wk "terminal")
    "b"   '(helm-mini :wk "buffers")
    "e"   "C-x C-e"
    "f"   '(helm-find-files :wk "find files")
@@ -120,6 +120,15 @@
   (if default-directory
       (browse-url-of-file (expand-file-name default-directory))
     (error "No `default-directory' to open")))
+
+(defun lia/terminal ()
+  "Launch a terminal.
+Run `eshell' if Emacs is running on Windows,
+otherwise, run `ansi-term' with user shell."
+  (interactive)
+  (if (eq system-type 'windows-nt)
+      (eshell)
+    (ansi-term (getenv "SHELL"))))
 
 (provide 'lia-keybind)
 
