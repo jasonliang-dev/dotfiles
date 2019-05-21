@@ -2,6 +2,7 @@ source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
 antigen bundle git
+antigen bundle z
 antigen bundle colored-man-pages
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
