@@ -36,8 +36,8 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; highlight current line
-(global-hl-line-mode)
+;; highlight current line when programming
+(add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; highlight matching paren
 (show-paren-mode t)
