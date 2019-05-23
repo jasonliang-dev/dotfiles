@@ -17,8 +17,9 @@
                 (interactive)
                 (let ((tmp-buf (generate-new-buffer "tmp-haskell-format"))
                       (formatted (shell-command-to-string
-                                  (concat "brittany "
-                                          (shell-quote-argument buffer-file-name)))))
+                                  (concat "echo "
+                                          (shell-quote-argument (buffer-string))
+                                          " | brittany"))))
                   (with-current-buffer tmp-buf (insert formatted))
                   (replace-buffer-contents tmp-buf)
                   (kill-buffer tmp-buf)))))
