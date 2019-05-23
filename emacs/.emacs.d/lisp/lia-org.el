@@ -39,11 +39,15 @@
    "h"   'org-agenda-earlier
    "l"   'org-agenda-later)
   :init
-  (setq org-agenda-files '("~/Dropbox/org/")
+  (setq org-directory "~/Dropbox/org/"
+        ;; agenda file locations relative to `org-directory'
+        org-agenda-files '("./")
+        ;; use 12 hour clock
+        org-agenda-timegrid-use-ampm t
         ;; agenda starts on current day
         org-agenda-start-on-weekday nil
         ;; target file for notes. capture notes here.
-        org-default-notes-file "~/Dropbox/org/todo.org"
+        org-default-notes-file "todo.org"
         ;; log time when done
         org-log-done 'time
         ;; log reschedules
