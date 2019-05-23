@@ -88,6 +88,7 @@
    "o"  '(:ignore t :wk "org")
    "oa" '(org-agenda :wk "agenda commands")
    "oc" '(lia/org-capture :wk "add to todo list")
+   "od" '(lia/goto-org-directory :wk "org directory")
 
    ;; edit `init.el'
    "1" '(lia/config-file :wk "init.el")
@@ -147,6 +148,12 @@ otherwise, run `ansi-term' with user shell."
   "Add a todo item to the todo list."
   (interactive)
   (org-capture nil "c"))
+
+(defun lia/goto-org-directory ()
+  "Navigate to `org-directory'."
+  (interactive)
+  (defvar org-directory)
+  (find-file org-directory))
 
 (provide 'lia-keybind)
 
