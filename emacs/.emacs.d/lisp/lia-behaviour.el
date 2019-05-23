@@ -200,6 +200,7 @@
 (defun +neotree/expand-or-open ()
   "Expand or open a neotree node."
   (interactive)
+  (defvar neo-auto-indent-point)
   (let ((node (neo-buffer--get-filename-current-line)))
     (when node
       (if (file-directory-p node)
@@ -207,7 +208,7 @@
             (neo-buffer--set-expand node t)
             (neo-buffer--refresh t)
             (when neo-auto-indent-point
-              (next-line)
+              (forward-line)
               (neo-point-auto-indent)))
         (call-interactively 'neotree-enter)))))
 
@@ -215,6 +216,7 @@
 (defun +neotree/collapse ()
   "Collapse a neotree node."
   (interactive)
+  (defvar neo-auto-indent-point)
   (let ((node (neo-buffer--get-filename-current-line)))
     (when node
       (when (file-directory-p node)
