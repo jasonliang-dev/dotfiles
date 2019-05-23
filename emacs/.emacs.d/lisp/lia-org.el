@@ -59,8 +59,8 @@
   ;; capture format
   (setq org-capture-templates
         '(("c" "My TODO task format." entry
-           (file 'org-default-notes-file)
-           "* TODO %?"
+           (file+headline "todo.org" "Tasks")
+           "** TODO %?\n   %a"
            :prepend nil
            :empty-lines-before 0
            :empty-lines-after 0)))
