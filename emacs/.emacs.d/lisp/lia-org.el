@@ -41,7 +41,7 @@
   :init
   (setq org-directory "~/Dropbox/org/"
         ;; agenda file locations relative to `org-directory'
-        org-agenda-files '("./")
+        org-agenda-files (list org-directory)
         ;; use 12 hour clock
         org-agenda-timegrid-use-ampm t
         ;; agenda starts on current day
