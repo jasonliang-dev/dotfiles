@@ -45,7 +45,9 @@
         ;; use 12 hour clock
         org-agenda-timegrid-use-ampm t
         ;; agenda starts on current day
-        org-agenda-start-on-weekday nil
+        ;; org-agenda-start-on-weekday nil
+        ;; show edits in invisible regions
+        org-catch-invisible-edits 'show
         ;; target file for notes. capture notes here.
         org-default-notes-file "todo.org"
         ;; log time when done
@@ -54,7 +56,7 @@
         org-log-redeadline 'time
         org-log-reschedule 'time
         ;; hide bold italic markers
-        org-hide-emphasis-markers t
+        ;; org-hide-emphasis-markers t
         ;; syntax highlighting in source blocks
         org-src-fontify-natively t
         ;; edit source blocks in current window
