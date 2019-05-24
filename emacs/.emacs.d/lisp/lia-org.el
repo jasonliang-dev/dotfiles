@@ -64,12 +64,10 @@
 
   ;; capture format
   (setq org-capture-templates
-        '(("c" "My TODO task format." entry
-           (file+headline "todo.org" "Tasks")
-           "** TODO %?\n   %a"
-           :prepend nil
-           :empty-lines-before 0
-           :empty-lines-after 0)))
+        '(("t" "TODO entry" entry (file+headline "todo.org" "Tasks")
+           "** TODO %?")
+          ("l" "TODO with link" entry (file+headline "todo.org" "Tasks")
+           "** TODO %?\n   %a")))
 
   ;; custom agenda view
   (setq org-agenda-custom-commands
