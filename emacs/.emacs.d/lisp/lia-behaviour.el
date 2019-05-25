@@ -143,6 +143,9 @@
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; files that change on disk automatically get reverted
+(global-auto-revert-mode t)
+
 ;; don't show welcome screen
 (setq inhibit-startup-screen t)
 
