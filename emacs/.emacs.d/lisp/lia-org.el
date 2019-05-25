@@ -85,12 +85,12 @@
   ;; custom agenda view
   (setq org-agenda-custom-commands
         '(("c" "My agenda"
-           ((agenda "")
-            (alltodo ""
+           ((alltodo ""
                      ((org-agenda-skip-function
                        '(org-agenda-skip-entry-if
                          'todo 'done 'scheduled 'deadline))
-                      (org-agenda-overriding-header "Unscheduled tasks")))))))
+                      (org-agenda-overriding-header "Unscheduled tasks")))
+            (agenda "")))))
   :config
   ;; enable habits
   (require 'org-habit)
