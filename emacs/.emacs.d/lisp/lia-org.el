@@ -40,8 +40,10 @@
    "l"   'org-agenda-later)
   :init
   (setq org-directory "~/Dropbox/org/"
-        ;; agenda file locations relative to `org-directory'
+        ;; agenda file locations
         org-agenda-files (list org-directory)
+        ;; hide repeating tasks (habits)
+        ;; org-agenda-repeating-timestamp-show-all nil
         ;; use 12 hour clock
         org-agenda-timegrid-use-ampm t
         ;; agenda starts on current day
@@ -49,7 +51,7 @@
         ;; show edits in invisible regions
         org-catch-invisible-edits 'show
         ;; target file for notes. capture notes here.
-        org-default-notes-file "todo.org"
+        org-default-notes-file (concat org-directory "index.org")
         ;; log time when done
         org-log-done 'time
         ;; log reschedules
@@ -62,12 +64,17 @@
         ;; edit source blocks in current window
         org-src-window-setup 'current-window)
 
-  ;; capture format
+  ;; capture templates
+  ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
   (setq org-capture-templates
-        '(("t" "TODO entry" entry (file+headline "todo.org" "Tasks")
-           "** TODO %?")
-          ("l" "TODO with link" entry (file+headline "todo.org" "Tasks")
-           "** TODO %?\n   %a")))
+        '(("c" "New task" entry (file+headline org-default-notes-file "Tasks")
+           "** %?")
+          ("l" "New task with link" entry (file+headline org-default-notes-file "Tasks")
+           "** %?\n   %a")
+          ("n" "New note" entry (file+headline org-default-notes-file "Notes")
+           "** %?")
+          ("e" "New event" entry (file+headline org-default-notes-file "Events")
+           "** %?\n   SCHEDULED: %t")))
 
   ;; custom agenda view
   (setq org-agenda-custom-commands
@@ -79,6 +86,9 @@
                          'todo 'done 'scheduled 'deadline))
                       (org-agenda-overriding-header "Unscheduled tasks")))))))
   :config
+  ;; enable habits
+  (require 'org-habit)
+
   ;; start agenda in normal mode
   (eval-after-load 'org-agenda
     '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
@@ -91,9 +101,8 @@
    'org-babel-load-languages '((C . t))))
 
 (use-package org-bullets
-  :ensure nil
-  :disabled t
-  :init (setq org-bullets-bullet-list '(" "))
+  :ensure t
+  :after org
   :hook (org-mode . org-bullets-mode))
 
 (provide 'lia-org)

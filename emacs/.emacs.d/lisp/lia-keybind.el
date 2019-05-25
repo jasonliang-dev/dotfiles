@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; leader key bindings
+;; leader and global key bindings
 
 ;;; Code:
 
@@ -89,7 +89,9 @@
    "oa" '(org-agenda :wk "agenda commands")
    "oc" '(org-capture :wk "capture")
    "od" '(lia/goto-org-directory :wk "org directory")
+   "oe" '(org-export-dispatch :wk "org export")
    "ot" '(org-todo :wk "change todo state")
+   "ox" '(org-archive-subtree :wk "archive")
 
    ;; edit `init.el'
    "1" '(lia/config-file :wk "init.el")
