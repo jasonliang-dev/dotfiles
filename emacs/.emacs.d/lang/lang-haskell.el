@@ -13,20 +13,19 @@
   :general
   (:keymaps
    'haskell-mode-map
-   "C-c C-f" '(lambda()
-                (interactive)
-                (let ((tmp-buf (generate-new-buffer "tmp-haskell-format"))
-                      (formatted (shell-command-to-string
-                                  (concat "echo "
-                                          (shell-quote-argument (buffer-string))
-                                          " | brittany"))))
-                  (with-current-buffer tmp-buf (insert formatted))
-                  (replace-buffer-contents tmp-buf)
-                  (kill-buffer tmp-buf)))))
+   "C-c C-f" 'lia/format-haskell-buffer))
 
-(use-package intero
-  :ensure t
-  :commands (intero-mode))
+(defun lia/format-haskell-buffer ()
+  "Format the current Haskell buffer.
+Brittany must be installed."
+  (interactive)
+  (let ((tmp-buf (generate-new-buffer "tmp-haskell-format"))
+        (formatted (shell-command-to-string
+                    (concat "brittany <<< "
+                            (shell-quote-argument (buffer-string))))))
+    (with-current-buffer tmp-buf (insert formatted))
+    (replace-buffer-contents tmp-buf)
+    (kill-buffer tmp-buf)))
 
 (provide 'lang-haskell)
 
