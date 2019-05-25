@@ -47,11 +47,17 @@
         ;; use 12 hour clock
         org-agenda-timegrid-use-ampm t
         ;; agenda starts on current day
-        ;; org-agenda-start-on-weekday nil
+        org-agenda-start-on-weekday nil
         ;; show edits in invisible regions
         org-catch-invisible-edits 'show
         ;; target file for notes. capture notes here.
         org-default-notes-file (concat org-directory "index.org")
+        ;; move the consistency graph to the right
+        org-habit-graph-column 56
+        ;; number of days after today in consistency graph
+        org-habit-following-days 1
+        ;; number of days before today in consistency graph
+        org-habit-preceding-days 9
         ;; log time when done
         org-log-done 'time
         ;; log reschedules
