@@ -146,6 +146,9 @@
 ;; files that change on disk automatically get reverted
 (global-auto-revert-mode t)
 
+;; ask before exiting emacs
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 ;; don't show welcome screen
 (setq inhibit-startup-screen t)
 
