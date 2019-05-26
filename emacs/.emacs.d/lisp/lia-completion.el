@@ -57,6 +57,8 @@
 ;; pair up delimiters
 (electric-pair-mode t)
 
+(declare-function yas-reload-all "yasnippet")
+
 (provide 'lia-completion)
 
 ;;; lia-completion.el ends here

@@ -69,6 +69,8 @@
   (when (bound-and-true-p display-line-numbers-mode)
     (display-line-numbers--turn-on)))
 
+(declare-function display-line-numbers--turn-on "display-line-numbers")
+
 (provide 'lia-appearance)
 
 ;;; lia-appearance.el ends here
