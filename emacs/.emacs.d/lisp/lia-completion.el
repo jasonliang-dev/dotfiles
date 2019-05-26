@@ -14,6 +14,11 @@
    "C-n" #'company-select-next
    "C-p" #'company-select-previous))
 
+(use-package emmet-mode
+  ;; C-j to expand
+  :ensure t
+  :hook (sgml-mode . emmet-mode))
+
 (use-package helm
   :ensure t
   :defer t

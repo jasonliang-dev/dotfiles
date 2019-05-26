@@ -18,11 +18,6 @@
   :ensure t
   :hook (prog-mode . editorconfig-mode))
 
-(use-package emmet-mode
-  ;; C-j to expand
-  :ensure t
-  :hook (sgml-mode . emmet-mode))
-
 (use-package exec-path-from-shell
   :ensure t
   :after (evil) ;; lol
