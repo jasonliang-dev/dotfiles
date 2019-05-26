@@ -12,7 +12,8 @@
   :general
   (company-active-map
    "C-n" #'company-select-next
-   "C-p" #'company-select-previous))
+   "C-p" #'company-select-previous)
+  :init (setq company-idle-delay 0))
 
 (use-package emmet-mode
   ;; C-j to expand
