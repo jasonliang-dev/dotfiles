@@ -57,6 +57,18 @@
 ;; depends on the machine you're running on ofc
 (add-to-list 'default-frame-alist '(font . "Iosevka 10"))
 
+(defun lia/toggle-line-number-type ()
+  "Toggle the line number type between absolute and relative."
+  (interactive)
+  (defvar display-line-numbers-type)
+  (setq display-line-numbers-type
+        (if (eq display-line-numbers-type 'relative)
+            (progn (message "Line number type: absolute") t)
+          (progn (message "Line number type: relative") 'relative)))
+  ;; update line numbers if it's currently being displayed
+  (when (bound-and-true-p display-line-numbers-mode)
+    (display-line-numbers--turn-on)))
+
 (provide 'lia-appearance)
 
 ;;; lia-appearance.el ends here
