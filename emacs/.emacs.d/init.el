@@ -104,7 +104,4 @@
 
 (lia/set-indent 2) ;; set default indentation level
 
-(declare-function neo-buffer--unlock-width "neotree")
-(declare-function neo-buffer--lock-width "neotree")
-
 ;;; init.el ends here

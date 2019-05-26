@@ -257,14 +257,6 @@
 
 (add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 
-(declare-function lia--use-eslint-from-node-modules "lia-behaviour")
-(declare-function neo-buffer--get-filename-current-line "neotree")
-(declare-function neo-buffer--set-expand "neotree")
-(declare-function neo-buffer--refresh "neotree")
-(declare-function neo-point-auto-indent "neotree")
-(declare-function neo-buffer--expanded-node-p "neotree")
-(declare-function neotree-select-up-node "neotree")
-
 (provide 'lia-behaviour)
 
 ;;; lia-behaviour.el ends here
