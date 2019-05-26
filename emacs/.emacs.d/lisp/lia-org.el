@@ -41,8 +41,7 @@
   :init
   ;; set the directory storing org files
   (setq org-directory (if (eq system-type 'windows-nt)
-                          (shell-quote-argument
-                           (concat (getenv "HOMEPATH") "\\Dropbox\\org\\"))
+                          (concat (getenv "HOMEPATH") "\\Dropbox\\org\\")
                         "~/Dropbox/org/"))
 
   (setq
