@@ -27,7 +27,6 @@
    "g"   '(magit-status :wk "git status")
    "j"   '(dumb-jump-go :wk "jump")
    "k"   '(kill-this-buffer :wk "kill buffer")
-   "l"   '(org-open-at-point :wk "open link")
    "q"   '(evil-quit :wk "close buffer")
    "r"   '(revert-buffer :wk "reload file")
    "u"   '(undo-tree-visualize :wk "show undo tree")
@@ -90,8 +89,16 @@
    "oc" '(org-capture :wk "capture")
    "od" '(lia/goto-org-directory :wk "org directory")
    "oe" '(org-export-dispatch :wk "org export")
+   "ol" '(org-open-at-point :wk "open link")
    "ot" '(org-todo :wk "change todo state")
    "ox" '(org-archive-subtree :wk "archive")
+
+   ;; lsp-mode
+   "l"   '(:ignore t :wk "lsp")
+   "lf"  '(:ignore t :wk "find")
+   "lfd" '(lsp-ui-peek-find-definitions :wk "definitions under point")
+   "lfr" '(lsp-ui-peek-find-references :wk "references under point")
+   "ls"  '(helm-lsp-workspace-symbol :wk "search symbol")
 
    ;; edit `init.el'
    "1" '(lia/config-file :wk "init.el")

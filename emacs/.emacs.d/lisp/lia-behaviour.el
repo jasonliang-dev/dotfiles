@@ -71,6 +71,32 @@
 
   (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
 
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :init
+  (setq lsp-auto-guess-root t))
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :init
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-use-webkit nil
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-show-symbol nil))
+
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
+
+(use-package helm-lsp
+  :ensure t
+  :commands helm-lsp-workspace-symbol)
+
 (use-package magit
   :ensure t
   :defer t)

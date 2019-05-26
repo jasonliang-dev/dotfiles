@@ -17,7 +17,8 @@
    'js-mode-map
    [remap evil-jump-to-tag] 'js2-jump-to-definition)
   :mode "\\.js\\'"
-  :hook (js2-mode . js2-imenu-extras-mode)
+  :hook ((js2-mode . js2-imenu-extras-mode)
+         (js2-mode . lsp))
   :init
   (setq js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil
