@@ -101,7 +101,7 @@
   (require 'org-habit)
 
   ;; start agenda in normal mode
-  (eval-after-load 'org-agenda
+  (eval-after-load 'evil
     '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
 
   ;; wrap lines in org mode
