@@ -15,7 +15,9 @@
    [remap evil-next-line] 'evil-next-visual-line
    [remap evil-previous-line] 'evil-previous-visual-line
    [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
-   [remap evil-end-of-line] 'evil-end-of-visual-line)
+   [remap evil-end-of-line] 'evil-end-of-visual-line
+   [remap evil-scroll-line-down] 'lia/evil-scroll-line-down
+   [remap evil-scroll-line-up] 'lia/evil-scroll-line-up)
   :init
   (setq evil-want-C-u-scroll t
         evil-want-keybinding nil
@@ -34,6 +36,16 @@
 (use-package evil-magit
   :ensure t
   :after (evil magit))
+
+(defun lia/evil-scroll-line-down ()
+  "Scroll the view down by multiple lines."
+  (interactive)
+  (evil-scroll-line-down 3))
+
+(defun lia/evil-scroll-line-up ()
+  "Scroll the view up by multiple lines."
+  (interactive)
+  (evil-scroll-line-up 3))
 
 (provide 'lia-evil)
 
