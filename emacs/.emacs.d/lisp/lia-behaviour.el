@@ -261,6 +261,9 @@
 ;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
 
+;; backspace eats tab characters correctly
+(setq backward-delete-char-untabify-method nil)
+
 ;; move backup~ files to its own directory
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups"))))
