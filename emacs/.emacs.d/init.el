@@ -13,7 +13,7 @@
       gc-cons-percentage 0.6)
 
 ;; disable file handler
-(defvar lia/file-name-handler-alist file-name-handler-alist)
+(defvar lia--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
 ;; set gc and file handler back to default after all the dust has settled
@@ -21,14 +21,7 @@
           (lambda ()
             (setq gc-cons-threshold 16777216
                   gc-cons-percentage 0.1
-                  file-name-handler-alist lia/file-name-handler-alist)))
-
-;; `package-initialize' is called twice. don't do that
-(setq package-enable-at-startup nil
-      ;; don't add `custom-set-variables' to init.el
-      ;; okay, this doesn't work for some reason.
-      ;;package--init-file-ensured t
-      )
+                  file-name-handler-alist lia--file-name-handler-alist)))
 
 ;; be quiet at startup; don't load or display anything unnecessary
 ;; shamelessly stolen from doom-emacs
