@@ -59,6 +59,12 @@
               display-line-numbers-widen t)
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
+;; Visualize tabs and trailing whitespace
+(setq-default whitespace-style '(face tabs tab-mark trailing))
+
+;; Enable whitespace mode everywhere
+(global-whitespace-mode)
+
 ;; set font size
 
 ;; +0.140s to startup time
