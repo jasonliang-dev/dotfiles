@@ -107,7 +107,7 @@ This means calling with nil will enable tab indentation."
 
 (use-package exec-path-from-shell
   :ensure t
-  :after (evil) ;; lol
+  :defer 1
   :init (setq exec-path-from-shell-check-startup-files nil)
   :config
   (when (memq window-system '(mac ns x))
