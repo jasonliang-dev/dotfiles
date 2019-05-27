@@ -158,7 +158,8 @@ otherwise, run `ansi-term' with user shell."
   (general-define-key
    "C-s"     'save-buffer
    "<f5>"    'revert-buffer
-   "C-c C-u" 'universal-argument))
+   "C-c C-u" 'universal-argument
+   [remap indent-for-tab-command] 'tab-to-tab-stop))
 
 (provide 'lia-keybind)
 

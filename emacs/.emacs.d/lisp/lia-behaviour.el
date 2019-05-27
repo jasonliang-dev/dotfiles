@@ -6,23 +6,32 @@
 
 ;;; Code:
 
-(defun lia/set-indent (n)
+(defun lia/set-indent (N)
   "Set the indentation level to N spaces."
+  (interactive "nIndentation size:")
+  (setq tab-width N)
+  (setq-default evil-shift-width N
+                haskell-indentation-layout-offset N
+                haskell-indentation-starter-offset N
+                haskell-indentation-left-offset N
+                haskell-indentation-ifte-offset N
+                haskell-indentation-where-pre-offset (floor (/ N 2))
+                haskell-indentation-where-post-offset N
+                c-basic-offset N
+                javascript-indent-level N
+                js-indent-level N
+                js-switch-indent-offset N ; switch-case indentation
+                css-indent-offset N
+                web-mode-markup-indent-offset N
+                web-mode-css-indent-offset N
+                web-mode-code-indent-offset N))
+
+(defun lia/enable-tabs (&optional ARG)
+  "Enables indentation with tabs.
+If ARG is negative, then use spaces.  Otherwise, use tabs.
+This means calling with nil will enable tab indentation."
   (interactive)
-  (setq-default haskell-indentation-layout-offset n
-                haskell-indentation-starter-offset n
-                haskell-indentation-left-offset n
-                haskell-indentation-ifte-offset n
-                haskell-indentation-where-pre-offset n
-                haskell-indentation-where-post-offset n
-                c-basic-offset n
-                javascript-indent-level n
-                js-indent-level n
-                js-switch-indent-offset n ; switch-case indentation
-                css-indent-offset n
-                web-mode-markup-indent-offset n
-                web-mode-css-indent-offset n
-                web-mode-code-indent-offset n))
+  (setq indent-tabs-mode (not (and (numberp ARG) (< ARG 0)))))
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
 

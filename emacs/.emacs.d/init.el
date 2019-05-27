@@ -38,7 +38,6 @@
 ;; -- CUSTOMIZE FILE -------------------------------------------------
 
 ;; put emacs customize stuff in a separate file
-;; since `package--init-file-ensured' set to t doesn't work
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;; create the custom file if it doesn't exist
