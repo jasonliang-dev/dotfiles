@@ -81,11 +81,7 @@
         '(("c" "New task" entry (file+headline org-default-notes-file "Tasks")
            "** %?")
           ("l" "New task with link" entry (file+headline org-default-notes-file "Tasks")
-           "** %?\n   %a")
-          ("n" "New note" entry (file+headline org-default-notes-file "Notes")
-           "** %?")
-          ("e" "New event" entry (file+headline org-default-notes-file "Events")
-           "** %?\n   SCHEDULED: %t")))
+           "** %?\n   %a")))
 
   ;; custom agenda view
   (setq org-agenda-custom-commands
