@@ -98,6 +98,8 @@
    "lf"  '(:ignore t :wk "find")
    "lfd" '(lsp-ui-peek-find-definitions :wk "definitions under point")
    "lfr" '(lsp-ui-peek-find-references :wk "references under point")
+   "lh"  '(lsp-ui-doc-show :wk "show documentation")
+   "lH"  '(lsp-ui-doc-hide :wk "hide documentation")
    "ls"  '(helm-lsp-workspace-symbol :wk "search symbol")
 
    ;; edit `init.el'
