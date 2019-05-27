@@ -84,6 +84,7 @@
   (setq lsp-ui-doc-enable nil
         lsp-ui-doc-position 'top
         lsp-ui-doc-use-webkit nil
+        lsp-ui-sideline-enable t
         lsp-ui-sideline-ignore-duplicate t
         lsp-ui-sideline-show-code-actions nil
         lsp-ui-sideline-show-hover nil
