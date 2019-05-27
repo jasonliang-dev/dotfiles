@@ -6,6 +6,51 @@
 
 ;;; Code:
 
+;; https://emacs.stackexchange.com/q/7650
+(defun run-external (command)
+  "Run a shell COMMAND that use the current directory."
+  (interactive "s")
+  (shell-command
+   (concat command " . > /dev/null 2>&1 & disown") nil nil))
+
+;; https://emacs.stackexchange.com/q/7742
+(defun browse-file-directory ()
+  "Open the current file's directory however the OS would."
+  (interactive)
+  (if default-directory
+      (browse-url-of-file (expand-file-name default-directory))
+    (error "No `default-directory' to open")))
+
+(defun lia/terminal ()
+  "Launch a terminal.
+Run `eshell' if Emacs is running on Windows,
+otherwise, run `ansi-term' with user shell."
+  (interactive)
+  (if (eq system-type 'windows-nt)
+      (eshell)
+    (ansi-term (getenv "SHELL"))))
+
+(defun lia/external-terminal ()
+  "Open a new terminal window."
+  (interactive)
+  (run-external "EMACS_TERM=\"\" ~/scripts/term.sh"))
+
+(defun lia/config-file ()
+  "Edit Emacs config."
+  (interactive)
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
+
+(defun lia/agenda ()
+  "Show the agenda."
+  (interactive)
+  (org-agenda nil "c"))
+
+(defun lia/goto-org-directory ()
+  "Navigate to `org-directory'."
+  (interactive)
+  (defvar org-directory)
+  (find-file org-directory))
+
 (use-package general
   :ensure t
   :config
@@ -114,53 +159,6 @@
    "C-s"     'save-buffer
    "<f5>"    'revert-buffer
    "C-c C-u" 'universal-argument))
-
-;; https://emacs.stackexchange.com/q/7650
-;;;###autoload
-(defun run-external (command)
-  "Run a shell COMMAND that use the current directory."
-  (interactive "s")
-  (shell-command
-   (concat command " . > /dev/null 2>&1 & disown") nil nil))
-
-;; https://emacs.stackexchange.com/q/7742
-;;;###autoload
-(defun browse-file-directory ()
-  "Open the current file's directory however the OS would."
-  (interactive)
-  (if default-directory
-      (browse-url-of-file (expand-file-name default-directory))
-    (error "No `default-directory' to open")))
-
-(defun lia/terminal ()
-  "Launch a terminal.
-Run `eshell' if Emacs is running on Windows,
-otherwise, run `ansi-term' with user shell."
-  (interactive)
-  (if (eq system-type 'windows-nt)
-      (eshell)
-    (ansi-term (getenv "SHELL"))))
-
-(defun lia/external-terminal ()
-  "Open a new terminal window."
-  (interactive)
-  (run-external "EMACS_TERM=\"\" ~/scripts/term.sh"))
-
-(defun lia/config-file ()
-  "Edit Emacs config."
-  (interactive)
-  (find-file (expand-file-name "init.el" user-emacs-directory)))
-
-(defun lia/agenda ()
-  "Show the agenda."
-  (interactive)
-  (org-agenda nil "c"))
-
-(defun lia/goto-org-directory ()
-  "Navigate to `org-directory'."
-  (interactive)
-  (defvar org-directory)
-  (find-file org-directory))
 
 (provide 'lia-keybind)
 

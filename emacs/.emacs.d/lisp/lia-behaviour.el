@@ -6,6 +6,84 @@
 
 ;;; Code:
 
+(defun lia/set-indent (n)
+  "Set the indentation level to N spaces."
+  (interactive)
+  (setq-default haskell-indentation-layout-offset n
+                haskell-indentation-starter-offset n
+                haskell-indentation-left-offset n
+                haskell-indentation-ifte-offset n
+                haskell-indentation-where-pre-offset n
+                haskell-indentation-where-post-offset n
+                c-basic-offset n
+                javascript-indent-level n
+                js-indent-level n
+                js-switch-indent-offset n ; switch-case indentation
+                css-indent-offset n
+                web-mode-markup-indent-offset n
+                web-mode-css-indent-offset n
+                web-mode-code-indent-offset n))
+
+;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
+
+;;;###autoload
+(defun +neotree/expand-or-open ()
+  "Expand or open a neotree node."
+  (interactive)
+  (defvar neo-auto-indent-point)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (progn
+            (neo-buffer--set-expand node t)
+            (neo-buffer--refresh t)
+            (when neo-auto-indent-point
+              (forward-line)
+              (neo-point-auto-indent)))
+        (call-interactively 'neotree-enter)))))
+
+;;;###autoload
+(defun +neotree/collapse ()
+  "Collapse a neotree node."
+  (interactive)
+  (defvar neo-auto-indent-point)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (when (file-directory-p node)
+        (neo-buffer--set-expand node nil)
+        (neo-buffer--refresh t))
+      (when neo-auto-indent-point
+        (neo-point-auto-indent)))))
+
+;;;###autoload
+(defun +neotree/collapse-or-up ()
+  "Collapse an expanded directory node or go to the parent node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (if (neo-buffer--expanded-node-p node)
+              (+neotree/collapse)
+            (neotree-select-up-node))
+        (neotree-select-up-node)))))
+
+;; https://emacsredux.com/blog/2013/06/25/boost-performance-by-leveraging-byte-compilation/
+
+;;;###autoload
+(defun lia/byte-compile-init-dir ()
+  "Byte-compile all your dotfiles."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0))
+
+(defun lia-remove-elc-on-save ()
+  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))
+            nil
+            t))
+
 (use-package avy
   :ensure t
   :defer t)
@@ -203,84 +281,6 @@
 
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)
-
-(defun lia/set-indent (n)
-  "Set the indentation level to N spaces."
-  (interactive)
-  (setq-default haskell-indentation-layout-offset n
-                haskell-indentation-starter-offset n
-                haskell-indentation-left-offset n
-                haskell-indentation-ifte-offset n
-                haskell-indentation-where-pre-offset n
-                haskell-indentation-where-post-offset n
-                c-basic-offset n
-                javascript-indent-level n
-                js-indent-level n
-                js-switch-indent-offset n ; switch-case indentation
-                css-indent-offset n
-                web-mode-markup-indent-offset n
-                web-mode-css-indent-offset n
-                web-mode-code-indent-offset n))
-
-;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
-
-;;;###autoload
-(defun +neotree/expand-or-open ()
-  "Expand or open a neotree node."
-  (interactive)
-  (defvar neo-auto-indent-point)
-  (let ((node (neo-buffer--get-filename-current-line)))
-    (when node
-      (if (file-directory-p node)
-          (progn
-            (neo-buffer--set-expand node t)
-            (neo-buffer--refresh t)
-            (when neo-auto-indent-point
-              (forward-line)
-              (neo-point-auto-indent)))
-        (call-interactively 'neotree-enter)))))
-
-;;;###autoload
-(defun +neotree/collapse ()
-  "Collapse a neotree node."
-  (interactive)
-  (defvar neo-auto-indent-point)
-  (let ((node (neo-buffer--get-filename-current-line)))
-    (when node
-      (when (file-directory-p node)
-        (neo-buffer--set-expand node nil)
-        (neo-buffer--refresh t))
-      (when neo-auto-indent-point
-        (neo-point-auto-indent)))))
-
-;;;###autoload
-(defun +neotree/collapse-or-up ()
-  "Collapse an expanded directory node or go to the parent node."
-  (interactive)
-  (let ((node (neo-buffer--get-filename-current-line)))
-    (when node
-      (if (file-directory-p node)
-          (if (neo-buffer--expanded-node-p node)
-              (+neotree/collapse)
-            (neotree-select-up-node))
-        (neotree-select-up-node)))))
-
-;; https://emacsredux.com/blog/2013/06/25/boost-performance-by-leveraging-byte-compilation/
-
-;;;###autoload
-(defun lia/byte-compile-init-dir ()
-  "Byte-compile all your dotfiles."
-  (interactive)
-  (byte-recompile-directory user-emacs-directory 0))
-
-(defun lia-remove-elc-on-save ()
-  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
-  (add-hook 'after-save-hook
-            (lambda ()
-              (if (file-exists-p (concat buffer-file-name "c"))
-                  (delete-file (concat buffer-file-name "c"))))
-            nil
-            t))
 
 (add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 

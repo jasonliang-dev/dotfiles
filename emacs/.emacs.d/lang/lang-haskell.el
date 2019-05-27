@@ -6,16 +6,6 @@
 
 ;;; Code:
 
-(use-package haskell-mode
-  :ensure t
-  :mode "\\.hs\\'"
-  :hook (haskell-mode . lsp)
-  :init (setq haskell-process-type 'stack-ghci)
-  :general
-  (:keymaps
-   'haskell-mode-map
-   "C-c C-f" 'lia/format-haskell-buffer))
-
 (defun lia/format-haskell-buffer ()
   "Format the current Haskell buffer.
 Brittany must be installed."
@@ -27,6 +17,16 @@ Brittany must be installed."
     (with-current-buffer tmp-buf (insert formatted))
     (replace-buffer-contents tmp-buf)
     (kill-buffer tmp-buf)))
+
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'"
+  :hook (haskell-mode . lsp)
+  :init (setq haskell-process-type 'stack-ghci)
+  :general
+  (:keymaps
+   'haskell-mode-map
+   "C-c C-f" 'lia/format-haskell-buffer))
 
 (provide 'lang-haskell)
 

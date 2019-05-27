@@ -6,6 +6,16 @@
 
 ;;; Code:
 
+(defun lia/evil-scroll-line-down ()
+  "Scroll the view down by multiple lines."
+  (interactive)
+  (evil-scroll-line-down 3))
+
+(defun lia/evil-scroll-line-up ()
+  "Scroll the view up by multiple lines."
+  (interactive)
+  (evil-scroll-line-up 3))
+
 (use-package evil
   :ensure t
   :hook (after-init . evil-mode)
@@ -36,16 +46,6 @@
 (use-package evil-magit
   :ensure t
   :after (evil magit))
-
-(defun lia/evil-scroll-line-down ()
-  "Scroll the view down by multiple lines."
-  (interactive)
-  (evil-scroll-line-down 3))
-
-(defun lia/evil-scroll-line-up ()
-  "Scroll the view up by multiple lines."
-  (interactive)
-  (evil-scroll-line-up 3))
 
 (provide 'lia-evil)
 
