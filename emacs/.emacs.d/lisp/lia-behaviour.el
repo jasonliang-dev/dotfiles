@@ -33,6 +33,11 @@ This means calling with nil will enable tab indentation."
   (interactive)
   (setq indent-tabs-mode (not (and (numberp ARG) (< ARG 0)))))
 
+(defun lia/disable-tabs ()
+  "Disable identation with tabs."
+  (interactive)
+  (lia/enable-tabs -1))
+
 ;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
 
 ;;;###autoload
