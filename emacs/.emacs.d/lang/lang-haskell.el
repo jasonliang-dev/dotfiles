@@ -16,7 +16,8 @@ Brittany must be installed."
                             (shell-quote-argument (buffer-string))))))
     (with-current-buffer tmp-buf (insert formatted))
     (replace-buffer-contents tmp-buf)
-    (kill-buffer tmp-buf)))
+    (kill-buffer tmp-buf)
+    (delete-trailing-whitespace)))
 
 (use-package haskell-mode
   :ensure t
