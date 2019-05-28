@@ -6,12 +6,12 @@
 
 ;;; Code:
 
-(defun lia/evil-scroll-line-down ()
+(defun lia-evil-scroll-line-down ()
   "Scroll the view down by multiple lines."
   (interactive)
   (evil-scroll-line-down 3))
 
-(defun lia/evil-scroll-line-up ()
+(defun lia-evil-scroll-line-up ()
   "Scroll the view up by multiple lines."
   (interactive)
   (evil-scroll-line-up 3))
@@ -26,8 +26,8 @@
    [remap evil-previous-line]     'evil-previous-visual-line
    [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
    [remap evil-end-of-line]       'evil-end-of-visual-line
-   [remap evil-scroll-line-down]  'lia/evil-scroll-line-down
-   [remap evil-scroll-line-up]    'lia/evil-scroll-line-up)
+   [remap evil-scroll-line-down]  'lia-evil-scroll-line-down
+   [remap evil-scroll-line-up]    'lia-evil-scroll-line-up)
   :init
   (setq evil-want-C-u-scroll t
         evil-want-keybinding nil
@@ -42,6 +42,12 @@
   :ensure t
   :after evil
   :config (evil-commentary-mode))
+
+(use-package evil-numbers
+  :ensure t
+  :after evil
+  :commands (evil-numbers/inc-at-pt
+             evil-numbers/dec-at-pt))
 
 (use-package evil-surround
   :ensure t
