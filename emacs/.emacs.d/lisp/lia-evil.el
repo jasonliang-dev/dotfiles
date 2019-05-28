@@ -43,6 +43,11 @@
   :after evil
   :config (evil-commentary-mode))
 
+(use-package evil-matchit
+  :ensure t
+  :after evil
+  :hook (prog-mode . evil-matchit-mode))
+
 (use-package evil-numbers
   :ensure t
   :after evil
