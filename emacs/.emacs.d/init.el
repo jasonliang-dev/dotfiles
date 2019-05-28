@@ -74,9 +74,9 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lang" user-emacs-directory))
 
-(require 'lia-appearance) ;; emacs appearance
 (require 'lia-keybind)    ;; leader and other global hotkeys
 (require 'lia-evil)       ;; evil mode specific configs
+(require 'lia-appearance) ;; emacs appearance
 (require 'lia-completion) ;; helm, code completion, snippets
 (require 'lia-behaviour)  ;; additional behaviours that don't fit in previous sections
 (require 'lia-org)        ;; org mode configuration

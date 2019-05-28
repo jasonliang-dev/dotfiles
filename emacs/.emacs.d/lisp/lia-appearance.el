@@ -18,6 +18,49 @@
   (when (bound-and-true-p display-line-numbers-mode)
     (display-line-numbers--turn-on)))
 
+;; https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L27
+
+;;;###autoload
+(defun +neotree/expand-or-open ()
+  "Expand or open a neotree node."
+  (interactive)
+  (defvar neo-auto-indent-point)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (progn
+            (neo-buffer--set-expand node t)
+            (neo-buffer--refresh t)
+            (when neo-auto-indent-point
+              (forward-line)
+              (neo-point-auto-indent)))
+        (call-interactively 'neotree-enter)))))
+
+;;;###autoload
+(defun +neotree/collapse ()
+  "Collapse a neotree node."
+  (interactive)
+  (defvar neo-auto-indent-point)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (when (file-directory-p node)
+        (neo-buffer--set-expand node nil)
+        (neo-buffer--refresh t))
+      (when neo-auto-indent-point
+        (neo-point-auto-indent)))))
+
+;;;###autoload
+(defun +neotree/collapse-or-up ()
+  "Collapse an expanded directory node or go to the parent node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (if (neo-buffer--expanded-node-p node)
+              (+neotree/collapse)
+            (neotree-select-up-node))
+        (neotree-select-up-node)))))
+
 (use-package doom-themes
   :ensure t
   :config
@@ -34,6 +77,27 @@
 (use-package hide-mode-line
   :ensure t
   :hook (neotree-mode . hide-mode-line-mode))
+
+(use-package neotree
+  :ensure t
+  :commands (neotree-toggle)
+  :general
+  (:states
+   'normal
+   :keymaps 'neotree-mode-map
+   "SPC" nil
+   "h"   '+neotree/collapse-or-up
+   "l"   '+neotree/expand-or-open)
+  :init
+  (setq neo-window-fixed-size nil
+        neo-smart-open t
+        neo-show-hidden-files t
+        neo-theme 'icons
+        neo-window-width 30)
+  :config
+  (doom-themes-neotree-config)
+  (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
+  (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed"))
 
 (use-package rainbow-delimiters
   :ensure t
