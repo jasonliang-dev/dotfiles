@@ -1,12 +1,21 @@
+# backup files
 *.elc
 *~
 \#*
+
 awesome/.config/awesome/lain
-emacs/.emacs.d/
+
+# ignore all files in emacs except the file init.el
+# and the directories: lang, lisp, and snippets
+!emacs/
+emacs/*
+!emacs/.emacs.d/
+emacs/.emacs.d/*
 !emacs/.emacs.d/init.el
 !emacs/.emacs.d/lang/
 !emacs/.emacs.d/lisp/
 !emacs/.emacs.d/snippets/
+
 ncmpcpp/.config/mpd/database
 ncmpcpp/.config/mpd/log
 ncmpcpp/.config/mpd/pid
@@ -14,8 +23,11 @@ ncmpcpp/.config/mpd/playlists
 ncmpcpp/.config/mpd/state
 ncmpcpp/.config/mpd/sticker.sql
 ncmpcpp/.ncmpcpp/error.log
+
 termite/.config/gtk-3.0/settings.ini
+
 vim/.vim/.netrwhist
 vim/.vim/bundle/
+
 vscode/
 !vscode/.config/Code/User/setttings.json
