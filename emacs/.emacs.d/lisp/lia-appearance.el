@@ -74,6 +74,14 @@
         doom-modeline-buffer-file-name-style 'relative-to-project)
   :hook (after-init . doom-modeline-mode))
 
+;; Enable font ligatures
+;; Fira Code Symbol is required
+;; https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632
+(use-package fira-code-mode
+  :load-path "lisp/"
+  :hook ((prog-mode . fira-code-mode)
+         (org-mode . fira-code-mode)))
+
 (use-package hide-mode-line
   :ensure t
   :hook (neotree-mode . hide-mode-line-mode))
@@ -131,13 +139,6 @@
 
 ;; set font
 (add-to-list 'default-frame-alist '(font . "Fira Code 9"))
-
-;; Enable font ligatures
-;; Fira Code Symbol is required
-;; https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632
-(require 'fira-code-mode)
-(add-hook 'prog-mode-hook 'fira-code-mode)
-(add-hook 'org-mode-hook 'fira-code-mode)
 
 (provide 'lia-appearance)
 
