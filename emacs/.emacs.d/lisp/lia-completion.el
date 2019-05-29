@@ -8,7 +8,7 @@
 
 (use-package company
   :ensure t
-  :hook (after-init . global-company-mode)
+  :hook (emacs-startup . global-company-mode)
   :general
   (company-active-map
    "C-n" #'company-select-next
@@ -26,9 +26,7 @@
   :general
   ("M-x"     'helm-M-x
    "C-x C-f" 'helm-find-files
-   "C-x C-b" 'helm-mini)
-  :config
-  (require 'helm-config))
+   "C-x C-b" 'helm-mini))
 
 (use-package helm-swoop
   :ensure t

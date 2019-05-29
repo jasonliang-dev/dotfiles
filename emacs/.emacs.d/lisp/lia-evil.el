@@ -18,7 +18,7 @@
 
 (use-package evil
   :ensure t
-  :hook (after-init . evil-mode)
+  :hook (emacs-startup . evil-mode)
   :general
   (:states
    '(normal visual motion)

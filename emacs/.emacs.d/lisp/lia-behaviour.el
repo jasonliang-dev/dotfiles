@@ -97,7 +97,7 @@ This means calling with nil will enable tab indentation."
 
 (use-package eyebrowse
   :ensure t
-  :hook (after-init . eyebrowse-mode)
+  :hook (emacs-startup . eyebrowse-mode)
   :config
   (eyebrowse-setup-opinionated-keys))
 
@@ -185,7 +185,7 @@ This means calling with nil will enable tab indentation."
 
 (use-package which-key
   :ensure t
-  :hook (after-init . which-key-mode))
+  :hook (emacs-startup . which-key-mode))
 
 ;; don't execute base16-shell when running a terminal
 ;; see: dotfiles/bash/.shell-start
