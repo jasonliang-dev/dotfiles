@@ -131,9 +131,6 @@
 ;; Enable whitespace mode everywhere
 (global-whitespace-mode)
 
-;; set font
-(add-to-list 'default-frame-alist '(font . "Fira Code 9"))
-
 (provide 'lia-appearance)
 
 ;;; lia-appearance.el ends here

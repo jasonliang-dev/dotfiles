@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-;; -- STARTUP OPTIMIZATIONS ------------------------------------------
+;; -- EARLY INITIALIZATION -------------------------------------------
 
 ;; avoid garbage collection until the end
 (setq gc-cons-threshold 402653184
@@ -27,6 +27,9 @@
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
 (add-to-list 'default-frame-alist '(vertical-scroll-bars))
+
+;; set font
+(add-to-list 'default-frame-alist '(font . "Fira Code 9"))
 
 ;; don't load site-start
 (setq site-run-file nil)
