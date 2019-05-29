@@ -30,8 +30,7 @@
    [remap evil-scroll-line-up]    'lia-evil-scroll-line-up)
   :init
   (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil
-        evil-search-module 'evil-search))
+        evil-want-keybinding nil))
 
 (use-package evil-collection
   :ensure t
