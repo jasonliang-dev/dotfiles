@@ -69,7 +69,7 @@
    org-log-redeadline 'time
    org-log-reschedule 'time
    ;; hide bold italic markers
-   ;; org-hide-emphasis-markers t
+   org-hide-emphasis-markers t
    ;; syntax highlighting in source blocks
    org-src-fontify-natively t
    ;; edit source blocks in current window
