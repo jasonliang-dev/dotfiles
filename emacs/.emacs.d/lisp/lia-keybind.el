@@ -53,6 +53,7 @@ otherwise, run `ansi-term' with user shell."
 
 (use-package general
   :ensure t
+  :demand t
   :config
   ;; leader key
   (general-define-key
