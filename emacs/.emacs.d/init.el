@@ -35,25 +35,15 @@
         initial-scratch-message nil
         mode-line-format nil))
 
-;; -- CUSTOMIZE FILE -------------------------------------------------
-
-;; put emacs customize stuff in a separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-;; create the custom file if it doesn't exist
-(unless (file-exists-p custom-file)
-  (write-region "" nil custom-file))
-
-(load custom-file)
-
 ;; -- PACKAGE SETUP --------------------------------------------------
 
 (require 'package)
 
-;; add more package sources
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")))
+
 (package-initialize)
 
 ;; install use-package if not installed already
@@ -67,6 +57,17 @@
 ;; this doesn't work for me. is it because of lexical binding?
 ;; just add :ensure t to everything instead
 ;;(setq use-package-always-ensure t)
+
+;; -- CUSTOMIZE FILE -------------------------------------------------
+
+;; put emacs customize stuff in a separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+;; create the custom file if it doesn't exist
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+
+(load custom-file nil t)
 
 ;; -- LOAD LOCAL ELISP -----------------------------------------------
 
