@@ -212,7 +212,7 @@ This means calling with nil will enable tab indentation."
 ;; tabs are the enemy
 (setq-default indent-tabs-mode nil)
 
-;; backspace eats all levels of indentation
+;; backspace simply deletes a character
 (setq backward-delete-char-untabify-method nil)
 
 ;; move backup~ files to its own directory

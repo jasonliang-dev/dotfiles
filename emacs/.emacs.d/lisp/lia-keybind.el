@@ -64,7 +64,7 @@ otherwise, run `ansi-term' with user shell."
    "SPC" '(helm-M-x :wk "run command")
    "ESC" '(evil-ex-nohighlight :wk "clear highlight")
    "TAB" '(mode-line-other-buffer :wk "other buffer")
-   ";"   '(avy-goto-char-timer :wk "avy jump to")
+   ";"   '(avy-goto-char-2 :wk "avy jump to")
    "`"   '(lia/terminal :wk "terminal")
    "b"   '(helm-mini :wk "buffers")
    "e"   "C-x C-e"
@@ -158,8 +158,7 @@ otherwise, run `ansi-term' with user shell."
   (general-define-key
    "C-s"     'save-buffer
    "<f5>"    'revert-buffer
-   "C-c C-u" 'universal-argument
-   [remap indent-for-tab-command] 'tab-to-tab-stop))
+   "C-c C-u" 'universal-argument))
 
 (provide 'lia-keybind)
 
