@@ -9,7 +9,8 @@
 (defun lia/set-indent (N)
   "Set the indentation level to N spaces."
   (interactive "nIndentation size:")
-  (setq tab-width N) ;; tab-width doesn't update with `setq-default'
+  (setq tab-width N) ; local
+  (setq-default tab-width N) ; and global
   (setq-default evil-shift-width N
                 haskell-indentation-layout-offset N
                 haskell-indentation-starter-offset N
