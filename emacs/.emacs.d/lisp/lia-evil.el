@@ -54,6 +54,13 @@
   :commands (evil-numbers/inc-at-pt
              evil-numbers/dec-at-pt))
 
+(use-package evil-snipe
+  :ensure t
+  :after evil
+  :config
+  (evil-snipe-mode +1)
+  (evil-snipe-override-mode +1))
+
 (use-package evil-surround
   :ensure t
   :after evil
