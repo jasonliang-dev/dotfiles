@@ -8,12 +8,13 @@
 
 (use-package company
   :ensure t
-  :hook (emacs-startup . global-company-mode)
+  :defer 1
   :general
   (company-active-map
    "C-n" #'company-select-next
    "C-p" #'company-select-previous)
-  :init (setq company-idle-delay 0))
+  :init (setq company-idle-delay 0)
+  :config (global-company-mode))
 
 (use-package emmet-mode
   ;; C-j to expand
@@ -30,7 +31,9 @@
 
 (use-package helm-swoop
   :ensure t
-  :defer t)
+  :commands (helm-swoop
+             helm-multi-swoop
+             helm-multi-swoop-all))
 
 (use-package helm-projectile
   :ensure t
