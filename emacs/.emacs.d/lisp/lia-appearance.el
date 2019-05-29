@@ -72,7 +72,7 @@
   :init
   (setq doom-modeline-height 35
         doom-modeline-buffer-file-name-style 'relative-to-project)
-  :hook (emacs-startup . doom-modeline-mode))
+  :config (doom-modeline-mode))
 
 ;; Enable font ligatures
 ;; Fira Code Symbol is required
