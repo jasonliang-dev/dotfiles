@@ -11,6 +11,7 @@ awesome/.config/awesome/lain
 emacs/*
 !emacs/.emacs.d/
 emacs/.emacs.d/*
+!emacs/.emacs.d/Makefile
 !emacs/.emacs.d/init.el
 !emacs/.emacs.d/lang/
 !emacs/.emacs.d/lisp/
