@@ -68,7 +68,7 @@
 
 (use-package evil-magit
   :ensure t
-  :requires (evil magit))
+  :after evil magit)
 
 (provide 'lia-evil)
 
