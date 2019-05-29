@@ -22,7 +22,6 @@ Brittany must be installed."
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
-  :hook (haskell-mode . lsp)
   :init (setq haskell-process-type 'stack-ghci)
   :general
   (:keymaps
