@@ -103,6 +103,10 @@
 (require 'lang-markdown)
 (require 'lang-php)
 
-(lia/set-indent 2) ;; set default indentation level
+;; set default indentation level
+(lia/set-indent 2)
+
+;; stop doing M-x emacs-init-time everytime I start emacs
+(message (emacs-init-time))
 
 ;;; init.el ends here
