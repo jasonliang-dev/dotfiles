@@ -78,7 +78,6 @@
 ;; Fira Code Symbol is required
 ;; https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632
 (use-package fira-code-mode
-  :load-path "lisp/"
   :hook ((prog-mode . fira-code-mode)
          (org-mode . fira-code-mode)))
 
