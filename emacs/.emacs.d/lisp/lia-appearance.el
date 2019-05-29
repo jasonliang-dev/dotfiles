@@ -129,15 +129,15 @@
 ;; Enable whitespace mode everywhere
 (global-whitespace-mode)
 
-;; set font size
+;; set font
+(add-to-list 'default-frame-alist '(font . "Fira Code 9"))
 
-;; +0.140s to startup time
-;; (set-frame-font "Iosevka 11" nil t)
-
-;; can't benchmark since esup crashes prematurely.
-;; but I think it shaves about 0.1s compared to `set-frame-font' above
-;; depends on the machine you're running on ofc
-(add-to-list 'default-frame-alist '(font . "Iosevka 10"))
+;; Enable font ligatures
+;; Fira Code Symbol is required
+;; https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632
+(require 'fira-code-mode)
+(add-hook 'prog-mode-hook 'fira-code-mode)
+(add-hook 'org-mode-hook 'fira-code-mode)
 
 (provide 'lia-appearance)
 
