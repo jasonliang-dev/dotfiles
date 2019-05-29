@@ -110,11 +110,6 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; remove gui bars
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-
 ;; highlight current line when programming
 (add-hook 'prog-mode-hook 'hl-line-mode)
 

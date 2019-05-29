@@ -23,6 +23,14 @@
                   gc-cons-percentage 0.1
                   file-name-handler-alist lia--file-name-handler-alist)))
 
+;; remove gui bars. done as early as possible
+(add-to-list 'default-frame-alist '(tool-bar-lines . 0))
+(add-to-list 'default-frame-alist '(menu-bar-lines . 0))
+(add-to-list 'default-frame-alist '(vertical-scroll-bars))
+
+;; don't load site-start
+(setq site-run-file nil)
+
 ;; be quiet at startup; don't load or display anything unnecessary
 ;; shamelessly stolen from doom-emacs
 ;; https://github.com/hlissner/doom-emacs/blob/5dacbb7cb1c6ac246a9ccd15e6c4290def67757c/core/core.el#L112
