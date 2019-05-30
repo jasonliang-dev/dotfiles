@@ -169,6 +169,10 @@
       scroll-conservatively 10000
       scroll-preserve-screen-position 1)
 
+;; guess target directory when copying/moving files in dired
+;; i.e. get drag and drop functionality with two dired windows in a split
+(setq dired-dwim-target t)
+
 (add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 
 (provide 'lia-behaviour)
