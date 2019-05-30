@@ -90,6 +90,7 @@
 (require 'lia-evil)       ;; evil mode specific configs
 (require 'lia-appearance) ;; emacs appearance
 (require 'lia-completion) ;; helm, code completion, snippets
+(require 'lia-editor)     ;; indentation, lsp, text manipulation
 (require 'lia-behaviour)  ;; additional behaviours that don't fit in previous sections
 (require 'lia-org)        ;; org mode configuration
 
