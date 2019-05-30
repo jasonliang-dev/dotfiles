@@ -8,13 +8,12 @@
 
 (use-package company
   :ensure t
-  :defer 1
+  :hook (prog-mode . company-mode)
   :general
   (company-active-map
    "C-n" #'company-select-next
    "C-p" #'company-select-previous)
-  :init (setq company-idle-delay 0)
-  :config (global-company-mode))
+  :init (setq company-idle-delay 0))
 
 (use-package emmet-mode
   ;; C-j to expand
