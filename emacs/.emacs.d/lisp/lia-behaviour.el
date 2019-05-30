@@ -122,12 +122,11 @@
 
 (use-package wakatime-mode
   :ensure t
-  :defer 1
+  :defer 5
   :config (global-wakatime-mode))
 
 (use-package which-key
   :ensure t
-  :defer 1
   :config (which-key-mode t))
 
 ;; don't execute base16-shell when running a terminal

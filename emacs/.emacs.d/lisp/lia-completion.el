@@ -22,7 +22,6 @@
 
 (use-package helm
   :ensure t
-  :defer t
   :general
   ("M-x"     'helm-M-x
    "C-x C-f" 'helm-find-files
