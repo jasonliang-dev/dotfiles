@@ -37,7 +37,9 @@
     "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
     "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
     "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-    "x" ":" "+" "+" "*"))
+    "֍" ;; This is supposed to be the character "x".
+        ;; Replaced with a character I would never see typically.
+    ":" "+" "+" "*"))
 
 (defvar fira-code-mode--old-prettify-alist)
 
