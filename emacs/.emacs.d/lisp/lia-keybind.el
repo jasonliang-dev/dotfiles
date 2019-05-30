@@ -156,12 +156,18 @@ otherwise, run `ansi-term' with user shell."
    "RET"   '(lia/external-terminal :wk "external terminal")
    "C-SPC" '(browse-file-directory :wk "open file explorer"))
 
+  ;; motion state bindings
+  (general-define-key
+   :states '(normal visual motion)
+   "C-a"     'evil-numbers/inc-at-pt
+   "C-S-a"   'evil-numbers/dec-at-pt
+   "C-c C-u" 'universal-argument
+   "C-;"     'iedit-mode)
+
   ;; global bindings
   (general-define-key
-   "C-s"     'save-buffer
-   "<f5>"    'revert-buffer
-   "C-c C-u" 'universal-argument
-   "C-;"     'iedit-mode))
+   "C-s"  'save-buffer
+   "<f5>" 'revert-buffer))
 
 (provide 'lia-keybind)
 
