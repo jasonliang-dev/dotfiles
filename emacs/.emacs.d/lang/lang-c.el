@@ -6,14 +6,6 @@
 
 ;;; Code:
 
-(use-package clang-format
-  :ensure t
-  :defer t
-  :general
-  (:keymaps
-   '(c-mode-map c++-mode-map)
-   "C-c C-f" #'clang-format-buffer))
-
 ;; .h files open in c++ mode by default
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 

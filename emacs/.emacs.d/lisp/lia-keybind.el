@@ -61,13 +61,14 @@ otherwise, run `ansi-term' with user shell."
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    ""    '(nil :wk "leader key")
-   "SPC" '(helm-M-x :wk "run command")
    "ESC" '(evil-ex-nohighlight :wk "clear highlight")
+   "SPC" '(helm-M-x :wk "run command")
    "TAB" '(mode-line-other-buffer :wk "other buffer")
    ";"   '(avy-goto-char-2 :wk "avy jump to")
    "`"   '(lia/terminal :wk "terminal")
    "b"   '(helm-mini :wk "buffers")
    "e"   "C-x C-e"
+   "F"   '(format-all-buffer :wk "format buffer")
    "f"   '(helm-find-files :wk "find files")
    "g"   '(magit-status :wk "git status")
    "j"   '(dumb-jump-go :wk "jump")
@@ -84,31 +85,31 @@ otherwise, run `ansi-term' with user shell."
 
    ;; search
    "s"  '(:ignore t :wk "search")
-   "ss" 'helm-swoop
    "sS" 'helm-multi-swoop-all
+   "ss" 'helm-swoop
 
    ;; projectile
    "p"   '(:ignore t :wk "projectile")
    "p!"  'projectile-run-shell-command-in-root
    "p%"  'projectile-replace-regexp
    "p&"  'projectile-run-async-shell-command-in-root
-   "pD"  'projectile-dired
-   "pF"  'helm-projectile-find-file-dwim
-   "pG"  'projectile-regenerate-tags
-   "pI"  'projectile-invalidate-cache
-   "pR"  'projectile-replace
-   "pT"  'projectile-test-project
    "pa"  'projectile-toggle-between-implementation-and-test
    "pb"  'helm-projectile-switch-to-buffer
    "pc"  'projectile-compile-project
    "pd"  'helm-projectile-find-dir
+   "pD"  'projectile-dired
    "pd"  'projectile-find-dir
    "pf"  'helm-projectile-find-file
+   "pF"  'helm-projectile-find-file-dwim
    "pg"  'projectile-find-tag
+   "pG"  'projectile-regenerate-tags
    "ph"  'helm-projectile
+   "pI"  'projectile-invalidate-cache
    "pk"  'projectile-kill-buffers
    "pp"  'helm-projectile-switch-project
    "pr"  'helm-projectile-recentf
+   "pR"  'projectile-replace
+   "pT"  'projectile-test-project
    "pv"  'projectile-vc
    "sgp" 'helm-projectile-grep
 

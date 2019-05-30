@@ -43,6 +43,11 @@ This means calling with nil will enable tab indentation."
   :ensure t
   :hook (prog-mode . editorconfig-mode))
 
+(use-package format-all
+  :ensure t
+  :commands (format-all-buffer
+             format-all-mode))
+
 (use-package iedit
   :ensure t
   :defer t)
