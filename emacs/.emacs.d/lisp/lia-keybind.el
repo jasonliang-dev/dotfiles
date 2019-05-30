@@ -83,7 +83,8 @@ otherwise, run `ansi-term' with user shell."
    "tl" '(display-line-numbers-mode :wk "line numbers")
    "tt" '(neotree-toggle :wk "neotree")
 
-   ;; helm
+   ;; search
+   "s"  '(:ignore t :wk "search")
    "ss" 'helm-swoop
    "sS" 'helm-multi-swoop-all
 
@@ -113,15 +114,15 @@ otherwise, run `ansi-term' with user shell."
    "sgp" 'helm-projectile-grep
 
    ;; window navigation
-   "H"  '(evil-window-move-far-left :wk "move window left")
-   "J"  '(evil-window-move-very-bottom :wk "move window right")
-   "K"  '(evil-window-move-very-top :wk "move window up")
-   "L"  '(evil-window-move-far-right :wk "move window down")
    "w"  '(:ignore t :wk "window")
    "wh" '(windmove-left :wk "go left")
    "wj" '(windmove-down :wk "go down")
    "wk" '(windmove-up :wk "go up")
    "wl" '(windmove-right :wk "go right")
+   "wH" '(evil-window-move-far-left :wk "move window left")
+   "wJ" '(evil-window-move-very-bottom :wk "move window right")
+   "wK" '(evil-window-move-very-top :wk "move window up")
+   "wL" '(evil-window-move-far-right :wk "move window down")
    "ws" '(evil-window-split :wk "horizontal split")
    "wv" '(evil-window-vsplit :wk "vertical split")
    "wo" '(delete-other-windows :wk "maximize")
@@ -159,7 +160,8 @@ otherwise, run `ansi-term' with user shell."
   (general-define-key
    "C-s"     'save-buffer
    "<f5>"    'revert-buffer
-   "C-c C-u" 'universal-argument))
+   "C-c C-u" 'universal-argument
+   "C-;"     'iedit-mode))
 
 (provide 'lia-keybind)
 
