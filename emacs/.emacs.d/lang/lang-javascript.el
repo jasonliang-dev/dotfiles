@@ -25,10 +25,6 @@
         js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil))
 
-(use-package prettier-js
-  :ensure t
-  :hook (js-mode . prettier-js-mode))
-
 (use-package rjsx-mode
   :ensure t
   :mode "\\.jsx\\'"
