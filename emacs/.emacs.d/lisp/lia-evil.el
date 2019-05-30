@@ -18,6 +18,7 @@
 
 (use-package evil
   :ensure t
+  :hook (emacs-startup . evil-mode)
   :general
   (:states
    '(normal visual motion)
@@ -29,8 +30,7 @@
    [remap evil-scroll-line-up]    'lia-evil-scroll-line-up)
   :init
   (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil)
-  :config (evil-mode))
+        evil-want-keybinding nil))
 
 (use-package evil-collection
   :ensure t
