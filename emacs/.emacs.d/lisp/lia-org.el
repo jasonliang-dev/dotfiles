@@ -15,13 +15,13 @@
    :keymaps 'org-agenda-mode-map
    "RET" 'org-agenda-switch-to
    "."   'org-agenda-goto-today
-   "a"   'org-agenda-archive-default-with-confirmation
    "c"   'org-agenda-goto-calendar
    "q"   'org-agenda-quit
    "r"   'org-agenda-redo
    "s"   'org-save-all-org-buffers
    "t"   'org-agenda-todo
    "u"   'org-agenda-undo
+   "x"   'org-agenda-archive
 
    "1"   'org-agenda-day-view
    "2"   'org-agenda-week-view
