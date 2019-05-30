@@ -62,7 +62,7 @@ This means calling with nil will enable tab indentation."
 
 (use-package dumb-jump
   :ensure t
-  :defer t)
+  :commands (dumb-jump-go))
 
 (use-package editorconfig
   :ensure t
@@ -121,6 +121,10 @@ This means calling with nil will enable tab indentation."
         (setq-local flycheck-javascript-eslint-executable eslint))))
 
   (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
+
+(use-package iedit
+  :ensure t
+  :defer t)
 
 (use-package lsp-mode
   :ensure t
