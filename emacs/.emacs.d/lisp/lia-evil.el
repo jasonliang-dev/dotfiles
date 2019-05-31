@@ -42,6 +42,12 @@
   :after evil
   :config (evil-commentary-mode))
 
+(use-package evil-iedit-state
+  :ensure t
+  :after evil iedit
+  :commands (evil-iedit-state
+             evil-iedit-insert-state))
+
 (use-package evil-matchit
   :ensure t
   :after evil
