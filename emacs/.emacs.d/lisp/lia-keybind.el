@@ -51,6 +51,18 @@ otherwise, run `ansi-term' with user shell."
   (defvar org-directory)
   (find-file org-directory))
 
+(defun lia/iedit ()
+  "Execute `iedit-mode' and `evil-iedit-state'."
+  (interactive)
+  (iedit-mode)
+  (evil-iedit-state))
+
+(defun lia/iedit-insert ()
+  "Execute `iedit-mode' and `evil-iedit-insert-state'."
+  (interactive)
+  (iedit-mode)
+  (evil-iedit-insert-state))
+
 (use-package general
   :ensure t
   :config
@@ -162,7 +174,12 @@ otherwise, run `ansi-term' with user shell."
    "C-a"     'evil-numbers/inc-at-pt
    "C-S-a"   'evil-numbers/dec-at-pt
    "C-c C-u" 'universal-argument
-   "C-;"     'iedit-mode)
+   "C-;"     'lia/iedit)
+
+  ;; insert mode bindings
+  (general-define-key
+   :states 'insert
+   "C-;" 'lia/iedit-insert)
 
   ;; global bindings
   (general-define-key
