@@ -56,6 +56,7 @@
 (use-package evil-snipe
   :ensure t
   :after evil
+  :init (setq evil-snipe-repeat-keys nil)
   :config
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1))
