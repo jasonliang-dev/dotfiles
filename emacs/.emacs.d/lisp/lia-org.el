@@ -100,6 +100,9 @@
   (eval-after-load 'evil
     '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
 
+  ;; go into insert mode when using org capture
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
   ;; wrap lines in org mode
   (add-hook 'org-mode-hook 'visual-line-mode)
 
