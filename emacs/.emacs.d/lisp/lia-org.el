@@ -44,36 +44,47 @@
                           (concat (getenv "HOMEPATH") "\\Dropbox\\org\\")
                         "~/Dropbox/org/"))
 
-  (setq
    ;; agenda file locations
-   org-agenda-files (list org-directory)
+   (setq org-agenda-files (list org-directory))
+
    ;; hide repeating tasks (habits)
-   ;; org-agenda-repeating-timestamp-show-all nil
+   ;; (setq org-agenda-repeating-timestamp-show-all nil)
+
    ;; use 12 hour clock
-   org-agenda-timegrid-use-ampm t
+   (setq org-agenda-timegrid-use-ampm t)
+
    ;; agenda starts on current day
-   org-agenda-start-on-weekday nil
+   (setq org-agenda-start-on-weekday nil)
+
    ;; show edits in invisible regions
-   org-catch-invisible-edits 'show
+   (setq org-catch-invisible-edits 'show)
+
    ;; target file for notes. capture notes here.
-   org-default-notes-file (concat org-directory "index.org")
+   (setq org-default-notes-file (concat org-directory "index.org"))
+
    ;; move the consistency graph to the right
-   org-habit-graph-column 56
+   (setq org-habit-graph-column 56)
    ;; number of days after today in consistency graph
-   org-habit-following-days 1
+   (setq org-habit-following-days 1)
    ;; number of days before today in consistency graph
-   org-habit-preceding-days 9
+   (setq org-habit-preceding-days 9)
+
    ;; log time when done
-   org-log-done 'time
+   (setq org-log-done 'time)
+
+   ;; log deadlines
+   (setq org-log-redeadline 'time)
    ;; log reschedules
-   org-log-redeadline 'time
-   org-log-reschedule 'time
+   (setq org-log-reschedule 'time)
+
    ;; hide bold italic markers
-   org-hide-emphasis-markers t
+   (setq org-hide-emphasis-markers t)
+
    ;; syntax highlighting in source blocks
-   org-src-fontify-natively t
+   (setq org-src-fontify-natively t)
+
    ;; edit source blocks in current window
-   org-src-window-setup 'current-window)
+   (setq org-src-window-setup 'current-window)
 
   ;; capture templates
   ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
