@@ -82,9 +82,6 @@ This means calling with nil will enable tab indentation."
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)
 
-;; tabs are the enemy
-(setq-default indent-tabs-mode nil)
-
 ;; backspace simply deletes a character
 (setq backward-delete-char-untabify-method nil)
 

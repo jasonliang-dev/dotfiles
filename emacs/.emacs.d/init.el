@@ -110,6 +110,9 @@
 ;; set default indentation level
 (lia/set-indent 2)
 
+;; use spaces for indentation
+(lia/disable-tabs)
+
 ;; stop doing M-x emacs-init-time everytime I start emacs
 (message (emacs-init-time))
 
