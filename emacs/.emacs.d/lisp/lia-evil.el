@@ -29,8 +29,12 @@
    [remap evil-scroll-line-down]  'lia-evil-scroll-line-down
    [remap evil-scroll-line-up]    'lia-evil-scroll-line-up)
   :init
-  (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil))
+  ;; scroll with C-u
+  (setq evil-want-C-u-scroll t)
+  ;; let evil-collection handle keys
+  (setq evil-want-keybinding nil)
+  ;; emacs movement in insert mode
+  (setq evil-disable-insert-state-bindings t))
 
 (use-package evil-collection
   :ensure t
