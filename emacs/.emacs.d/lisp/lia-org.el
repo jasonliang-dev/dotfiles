@@ -102,7 +102,8 @@
                        '(org-agenda-skip-entry-if
                          'todo 'done 'scheduled 'deadline))
                       (org-agenda-overriding-header "Unscheduled tasks")))
-            (agenda "")))))
+            (agenda ""))
+           ((org-agenda-compact-blocks t)))))
   :config
   ;; enable habits
   (require 'org-habit)
