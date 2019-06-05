@@ -161,6 +161,9 @@
 ;; no #autosave# files
 (setq auto-save-default nil)
 
+;; no .#lock files
+(setq create-lockfiles nil)
+
 ;; better mouse scrolling
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
       mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
