@@ -14,10 +14,6 @@
 (defvar dream-eater/checkout-name "emacs")
 (defvar dream-eater/email "example@domain.com")
 
-(defvar dream-eater--lock-file)
-(defvar dream-eater--user-lock-contents)
-(defvar dream-eater--lock-file-contents)
-
 (defun dream-eater--make-buffer-read-only ()
   "Make the current buffer read only.
 
@@ -33,23 +29,22 @@ hooks."
 (defun dream-eater/check-out ()
   "For the current buffer, grant write access and create a Dreamweaver lock file."
   (interactive)
-  (setq dream-eater--lock-file (concat buffer-file-name ".LCK"))
-  (setq dream-eater--user-lock-contents
-    (concat dream-eater/checkout-name "||" dream-eater/email))
-  (if (file-exists-p dream-eater--lock-file)
+  (let ((dream-eater--lock-file (concat buffer-file-name ".LCK"))
+        (dream-eater--user-lock-contents
+         (concat dream-eater/checkout-name "||" dream-eater/email)))
+    (if (file-exists-p dream-eater--lock-file)
+        (let ((dream-eater--lock-file-contents
+               (with-temp-buffer
+                 (insert-file-contents dream-eater--lock-file)
+                 (buffer-string))))
+          (if (string= dream-eater--lock-file-contents dream-eater--user-lock-contents)
+              (message "You already checked out this file.")
+            (message (concat
+                      (car (split-string dream-eater--lock-file-contents "||"))
+                      " has already checked out this file."))))
       (progn
-        (setq dream-eater--lock-file-contents
-          (with-temp-buffer
-            (insert-file-contents dream-eater--lock-file)
-            (buffer-string)))
-        (if (string= dream-eater--lock-file-contents dream-eater--user-lock-contents)
-            (message "You already checked out this file.")
-          (message (concat
-                    (car (split-string dream-eater--lock-file-contents "||"))
-                    " has already checked out this file."))))
-    (progn
-      (dream-eater--make-buffer-writable)
-      (write-region dream-eater--user-lock-contents nil dream-eater--lock-file))))
+        (dream-eater--make-buffer-writable)
+        (write-region dream-eater--user-lock-contents nil dream-eater--lock-file)))))
 
 (defun dream-eater/check-in ()
   "For the current buffer, save modifications, make read only, and remove the lock file."
