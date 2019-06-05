@@ -13,7 +13,12 @@
   (company-active-map
    "C-n" #'company-select-next
    "C-p" #'company-select-previous)
-  :init (setq company-idle-delay 0))
+  :init
+  ;; don't delay autocomplete suggesstions
+  ;; (setq company-idle-delay 0)
+
+  ;; popup completions after typing a single character
+  (setq company-minimum-prefix-length 1))
 
 (use-package emmet-mode
   ;; C-j to expand
