@@ -27,6 +27,9 @@
   :ensure t
   :defer t)
 
+(use-package dream-eater
+  :commands (global-dream-eater-mode))
+
 (use-package dumb-jump
   :ensure t
   :commands (dumb-jump-go))
