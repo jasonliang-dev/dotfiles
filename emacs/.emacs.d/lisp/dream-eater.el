@@ -9,6 +9,11 @@
 ;; Dreamweaver users to see, run `dream-eater/check-out'.  To remove
 ;; the lock file and remove write access, run `dream-eater/check-in'.
 
+;; Known Bugs:
+;; - recentf doesn't work properly
+;; - Emacs hangs when connecting to a remote machine with TRAMP and an
+;;   auth file (.authinfo.gpg)
+
 ;;; Code:
 
 (defvar dream-eater/check-out-name "emacs")
