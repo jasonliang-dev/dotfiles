@@ -14,8 +14,12 @@
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
 
-(defvar dream-eater--lock-file-list '()
-  "Store the list of all lock files.")
+(defvar dream-eater--checked-out-list '()
+  "Store the list of all files checked out.")
+
+(setf (symbol-function 'dream-eater--save-buffer) (symbol-function 'save-buffer))
+
+(declare-function dream-eater--save-buffer "dream-eater.el")
 
 (defun dream-eater--make-buffer-read-only ()
   "Make the current buffer read only.
@@ -32,19 +36,34 @@ My elisp-fu is trash."
   (setq buffer-read-only nil))
 
 (defun dream-eater--remove-lock-file (file)
-  "Remove FILE from the lock file list and delete it from disk."
-  (when (file-exists-p file)
-    (delete-file file))
-  (setq dream-eater--lock-file-list
-        (delete file dream-eater--lock-file-list)))
+  "Remove FILE from the lock file list and delete the lock file from disk."
+  (let ((dream-eater--lock-file (concat file ".LCK"))
+        (dream-eater--user-lock-contents
+         (concat dream-eater/check-out-name "||" dream-eater/email)))
+    (if (file-exists-p dream-eater--lock-file)
+        (let ((dream-eater--lock-file-contents
+               (with-temp-buffer
+                 (insert-file-contents dream-eater--lock-file)
+                 (buffer-string))))
+          (if (string= dream-eater--lock-file-contents
+                       dream-eater--user-lock-contents)
+              (progn
+                (delete-file dream-eater--lock-file)
+                (setq dream-eater--checked-out-list
+                      (delete file dream-eater--checked-out-list))
+                (message (concat "Removed " dream-eater--lock-file)))
+            (message (concat "Refusing to remove "
+                             (car (split-string dream-eater--lock-file-contents "||"))
+                             "'s lock file.")))))))
 
 (defun dream-eater--remove-current-buffer-lock-file ()
   "Remove the current buffer's lock file if it exists."
-  (dream-eater--remove-lock-file (concat buffer-file-name ".LCK")))
+  (dream-eater--remove-lock-file buffer-file-name))
 
 (defun dream-eater--remove-all-lock-files ()
   "Remove all stored lock files."
-  (mapc 'dream-eater--remove-lock-file dream-eater--lock-file-list))
+  (mapc 'dream-eater--remove-lock-file dream-eater--checked-out-list)
+  t)
 
 (defun dream-eater/put ()
   "Save the current buffer.  Used over `save-buffer'.
@@ -62,7 +81,7 @@ avoid overriding other people's changes."
                  (buffer-string))))
           (if (string= dream-eater--lock-file-contents
                        dream-eater--user-lock-contents)
-              (save-buffer)
+              (dream-eater--save-buffer)
             (message (concat
                       (car (split-string dream-eater--lock-file-contents "||"))
                       " has replaced your lock file."))))
@@ -88,8 +107,8 @@ avoid overriding other people's changes."
       (progn
         (dream-eater--make-buffer-writable)
         (write-region dream-eater--user-lock-contents nil dream-eater--lock-file)
-        (setq dream-eater--lock-file-list
-              (cl-adjoin dream-eater--lock-file dream-eater--lock-file-list
+        (setq dream-eater--checked-out-list
+              (cl-adjoin buffer-file-name dream-eater--checked-out-list
                          :test 'string=))))))
 
 (defun dream-eater/check-in ()
@@ -118,13 +137,15 @@ avoid overriding other people's changes."
 
 (defun dream-eater--enable ()
   "Enable Dream Eater."
-  (add-hook 'find-file-hook 'dream-eater--make-buffer-read-only)
+  (fset 'save-buffer 'dream-eater/put)
+  (add-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
   (add-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
   (add-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files))
 
 (defun dream-eater--disable ()
   "Disable Dream Eater."
-  (remove-hook 'find-file-hook 'dream-eater--make-buffer-read-only)
+  (fset 'save-buffer 'dream-eater--save-buffer)
+  (remove-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
   (remove-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
   (remove-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files))
 
