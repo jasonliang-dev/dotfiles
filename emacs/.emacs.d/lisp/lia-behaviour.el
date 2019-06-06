@@ -14,21 +14,17 @@
   (interactive)
   (byte-recompile-directory user-emacs-directory 0))
 
-(defun lia-remove-elc-on-save ()
-  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
-  (add-hook 'after-save-hook
-            (lambda ()
-              (if (file-exists-p (concat buffer-file-name "c"))
-                  (delete-file (concat buffer-file-name "c"))))
-            nil
-            t))
-
 (use-package avy
   :ensure t
   :defer t)
 
 (use-package dream-eater
-  :commands (global-dream-eater-mode))
+  :commands (global-dream-eater-mode
+             dream-eater/check-out
+             dream-eater/check-in
+             dream-eater/put)
+  :init
+  (setq dream-eater/check-out-name "Jason Liang"))
 
 (use-package dumb-jump
   :ensure t
@@ -178,6 +174,15 @@
 ;; guess target directory when copying/moving files in dired
 ;; i.e. get drag and drop functionality with two dired windows in a split
 (setq dired-dwim-target t)
+
+(defun lia-remove-elc-on-save ()
+  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))
+            nil
+            t))
 
 (add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 
