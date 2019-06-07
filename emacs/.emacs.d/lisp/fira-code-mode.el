@@ -1,4 +1,4 @@
-;;; fira-code-mode.el --- Emacs Config -*- lexical-binding: t; -*-
+;;; fira-code-mode.el --- Fira Code font ligatures -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
