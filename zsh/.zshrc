@@ -11,4 +11,6 @@ antigen apply
 
 # User configuration
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 source $HOME/.shell-start
