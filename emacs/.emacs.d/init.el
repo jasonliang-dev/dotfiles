@@ -116,4 +116,32 @@
 ;; stop doing M-x emacs-init-time everytime I start emacs
 (message (emacs-init-time))
 
+;; -- EXTRAS ---------------------------------------------------------
+
+;; store initial cursor colour
+(defconst lia--default-cursor-color (face-attribute 'cursor :background))
+
+;; Test some cursor colors (SPC e)
+;; (set-cursor-color "#FF5B55")
+;; (set-cursor-color "#E9C771")
+;; (set-cursor-color "#87CE61")
+;; (set-cursor-color "#C678DD")
+;; (set-cursor-color lia--default-cursor-color)
+
+(define-minor-mode global-lia-work-mode
+  "Minor mode that I use for work."
+  :global t
+  (if global-lia-work-mode
+      (progn
+        (lia/set-indent 4)
+        (lia/enable-tabs)
+        (set-cursor-color "#E9C771")
+        (global-dream-eater-mode 1)
+        (message "Let's get to work!"))
+    (progn
+      (lia/set-indent 2)
+      (lia/disable-tabs)
+      (set-cursor-color lia--default-cursor-color)
+      (global-dream-eater-mode -1))))
+
 ;;; init.el ends here
