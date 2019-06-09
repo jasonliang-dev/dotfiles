@@ -39,6 +39,7 @@
 (use-package evil-collection
   :ensure t
   :after evil
+  :init (defvar evil-collection-outline-bind-tab-p nil)
   :config (evil-collection-init))
 
 (use-package evil-commentary
