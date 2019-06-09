@@ -105,6 +105,7 @@
 (require 'lang-javascript)
 (require 'lang-lua)
 (require 'lang-markdown)
+(require 'lang-php)
 
 ;; set default indentation level
 (lia/set-indent 2)
