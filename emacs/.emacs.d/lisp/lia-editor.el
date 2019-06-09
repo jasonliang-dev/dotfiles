@@ -27,7 +27,7 @@
                 web-mode-css-indent-offset N
                 web-mode-code-indent-offset N))
 
-(defun lia/enable-tabs (&optional ARG GLOBAL)
+(defun lia/enable-tabs (&optional ARG)
   "Enables indentation with tabs.
 
 If ARG is negative, then use spaces.  Otherwise, use tabs.
@@ -35,15 +35,17 @@ This means calling with nil will enable tab indentation.
 
 If GLOBAL is non-nil, enable/disable tabs globally."
   (interactive)
-  (fset 'lia-setq (if GLOBAL 'setq-default 'setq))
-  (lia-setq indent-tabs-mode (not (and (numberp ARG) (< ARG 0)))))
+  (defvar lia-setq)
+  (let ((should-enable (not (and (numberp ARG) (< ARG 0)))))
+    (setq indent-tabs-mode should-enable)
+    (setq-default indent-tabs-mode should-enable)))
 
-(defun lia/disable-tabs (&optional GLOBAL)
+(defun lia/disable-tabs ()
   "Disable identation with tabs.
 
 If GLOBAL is non-nil, disable tabs globally."
   (interactive)
-  (lia/enable-tabs -1 GLOBAL))
+  (lia/enable-tabs -1))
 
 (use-package editorconfig
   :ensure t
