@@ -135,13 +135,11 @@
       (progn
         (lia/set-indent 4)
         (lia/enable-tabs)
-        (set-cursor-color "#E9C771")
         (global-dream-eater-mode 1)
         (message "Let's get to work!"))
     (progn
       (lia/set-indent 2)
       (lia/disable-tabs)
-      (set-cursor-color lia--default-cursor-color)
       (global-dream-eater-mode -1))))
 
 ;;; init.el ends here

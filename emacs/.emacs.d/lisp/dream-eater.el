@@ -9,15 +9,13 @@
 ;; Dreamweaver users to see, run `dream-eater/check-out'.  To remove
 ;; the lock file and remove write access, run `dream-eater/check-in'.
 
-;; Known Bugs:
-;; - recentf doesn't work properly
-;; - Emacs hangs when connecting to a remote machine with TRAMP and an
-;;   auth file (.authinfo.gpg)
-
 ;;; Code:
 
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
+
+(defvar dream-eater--default-cursor-color nil
+  "Save the user's cursor color.")
 
 (defvar dream-eater--checked-out-list '()
   "Store the list of all files checked out.")
@@ -175,17 +173,24 @@ avoid overriding other people's changes."
   (fset 'read-only-mode
         #'(lambda () (interactive) (message "Refusing to toggle read only mode \
 when dream eater mode is enabled")))
+
   (add-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
   (add-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
-  (add-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files))
+  (add-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files)
+
+  (setq dream-eater--default-cursor-color (face-attribute 'cursor :background))
+  (set-cursor-color "#E9C771"))
 
 (defun dream-eater--disable ()
   "Disable Dream Eater."
   (fset 'save-buffer 'dream-eater--save-buffer)
   (fset 'read-only-mode 'dream-eater--read-only-mode)
+
   (remove-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
   (remove-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
-  (remove-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files))
+  (remove-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files)
+
+  (set-cursor-color dream-eater--default-cursor-color))
 
 (define-minor-mode global-dream-eater-mode
   "Dream Eater minor mode"
