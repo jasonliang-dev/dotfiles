@@ -8,7 +8,11 @@
 
 (use-package elm-mode
   :ensure t
-  :mode "\\.elm\\'")
+  :mode "\\.elm\\'"
+  :general
+  (:keymaps
+   'elm-mode-map
+   [remap format-all-buffer] 'elm-format-buffer))
 
 (provide 'lang-elm)
 
