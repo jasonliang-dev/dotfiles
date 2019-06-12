@@ -62,6 +62,13 @@ hooks."
   "Make the current buffer writable."
   (setq buffer-read-only nil))
 
+(defun dream-eater--on-open ()
+  "Perform buffer behaviour depending on lock file status."
+  (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
+    (pcase (car lock-file-state)
+      ('owned (message "Warning: Your lock file still exists for this file."))
+      (_ (dream-eater--make-buffer-read-only)))))
+
 (defun dream-eater--remove-lock-file (file)
   "Remove the lock file associated with FILE from disk.
 
@@ -153,7 +160,7 @@ avoid overriding other people's changes."
         #'(lambda () (interactive) (message "Refusing to toggle read only mode \
 when dream eater mode is enabled")))
 
-  (add-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
+  (add-hook 'prog-mode-hook 'dream-eater--on-open)
   (add-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
   (add-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files)
 
@@ -165,7 +172,7 @@ when dream eater mode is enabled")))
   (fset 'save-buffer 'dream-eater--save-buffer)
   (fset 'read-only-mode 'dream-eater--read-only-mode)
 
-  (remove-hook 'prog-mode-hook 'dream-eater--make-buffer-read-only)
+  (remove-hook 'prog-mode-hook 'dream-eater--on-open)
   (remove-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
   (remove-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files)
 
