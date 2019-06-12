@@ -25,7 +25,9 @@
                 css-indent-offset N
                 web-mode-markup-indent-offset N
                 web-mode-css-indent-offset N
-                web-mode-code-indent-offset N))
+                web-mode-code-indent-offset N
+                web-mode-script-padding N
+                web-mode-style-padding N))
 
 (defun lia/enable-tabs (&optional ARG)
   "Enables indentation with tabs.
