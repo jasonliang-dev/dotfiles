@@ -80,9 +80,17 @@
 
 (load custom-file nil t)
 
-;; -- LOAD LOCAL ELISP -----------------------------------------------
+;; -- LOAD REST OF CONFIG --------------------------------------------
 
-;; load files in lisp directory
+;; load secret file
+(defvar lia-secret-file (if (eq system-type 'windows-nt)
+                            (concat (getenv "HOMEPATH") "\\Dropbox\\lia-secret.el")
+                          "~/Dropbox/lia-secret.el"))
+
+(when (file-exists-p lia-secret-file)
+  (load lia-secret-file nil t))
+
+;; load files in emacs config directory
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lang" user-emacs-directory))
 
@@ -105,16 +113,7 @@
 (require 'lang-javascript)
 (require 'lang-lua)
 (require 'lang-markdown)
-(require 'lang-php)
-
-;; set default indentation level
-(lia/set-indent 2)
-
-;; use spaces for indentation
-(lia/disable-tabs)
-
-;; stop doing M-x emacs-init-time everytime I start emacs
-(message (emacs-init-time))
+;; (require 'lang-php)
 
 ;; -- EXTRAS ---------------------------------------------------------
 
@@ -141,5 +140,14 @@
       (lia/set-indent 2)
       (lia/disable-tabs)
       (global-dream-eater-mode -1))))
+
+;; set default indentation level
+(lia/set-indent 2)
+
+;; use spaces for indentation
+(lia/disable-tabs)
+
+;; stop doing M-x emacs-init-time everytime I start emacs
+(message (emacs-init-time))
 
 ;;; init.el ends here

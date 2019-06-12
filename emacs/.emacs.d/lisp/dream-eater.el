@@ -11,6 +11,8 @@
 
 ;;; Code:
 
+(require 'seq)
+
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
 
@@ -66,7 +68,11 @@ hooks."
   "Perform buffer behaviour depending on lock file status."
   (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
     (pcase (car lock-file-state)
-      ('owned (message "Warning: Your lock file still exists for this file."))
+      ('owned (progn
+                (setq dream-eater--checked-out-list
+                      (cl-adjoin buffer-file-name dream-eater--checked-out-list
+                                 :test 'string=))
+                (message "Warning: Your lock file still exists for this file.")))
       (_ (dream-eater--make-buffer-read-only)))))
 
 (defun dream-eater--remove-lock-file (file)
@@ -176,11 +182,13 @@ when dream eater mode is enabled")))
   (remove-hook 'kill-buffer-hook 'dream-eater--remove-current-buffer-lock-file)
   (remove-hook 'kill-emacs-query-functions 'dream-eater--remove-all-lock-files)
 
+  (dream-eater--remove-all-lock-files)
   (set-cursor-color dream-eater--default-cursor-color))
 
 (define-minor-mode global-dream-eater-mode
   "Dream Eater minor mode"
   :lighter " DreamEater"
+  :keymap (make-sparse-keymap)
   :global t
   (if global-dream-eater-mode
       (dream-eater--enable)

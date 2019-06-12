@@ -19,12 +19,14 @@
   :defer t)
 
 (use-package dream-eater
-  :commands (global-dream-eater-mode
-             dream-eater/check-out
-             dream-eater/check-in
-             dream-eater/put)
+  :commands (global-dream-eater-mode)
+  :general
+  (:keymaps
+   'global-dream-eater-mode-map
+   [remap helm-find-files] 'dired)
   :init
-  (setq dream-eater/check-out-name "Jason Liang"))
+  (setq dream-eater/check-out-name "Jason Liang"
+        dream-eater/email lia-secret-email))
 
 (use-package dumb-jump
   :ensure t
