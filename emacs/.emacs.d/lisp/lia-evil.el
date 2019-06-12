@@ -20,9 +20,7 @@
   :ensure t
   :hook (emacs-startup . evil-mode)
   :general
-  (:states
-   '(normal visual motion)
-   [remap evil-next-line]         'evil-next-visual-line
+  ([remap evil-next-line]         'evil-next-visual-line
    [remap evil-previous-line]     'evil-previous-visual-line
    [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
    [remap evil-end-of-line]       'evil-end-of-visual-line
