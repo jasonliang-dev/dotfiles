@@ -84,12 +84,17 @@ belongs to another user).  Return t otherwise."
   (let ((lock-file-state (dream-eater--lock-file-status file)))
     (pcase (car lock-file-state)
       ('owned
-       (progn
-         (delete-file (car (cdr lock-file-state)))
-         (setq dream-eater--checked-out-list
-               (delete file dream-eater--checked-out-list))
-         (message (concat "Removed " (car (cdr lock-file-state))))
-         t))
+       (if (buffer-modified-p (get-file-buffer file))
+           (progn
+             (message (concat "Refusing to remove lock file associated with modified buffer: "
+                              (car (cdr lock-file-state))))
+             nil)
+         (progn
+           (delete-file (car (cdr lock-file-state)))
+           (setq dream-eater--checked-out-list
+                 (delete file dream-eater--checked-out-list))
+           (message (concat "Removed " (car (cdr lock-file-state))))
+           t)))
       ('disowned
        (progn
          (message (concat "Refusing to remove "
