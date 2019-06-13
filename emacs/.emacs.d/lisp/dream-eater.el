@@ -15,7 +15,13 @@
 
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
-(defvar dream-eater/exclude-list nil)
+(defvar dream-eater/exclude-list nil
+  "A list containing file names.
+
+Files in this list don't need to be checked out before editing.
+
+Saving files in this list will behave normaly as if dream eater
+mode is disabled.")
 
 (defvar dream-eater--default-cursor-color nil
   "Save the user's cursor color.")
@@ -47,8 +53,7 @@ return `no-lock' if lock file doesn't exist."
                (with-temp-buffer
                  (insert-file-contents dream-eater--lock-file)
                  (buffer-string))))
-          (if (string= dream-eater--lock-file-contents
-                       dream-eater--user-lock-contents)
+          (if (string= dream-eater--lock-file-contents dream-eater--user-lock-contents)
               (list 'owned dream-eater--lock-file)
             (cons 'disowned (split-string dream-eater--user-lock-contents "||"))))
       (list 'no-lock dream-eater--lock-file dream-eater--user-lock-contents))))
@@ -67,14 +72,17 @@ hooks."
 
 (defun dream-eater--on-open ()
   "Perform buffer behaviour depending on lock file status."
-  (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
-    (pcase (car lock-file-state)
-      ('owned (progn
-                (setq dream-eater--checked-out-list
-                      (cl-adjoin buffer-file-name dream-eater--checked-out-list
-                                 :test 'string=))
-                (message "Warning: Your lock file still exists for this file.")))
-      (_ (dream-eater--make-buffer-read-only)))))
+  (if (member (file-name-nondirectory (buffer-file-name))
+              dream-eater/exclude-list)
+      (message "Opened file in exclude list.")
+    (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
+      (pcase (car lock-file-state)
+        ('owned (progn
+                  (setq dream-eater--checked-out-list
+                        (cl-adjoin buffer-file-name dream-eater--checked-out-list
+                                   :test 'string=))
+                  (message "Warning: Your lock file still exists for this file.")))
+        (_ (dream-eater--make-buffer-read-only))))))
 
 (defun dream-eater--remove-lock-file (file)
   "Remove the lock file associated with FILE from disk.
@@ -162,8 +170,7 @@ if dream-eater-mode is disabled."
     (pcase (car lock-file-state)
       ('owned (progn
                 (when (and (buffer-modified-p)
-                           (y-or-n-p
-                            "There are unsaved changes.  Do you want to save? "))
+                           (y-or-n-p "There are unsaved changes.  Do you want to save? "))
                   (dream-eater/put))
                 (dream-eater--make-buffer-read-only)
                 (dream-eater--remove-current-buffer-lock-file)))
