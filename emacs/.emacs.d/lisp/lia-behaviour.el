@@ -27,7 +27,7 @@
   :init
   (setq dream-eater/check-out-name "Jason Liang"
         dream-eater/email lia-secret-email
-        dream-eater/exclude-list '("COMMIT_EDITMSG")))
+        dream-eater/exclude-list '("COMMIT_EDITMSG" ".*\\.org$")))
 
 (use-package dumb-jump
   :ensure t

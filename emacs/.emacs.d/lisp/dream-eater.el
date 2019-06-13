@@ -16,7 +16,7 @@
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
 (defvar dream-eater/exclude-list nil
-  "A list containing file names.
+  "A list containing file names.  Values can be regexs.
 
 Files in this list don't need to be checked out before editing.
 
@@ -70,10 +70,14 @@ hooks."
   "Make the current buffer writable."
   (setq buffer-read-only nil))
 
+(defun dream-eater--file-excluded-p (file)
+  "Return t if FILE is in the exclude list."
+  (seq-some #'(lambda (regex) (not (not (string-match regex file))))
+            dream-eater/exclude-list))
+
 (defun dream-eater--on-open ()
   "Perform buffer behaviour depending on lock file status."
-  (if (member (file-name-nondirectory (buffer-file-name))
-              dream-eater/exclude-list)
+  (if (dream-eater--file-excluded-p (buffer-name))
       (message "Opened file in exclude list.")
     (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
       (pcase (car lock-file-state)
@@ -135,8 +139,7 @@ If the current buffer's file name is in
 `dream-eater/exclude-list', simply ignore lock files and save as
 if dream-eater-mode is disabled."
   (interactive)
-  (if (member (file-name-nondirectory (buffer-file-name))
-              dream-eater/exclude-list)
+  (if (dream-eater--file-excluded-p (buffer-name))
       (dream-eater--save-buffer)
     (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
       (pcase (car lock-file-state)
