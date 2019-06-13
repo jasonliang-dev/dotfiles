@@ -15,6 +15,7 @@
 
 (defvar dream-eater/check-out-name "emacs")
 (defvar dream-eater/email "example@domain.com")
+(defvar dream-eater/exclude-list nil)
 
 (defvar dream-eater--default-cursor-color nil
   "Save the user's cursor color.")
@@ -115,14 +116,21 @@ removed."
   "Save the current buffer.  Used over `save-buffer'.
 
 Ensure that the lock file belongs to the user before saving to
-avoid overriding other people's changes."
+avoid overriding other people's changes.
+
+If the current buffer's file name is in
+`dream-eater/exclude-list', simply ignore lock files and save as
+if dream-eater-mode is disabled."
   (interactive)
-  (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
-    (pcase (car lock-file-state)
-      ('owned (dream-eater--save-buffer))
-      ('disowned (message (concat (car (cdr lock-file-state))
-                                  " has replaced your lock file.")))
-      ('no-lock (message "Refusing to put changes without a lock file.")))))
+  (if (member (file-name-nondirectory (buffer-file-name))
+              dream-eater/exclude-list)
+      (dream-eater--save-buffer)
+    (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
+      (pcase (car lock-file-state)
+        ('owned (dream-eater--save-buffer))
+        ('disowned (message (concat (car (cdr lock-file-state))
+                                    " has replaced your lock file.")))
+        ('no-lock (message "Refusing to put changes without a lock file."))))))
 
 (defun dream-eater/check-out ()
   "For the current buffer, grant write access and create a Dreamweaver lock file."

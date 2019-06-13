@@ -23,10 +23,11 @@
   :general
   (:keymaps
    'global-dream-eater-mode-map
-   [remap helm-find-files] 'dired)
+   [remap helm-find-files] 'find-file)
   :init
   (setq dream-eater/check-out-name "Jason Liang"
-        dream-eater/email lia-secret-email))
+        dream-eater/email lia-secret-email
+        dream-eater/exclude-list '("COMMIT_EDITMSG")))
 
 (use-package dumb-jump
   :ensure t
