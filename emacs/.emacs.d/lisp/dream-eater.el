@@ -55,8 +55,13 @@ return `no-lock' if lock file doesn't exist."
                  (buffer-string))))
           (if (string= dream-eater--lock-file-contents dream-eater--user-lock-contents)
               (list 'owned dream-eater--lock-file)
-            (cons 'disowned (split-string dream-eater--user-lock-contents "||"))))
+            (cons 'disowned (split-string dream-eater--lock-file-contents "||"))))
       (list 'no-lock dream-eater--lock-file dream-eater--user-lock-contents))))
+
+(defun dream-eater/buffer-lock-status ()
+  "Return the lock file status for the current buffer."
+  (interactive)
+  (message "%s" (dream-eater--lock-file-status (buffer-name))))
 
 (defun dream-eater--make-buffer-read-only ()
   "Make the current buffer read only.
