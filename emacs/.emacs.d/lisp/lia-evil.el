@@ -32,7 +32,9 @@
   ;; let evil-collection handle keys
   (setq evil-want-keybinding nil)
   ;; emacs movement in insert mode
-  (setq evil-disable-insert-state-bindings t))
+  (setq evil-disable-insert-state-bindings t)
+  ;; vim search behaviour
+  (setq evil-search-module 'evil-search))
 
 (use-package evil-collection
   :ensure t
