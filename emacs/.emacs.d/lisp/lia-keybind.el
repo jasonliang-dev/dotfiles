@@ -174,22 +174,7 @@ otherwise, run `ansi-term' with user shell."
    "C-a"     'evil-numbers/inc-at-pt
    "C-S-a"   'evil-numbers/dec-at-pt
    "C-c C-u" 'universal-argument
-   "C-;"     'lia/iedit)
-
-  ;; normal mode bindings
-  (general-define-key
-   :states 'normal
-   "gcc" 'comment-line)
-
-  ;; insert mode bindings
-  (general-define-key
-   :states 'insert
-   "C-;" 'lia/iedit-insert)
-
-  ;; visual mode bindings
-  (general-define-key
-   :states 'visual
-   "gc" 'comment-dwim)
+   "C-;"     "*``")
 
   ;; global bindings
   (general-define-key

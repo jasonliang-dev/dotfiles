@@ -58,10 +58,6 @@ If GLOBAL is non-nil, disable tabs globally."
   :commands (format-all-buffer
              format-all-mode))
 
-(use-package iedit
-  :ensure t
-  :defer t)
-
 (use-package lsp-mode
   :ensure t
   :commands lsp
