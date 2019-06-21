@@ -189,6 +189,9 @@
 
 (add-hook 'emacs-lisp-mode-hook 'lia-remove-elc-on-save)
 
+;; hide details from dired. mainly show file names
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
 (provide 'lia-behaviour)
 
 ;;; lia-behaviour.el ends here
