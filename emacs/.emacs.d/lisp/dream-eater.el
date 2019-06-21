@@ -82,7 +82,7 @@ hooks."
 
 (defun dream-eater--on-open ()
   "Perform some behaviour for buffer depending on lock file status."
-  (cond ((string= (buffer-name) "")
+  (cond ((not buffer-file-name)
          nil)
         ((dream-eater--file-excluded-p (buffer-name))
          (message "Opened file in exclude list."))
