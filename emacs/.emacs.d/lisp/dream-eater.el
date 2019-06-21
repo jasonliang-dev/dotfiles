@@ -81,17 +81,19 @@ hooks."
             dream-eater/exclude-list))
 
 (defun dream-eater--on-open ()
-  "Perform buffer behaviour depending on lock file status."
-  (if (dream-eater--file-excluded-p (buffer-name))
-      (message "Opened file in exclude list.")
-    (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
-      (pcase (car lock-file-state)
-        ('owned (progn
-                  (setq dream-eater--checked-out-list
-                        (cl-adjoin buffer-file-name dream-eater--checked-out-list
-                                   :test 'string=))
-                  (message "Warning: Your lock file still exists for this file.")))
-        (_ (dream-eater--make-buffer-read-only))))))
+  "Perform some behaviour for buffer depending on lock file status."
+  (cond ((string= (buffer-name) "")
+         nil)
+        ((dream-eater--file-excluded-p (buffer-name))
+         (message "Opened file in exclude list."))
+        (t (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
+             (pcase (car lock-file-state)
+               ('owned (progn
+                         (setq dream-eater--checked-out-list
+                               (cl-adjoin buffer-file-name dream-eater--checked-out-list
+                                          :test 'string=))
+                         (message "Warning: Your lock file still exists for this file.")))
+               (_ (dream-eater--make-buffer-read-only)))))))
 
 (defun dream-eater--remove-lock-file (file)
   "Remove the lock file associated with FILE from disk.
