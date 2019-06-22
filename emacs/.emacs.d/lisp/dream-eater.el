@@ -83,7 +83,8 @@ hooks."
 (defun dream-eater--on-open ()
   "Perform some behaviour for buffer depending on lock file status."
   (cond ((not buffer-file-name)
-         nil)
+         (message (concat "Opened buffer with no association to a file: "
+                          (buffer-name))))
         ((dream-eater--file-excluded-p (buffer-name))
          (message "Opened file in exclude list."))
         (t (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
@@ -146,14 +147,17 @@ If the current buffer's file name is in
 `dream-eater/exclude-list', simply ignore lock files and save as
 if dream-eater-mode is disabled."
   (interactive)
-  (if (dream-eater--file-excluded-p (buffer-name))
-      (dream-eater--save-buffer)
-    (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
-      (pcase (car lock-file-state)
-        ('owned (dream-eater--save-buffer))
-        ('disowned (message (concat (car (cdr lock-file-state))
-                                    " has replaced your lock file.")))
-        ('no-lock (message "Refusing to put changes without a lock file."))))))
+  (cond ((not buffer-file-name)
+         (message (concat "Saving buffer with no association to a file: "
+                          (buffer-name))))
+        ((dream-eater--file-excluded-p (buffer-name))
+         (dream-eater--save-buffer))
+        (t (let ((lock-file-state (dream-eater--lock-file-status (buffer-file-name))))
+             (pcase (car lock-file-state)
+               ('owned (dream-eater--save-buffer))
+               ('disowned (message (concat (car (cdr lock-file-state))
+                                           " has replaced your lock file.")))
+               ('no-lock (message "Refusing to put changes without a lock file.")))))))
 
 (defun dream-eater/check-out ()
   "For the current buffer, grant write access and create a Dreamweaver lock file."
