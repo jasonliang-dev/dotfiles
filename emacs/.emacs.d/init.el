@@ -113,7 +113,7 @@
 (require 'lang-javascript)
 (require 'lang-lua)
 (require 'lang-markdown)
-;; (require 'lang-php)
+;; (require 'lang-php) ;; <-- screw you
 
 ;; -- EXTRAS ---------------------------------------------------------
 
