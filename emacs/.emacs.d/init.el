@@ -133,19 +133,19 @@
   (if global-lia-work-mode
       (progn
         (lia/set-indent 4)
-        (lia/enable-tabs)
+        (lia/global-enable-tabs)
         (global-dream-eater-mode 1)
         (message "Let's get to work!"))
     (progn
       (lia/set-indent 2)
-      (lia/disable-tabs)
+      (lia/global-disable-tabs)
       (global-dream-eater-mode -1))))
 
 ;; set default indentation level
 (lia/set-indent 2)
 
 ;; use spaces for indentation
-(lia/disable-tabs)
+(lia/global-disable-tabs)
 
 ;; stop doing M-x emacs-init-time everytime I start emacs
 (message (emacs-init-time))

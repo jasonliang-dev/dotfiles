@@ -29,25 +29,29 @@
                 web-mode-script-padding N
                 web-mode-style-padding N))
 
-(defun lia/enable-tabs (&optional ARG)
-  "Enables indentation with tabs.
-
-If ARG is negative, then use spaces.  Otherwise, use tabs.
-This means calling with nil will enable tab indentation.
-
-If GLOBAL is non-nil, enable/disable tabs globally."
+(defun lia/enable-tabs ()
+  "Enables indentation with tabs."
   (interactive)
-  (defvar lia-setq)
-  (let ((should-enable (not (and (numberp ARG) (< ARG 0)))))
-    (setq indent-tabs-mode should-enable)
-    (setq-default indent-tabs-mode should-enable)))
+  (setq indent-tabs-mode t))
 
 (defun lia/disable-tabs ()
-  "Disable identation with tabs.
-
-If GLOBAL is non-nil, disable tabs globally."
+  "Disable identation with tabs."
   (interactive)
-  (lia/enable-tabs -1))
+  (setq indent-tabs-mode nil))
+
+(defun lia/global-enable-tabs ()
+  "Enables indentation with tabs globally.
+
+Only affects future buffers.  Revert buffer to update indentation."
+  (interactive)
+  (setq-default indent-tabs-mode t))
+
+(defun lia/global-disable-tabs ()
+  "Disable identation with tabs globally.
+
+Only affects future buffers.  Revert buffer to update indentation."
+  (interactive)
+  (setq-default indent-tabs-mode nil))
 
 (use-package editorconfig
   :ensure t
