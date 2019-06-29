@@ -38,6 +38,7 @@
    "K"   'org-agenda-previous-date-line
    "h"   'org-agenda-earlier
    "l"   'org-agenda-later)
+  :hook (org-mode . lia/disable-tabs)
   :init
   ;; set the directory storing org files
   (setq org-directory (if (eq system-type 'windows-nt)
