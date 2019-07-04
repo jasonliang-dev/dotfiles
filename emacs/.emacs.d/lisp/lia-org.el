@@ -79,7 +79,7 @@
    (setq org-log-reschedule 'time)
 
    ;; hide bold italic markers
-   (setq org-hide-emphasis-markers t)
+   ;; (setq org-hide-emphasis-markers t)
 
    ;; syntax highlighting in source blocks
    (setq org-src-fontify-natively t)
