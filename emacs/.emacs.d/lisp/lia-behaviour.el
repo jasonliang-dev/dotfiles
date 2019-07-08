@@ -87,6 +87,14 @@
 
   (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
 
+(use-package restclient
+  :ensure t
+  :mode ("\\.http\\'")
+  :general
+  (:keymaps
+   'restclient-mode-map
+   [remap eval-last-sexp] 'restclient-http-send-current-stay-in-window))
+
 (use-package magit
   :ensure t
   :defer t)

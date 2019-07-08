@@ -79,7 +79,7 @@ otherwise, run `ansi-term' with user shell."
    ";"   '(avy-goto-char-2 :wk "avy jump to")
    "`"   '(lia/terminal :wk "terminal")
    "b"   '(helm-mini :wk "buffers")
-   "e"   "C-x C-e"
+   "e"   '(eval-last-sexp :wk "eval")
    "F"   '(format-all-buffer :wk "format buffer")
    "f"   '(helm-find-files :wk "find files")
    "g"   '(magit-status :wk "git status")
