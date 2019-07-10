@@ -109,11 +109,12 @@
 (require 'lang-data)
 (require 'lang-elm)
 (require 'lang-haskell)
-(require 'lang-web)
 (require 'lang-javascript)
 (require 'lang-lua)
 (require 'lang-markdown)
 ;; (require 'lang-php) ;; <-- screw you
+(require 'lang-prolog)
+(require 'lang-web)
 
 ;; -- EXTRAS ---------------------------------------------------------
 
