@@ -157,7 +157,8 @@ if dream-eater-mode is disabled."
                ('owned (dream-eater--save-buffer))
                ('disowned (message (concat (car (cdr lock-file-state))
                                            " has replaced your lock file.")))
-               ('no-lock (message "Refusing to put changes without a lock file.")))))))
+               ('no-lock (message (concat "Refusing to put changes without "
+                                          (car (cdr lock-file-state))))))))))
 
 (defun dream-eater/check-out ()
   "For the current buffer, grant write access and create a Dreamweaver lock file."
