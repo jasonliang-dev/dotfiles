@@ -137,12 +137,14 @@
         (lia/global-enable-tabs)
         (global-dream-eater-mode 1)
         (remove-hook 'prog-mode-hook 'fira-code-mode)
+        (remove-hook 'web-mode-hook 'lsp)
         (message "Let's get to work!"))
     (progn
       (lia/set-indent 2)
       (lia/global-disable-tabs)
       (global-dream-eater-mode -1)
-      (add-hook 'prog-mode-hook 'fira-code-mode))))
+      (add-hook 'prog-mode-hook 'fira-code-mode)
+      (add-hook 'web-mode-hook 'lsp))))
 
 ;; set default indentation level
 (lia/set-indent 2)
