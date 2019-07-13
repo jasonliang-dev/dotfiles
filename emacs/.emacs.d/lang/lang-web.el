@@ -7,20 +7,25 @@
 ;;; Code:
 
 (use-package mmm-mode
-  :ensure t
+  :ensure nil
   :defer t
   :config
   (set-face-background 'mmm-default-submode-face nil))
 
 (use-package vue-mode
-  :ensure t
+  :ensure nil
+  :disabled t
   :mode "\\.vue\\'")
 
 (use-package web-mode
   :ensure t
   :init (setq web-mode-enable-auto-pairing nil)
-  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'")
-  :hook (web-mode . lsp))
+  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'" "\\.vue\\'")
+  :hook (web-mode . lsp)
+  :general
+  (:keymaps
+   'web-mode-map
+   [remap evilmi-jump-items] 'web-mode-navigate))
 
 (use-package emmet-mode
   :ensure t
