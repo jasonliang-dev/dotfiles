@@ -6,10 +6,14 @@
 
 ;;; Code:
 
+(use-package vue-mode
+  :ensure t
+  :mode "\\.vue\\'")
+
 (use-package web-mode
   :ensure t
   :init (setq web-mode-enable-auto-pairing nil)
-  :mode ("\\.html?\\'" "\\.php?\\'" "\\.twig\\'" "\\.vue\\'")
+  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'")
   :hook (web-mode . lsp))
 
 (use-package emmet-mode
