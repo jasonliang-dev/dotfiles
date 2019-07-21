@@ -35,7 +35,7 @@
 
 (use-package exec-path-from-shell
   :ensure t
-  :defer 1
+  :defer nil
   :init (setq exec-path-from-shell-check-startup-files nil)
   :config
   (when (memq window-system '(mac ns x))
