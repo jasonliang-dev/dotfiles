@@ -29,7 +29,7 @@
 (add-to-list 'default-frame-alist '(vertical-scroll-bars))
 
 ;; set font
-(add-to-list 'default-frame-alist '(font . "Fira Code 9"))
+(add-to-list 'default-frame-alist '(font . "Iosevka 10"))
 
 ;; don't load site-start
 (setq site-run-file nil)
