@@ -53,7 +53,10 @@
 (setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "https://elpa.gnu.org/packages/")))
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ;; if elpa.gnu.org is down. try the mirror on github:
+                         ;; ("gnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")
+                         ))
 
 (package-initialize)
 
