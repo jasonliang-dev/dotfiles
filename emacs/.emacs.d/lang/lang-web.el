@@ -8,7 +8,10 @@
 
 (use-package web-mode
   :ensure t
-  :init (setq web-mode-enable-auto-pairing nil)
+  :init
+  (setq web-mode-enable-auto-pairing nil
+        web-mode-style-padding 0
+        web-mode-script-padding 0)
   :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'" "\\.vue\\'")
   :hook (web-mode . lsp))
 

@@ -136,6 +136,8 @@
   :global t
   (if global-lia-work-mode
       (progn
+        (setq web-mode-style-padding 1
+              web-mode-script-padding 1)
         (lia/set-indent 4)
         (lia/global-enable-tabs)
         (global-dream-eater-mode 1)
@@ -143,6 +145,8 @@
         (remove-hook 'web-mode-hook 'lsp)
         (message "Let's get to work!"))
     (progn
+      (setq web-mode-style-padding 0
+            web-mode-script-padding 0)
       (lia/set-indent 2)
       (lia/global-disable-tabs)
       (global-dream-eater-mode -1)
