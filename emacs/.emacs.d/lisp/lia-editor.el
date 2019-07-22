@@ -66,7 +66,8 @@ Only affects future buffers.  Revert buffer to update indentation."
   :ensure t
   :commands lsp
   :init
-  (setq lsp-auto-guess-root t))
+  (setq lsp-auto-guess-root t
+        lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :ensure t
