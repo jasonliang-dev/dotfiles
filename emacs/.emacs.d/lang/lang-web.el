@@ -9,10 +9,13 @@
 (use-package web-mode
   :ensure t
   :init
-  (setq web-mode-enable-auto-pairing nil
-        web-mode-style-padding 0
-        web-mode-script-padding 0)
-  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'" "\\.vue\\'")
+  (setq-default web-mode-enable-auto-pairing nil)
+  (add-to-list 'auto-mode-alist
+               '("\\.vue\\'" . (lambda ()
+                                 (web-mode)
+                                 (setq web-mode-style-padding 0
+                                       web-mode-script-padding 0))))
+  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'")
   :hook (web-mode . lsp))
 
 (use-package emmet-mode
