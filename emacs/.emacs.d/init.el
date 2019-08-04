@@ -121,34 +121,6 @@
 
 ;; -- EXTRAS ---------------------------------------------------------
 
-;; store initial cursor colour
-(defconst lia--default-cursor-color (face-attribute 'cursor :background))
-
-;; Test some cursor colors (SPC e)
-;; (set-cursor-color "#FF5B55")
-;; (set-cursor-color "#E9C771")
-;; (set-cursor-color "#87CE61")
-;; (set-cursor-color "#C678DD")
-;; (set-cursor-color lia--default-cursor-color)
-
-(define-minor-mode global-lia-work-mode
-  "Minor mode that I use for work."
-  :global t
-  (if global-lia-work-mode
-      (progn
-        (lia/set-indent 4)
-        (lia/global-enable-tabs)
-        (global-dream-eater-mode 1)
-        (remove-hook 'prog-mode-hook 'fira-code-mode)
-        (remove-hook 'web-mode-hook 'lsp)
-        (message "Let's get to work!"))
-    (progn
-      (lia/set-indent 2)
-      (lia/global-disable-tabs)
-      (global-dream-eater-mode -1)
-      (add-hook 'prog-mode-hook 'fira-code-mode)
-      (add-hook 'web-mode-hook 'lsp))))
-
 ;; set default indentation level
 (lia/set-indent 2)
 
