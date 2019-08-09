@@ -117,6 +117,7 @@
 (require 'lang-markdown)
 ;; (require 'lang-php) ;; <-- screw you
 (require 'lang-prolog)
+(require 'lang-scala)
 (require 'lang-web)
 
 ;; -- EXTRAS ---------------------------------------------------------
