@@ -19,6 +19,7 @@
   :defer t)
 
 (use-package dream-eater
+  :disabled t
   :commands (global-dream-eater-mode)
   :general
   (:keymaps
