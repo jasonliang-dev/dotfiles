@@ -27,22 +27,22 @@ theme.base0D = "#61afef"
 theme.base0E = "#c678dd"
 theme.base0F = "#be5046"
 
-theme.bg_normal     = theme.base00
-theme.bg_focus      = theme.base01
-theme.bg_urgent     = theme.base09
-theme.bg_minimize   = theme.bg_normal
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal = theme.base00
+theme.bg_focus = theme.base01
+theme.bg_urgent = theme.base09
+theme.bg_minimize = theme.bg_normal
+theme.bg_systray = theme.bg_normal
 
-theme.fg_normal     = theme.base04
-theme.fg_focus      = theme.base05
-theme.fg_urgent     = theme.base05
-theme.fg_minimize   = theme.base05
+theme.fg_normal = theme.base04
+theme.fg_focus = theme.base05
+theme.fg_urgent = theme.base05
+theme.fg_minimize = theme.base05
 
-theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(0)
-theme.border_color  = theme.base01
+theme.useless_gap = dpi(0)
+theme.border_width = dpi(0)
+theme.border_color = theme.base01
 theme.border_normal = theme.base01
-theme.border_focus  = theme.base0D
+theme.border_focus = theme.base0D
 
 -- There are other variable sets
 -- overriding the default one when
@@ -91,7 +91,7 @@ theme.notification_border_width = dpi(0)
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path .. "/submenu.png"
 theme.menu_height = dpi(32)
-theme.menu_width  = dpi(200)
+theme.menu_width = dpi(200)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -100,69 +100,69 @@ theme.titlebar_size = dpi(35)
 theme.titlebar_font = "Roboto Condensed Regular 9"
 theme.tasklist_item_width = 9999
 theme.tags = {
-   {
-      empty_icon = themes_path .. "/taglist/1_empty.png",
-      focused_icon = themes_path .. "/taglist/1_focused.png",
-      occupied_icon = themes_path .. "/taglist/1_occupied.png",
-      urgent_icon = themes_path .. "/taglist/1_urgent.png"
-   },
-   {
-      empty_icon = themes_path .. "/taglist/4_empty.png",
-      focused_icon = themes_path .. "/taglist/4_focused.png",
-      occupied_icon = themes_path .. "/taglist/4_occupied.png",
-      urgent_icon = themes_path .. "/taglist/4_urgent.png"
-   },
-   {
-      empty_icon = themes_path .. "/taglist/2_empty.png",
-      focused_icon = themes_path .. "/taglist/2_focused.png",
-      occupied_icon = themes_path .. "/taglist/2_occupied.png",
-      urgent_icon = themes_path .. "/taglist/2_urgent.png"
-   },
-   {
-      empty_icon = themes_path .. "/taglist/3_empty.png",
-      focused_icon = themes_path .. "/taglist/3_focused.png",
-      occupied_icon = themes_path .. "/taglist/3_occupied.png",
-      urgent_icon = themes_path .. "/taglist/3_urgent.png"
-   },
-   {
-      empty_icon = themes_path .. "/taglist/10_empty.png",
-      focused_icon = themes_path .. "/taglist/10_focused.png",
-      occupied_icon = themes_path .. "/taglist/10_occupied.png",
-      urgent_icon = themes_path .. "/taglist/10_urgent.png"
-   },
+    {
+        empty_icon = themes_path .. "/taglist/1_empty.png",
+        focused_icon = themes_path .. "/taglist/1_focused.png",
+        occupied_icon = themes_path .. "/taglist/1_occupied.png",
+        urgent_icon = themes_path .. "/taglist/1_urgent.png"
+    },
+    {
+        empty_icon = themes_path .. "/taglist/4_empty.png",
+        focused_icon = themes_path .. "/taglist/4_focused.png",
+        occupied_icon = themes_path .. "/taglist/4_occupied.png",
+        urgent_icon = themes_path .. "/taglist/4_urgent.png"
+    },
+    {
+        empty_icon = themes_path .. "/taglist/2_empty.png",
+        focused_icon = themes_path .. "/taglist/2_focused.png",
+        occupied_icon = themes_path .. "/taglist/2_occupied.png",
+        urgent_icon = themes_path .. "/taglist/2_urgent.png"
+    },
+    {
+        empty_icon = themes_path .. "/taglist/3_empty.png",
+        focused_icon = themes_path .. "/taglist/3_focused.png",
+        occupied_icon = themes_path .. "/taglist/3_occupied.png",
+        urgent_icon = themes_path .. "/taglist/3_urgent.png"
+    },
+    {
+        empty_icon = themes_path .. "/taglist/10_empty.png",
+        focused_icon = themes_path .. "/taglist/10_focused.png",
+        occupied_icon = themes_path .. "/taglist/10_occupied.png",
+        urgent_icon = themes_path .. "/taglist/10_urgent.png"
+    }
 }
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "/titlebar/close_normal.svg"
-theme.titlebar_close_button_focus  = themes_path .. "/titlebar/close_focus.svg"
+theme.titlebar_close_button_focus = themes_path .. "/titlebar/close_focus.svg"
 
 theme.titlebar_minimize_button_normal = themes_path .. "/titlebar/minimize_normal.svg"
-theme.titlebar_minimize_button_focus  = themes_path .. "/titlebar/minimize_focus.svg"
+theme.titlebar_minimize_button_focus = themes_path .. "/titlebar/minimize_focus.svg"
 
 theme.titlebar_ontop_button_normal_inactive = themes_path .. "/titlebar/ontop_normal_inactive.svg"
-theme.titlebar_ontop_button_focus_inactive  = themes_path .. "/titlebar/ontop_focus_inactive.svg"
+theme.titlebar_ontop_button_focus_inactive = themes_path .. "/titlebar/ontop_focus_inactive.svg"
 theme.titlebar_ontop_button_normal_active = themes_path .. "/titlebar/ontop_normal_active.svg"
-theme.titlebar_ontop_button_focus_active  = themes_path .. "/titlebar/ontop_focus_active.svg"
+theme.titlebar_ontop_button_focus_active = themes_path .. "/titlebar/ontop_focus_active.svg"
 
 theme.titlebar_sticky_button_normal_inactive = themes_path .. "/titlebar/sticky_normal_inactive.svg"
-theme.titlebar_sticky_button_focus_inactive  = themes_path .. "/titlebar/sticky_focus_inactive.svg"
+theme.titlebar_sticky_button_focus_inactive = themes_path .. "/titlebar/sticky_focus_inactive.svg"
 theme.titlebar_sticky_button_normal_active = themes_path .. "/titlebar/sticky_normal_active.svg"
-theme.titlebar_sticky_button_focus_active  = themes_path .. "/titlebar/sticky_focus_active.svg"
+theme.titlebar_sticky_button_focus_active = themes_path .. "/titlebar/sticky_focus_active.svg"
 
 theme.titlebar_floating_button_normal_inactive = themes_path .. "/titlebar/floating_normal_inactive.svg"
-theme.titlebar_floating_button_focus_inactive  = themes_path .. "/titlebar/floating_focus_inactive.svg"
+theme.titlebar_floating_button_focus_inactive = themes_path .. "/titlebar/floating_focus_inactive.svg"
 theme.titlebar_floating_button_normal_active = themes_path .. "/titlebar/floating_normal_active.svg"
-theme.titlebar_floating_button_focus_active  = themes_path .. "/titlebar/floating_focus_active.svg"
+theme.titlebar_floating_button_focus_active = themes_path .. "/titlebar/floating_focus_active.svg"
 
 theme.titlebar_maximized_button_normal_inactive = themes_path .. "/titlebar/maximized_normal_inactive.svg"
-theme.titlebar_maximized_button_focus_inactive  = themes_path .. "/titlebar/maximized_focus_inactive.svg"
+theme.titlebar_maximized_button_focus_inactive = themes_path .. "/titlebar/maximized_focus_inactive.svg"
 theme.titlebar_maximized_button_normal_active = themes_path .. "/titlebar/maximized_normal_active.svg"
-theme.titlebar_maximized_button_focus_active  = themes_path .. "/titlebar/maximized_focus_active.svg"
+theme.titlebar_maximized_button_focus_active = themes_path .. "/titlebar/maximized_focus_active.svg"
 
 -- theme.wallpaper = themes_path .. "/background.png"
 
 -- You can use your own layout icons like this:
-theme.layout_floating  = themes_path .. "/layouts/floatingw.png"
+theme.layout_floating = themes_path .. "/layouts/floatingw.png"
 theme.layout_tile = themes_path .. "/layouts/tilew.png"
 theme.layout_max = themes_path .. "/layouts/maxw.png"
 --[[
@@ -180,16 +180,11 @@ theme.layout_cornerne = themes_path .. "/layouts/cornernew.png"
 theme.layout_cornersw = themes_path .. "/layouts/cornersww.png"
 theme.layout_cornerse = themes_path .. "/layouts/cornersew.png"
 --]]
-
 -- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
+theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus)
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = "/usr/share/icons/Paper"
 
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
