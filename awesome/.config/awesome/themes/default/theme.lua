@@ -96,7 +96,7 @@ theme.menu_width  = dpi(200)
 -- beautiful.variable in your rc.lua
 theme.titlebar_size = dpi(35)
 theme.titlebar_font = "Roboto Condensed Regular 9"
-theme.tasklist_item_width = 300
+theme.tasklist_item_width = 9999
 theme.tags = {
    {
       empty_icon = themes_path .. "/taglist/1_empty.png",
