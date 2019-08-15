@@ -65,6 +65,8 @@ theme.taglist_bg_focus = theme.base00
 theme.taglist_bg_urgent = theme.base02
 
 theme.tasklist_disable_icon = true
+theme.tasklist_bg = theme.base00
+theme.tasklist_bg_focus = theme.base00
 
 theme.wibar_height = 35
 
