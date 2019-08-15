@@ -51,18 +51,6 @@ otherwise, run `ansi-term' with user shell."
   (defvar org-directory)
   (find-file org-directory))
 
-(defun lia/iedit ()
-  "Execute `iedit-mode' and `evil-iedit-state'."
-  (interactive)
-  (iedit-mode)
-  (evil-iedit-state))
-
-(defun lia/iedit-insert ()
-  "Execute `iedit-mode' and `evil-iedit-insert-state'."
-  (interactive)
-  (iedit-mode)
-  (evil-iedit-insert-state))
-
 (use-package general
   :ensure t
   :config
