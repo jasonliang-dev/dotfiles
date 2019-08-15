@@ -6,6 +6,18 @@
 
 ;;; Code:
 
+(defun lia/evil-window-split-and-focus ()
+  "Split window horizontally and focus other window."
+  (interactive)
+  (evil-window-split)
+  (other-window 1))
+
+(defun lia/evil-window-vsplit-and-focus ()
+  "Split window vertically and focus other window."
+  (interactive)
+  (evil-window-vsplit)
+  (other-window 1))
+
 (use-package evil
   :ensure t
   :hook (emacs-startup . evil-mode)
@@ -13,7 +25,9 @@
   ([remap evil-next-line]         'evil-next-visual-line
    [remap evil-previous-line]     'evil-previous-visual-line
    [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
-   [remap evil-end-of-line]       'evil-end-of-visual-line)
+   [remap evil-end-of-line]       'evil-end-of-visual-line
+   [remap evil-window-split]      'lia/evil-window-split-and-focus
+   [remap evil-window-vsplit]      'lia/evil-window-vsplit-and-focus)
   :init
   ;; scroll with C-u
   (setq evil-want-C-u-scroll t)
