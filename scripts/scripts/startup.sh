@@ -2,7 +2,7 @@
 
 setxkbmap -option caps:escape
 xset m 0 0
-xset r rate 270 27
+xset r rate 200 50
 xinput set-prop 12 "libinput Disable While Typing Enabled" 0
 ~/scripts/feh.sh tile
 
