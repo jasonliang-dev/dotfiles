@@ -132,7 +132,8 @@
   (add-to-list 'projectile-globally-ignored-directories "vendor"))
 
 (use-package wakatime-mode
-  :ensure t
+  :ensure nil
+  :disabled t
   :defer 5
   :config (global-wakatime-mode))
 
