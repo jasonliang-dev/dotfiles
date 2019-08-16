@@ -13,6 +13,12 @@ alias ls='ls --color=auto'
 alias c='clear'
 alias x='exit'
 
+# -- package manager ------------------
+
+alias s='apt-cache search'
+alias i='sudo apt install'
+alias u='sudo apt purge'
+
 # -- git ------------------------------
 
 alias g='git'
