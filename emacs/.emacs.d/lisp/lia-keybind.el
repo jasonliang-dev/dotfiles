@@ -33,7 +33,7 @@ otherwise, run `ansi-term' with user shell."
 (defun lia/external-terminal ()
   "Open a new terminal window."
   (interactive)
-  (run-external "EMACS_TERM=\"\" ~/scripts/term.sh"))
+  (run-external "DISABLE_BASE16=\"\" ~/scripts/term.sh"))
 
 (defun lia/config-file ()
   "Edit Emacs config."
