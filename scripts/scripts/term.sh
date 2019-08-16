@@ -1,8 +1,3 @@
 #!/usr/bin/env sh
 
-(termite \
-     || urxvt \
-     || xfce4-terminal \
-     || lxterminal \
-     || gnome-terminal \
-     || io.elementary.terminal) 2> /dev/null
+(st || xfce4-terminal || gnome-terminal) 2> /dev/null
