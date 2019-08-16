@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;; .h files open in c++ mode by default
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+;; (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (provide 'lang-c)
 
