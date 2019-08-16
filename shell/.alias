@@ -17,7 +17,8 @@ alias x='exit'
 
 alias s='apt-cache search'
 alias i='sudo apt install'
-alias u='sudo apt purge'
+alias r='sudo apt purge'
+alias u='sudo apt update && sudo apt upgrade'
 
 # -- git ------------------------------
 
@@ -35,9 +36,6 @@ alias pull='git pull'
 alias push='git push'
 
 # -- applications ---------------------
-
-alias b='bundle'
-alias ror='bundle exec rails'
 
 alias js='node'
 alias n='npm'
