@@ -1,0 +1,23 @@
+! Enabled modi
+rofi.modi:                           window,run,ssh
+
+! Window width
+rofi.width:                          30
+
+! Number of lines
+rofi.lines:                          3
+
+! Font to use
+rofi.font:                           Roboto Regular 18
+
+! Border width
+rofi.bw:                             0
+
+! Padding
+rofi.padding:                        300
+
+! Set the matching algorithm. (normal, regex, glob, fuzzy)
+rofi.matching:                       fuzzy
+
+! New style theme file
+rofi.theme:                          ~/.cache/wal/colors-rofi-dark
