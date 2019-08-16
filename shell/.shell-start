@@ -1,15 +1,31 @@
 source $HOME/.alias
-source $HOME/.env
 
 export EDITOR='vim'
 export VISUAL='vim'
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# DISABLE_BASE16="true"
+export ANDROID_HOME=$HOME/Android/Sdk
+PATH=$PATH:$ANDROID_HOME/tools
+PATH=$PATH:$ANDROID_HOME/emulator
+PATH=$PATH:$ANDROID_HOME/platform-tools
+
+PATH=$PATH:$HOME/.config/composer/vendor/bin
+
+PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.cabal/bin
+
+export PATH
+
+DISABLE_BASE16="true"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && \
     [ -z "$DISABLE_BASE16" ] && \
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
     eval "$($BASE16_SHELL/profile_helper.sh)"
+
+(cat ~/.cache/wal/sequences &)
 
 (fortune riddles fortunes && echo "") 2> /dev/null
