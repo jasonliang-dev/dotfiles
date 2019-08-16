@@ -143,7 +143,7 @@
 
 ;; don't execute base16-shell when running a terminal
 ;; see: dotfiles/bash/.shell-start
-(setenv "EMACS_TERM" "true")
+(setenv "DISABLE_BASE16" "true")
 
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
