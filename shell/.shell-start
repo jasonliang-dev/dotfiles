@@ -18,14 +18,6 @@ PATH=$PATH:$HOME/.cabal/bin
 
 export PATH
 
-DISABLE_BASE16="true"
-
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && \
-    [ -z "$DISABLE_BASE16" ] && \
-    [ -s $BASE16_SHELL/profile_helper.sh ] && \
-    eval "$($BASE16_SHELL/profile_helper.sh)"
-
 (cat ~/.cache/wal/sequences &)
 
 (fortune riddles fortunes && echo "") 2> /dev/null
