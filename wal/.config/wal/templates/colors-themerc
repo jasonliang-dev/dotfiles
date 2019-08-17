@@ -1,0 +1,55 @@
+## COLOURS
+
+# Set border colour
+window.active.client.color: {foreground}
+window.inactive.client.color: {color8}
+
+# title colours
+window.active.title.bg.color: {background}
+window.inactive.title.bg.color: {background}
+window.active.label.text.color: {foreground}
+window.inactive.label.text.color: {color8}
+
+# Set buttons color
+window.active.button.*.image.color: {foreground}
+window.inactive.button.*.image.color: {color8}
+
+# Set menu colors
+menu.*.bg.color: {background}
+menu.*.text.color: {color8}
+menu.items.active.text.color: {foreground}
+menu.border.color: {background}
+menu.separator.color: {background}
+
+## BORDERS
+
+# Hide bloat
+window.handle.width: 0
+border.width: 0
+
+# Set border width
+window.client.padding.width: 0
+window.client.padding.height: 0
+
+## TITLE
+
+# Title alignment
+*.text.justify: center
+
+# Add some padding
+padding.width: 16
+padding.height: 8
+
+# Set title colors
+window.*.title.bg: Solid Flat
+window.*.*.bg: Parentrelative
+
+## MENU
+
+menu.*.bg: Solid Flat
+
+# Padding
+menu.border.width: 24
+menu.overlap.x: -28
+menu.overlap.y: 0
+menu.separator.padding.height: 3
