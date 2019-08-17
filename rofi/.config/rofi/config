@@ -13,9 +13,6 @@ rofi.font:                           Roboto Regular 18
 ! Border width
 rofi.bw:                             0
 
-! Padding
-rofi.padding:                        300
-
 ! Set the matching algorithm. (normal, regex, glob, fuzzy)
 rofi.matching:                       fuzzy
 

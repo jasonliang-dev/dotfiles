@@ -30,7 +30,7 @@
 #window {{
     background-color: @background;
     border: 0;
-    padding: 2.5ch;
+    padding: 60px;
 }}
 
 #mainbox {{
