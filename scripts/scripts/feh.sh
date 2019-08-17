@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-wp_dir="$HOME/Pictures/wallpapers/"
-
-feh --randomize --bg-fill ${wp_dir}*
+feh --bg-fill "$(< "${HOME}/.cache/wal/wal")"
