@@ -53,6 +53,7 @@ e () { emacs "$@" & disown; }
 
 alias sf='screenfetch -n'
 alias nf='neofetch --off'
+alias wl='wal -o ~/scripts/wal-set.sh'
 
 alias ytdl='youtube-dl'
 alias mp3='youtube-dl --extract-audio --audio-format mp3'
