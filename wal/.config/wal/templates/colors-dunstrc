@@ -1,0 +1,52 @@
+[global]
+font = "Roboto Regular 9"
+markup = no
+format = "<b>%s</b>\n%b"
+sort = yes
+indicate_hidden = yes
+alignment = left
+bounce_freq = 0
+show_age_threshold = 60
+word_wrap = yes
+ignore_newline = no
+geometry = "320x8-32+32"
+transparency = 0
+idle_threshold = 120
+monitor = 0
+follow = mouse
+sticky_history = yes
+history_length = 20
+line_height = 0
+separator_height = 2
+padding = 8
+horizontal_padding = 8
+separator_color = frame
+startup_notification = no
+frame_width = 0
+frame_color = "{background}"
+icon_position = left
+max_icon_size = 64
+show_indicators = yes
+browser = /usr/bin/firefox -new-tab
+icon_path = /usr/share/icons/Paper/32x32/status/:/usr/share/icons/Paper/32x32/devices/
+
+[shortcuts]
+close = ctrl+space
+close_all = ctrl+shift+space
+history = ctrl+grave
+context = ctrl+shift+period
+
+[urgency_low]
+background = "{background}"
+foreground = "{foreground}"
+timeout = 5
+
+[urgency_normal]
+background = "{background}"
+foreground = "{foreground}"
+timeout = 5
+
+[urgency_critical]
+background = "{background}"
+foreground = "{color1}"
+timeout = 15
