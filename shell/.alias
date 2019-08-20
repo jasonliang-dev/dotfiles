@@ -13,13 +13,6 @@ alias ls='ls --color=auto'
 alias c='clear'
 alias x='exit'
 
-# -- package manager ------------------
-
-alias s='apt-cache search'
-alias i='sudo apt install'
-alias r='sudo apt purge'
-alias u='sudo apt update && sudo apt upgrade'
-
 # -- git ------------------------------
 
 alias g='git'
@@ -57,5 +50,3 @@ alias wl='wal -no ~/scripts/wal-set.sh'
 
 alias ytdl='youtube-dl'
 alias mp3='youtube-dl --extract-audio --audio-format mp3'
-
-alias eslint-config-init='$HOME/scripts/eslint-config-init.sh'

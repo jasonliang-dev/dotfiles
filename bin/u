@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ $(which pacman) ]]; then
+    sudo pacman -Syu
+elif [[ $(which apt) ]]; then
+    sudo apt update && sudo apt upgrade
+fi

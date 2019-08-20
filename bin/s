@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ $(which pacman) ]]; then
+    pacman -Ss "$@"
+elif [[ $(which apt) ]]; then
+    apt-cache search "$@"
+fi

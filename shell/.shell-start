@@ -18,9 +18,9 @@ PATH=$PATH:$ANDROID_HOME/emulator
 PATH=$PATH:$ANDROID_HOME/platform-tools
 
 PATH=$PATH:$HOME/.config/composer/vendor/bin
-
 PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.cabal/bin
+PATH=$PATH:$HOME/dotfiles/bin
 
 export PATH
 
