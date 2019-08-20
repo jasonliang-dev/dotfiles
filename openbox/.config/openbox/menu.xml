@@ -26,8 +26,10 @@
   <menu id="root-menu" label="Openbox 3">
     <menu id="system"/>
     <separator />
-    <item label="Reconfigure">
-      <action name="Reconfigure" />
+    <item label="Refresh">
+      <action name="Execute">
+        <command>wal -Rno ~/scripts/wal-set.sh</command>
+      </action>
     </item>
   </menu>
 </openbox_menu>
