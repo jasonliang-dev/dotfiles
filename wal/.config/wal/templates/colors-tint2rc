@@ -30,28 +30,16 @@ border_color_hover = {foreground} 100
 background_color_pressed = {background} 100
 border_color_pressed = {foreground} 100
 
-# Background 3: Clock
-rounded = 0
-border_width = 0
-border_sides = 
-border_content_tint_weight = 0
-background_content_tint_weight = 0
-background_color = {foreground} 100
-border_color = {background} 0
-background_color_hover = {foreground} 100
-border_color_hover = {background} 0
-background_color_pressed = {foreground} 100
-border_color_pressed = {background} 0
-
 #-------------------------------------
 # Panel
-panel_items = TF:SBC
+panel_items = TFSBC
 panel_size = 100% 32
 panel_margin = 0 0
 panel_padding = 0 0 2
 panel_background_id = 1
 wm_menu = 1
 panel_dock = 0
+panel_pivot_struts = 0
 panel_position = bottom center horizontal
 panel_layer = normal
 panel_monitor = all
@@ -105,6 +93,7 @@ task_tooltip = 0
 task_thumbnail = 0
 task_thumbnail_size = 210
 task_font_color = {foreground} 100
+task_iconified_font_color = {color8} 100
 task_background_id = 0
 task_active_background_id = 2
 task_urgent_background_id = 0
@@ -116,7 +105,7 @@ mouse_scroll_down = none
 
 #-------------------------------------
 # System tray (notification area)
-systray_padding = 0 0 8
+systray_padding = 30 0 8
 systray_background_id = 0
 systray_sort = ascending
 systray_icon_size = 24
@@ -148,9 +137,9 @@ time2_format =
 time1_font = Roboto 10
 time1_timezone = 
 time2_timezone = 
-clock_font_color = #263238 100
+clock_font_color = {foreground} 100
 clock_padding = 30 0
-clock_background_id = 3
+clock_background_id = 0
 clock_tooltip = 
 clock_tooltip_timezone = 
 clock_lclick_command = 
@@ -170,7 +159,7 @@ bat2_font = Roboto 0
 battery_font_color = {foreground} 100
 bat1_format = 
 bat2_format = 
-battery_padding = 20 4
+battery_padding = 0 4
 battery_background_id = 0
 battery_hide = 101
 battery_lclick_command = 
@@ -180,15 +169,6 @@ battery_uwheel_command =
 battery_dwheel_command = 
 ac_connected_cmd = notify-send "Battery is charging"
 ac_disconnected_cmd = notify-send "Battery is discharging"
-
-#-------------------------------------
-# Separator 1
-separator = new
-separator_background_id = -1
-separator_color = #777777 89
-separator_style = empty
-separator_size = 20
-separator_padding = 1 0
 
 #-------------------------------------
 # Tooltip
