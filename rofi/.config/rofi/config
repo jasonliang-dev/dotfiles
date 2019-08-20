@@ -14,7 +14,7 @@ rofi.font:                           Roboto Regular 18
 rofi.bw:                             0
 
 ! Set the matching algorithm. (normal, regex, glob, fuzzy)
-rofi.matching:                       fuzzy
+rofi.matching:                       normal
 
 ! New style theme file
 rofi.theme:                          ~/.cache/wal/colors-rofi-dark
