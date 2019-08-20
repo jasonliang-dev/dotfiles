@@ -23,7 +23,7 @@ horizontal_padding = 8
 separator_color = frame
 startup_notification = no
 frame_width = 0
-frame_color = "#263238"
+frame_color = "#282c34"
 icon_position = left
 max_icon_size = 64
 show_indicators = yes
@@ -37,16 +37,16 @@ history = ctrl+grave
 context = ctrl+shift+period
 
 [urgency_low]
-background = "#263238"
-foreground = "#eeffff"
+background = "#282c34"
+foreground = "#abb2bf"
 timeout = 5
 
 [urgency_normal]
-background = "#263238"
-foreground = "#eeffff"
+background = "#282c34"
+foreground = "#abb2bf"
 timeout = 5
 
 [urgency_critical]
-background = "#263238"
-foreground = "#ff5370"
+background = "#282c34"
+foreground = "#e06c75"
 timeout = 15
