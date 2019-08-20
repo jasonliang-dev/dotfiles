@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-if [[ $(which pacman) ]]; then
+if [ $(command -v pacman) ]; then
     sudo pacman -Rs "$@"
-elif [[ $(which apt) ]]; then
+elif [ $(command -v apt) ]; then
     sudo apt purge "$@"
 fi
