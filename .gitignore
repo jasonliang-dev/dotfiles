@@ -29,6 +29,7 @@ termite/.config/gtk-3.0/settings.ini
 
 vim/.vim/.netrwhist
 vim/.vim/bundle/
+vim-minimal/.vim/.netrwhist
 
 vscode/
 !vscode/.config/Code/User/setttings.json
