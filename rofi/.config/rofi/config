@@ -16,5 +16,15 @@ rofi.bw:                             0
 ! Set the matching algorithm. (normal, regex, glob, fuzzy)
 rofi.matching:                       normal
 
+! Monitor id to show on
+! •   -1: the currently focused monitor.
+! •   -2: the currently focused window (that is, rofi will  be  displayed
+!     on top of the focused window).
+! •   -3: Position at mouse (overrides the location setting to get normal
+!     context menu behavior.)
+! •   -4: the monitor with the focused window.
+! •   -5: the monitor that shows the mouse pointer.
+rofi.m:                              -4
+
 ! New style theme file
 rofi.theme:                          ~/.cache/wal/colors-rofi-dark
