@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-TOGGLE=$HOME/scripts/.scrlktoggle
+TOGGLE=/tmp/.lia-scrlk
 
 if [ ! -e $TOGGLE ]; then
     touch $TOGGLE
