@@ -1,1 +1,1 @@
-~/scripts/startup.sh --tint2 --dunst
+~/scripts/startup.sh --polybar --dunst

@@ -64,11 +64,11 @@
     <number>5</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>1</name>
-      <name>2</name>
-      <name>3</name>
-      <name>4</name>
-      <name>5</name>
+      <name>一</name>
+      <name>二</name>
+      <name>三</name>
+      <name>四</name>
+      <name>五</name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
@@ -466,6 +466,11 @@
     <keybind key="C-A-S-l">
       <action name="Execute">
         <command>~/scripts/scrlk.sh</command>
+      </action>
+    </keybind>
+    <keybind key="W-r">
+      <action name="Execute">
+        <command>~/scripts/bar-toggle.sh</command>
       </action>
     </keybind>
     <!-- End of Scripts -->
