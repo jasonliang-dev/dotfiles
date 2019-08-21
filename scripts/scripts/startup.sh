@@ -8,7 +8,7 @@ xinput set-prop 12 "libinput Disable While Typing Enabled" 0 &
 
 compton &
 nm-applet &
-xautolock -time 10 -locker slock &
+xautolock -time 10 -locker $HOME/scripts/lock.sh &
 
 while [ "$#" -gt 0 ]
 do

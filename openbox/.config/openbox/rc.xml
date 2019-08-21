@@ -455,7 +455,7 @@
     <!-- Scripts -->
     <keybind key="W-S-x">
       <action name="Execute">
-        <command>slock</command>
+        <command>~/scripts/lock.sh</command>
       </action>
     </keybind>
     <keybind key="W-d">
