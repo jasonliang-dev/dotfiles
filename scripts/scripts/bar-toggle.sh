@@ -20,7 +20,7 @@ case $(cat $BAR_TOGGLE) in
     1)
         # show bar
         polybar-msg cmd restart > /dev/null
-        notify-send "Bar showned"
+        notify-send "Bar shown"
         ;;
     2)
         # hide bar
