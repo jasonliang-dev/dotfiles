@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-if [ $(command -v pacman) ]; then
-    sudo pacman -Syu
-elif [ $(command -v apt) ]; then
-    sudo apt update && sudo apt upgrade
-fi

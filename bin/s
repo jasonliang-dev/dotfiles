@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-if [ $(command -v pacman) ]; then
-    pacman -Ss "$@"
-elif [ $(command -v apt) ]; then
-    apt-cache search "$@"
-fi

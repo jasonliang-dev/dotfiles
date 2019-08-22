@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-if [ $(command -v pacman) ]; then
-    sudo pacman -S "$@"
-elif [ $(command -v apt) ]; then
-    sudo apt install "$@"
-fi
