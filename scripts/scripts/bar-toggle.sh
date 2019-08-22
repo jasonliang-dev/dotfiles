@@ -19,7 +19,7 @@ case $(cat $BAR_TOGGLE) in
         ;;
     1)
         # show bar
-        polybar-msg cmd restart > /dev/null
+        polybar-msg cmd show > /dev/null
         notify-send "Bar shown"
         ;;
     2)
