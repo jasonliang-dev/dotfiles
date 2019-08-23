@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-slock
+~/scripts/try.sh "betterlockscreen -l dim" slock
