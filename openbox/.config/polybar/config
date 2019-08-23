@@ -5,6 +5,36 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/mybar]
+width = 100%
+height = 36
+bottom = true
+
+background = #282c34
+foreground = #abb2bf
+
+spacing = 0
+padding-left = 3
+padding-right = 3
+module-margin-left = 3
+module-margin-right = 3
+
+font-0 = "roboto:size=10;2"
+font-1 = "material icons:size=11;3"
+modules-left = ewmh
+modules-center = date
+modules-right = backlight volume battery
+
+; Available positions:
+;   left
+;   center
+;   right
+;   none
+tray-position = right
+tray-padding = 0
+tray-detached = false
+tray-background = #282c34
+
+[bar/floatbar]
 ; floating bar. window takes up entire screen.
 override-redirect = true
 
@@ -26,11 +56,11 @@ border-bottom-color = #545862
 spacing = 0
 padding-left = 8
 padding-right = 8
-module-margin-left = 4
-module-margin-right = 4
+module-margin-left = 3
+module-margin-right = 3
 
-font-0 = "roboto:size=10;2"
-font-1 = "material icons:size=10;3"
+font-0 = "roboto:size=10;3"
+font-1 = "material icons:size=10;4"
 modules-left = ewmh
 modules-center = date
 modules-right = volume battery
@@ -50,7 +80,7 @@ enable-ipc = true
 
 [module/xwindow]
 type = internal/xwindow
-label = "  %title:0:40:...%"
+label = "%title:0:40:...%"
 format-window = <label>
 format-underline = #545862
 
@@ -58,7 +88,7 @@ format-underline = #545862
 type = internal/xworkspaces
 
 label-active = "  "
-label-active-foreground = #abb2bf
+label-active-foreground = #61afef
 
 ; label-empty = "  " ; occupied state not working
 label-empty = "  "
@@ -87,14 +117,14 @@ format = "<ramp>  <label>"
 format-underline = #545862
 
 ; Only applies if <ramp> is used
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = ""
+ramp-1 = ""
+ramp-2 = ""
 
 [module/volume]
 type = internal/alsa
 
-format-volume = "<ramp-volume>  <label-volume>"
+format-volume = "<ramp-volume> <label-volume>"
 format-volume-underline = #545862
 
 label-volume = %percentage%%
@@ -103,13 +133,13 @@ format-muted-prefix = " "
 label-muted = Mute
 label-muted-foreground = #545862
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
-ramp-volume-4 = 
-ramp-volume-5 = 
-ramp-volume-6 = 
+ramp-volume-0 = ""
+ramp-volume-1 = ""
+ramp-volume-2 = ""
+ramp-volume-3 = ""
+ramp-volume-4 = ""
+ramp-volume-5 = ""
+ramp-volume-6 = ""
 
 [module/battery]
 type = internal/battery
@@ -117,15 +147,15 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 
-format-charging = "<animation-charging>  <label-charging>"
-format-discharging = "<ramp-capacity>  <label-discharging>"
+format-charging = "<animation-charging> <label-charging>"
+format-discharging = "<ramp-capacity> <label-discharging>"
 
 format-full-prefix = " "
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
 
 animation-charging-0 = ""
 animation-charging-1 = ""

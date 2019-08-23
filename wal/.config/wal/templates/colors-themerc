@@ -34,7 +34,7 @@ window.client.padding.height: 0
 ## TITLE
 
 # Title alignment
-*.text.justify: left
+*.text.justify: center
 
 # Add some padding
 padding.width: 16
