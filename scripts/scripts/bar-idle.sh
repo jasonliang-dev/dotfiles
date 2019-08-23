@@ -15,9 +15,7 @@ while sleep .1; do
     if [ $IDLE_TIME -gt $IDLE_THRESHOLD ]; then
         if [ ! -f $BAR_SHOWN ]; then
             touch $BAR_SHOWN
-            # using restart, not show
-            # because the modules don't update with show
-            polybar-msg cmd restart > /dev/null
+            polybar-msg cmd show > /dev/null
         fi
     elif [ -f $BAR_SHOWN ]; then
         rm $BAR_SHOWN

@@ -2,6 +2,10 @@
 
 . $(dirname "$0")/shared
 
+if ! "$BAR_TOGGLE_ENABLED"; then
+    exit
+fi
+
 if [ ! -f $BAR_TOGGLE ]; then
     echo 1 > $BAR_TOGGLE
 fi
