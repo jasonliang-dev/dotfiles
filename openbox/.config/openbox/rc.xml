@@ -20,7 +20,7 @@
   </placement>
   <theme>
     <name>dark</name>
-    <titleLayout>LIMC</titleLayout>
+    <titleLayout>L</titleLayout>
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
