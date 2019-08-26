@@ -6,7 +6,7 @@ margin-bottom = 0
 
 [bar/mybar]
 width = 100%
-height = 36
+height = 40
 bottom = true
 
 background = {background}
@@ -18,11 +18,11 @@ padding-right = 3
 module-margin-left = 3
 module-margin-right = 3
 
-font-0 = "roboto:size=10;2"
-font-1 = "material icons:size=11;3"
+font-0 = "roboto:size=10;3"
+font-1 = "material icons:size=11;4"
 modules-left = ewmh
 modules-center = date
-modules-right = backlight volume battery
+modules-right = volume battery
 
 ; Available positions:
 ;   left
@@ -33,6 +33,7 @@ tray-position = right
 tray-padding = 0
 tray-detached = false
 tray-background = {background}
+tray-maxsize = 20
 
 [bar/floatbar]
 ; floating bar. window takes up entire screen.
@@ -59,8 +60,8 @@ padding-right = 8
 module-margin-left = 3
 module-margin-right = 3
 
-font-0 = "roboto:size=10;3"
-font-1 = "material icons:size=10;4"
+font-0 = "roboto:size=10;2"
+font-1 = "material icons:size=10;3"
 modules-left = ewmh
 modules-center = date
 modules-right = volume battery
@@ -88,7 +89,7 @@ format-underline = {color8}
 type = internal/xworkspaces
 
 label-active = "  "
-label-active-foreground = {color4}
+label-active-foreground = {color1}
 
 ; label-empty = "  " ; occupied state not working
 label-empty = "  "
