@@ -49,6 +49,9 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package xresources-theme
+  :disabled t)
+
 ;; highlight current line when programming
 (add-hook 'prog-mode-hook 'hl-line-mode)
 
