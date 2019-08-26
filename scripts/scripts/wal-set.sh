@@ -13,6 +13,11 @@ cp ~/.cache/wal/colors-polybar ~/.config/polybar/config
 # reconfigure openbox. shows new theme
 openbox --reconfigure
 
+# restart tint2
+if [ $(pgrep -x tint2) ]; then
+    killall -SIGUSR1 tint2
+fi
+
 # run feh with new background
 ~/scripts/feh.sh
 
