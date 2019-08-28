@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 
-COMMANDS=("$@")
+for COMMAND in "$@"; do
+    PROGRAM=$(echo "$COMMAND" | sed "s/ .*//")
 
-for COMMAND in "$COMMANDS"; do
-    if [ ! -z "$(command -v $COMMAND)" ]; then
+    if [ $(command -v "$PROGRAM") ]; then
         $COMMAND
+        exit $?
     fi
 done
+
+exit 1
