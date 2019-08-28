@@ -10,6 +10,8 @@ xset m 0 0 &
 xset r rate 200 50 &
 # I want to move the mouse and hold down keys at the same time
 xinput set-prop 12 "libinput Disable While Typing Enabled" 0 &
+# set bindings
+sxhkd &
 
 # set background
 ~/scripts/feh.sh &
@@ -42,6 +44,9 @@ do
         "--tint2")
             tint2 &
             ;;
+        "--fix-cursor")
+           xsetroot -cursor_name left_ptr &
+           ;;
     esac
 
     shift
