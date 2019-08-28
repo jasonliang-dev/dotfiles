@@ -5,8 +5,9 @@
 import           Control.Exception              ( catch
                                                 , SomeException
                                                 )
-import qualified Data.Aeson                    as Aeson
-import           Data.Aeson                     ( FromJSON )
+import           Data.Aeson                     ( decode
+                                                , FromJSON
+                                                )
 import qualified Data.ByteString.Lazy          as BS
 import           Data.ByteString.Lazy           ( ByteString )
 import qualified Data.Map                      as M
@@ -30,6 +31,9 @@ import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
                                                 )
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
+                                                )
+import           XMonad.Hooks.Place             ( placeFocused
+                                                , fixed
                                                 )
 import           XMonad.Layout.NoBorders        ( noBorders
                                                 , smartBorders
@@ -236,18 +240,23 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
          , sendMessage MirrorExpand
          )
 
+       -- Move window to the center of the screen
+       , ( (modMask, xK_c)
+         , placeFocused $ fixed (0.5, 0.5)
+         )
+
        -- Push window back into tiling.
        , ( (modMask, xK_t)
          , withFocused $ windows . W.sink
          )
 
        -- Increment the number of windows in the master area.
-       , ( (modMask, xK_comma)
+       , ( (modMask, xK_equal)
          , sendMessage (IncMasterN 1)
          )
 
        -- Decrement the number of windows in the master area.
-       , ( (modMask, xK_period)
+       , ( (modMask, xK_minus)
          , sendMessage (IncMasterN (-1))
          )
 
@@ -291,7 +300,7 @@ main :: IO ()
 main = do
   home <- getHomeDirectory
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
-  let cols = fromMaybe fallBackColors (Aeson.decode json :: Maybe Colors)
+  let cols = fromMaybe fallBackColors (decode json :: Maybe Colors)
 
   xmonad $ withNavigation2DConfig def $ ewmh def
     { terminal           = home ++ "/scripts/term.sh"
