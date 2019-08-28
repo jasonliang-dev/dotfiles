@@ -1,0 +1,20 @@
+XF86Audio{Play,Next,Prev,Stop,RaiseVolume,LowerVolume,Mute}
+	~/scripts/audio.sh {play,next,prev,stop,up,down,mute}
+
+XF86MonBrightness{Up,Down}
+	~/scripts/brightness.sh {up,down}
+
+super + d
+	~/scripts/rofi.sh
+
+super + Return
+	~/scripts/term.sh
+
+super + ctrl + Return
+	~/scripts/files.sh
+
+super + shift + x
+	~/scripts/lock.sh
+
+# To reload sxhkd config:
+# pkill -USR1 -x sxhkd

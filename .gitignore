@@ -25,3 +25,6 @@ vim-minimal/.vim/.netrwhist
 
 vscode/
 !vscode/.config/Code/User/setttings.json
+
+xmonad/.xmonad/*
+!xmonad/.xmonad/*.hs
