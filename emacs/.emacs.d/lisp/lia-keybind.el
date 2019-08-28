@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'seq)
+
 ;; https://emacs.stackexchange.com/q/7650
 (defun run-external (command)
   "Run a shell COMMAND that use the current directory."
@@ -26,14 +28,16 @@
 Run `eshell' if Emacs is running on Windows,
 otherwise, run `ansi-term' with user shell."
   (interactive)
-  (if (eq system-type 'windows-nt)
-      (eshell)
-    (ansi-term (getenv "SHELL"))))
+  (cond ((eq system-type 'windows-nt)
+         (eshell))
+        ((get-buffer "*ansi-term*")
+         (switch-to-buffer "*ansi-term*"))
+        (t (ansi-term (getenv "SHELL")))))
 
 (defun lia/external-terminal ()
   "Open a new terminal window."
   (interactive)
-  (run-external "DISABLE_BASE16=\"\" ~/scripts/term.sh"))
+  (run-external "DISABLE_WAL=\"\" ~/scripts/term.sh"))
 
 (defun lia/config-file ()
   "Edit Emacs config."
