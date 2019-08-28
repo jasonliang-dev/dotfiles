@@ -18,8 +18,8 @@ import qualified Data.Map                      as M
 import           Data.Map                       ( Map )
 import           GHC.Generics                   ( Generic )
 import           System.Directory               ( getHomeDirectory )
-import           System.Exit                    ( exitWith
-                                                , ExitCode(..)
+import           System.Exit                    ( ExitCode(..)
+                                                , exitWith
                                                 )
 
 -- xmonad core
@@ -27,14 +27,19 @@ import           XMonad
 import qualified XMonad.StackSet               as W
 
 -- xmonad contrib
-import           XMonad.Layout.ResizableTile    ( ResizableTall(..)
-                                                , MirrorResize(..)
+import           XMonad.Actions.Navigation2D    ( Direction2D(..)
+                                                , windowGo
+                                                , windowSwap
+                                                , withNavigation2DConfig
                                                 )
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
 import           XMonad.Layout.NoBorders        ( noBorders
                                                 , smartBorders
+                                                )
+import           XMonad.Layout.ResizableTile    ( MirrorResize(..)
+                                                , ResizableTall(..)
                                                 )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
@@ -79,7 +84,7 @@ instance FromJSON ColorPalette
 --
 myLayout = tiled ||| Mirror tiled ||| noBorders Full
  where
-  -- default tiling algorithm partitions the screen into two panes
+  -- Unlike Tall, ResizableTall can resize windows vertically
   tiled   = ResizableTall nmaster delta ratio []
   -- The default number of windows in the master pane
   nmaster = 1
@@ -126,13 +131,8 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
          , windows W.focusDown
          )
 
-       -- Move focus to the next window.
-       , ( (modMask, xK_j)
-         , windows W.focusDown
-         )
-
        -- Move focus to the previous window.
-       , ( (modMask, xK_k)
+       , ( (modMask .|. shiftMask, xK_Tab)
          , windows W.focusUp
          )
 
@@ -141,28 +141,61 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
          , windows W.swapMaster
          )
 
-       -- Swap the focused window with the next window.
-       , ( (modMask .|. shiftMask, xK_j)
-         , windows W.swapDown
+       -- Focus window toward the left
+       , ( (modMask, xK_h)
+         , windowGo L False
          )
 
-       -- Swap the focused window with the previous window.
+       -- Focus window toward the right
+       , ( (modMask, xK_l)
+         , windowGo R False
+         )
+
+       -- Focus window toward the top
+       , ( (modMask, xK_k)
+         , windowGo U False
+         )
+
+       -- Focus window toward the bottom
+       , ( (modMask, xK_j)
+         , windowGo D False
+         )
+
+       -- Focus window toward the left
+       , ( (modMask .|. shiftMask, xK_h)
+         , windowSwap L False
+         )
+
+       -- Focus window toward the right
+       , ( (modMask .|. shiftMask, xK_l)
+         , windowSwap R False
+         )
+
+       -- Focus window toward the top
        , ( (modMask .|. shiftMask, xK_k)
-         , windows W.swapUp
+         , windowSwap U False
+         )
+
+       -- Focus window toward the bottom
+       , ( (modMask .|. shiftMask, xK_j)
+         , windowSwap D False
          )
 
        -- Shrink master horizontally. Resize left.
        , ( (modMask .|. controlMask, xK_h)
          , sendMessage Shrink
          )
+
        -- Expand master horizontally. Resize right.
        , ( (modMask .|. controlMask, xK_l)
          , sendMessage Expand
          )
+
        -- Shrink master vertically. Resize down.
        , ( (modMask .|. controlMask, xK_j)
          , sendMessage MirrorShrink
          )
+
        -- Expand master vertically. Resize up.
        , ( (modMask .|. controlMask, xK_k)
          , sendMessage MirrorExpand
@@ -238,7 +271,7 @@ getColors = do
 main :: IO ()
 main = do
   (normalColor, focusedColor) <- mapTuple T.unpack <$> getColors
-  xmonad $ ewmh def
+  xmonad $ withNavigation2DConfig def $ ewmh def
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
     , keys               = myKeys
