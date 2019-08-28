@@ -32,7 +32,7 @@ otherwise, run `ansi-term' with user shell."
          (eshell))
         ((get-buffer "*ansi-term*")
          (switch-to-buffer "*ansi-term*"))
-        (t (ansi-term (getenv "SHELL")))))
+        (t (ansi-term "/bin/bash"))))
 
 (defun lia/external-terminal ()
   "Open a new terminal window."
@@ -70,6 +70,7 @@ otherwise, run `ansi-term' with user shell."
    "TAB" '(mode-line-other-buffer :wk "other buffer")
    ";"   '(avy-goto-char-2 :wk "avy jump to")
    "`"   '(lia/terminal :wk "terminal")
+   ","   '(rename-buffer :wk "rename buffer")
    "b"   '(helm-mini :wk "buffers")
    "e"   '(eval-last-sexp :wk "eval")
    "F"   '(format-all-buffer :wk "format buffer")
