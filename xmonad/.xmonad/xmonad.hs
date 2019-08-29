@@ -1,6 +1,7 @@
 -- -*- eval: (flycheck-mode -1) -*-
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 import           Control.Exception              ( catch
                                                 , SomeException
@@ -28,6 +29,13 @@ import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
                                                 , windowGo
                                                 , windowSwap
                                                 , withNavigation2DConfig
+                                                )
+import           XMonad.Hooks.DynamicLog        ( PP
+                                                , ppCurrent
+                                                , statusBar
+                                                , wrap
+                                                , xmobarColor
+                                                , xmobarPP
                                                 )
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
@@ -125,7 +133,9 @@ fallBackColors = Colors
 -- | The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = toggleLayouts (noBorders Full) (tiled ||| Mirror tiled)
+myLayout = avoidStruts $ smartBorders $ toggleLayouts
+  (noBorders Full)
+  (tiled ||| Mirror tiled)
  where
   -- Unlike Tall, ResizableTall can resize windows vertically
   tiled   = ResizableTall nmaster delta ratio []
@@ -298,31 +308,42 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
        ]
 
+-- XMOBAR ----------------------------------------------------------------------
+
+myPP :: PP
+myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
+
+toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
+
 -- RUN XMONAD ------------------------------------------------------------------
 
 -- | A wrapper for ByteString.readFile.  It returns empty string where
 -- there would usually be an exception.
 --
 safeReadFile :: FilePath -> IO ByteString
-safeReadFile file = BS.readFile file `catch` returnEmpty
- where
-  returnEmpty :: SomeException -> IO ByteString
-  returnEmpty _ = return ""
+safeReadFile file = BS.readFile file `catch` \(_ :: SomeException) -> return ""
 
 main :: IO ()
 main = do
   home <- getHomeDirectory
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
-  let cols = fromMaybe fallBackColors (decode json :: Maybe Colors)
+  let colorscheme = fromMaybe fallBackColors (decode json :: Maybe Colors)
 
-  xmonad $ withNavigation2DConfig def $ docks $ ewmh def
-    { terminal           = home ++ "/scripts/term.sh"
+  xmonad =<< statusBar
+    "xmobar"
+    myPP
+    toggleStrutsKey
+    (withNavigation2DConfig def $ ewmh $ myConfig colorscheme)
+ where
+  myConfig colorscheme = def
+    { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
     , keys               = myKeys
     , borderWidth        = 2
-    , normalBorderColor  = background $ special cols
-    , focusedBorderColor = color6 $ colors cols
+    , normalBorderColor  = background $ special colorscheme
+    , focusedBorderColor = color6 $ colors colorscheme
     , handleEventHook    = fullscreenEventHook
-    , layoutHook         = avoidStruts $ smartBorders myLayout
-    , startupHook = spawnOnce $ home ++ "/scripts/startup.sh --fix-cursor"
+    , layoutHook         = myLayout
+    , startupHook        = spawnOnce $ "~/scripts/startup.sh --fix-cursor"
     }

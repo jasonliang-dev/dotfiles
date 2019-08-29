@@ -20,21 +20,12 @@ Config
   , overrideRedirect = True
   , sepChar          = "%"
   , alignSep         = "}{"
-  , template         = "CPU: %cpu% | Mem: %memory% }\
-                       \{ Bri: %brightness% | Bat: %battery% | Vol: %volume% | Date: %date%"
+  , template         = " %StdinReader% }{ CPU: %cpu% | Mem: %memory% | Bri: %brightness% | Bat: %battery% | Vol: %volume% | Date: %date%"
   , commands =
-    [ Run Cpu [ "-t"       , "<total>%"
-              , "-L"       , "3"
-              , "-H"       , "50"
-              , "--normal" , "green"
-              , "--high"   , "red"] 10
-    , Run Memory ["-t", "<usedratio>%"] 10
+    [ Run StdinReader
+    , Run Cpu     [ "-t"       , "<total>%" ] 10
+    , Run Memory  [ "-t"       , "<usedratio>%" ] 10
     , Run Battery [ "-t"       , "<left>% <acstatus>"
-                  , "-L"       , "20"
-                  , "-H"       , "80"
-                  , "--low"    , "red"
-                  , "--normal" , "orange"
-                  , "--high"   , "green"
                   , "--" -- battery specific options
                     -- discharging status
                     , "-o"	, "(<timeleft>)"
