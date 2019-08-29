@@ -1,103 +1,50 @@
 -- -*- mode: haskell; eval: (flycheck-mode -1) -*-
 
-Config {
-   -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
-   , position =     Bottom
-   , border =       BottomB
-   , borderColor =  "#646464"
-
-   -- layout
-   , sepChar =  "%"   -- delineator between plugin names and straight text
-   , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% "
-
-   -- general behavior
-   , lowerOnStart =     True    -- send to bottom of window stack on start
-   , hideOnStart =      False   -- start with window unmapped (hidden)
-   , allDesktops =      True    -- show on all desktops
-   , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
-   , pickBroadest =     False   -- choose widest display (multi-monitor)
-   , persistent =       True    -- enable/disable hiding (True = disabled)
-
-   -- plugins
-   --   Numbers can be automatically colored according to their value. xmobar
-   --   decides color based on a three-tier/two-cutoff system, controlled by
-   --   command options:
-   --     --Low sets the low cutoff
-   --     --High sets the high cutoff
-   --
-   --     --low sets the color below --Low cutoff
-   --     --normal sets the color between --Low and --High cutoffs
-   --     --High sets the color above --High cutoff
-   --
-   --   The --template option controls how the plugin is displayed. Text
-   --   color can be set by enclosing in <fc></fc> tags. For more details
-   --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
-   , commands =
-
-        -- weather monitor
-        [  Run DynNetwork    [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
-                             , "--Low"      , "1000"       -- units: B/s
-                             , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
-                             ] 10
-
-        -- cpu activity monitor
-        , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
-                             , "--Low"      , "50"         -- units: %
-                             , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
-                             ] 10
-
-        -- cpu core temperature monitor
-        , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
-                             , "--Low"      , "70"        -- units: °C
-                             , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
-                             ] 50
-
-        -- memory usage monitor
-        , Run Memory         [ "--template" ,"Mem: <usedratio>%"
-                             , "--Low"      , "20"        -- units: %
-                             , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
-                             ] 10
-
-        -- battery monitor
-        , Run Battery        [ "--template" , "Batt: <acstatus>"
-                             , "--Low"      , "10"        -- units: %
-                             , "--High"     , "80"        -- units: %
-                             , "--low"      , "darkred"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
-
-                             , "--" -- battery specific options
-                                       -- discharging status
-                                       , "-o"   , "<left>% (<timeleft>)"
-                                       -- AC "on" status
-                                       , "-O"   , "<fc=#dAA520>Charging</fc>"
-                                       -- charged status
-                                       , "-i"   , "<fc=#006000>Charged</fc>"
-                             ] 50
-
-        -- time and date indicator
-        --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
-
-        -- keyboard layout indicator
-        , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
-                             , ("us"         , "<fc=#8B0000>US</fc>")
-                             ]
-        ]
-   }
+Config
+  { font             = "xft:roboto:size=9:antialias=true"
+  , additionalFonts  = []
+  , borderColor      = "black"
+  , border           = TopB
+  , bgColor          = "black"
+  , fgColor          = "grey"
+  , alpha            = 255
+  , position         = Bottom
+  , textOffset       = -1
+  , iconOffset       = -1
+  , lowerOnStart     = True
+  , pickBroadest     = False
+  , persistent       = False
+  , hideOnStart      = False
+  , iconRoot         = "."
+  , allDesktops      = True
+  , overrideRedirect = True
+  , sepChar          = "%"
+  , alignSep         = "}{"
+  , template         = "CPU: %cpu% | Mem: %memory% }\
+                       \{ Bri: %brightness% | Bat: %battery% | Vol: %volume% | Date: %date%"
+  , commands =
+    [ Run Cpu [ "-t"       , "<total>%"
+              , "-L"       , "3"
+              , "-H"       , "50"
+              , "--normal" , "green"
+              , "--high"   , "red"] 10
+    , Run Memory ["-t", "<usedratio>%"] 10
+    , Run Battery [ "-t"       , "<left>% <acstatus>"
+                  , "-L"       , "20"
+                  , "-H"       , "80"
+                  , "--low"    , "red"
+                  , "--normal" , "orange"
+                  , "--high"   , "green"
+                  , "--" -- battery specific options
+                    -- discharging status
+                    , "-o"	, "(<timeleft>)"
+                    -- AC "on" status
+                    , "-O"	, "<fc=#dAA520>Charging</fc>"
+                    -- charged status
+                    , "-i"	, "<fc=#006000>Charged</fc>"
+                  ] 60
+    , Run Date "%b %_d, %I:%M%P" "date" 10
+    , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
+    , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
+    ]
+  }
