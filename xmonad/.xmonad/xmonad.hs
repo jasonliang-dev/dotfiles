@@ -177,12 +177,12 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
          )
 
        -- Move focus to the next window.
-       , ( (modMask, xK_Tab)
+       , ( (mod1Mask, xK_Tab)
          , windows W.focusDown
          )
 
        -- Move focus to the previous window.
-       , ( (modMask .|. shiftMask, xK_Tab)
+       , ( (mod1Mask .|. shiftMask, xK_Tab)
          , windows W.focusUp
          )
 
