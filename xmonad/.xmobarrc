@@ -1,13 +1,15 @@
 -- -*- mode: haskell; eval: (flycheck-mode -1) -*-
 
-Config
-  { font             = "xft:roboto:size=9:antialias=true"
-  , additionalFonts  = ["xft:material icons:size=11:antialias=true"]
-  , textOffsets      = [18]
-  , borderColor      = "black"
-  , border           = TopB
-  , bgColor          = "black"
-  , fgColor          = "grey"
+Config {
+    font             = "xft:roboto:size=9:antialias=true"
+  , additionalFonts  = [ "xft:material icons:size=11:antialias=true"
+                       , "xft:material icons:size=3:antialias=true"
+                       ]
+  , textOffsets      = [18, 13]
+  , borderColor      = "#545862"
+  , border           = NoBorder
+  , bgColor          = "#282c34"
+  , fgColor          = "#abb2bf"
   , alpha            = 255
   , position         = Bottom
   , textOffset       = 15
@@ -21,7 +23,18 @@ Config
   , overrideRedirect = True
   , sepChar          = "%"
   , alignSep         = "}{"
-  , template         = " %StdinReader% }{ <fn=1></fn> %cpu% | <fn=1></fn> %memory% | <fn=1></fn> %brightness% | <fn=1></fn> %battery% | <fn=1></fn> %volume% | <fn=1></fn> %date% "
+  , template         = "   %StdinReader% }\
+                       \{ <fc=#56b6c2><fn=1></fn></fc> %cpu%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \   <fc=#56b6c2><fn=1></fn></fc> %memory%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \   <fc=#56b6c2><fn=1></fn></fc> %brightness%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \   <fc=#56b6c2><fn=1></fn></fc> %volume%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \  <fc=#56b6c2><fn=1></fn></fc>%battery%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \   <fc=#56b6c2><fn=1></fn></fc> %date%   "
   , commands =
     [ Run StdinReader
     , Run Cpu     [ "-t"       , "<total>%" ] 10
@@ -31,9 +44,9 @@ Config
                     -- discharging status
                     , "-o"	, "(<timeleft>)"
                     -- AC "on" status
-                    , "-O"	, "<fc=#dAA520>Charging</fc>"
+                    , "-O"	, "<fc=#e5c07b>Charging</fc>"
                     -- charged status
-                    , "-i"	, "<fc=#006000>Charged</fc>"
+                    , "-i"	, "<fc=#98c379>Charged</fc>"
                   ] 60
     , Run Date "%b %_d, %I:%M%P" "date" 10
     , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30

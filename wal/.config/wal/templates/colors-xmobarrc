@@ -23,13 +23,18 @@ Config {{
   , overrideRedirect = True
   , sepChar          = "%"
   , alignSep         = "}}{{"
-  , template         =  "   %StdinReader% }}\
-                       \{{ <fn=1></fn> %cpu%   <fc={color8}><fn=2></fn></fc>\
-                       \   <fn=1></fn> %memory%   <fc={color8}><fn=2></fn></fc>\
-                       \   <fn=1></fn> %brightness%   <fc={color8}><fn=2></fn></fc>\
-                       \   <fn=1></fn>%battery%   <fc={color8}><fn=2></fn></fc>\
-                       \   <fn=1></fn> %volume%   <fc={color8}><fn=2></fn></fc>\
-                       \   <fn=1></fn> %date%   "
+  , template         = "   %StdinReader% }}\
+                       \{{ <fc={color6}><fn=1></fn></fc> %cpu%\
+                       \   <fc={color8}><fn=2></fn></fc>\
+                       \   <fc={color6}><fn=1></fn></fc> %memory%\
+                       \   <fc={color8}><fn=2></fn></fc>\
+                       \   <fc={color6}><fn=1></fn></fc> %brightness%\
+                       \   <fc={color8}><fn=2></fn></fc>\
+                       \  <fc={color6}><fn=1></fn></fc>%battery%\
+                       \   <fc={color8}><fn=2></fn></fc>\
+                       \   <fc={color6}><fn=1></fn></fc> %volume%\
+                       \   <fc={color8}><fn=2></fn></fc>\
+                       \   <fc={color6}><fn=1></fn></fc> %date%   "
   , commands =
     [ Run StdinReader
     , Run Cpu     [ "-t"       , "<total>%" ] 10
