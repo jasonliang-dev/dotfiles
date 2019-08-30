@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-. $(dirname "$0")/shared
-
 # set caps lock to escape
 setxkbmap -option caps:escape &
 # no mouse acceleration
@@ -34,12 +32,8 @@ do
             dunst &
             ;;
         "--polybar")
-            ~/scripts/polybar.sh $BAR_NAME &
-
-            if "$BAR_TOGGLE_ENABLED"; then
-                echo 1 > $BAR_TOGGLE
-                ~/scripts/bar-idle.sh &
-            fi
+            shift
+            ~/scripts/polybar.sh $1 &
             ;;
         "--tint2")
             tint2 &

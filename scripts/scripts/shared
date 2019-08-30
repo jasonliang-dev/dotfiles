@@ -1,6 +1,0 @@
-BAR_NAME=mybar
-BAR_TOGGLE_ENABLED=false
-
-# toggle files
-BAR_SHOWN=/tmp/.lia-bar-shown
-BAR_TOGGLE=/tmp/.lia-bar-toggle
