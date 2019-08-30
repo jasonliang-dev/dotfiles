@@ -20,23 +20,6 @@ set $warn  #d08770
 font pango:source sans pro 9
 # }}}
 
-# start i3bar to display a workspace bar {{{
-# (plus the system information i3status finds out, if available)
-#bar {
-#	status_command i3status
-#	colors {
-#		separator  $grey
-#		background $dark
-#		statusline $light
-#		#                  border  background text
-#		focused_workspace  $dark   $dark      $light
-#		active_workspace   $dark   $dark      $grey
-#		inactive_workspace $dark   $dark      $grey
-#		urgent_workspace   $dark   $warn      $dark
-#	}
-#}
-# }}}
-
 # gaps {{{
 gaps inner 0
 bindsym $mod+Shift+g gaps inner current plus 5
@@ -143,31 +126,6 @@ for_window [class="feh"] floating enable
 
 # }}}
 
-# applications {{{
-
-# terminal {{{
-bindsym $mod+Return exec ~/scripts/term.sh
-# }}}
-
-# rofi {{{
-bindsym $mod+d exec ~/scripts/rofi.sh
-# }}}
-
-# thunar {{{
-bindsym $mod+Control+Return exec thunar
-# }}}
-
-# gui emacs {{{
-assign [class="Emacs"] 8
-bindsym $mod+Shift+Return exec emacs
-# }}}
-
-# i3lock {{{
-bindsym $mod+x exec --no-startup-id i3lock-fancy
-# }}}
-
-# }}}
-
 # other {{{
 
 # switch to workspace {{{
@@ -205,22 +163,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'What would you like to do?' -b 'Exit i3' 'i3-msg exit' -b 'Suspend' 'systemctl suspend' -b 'Reboot' 'systemctl reboot' -b 'Power off' 'systemctl poweroff'"
 # }}}
 
-# media player controls {{{
-bindsym XF86AudioPlay exec --no-startup-id ~/scripts/audio.sh play
-bindsym XF86AudioStop exec --no-startup-id ~/scripts/audio.sh stop
-bindsym XF86AudioNext exec --no-startup-id ~/scripts/audio.sh next
-bindsym XF86AudioPrev exec --no-startup-id ~/scripts/audio.sh prev
-# audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/scripts/audio.sh up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/scripts/audio.sh down
-bindsym XF86AudioMute        exec --no-startup-id ~/scripts/audio.sh mute
-# screen brightness controls
-bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
-# }}}
-
 # startup {{{
-exec_always --no-startup-id ~/scripts/startup.sh --polybar
+exec_always --no-startup-id ~/scripts/startup.sh --polybar mybar
 # }}}
 
 # }}}

@@ -191,53 +191,6 @@
       </action>
     </keybind>
     <!-- End of Workspaces -->
-    <!-- Media, Volume, and Brightness keys -->
-    <keybind key="XF86AudioPlay">
-      <action name="Execute">
-        <command>~/scripts/audio.sh play</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioNext">
-      <action name="Execute">
-        <command>~/scripts/audio.sh next</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioPrev">
-      <action name="Execute">
-        <command>~/scripts/audio.sh prev</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioStop">
-      <action name="Execute">
-        <command>~/scripts/audio.sh stop</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>~/scripts/audio.sh up</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>~/scripts/audio.sh down</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioMute">
-      <action name="Execute">
-        <command>~/scripts/audio.sh mute</command>
-      </action>
-    </keybind>
-    <keybind key="XF86MonBrightnessUp">
-      <action name="Execute">
-        <command>~/scripts/brightness.sh up</command>
-      </action>
-    </keybind>
-    <keybind key="XF86MonBrightnessDown">
-      <action name="Execute">
-        <command>~/scripts/brightness.sh down</command>
-      </action>
-    </keybind>
-    <!-- End of Media, Volume, and Brightness keys -->
     <!-- Windows -->
     <keybind key="W-Left">
       <action name="UnmaximizeFull"/>
@@ -395,45 +348,6 @@
       </action>
     </keybind>
     <!-- End of Window Resize -->
-    <!-- Launch -->
-    <keybind key="W-S-Return">
-      <action name="Execute">
-        <command>emacs</command>
-      </action>
-    </keybind>
-    <keybind key="W-C-Return">
-      <action name="Execute">
-        <command>~/scripts/files.sh</command>
-      </action>
-    </keybind>
-    <keybind key="W-Return">
-      <action name="Execute">
-        <command>~/scripts/term.sh</command>
-      </action>
-    </keybind>
-    <!-- End of Launch -->
-    <!-- Scripts -->
-    <keybind key="W-S-x">
-      <action name="Execute">
-        <command>~/scripts/lock.sh</command>
-      </action>
-    </keybind>
-    <keybind key="W-d">
-      <action name="Execute">
-        <command>~/scripts/rofi.sh</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-S-l">
-      <action name="Execute">
-        <command>~/scripts/scrlk.sh</command>
-      </action>
-    </keybind>
-    <keybind key="W-r">
-      <action name="Execute">
-        <command>~/scripts/bar-toggle.sh</command>
-      </action>
-    </keybind>
-    <!-- End of Scripts -->
     <!-- Menu -->
     <keybind key="W-S-e">
       <action name="ShowMenu">
