@@ -1,0 +1,50 @@
+-- -*- mode: haskell; eval: (flycheck-mode -1) -*-
+
+Config {{
+    font             = "xft:roboto:size=9:antialias=true"
+  , additionalFonts  = [ "xft:material icons:size=11:antialias=true"
+                       , "xft:material icons:size=3:antialias=true"
+                       ]
+  , textOffsets      = [18, 13]
+  , borderColor      = "{color8}"
+  , border           = NoBorder
+  , bgColor          = "{background}"
+  , fgColor          = "{foreground}"
+  , alpha            = 255
+  , position         = Bottom
+  , textOffset       = 15
+  , iconOffset       = -1
+  , lowerOnStart     = True
+  , pickBroadest     = False
+  , persistent       = False
+  , hideOnStart      = False
+  , iconRoot         = "."
+  , allDesktops      = True
+  , overrideRedirect = True
+  , sepChar          = "%"
+  , alignSep         = "}}{{"
+  , template         =  "   %StdinReader% }}\
+                       \{{ <fn=1></fn> %cpu%   <fc={color8}><fn=2></fn></fc>\
+                       \   <fn=1></fn> %memory%   <fc={color8}><fn=2></fn></fc>\
+                       \   <fn=1></fn> %brightness%   <fc={color8}><fn=2></fn></fc>\
+                       \   <fn=1></fn>%battery%   <fc={color8}><fn=2></fn></fc>\
+                       \   <fn=1></fn> %volume%   <fc={color8}><fn=2></fn></fc>\
+                       \   <fn=1></fn> %date%   "
+  , commands =
+    [ Run StdinReader
+    , Run Cpu     [ "-t"       , "<total>%" ] 10
+    , Run Memory  [ "-t"       , "<usedratio>%" ] 10
+    , Run Battery [ "-t"       , "<left>% <acstatus>"
+                  , "--" -- battery specific options
+                    -- discharging status
+                    , "-o"	, "(<timeleft>)"
+                    -- AC "on" status
+                    , "-O"	, "<fc={color3}>Charging</fc>"
+                    -- charged status
+                    , "-i"	, "<fc={color2}>Charged</fc>"
+                  ] 60
+    , Run Date "%b %_d, %I:%M%P" "date" 10
+    , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
+    , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
+    ]
+  }}

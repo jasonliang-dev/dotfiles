@@ -9,6 +9,7 @@ cp ~/.cache/wal/colors-themerc ~/.themes/dark/openbox-3/themerc
 cp ~/.cache/wal/colors-tint2rc ~/.config/tint2/tint2rc
 cp ~/.cache/wal/colors-dunstrc ~/.config/dunst/dunstrc
 cp ~/.cache/wal/colors-polybar ~/.config/polybar/config
+cp ~/.cache/wal/colors-xmobarrc ~/.xmobarrc
 
 # restart xmonad. xmobar also restarts
 [ $(pgrep xmonad) ] && xmonad --restart
