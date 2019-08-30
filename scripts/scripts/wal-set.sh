@@ -10,13 +10,14 @@ cp ~/.cache/wal/colors-tint2rc ~/.config/tint2/tint2rc
 cp ~/.cache/wal/colors-dunstrc ~/.config/dunst/dunstrc
 cp ~/.cache/wal/colors-polybar ~/.config/polybar/config
 
+# restart xmonad. xmobar also restarts
+[ $(pgrep xmonad) ] && xmonad --restart
+
 # reconfigure openbox. shows new theme
-openbox --reconfigure
+[ $(pgrep openbox) ] && openbox --reconfigure
 
 # restart tint2
-if [ $(pgrep -x tint2) ]; then
-    killall -SIGUSR1 tint2
-fi
+[ $(pgrep tint2) ] && killall -SIGUSR1 tint2
 
 # run feh with new background
 ~/scripts/feh.sh
