@@ -89,7 +89,7 @@ format-underline = #545862
 type = internal/xworkspaces
 
 label-active = "  "
-label-active-foreground = #e06c75
+label-active-foreground = #61afef
 
 ; label-empty = "  " ; occupied state not working
 label-empty = "  "
@@ -98,7 +98,7 @@ label-empty-foreground = #545862
 label-occupied = "  "
 
 label-urgent = "  "
-label-urgent-foreground = #e06c75
+label-urgent-foreground = #61afef
 
 [module/date]
 type = internal/date
@@ -134,13 +134,11 @@ format-muted-prefix = " "
 label-muted = Mute
 label-muted-foreground = #545862
 
-ramp-volume-0 = ""
-ramp-volume-1 = ""
-ramp-volume-2 = ""
-ramp-volume-3 = ""
+ramp-volume-0 = ""
+ramp-volume-1 = ""
+ramp-volume-2 = ""
+ramp-volume-3 = ""
 ramp-volume-4 = ""
-ramp-volume-5 = ""
-ramp-volume-6 = ""
 
 [module/battery]
 type = internal/battery
