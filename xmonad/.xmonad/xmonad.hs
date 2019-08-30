@@ -30,8 +30,7 @@ import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
                                                 , windowSwap
                                                 , withNavigation2DConfig
                                                 )
-import           XMonad.Hooks.DynamicLog        ( PP
-                                                , ppCurrent
+import           XMonad.Hooks.DynamicLog        ( PP(..)
                                                 , statusBar
                                                 , wrap
                                                 , xmobarColor
@@ -310,29 +309,38 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
 
 -- XMOBAR ----------------------------------------------------------------------
 
-myPP :: PP
-myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
+myPP :: Colors -> PP
+myPP colorscheme = xmobarPP
+  { ppCurrent         = xmobarColor (foreground $ special colorscheme) ""
+  , ppHidden          = xmobarColor (color8 $ colors colorscheme) ""
+  , ppHiddenNoWindows = const ""
+  , ppLayout          = xmobarColor (foreground $ special colorscheme) ""
+  , ppSep             = xmobarColor (color8 $ colors colorscheme) "" " : "
+  , ppTitle           = const ""
+  , ppUrgent          = xmobarColor (color1 $ colors colorscheme) ""
+  }
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
--- | A wrapper for ByteString.readFile.  It returns empty string where
+-- | A wrapper for ByteString.readFile.  It returns a Nothing where
 -- there would usually be an exception.
 --
-safeReadFile :: FilePath -> IO ByteString
-safeReadFile file = BS.readFile file `catch` \(_ :: SomeException) -> return ""
+safeReadFile :: FilePath -> IO (Maybe ByteString)
+safeReadFile file =
+  (Just <$> BS.readFile file) `catch` \(_ :: SomeException) -> return Nothing
 
 main :: IO ()
 main = do
   home <- getHomeDirectory
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
-  let colorscheme = fromMaybe fallBackColors (decode json :: Maybe Colors)
+  let colorscheme = fromMaybe fallBackColors (json >>= decode :: Maybe Colors)
 
   xmonad =<< statusBar
     "xmobar"
-    myPP
+    (myPP colorscheme)
     toggleStrutsKey
     (withNavigation2DConfig def $ ewmh $ myConfig colorscheme)
  where
@@ -340,7 +348,7 @@ main = do
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
     , keys               = myKeys
-    , borderWidth        = 2
+    , borderWidth        = 3
     , normalBorderColor  = background $ special colorscheme
     , focusedBorderColor = color6 $ colors colorscheme
     , handleEventHook    = fullscreenEventHook

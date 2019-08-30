@@ -2,14 +2,15 @@
 
 Config
   { font             = "xft:roboto:size=9:antialias=true"
-  , additionalFonts  = []
+  , additionalFonts  = ["xft:material icons:size=11:antialias=true"]
+  , textOffsets      = [18]
   , borderColor      = "black"
   , border           = TopB
   , bgColor          = "black"
   , fgColor          = "grey"
   , alpha            = 255
   , position         = Bottom
-  , textOffset       = -1
+  , textOffset       = 15
   , iconOffset       = -1
   , lowerOnStart     = True
   , pickBroadest     = False
@@ -20,7 +21,7 @@ Config
   , overrideRedirect = True
   , sepChar          = "%"
   , alignSep         = "}{"
-  , template         = " %StdinReader% }{ CPU: %cpu% | Mem: %memory% | Bri: %brightness% | Bat: %battery% | Vol: %volume% | Date: %date%"
+  , template         = " %StdinReader% }{ <fn=1></fn> %cpu% | <fn=1></fn> %memory% | <fn=1></fn> %brightness% | <fn=1></fn> %battery% | <fn=1></fn> %volume% | <fn=1></fn> %date% "
   , commands =
     [ Run StdinReader
     , Run Cpu     [ "-t"       , "<total>%" ] 10
