@@ -16,9 +16,7 @@ import           Data.Map                       ( Map )
 import           Data.Maybe                     ( fromMaybe )
 import           GHC.Generics                   ( Generic )
 import           System.Directory               ( getHomeDirectory )
-import           System.Exit                    ( ExitCode(ExitSuccess)
-                                                , exitWith
-                                                )
+import           System.Exit                    ( exitSuccess )
 
 -- xmonad core
 import           XMonad
@@ -45,14 +43,17 @@ import           XMonad.Hooks.ManageDocks       ( docks
 import           XMonad.Hooks.Place             ( placeFocused
                                                 , fixed
                                                 )
+import           XMonad.Layout.BinarySpacePartition
+                                                ( emptyBSP
+                                                , ResizeDirectional
+                                                  ( ExpandTowards
+                                                  , ShrinkFrom
+                                                  )
+                                                , Rotate(Rotate)
+                                                , Swap(Swap)
+                                                )
 import           XMonad.Layout.NoBorders        ( noBorders
                                                 , smartBorders
-                                                )
-import           XMonad.Layout.ResizableTile    ( MirrorResize
-                                                  ( MirrorShrink
-                                                  , MirrorExpand
-                                                  )
-                                                , ResizableTall(ResizableTall)
                                                 )
 import           XMonad.Layout.ToggleLayouts    ( ToggleLayout(Toggle)
                                                 , toggleLayouts
@@ -129,21 +130,9 @@ fallBackColors = Colors
 
 -- LAYOUT ----------------------------------------------------------------------
 
--- | The available layouts.  Note that each layout is separated by |||,
--- which denotes layout choice.
+-- | The available layouts.  Toggle fullscreen layout with mod + f.
 --
-myLayout = avoidStruts $ smartBorders $ toggleLayouts
-  (noBorders Full)
-  (tiled ||| Mirror tiled)
- where
-  -- Unlike Tall, ResizableTall can resize windows vertically
-  tiled   = ResizableTall nmaster delta ratio []
-  -- The default number of windows in the master pane
-  nmaster = 1
-  -- Default proportion of screen occupied by master pane
-  ratio   = 1 / 2
-  -- Percent of screen to increment by when resizing panes
-  delta   = 3 / 100
+myLayout = avoidStruts $ smartBorders $ toggleLayouts Full emptyBSP
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -152,17 +141,12 @@ myLayout = avoidStruts $ smartBorders $ toggleLayouts
 -- Media keys, application shortcuts, etc defined in sxhkd.
 --
 myKeys :: XConfig Layout -> Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig { XMonad.modMask = modMask }) =
+myKeys conf@XConfig { XMonad.modMask = modMask } =
   M.fromList
     $
        -- Close focused window.
        [ ( (modMask .|. shiftMask, xK_q)
          , kill
-         )
-
-       -- Launch dmenu.
-       , ( (modMask, xK_p)
-         , spawn "dmenu_run"
          )
 
        -- Cycle through the available layout algorithms.
@@ -220,44 +204,54 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
          , windowGo D False
          )
 
-       -- Focus window toward the left
+       -- Move focused window toward the left
        , ( (modMask .|. shiftMask, xK_h)
          , windowSwap L False
          )
 
-       -- Focus window toward the right
+       -- Move focused window toward the right
        , ( (modMask .|. shiftMask, xK_l)
          , windowSwap R False
          )
 
-       -- Focus window toward the top
+       -- Move focused window toward the top
        , ( (modMask .|. shiftMask, xK_k)
          , windowSwap U False
          )
 
-       -- Focus window toward the bottom
+       -- Move focused window toward the bottom
        , ( (modMask .|. shiftMask, xK_j)
          , windowSwap D False
          )
 
-       -- Shrink master horizontally. Resize left.
+       -- Move split towards the left
        , ( (modMask .|. controlMask, xK_h)
-         , sendMessage Shrink
+         , sendMessage $ ExpandTowards L
          )
 
-       -- Expand master horizontally. Resize right.
+       -- Move split towards the right
        , ( (modMask .|. controlMask, xK_l)
-         , sendMessage Expand
+         , sendMessage $ ExpandTowards R
          )
 
-       -- Shrink master vertically. Resize down.
-       , ( (modMask .|. controlMask, xK_j)
-         , sendMessage MirrorShrink
-         )
-
-       -- Expand master vertically. Resize up.
+       -- Move split towards the top
        , ( (modMask .|. controlMask, xK_k)
-         , sendMessage MirrorExpand
+         , sendMessage $ ExpandTowards U
+         )
+
+       -- Move split towards the bottom
+       , ( (modMask .|. controlMask, xK_j)
+         , sendMessage $ ExpandTowards D
+         )
+
+       -- Rotate a split (horizontal/vertical)
+       , ( (modMask, xK_v)
+         , sendMessage Rotate
+         )
+
+       -- Swap left and right children of a split
+       , ( (modMask, xK_s)
+         , sendMessage Swap
          )
 
        -- Move window to the center of the screen
@@ -282,7 +276,7 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
 
        -- Quit xmonad.
        , ( (modMask .|. shiftMask .|. controlMask, xK_q)
-         , io (exitWith ExitSuccess)
+         , io exitSuccess
          )
 
        -- Restart xmonad.
@@ -315,7 +309,9 @@ myPP colorscheme = xmobarPP
   , ppHidden          = xmobarColor (color8 $ colors colorscheme) ""
   , ppHiddenNoWindows = const ""
   , ppLayout          = xmobarColor (foreground $ special colorscheme) ""
-  , ppSep             = xmobarColor (color8 $ colors colorscheme) "" " : "
+  , ppSep             = xmobarColor (color8 $ colors colorscheme)
+                                    ""
+                                    "   <fn=2>\58362</fn>   "
   , ppTitle           = const ""
   , ppUrgent          = xmobarColor (color1 $ colors colorscheme) ""
   }
@@ -325,7 +321,7 @@ toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
--- | A wrapper for ByteString.readFile.  It returns a Nothing where
+-- | A wrapper for ByteString.readFile.  It returns Nothing where
 -- there would usually be an exception.
 --
 safeReadFile :: FilePath -> IO (Maybe ByteString)
@@ -338,20 +334,18 @@ main = do
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
   let colorscheme = fromMaybe fallBackColors (json >>= decode :: Maybe Colors)
 
-  xmonad =<< statusBar
-    "xmobar"
-    (myPP colorscheme)
-    toggleStrutsKey
-    (withNavigation2DConfig def $ ewmh $ myConfig colorscheme)
+  xmonad $ withNavigation2DConfig def $ docks $ ewmh $ myConfig colorscheme
  where
   myConfig colorscheme = def
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
+    , workspaces         = map show [1 .. 5]
     , keys               = myKeys
     , borderWidth        = 3
     , normalBorderColor  = background $ special colorscheme
-    , focusedBorderColor = color6 $ colors colorscheme
+    , focusedBorderColor = color4 $ colors colorscheme
     , handleEventHook    = fullscreenEventHook
     , layoutHook         = myLayout
-    , startupHook        = spawnOnce $ "~/scripts/startup.sh --fix-cursor"
+    , startupHook        = spawnOnce
+                             "~/scripts/startup.sh --fix-cursor --polybar mybar"
     }

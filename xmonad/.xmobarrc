@@ -30,9 +30,9 @@ Config {
                        \   <fc=#545862><fn=2></fn></fc>\
                        \   <fc=#56b6c2><fn=1></fn></fc> %brightness%\
                        \   <fc=#545862><fn=2></fn></fc>\
-                       \   <fc=#56b6c2><fn=1></fn></fc> %volume%\
-                       \   <fc=#545862><fn=2></fn></fc>\
                        \  <fc=#56b6c2><fn=1></fn></fc>%battery%\
+                       \   <fc=#545862><fn=2></fn></fc>\
+                       \   <fc=#56b6c2><fn=1></fn></fc> %volume%\
                        \   <fc=#545862><fn=2></fn></fc>\
                        \   <fc=#56b6c2><fn=1></fn></fc> %date%   "
   , commands =
