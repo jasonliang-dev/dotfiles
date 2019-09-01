@@ -37,11 +37,18 @@ import           XMonad.Hooks.DynamicLog        ( PP(..)
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
-import           XMonad.Hooks.ManageDocks       ( docks
-                                                , avoidStruts
+import           XMonad.Hooks.ManageDocks       ( avoidStruts
+                                                , docks
+                                                , ToggleStruts(ToggleStruts)
                                                 )
-import           XMonad.Hooks.Place             ( placeFocused
-                                                , fixed
+import           XMonad.Hooks.ManageHelpers     ( composeOne
+                                                , doCenterFloat
+                                                , isDialog
+                                                , transience
+                                                , (-?>)
+                                                )
+import           XMonad.Hooks.Place             ( fixed
+                                                , placeFocused
                                                 )
 import           XMonad.Layout.BinarySpacePartition
                                                 ( emptyBSP
@@ -62,8 +69,8 @@ import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
 -- COLOURS ---------------------------------------------------------------------
 
--- | Types that mirror wal's generated colors.json file
---
+-- Types that mirror wal's generated colors.json file
+
 data Colors = Colors
   { special :: SpecialColors
   , colors  :: ColorPalette
@@ -128,9 +135,25 @@ fallBackColors = Colors
                            }
   }
 
+-- MANAGE HOOK -----------------------------------------------------------------
+
+-- | Manipulate windows as they are created.  The list given to
+-- @composeOne@ is processed from top to bottom.  The first matching
+-- rule wins.
+--
+-- Use the `xprop' tool to get the info you need for these matches.
+-- For className, use the second value that xprop gives you.
+--
+myManageHook :: ManageHook
+myManageHook = composeOne [isDialog -?> doCenterFloat, transience]
+
 -- LAYOUT ----------------------------------------------------------------------
 
 -- | The available layouts.  Toggle fullscreen layout with mod + f.
+--
+-- avoidStruts will resize windows to make space for taskbars (xmobar,
+-- polybar).  smartBorders will remove window borders when there's one
+-- window displayed.
 --
 myLayout = avoidStruts $ smartBorders $ toggleLayouts Full emptyBSP
 
@@ -264,6 +287,11 @@ myKeys conf@XConfig { XMonad.modMask = modMask } =
          , withFocused $ windows . W.sink
          )
 
+       -- Toggle overlap with bar
+       , ( toggleStrutsKey conf
+         , sendMessage ToggleStruts
+         )
+
        -- Increment the number of windows in the master area.
        , ( (modMask, xK_equal)
          , sendMessage (IncMasterN 1)
@@ -339,12 +367,13 @@ main = do
   myConfig colorscheme = def
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
-    , workspaces         = map show [1 .. 5]
+    , workspaces         = map show [1 .. 9]
     , keys               = myKeys
-    , borderWidth        = 3
+    , borderWidth        = 2
     , normalBorderColor  = background $ special colorscheme
     , focusedBorderColor = color4 $ colors colorscheme
     , handleEventHook    = fullscreenEventHook
+    , manageHook         = myManageHook
     , layoutHook         = myLayout
     , startupHook        = spawnOnce
                              "~/scripts/startup.sh --fix-cursor --polybar mybar"
