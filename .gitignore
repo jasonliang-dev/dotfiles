@@ -17,6 +17,13 @@ emacs/.emacs.d/*
 !emacs/.emacs.d/lisp/
 !emacs/.emacs.d/snippets/
 
+mpd/.config/mpd/database
+mpd/.config/mpd/log
+mpd/.config/mpd/pid
+mpd/.config/mpd/state
+mpd/.config/mpd/sticker.sql
+mpd/.ncmpcpp/error.log
+
 termite/.config/gtk-3.0/settings.ini
 
 vim/.vim/.netrwhist

@@ -38,6 +38,7 @@ alias ni='npm install'
 alias nid='npm install --save-dev'
 alias ns='npm start'
 alias nr='npm run'
+alias pp='ncmpcpp'
 
 alias a='tmux attach'
 alias t='tmux'
