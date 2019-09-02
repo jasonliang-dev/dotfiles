@@ -28,11 +28,12 @@ import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
                                                 , windowSwap
                                                 , withNavigation2DConfig
                                                 )
--- import           XMonad.Hooks.DynamicLog        ( PP(..)
---                                                 , statusBar
---                                                 , xmobarColor
---                                                 , xmobarPP
---                                                 )
+import           XMonad.Hooks.DynamicLog        ( PP(..)
+                                                , statusBar
+                                                , wrap
+                                                , xmobarColor
+                                                , xmobarPP
+                                                )
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
@@ -58,9 +59,6 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Swap(Swap)
                                                 )
 import           XMonad.Layout.NoBorders        ( smartBorders )
-import           XMonad.Layout.ToggleLayouts    ( ToggleLayout(Toggle)
-                                                , toggleLayouts
-                                                )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
 -- COLOURS ---------------------------------------------------------------------
@@ -151,7 +149,7 @@ myManageHook = composeOne [isDialog -?> doCenterFloat, transience]
 -- polybar).  smartBorders will remove window borders when there's one
 -- window displayed.
 --
-myLayout = avoidStruts $ smartBorders $ toggleLayouts Full emptyBSP
+myLayout = avoidStruts $ smartBorders (emptyBSP ||| Full)
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -176,11 +174,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        --  Reset the layouts on the current workspace to default.
        , ( (modm .|. shiftMask, xK_space)
          , setLayout $ XMonad.layoutHook conf
-         )
-
-       -- Toggle between current layout and fullscreen layout
-       , ( (modm, xK_f)
-         , sendMessage (Toggle "Full")
          )
 
        -- Resize viewed windows to the correct size.
@@ -325,18 +318,33 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 
 -- XMOBAR ----------------------------------------------------------------------
 
--- myPP :: Colors -> PP
--- myPP colorscheme = xmobarPP
---   { ppCurrent         = xmobarColor (foreground $ special colorscheme) ""
---   , ppHidden          = xmobarColor (color8 $ colors colorscheme) ""
---   , ppHiddenNoWindows = const ""
---   , ppLayout          = xmobarColor (foreground $ special colorscheme) ""
---   , ppSep             = xmobarColor (color8 $ colors colorscheme)
---                                     ""
---                                     "   <fn=2>\58362</fn>   "
---   , ppTitle           = const ""
---   , ppUrgent          = xmobarColor (color1 $ colors colorscheme) ""
---   }
+myPP :: Colors -> PP
+myPP colorscheme = xmobarPP
+  { ppCurrent         = const
+                        $ xmobarColor (foreground $ special colorscheme) ""
+                        $ padRight
+                        $ iconFn filledIcon
+  , ppHidden          = const
+                        $ xmobarColor (color8 $ colors colorscheme) ""
+                        $ padRight
+                        $ iconFn filledIcon
+  , ppHiddenNoWindows = const
+                        $ xmobarColor (color8 $ colors colorscheme) ""
+                        $ padRight
+                        $ iconFn hollowIcon
+  , ppUrgent          = const
+                        $ xmobarColor (color8 $ colors colorscheme) ""
+                        $ padRight
+                        $ iconFn filledIcon
+  , ppLayout = xmobarColor (foreground $ special colorscheme) "" . padRight
+  , ppSep = xmobarColor (color8 $ colors colorscheme) "" $ padRight "//"
+  , ppTitle           = const ""
+  }
+ where
+  padRight   = wrap "" "   "
+  iconFn     = wrap "<fn=1>" "</fn>"
+  filledIcon = "\61444" -- heart
+  hollowIcon = "\61578"
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
@@ -356,12 +364,16 @@ main = do
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
   let colorscheme = fromMaybe fallBackColors (json >>= decode :: Maybe Colors)
 
-  xmonad $ withNavigation2DConfig def $ docks $ ewmh $ myConfig colorscheme
+  xmonad =<< statusBar
+    "xmobar"
+    (myPP colorscheme)
+    toggleStrutsKey
+    (withNavigation2DConfig def $ docks $ ewmh $ myConfig colorscheme)
  where
   myConfig colorscheme = def
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
-    , workspaces         = map show ([1 .. 9] :: [Int])
+    , workspaces         = map show [1 .. 9 :: Int]
     , keys               = myKeys
     , borderWidth        = 2
     , normalBorderColor  = background $ special colorscheme
@@ -369,6 +381,5 @@ main = do
     , handleEventHook    = fullscreenEventHook
     , manageHook         = myManageHook
     , layoutHook         = myLayout
-    , startupHook        = spawnOnce
-                             "~/scripts/startup.sh --fix-cursor --polybar mybar"
+    , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
     }

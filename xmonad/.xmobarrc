@@ -2,17 +2,17 @@
 
 Config {
     font             = "xft:roboto:size=9:antialias=true"
-  , additionalFonts  = [ "xft:material icons:size=11:antialias=true"
-                       , "xft:material icons:size=3:antialias=true"
+  , additionalFonts  = [ "xft:font awesome:size=10:antialias=true"
+                       , "xft:font awesome:size=3:antialias=true"
                        ]
-  , textOffsets      = [18, 13]
+  , textOffsets      = [20, 16]
   , borderColor      = "#545862"
   , border           = NoBorder
   , bgColor          = "#282c34"
   , fgColor          = "#abb2bf"
   , alpha            = 255
-  , position         = Bottom
-  , textOffset       = 15
+  , position         = BottomSize C 100 30
+  , textOffset       = 20
   , iconOffset       = -1
   , lowerOnStart     = True
   , pickBroadest     = False
@@ -24,17 +24,19 @@ Config {
   , sepChar          = "%"
   , alignSep         = "}{"
   , template         = "   %StdinReader% }\
-                       \{ <fc=#56b6c2><fn=1></fn></fc> %cpu%\
-                       \   <fc=#545862><fn=2></fn></fc>\
-                       \   <fc=#56b6c2><fn=1></fn></fc> %memory%\
-                       \   <fc=#545862><fn=2></fn></fc>\
-                       \   <fc=#56b6c2><fn=1></fn></fc> %brightness%\
-                       \   <fc=#545862><fn=2></fn></fc>\
-                       \  <fc=#56b6c2><fn=1></fn></fc>%battery%\
-                       \   <fc=#545862><fn=2></fn></fc>\
-                       \   <fc=#56b6c2><fn=1></fn></fc> %volume%\
-                       \   <fc=#545862><fn=2></fn></fc>\
-                       \   <fc=#56b6c2><fn=1></fn></fc> %date%   "
+                       \   <fc=#abb2bf><fn=1></fn></fc> %date%\
+                       \   <fc=#545862>//</fc>\
+                       \   <fc=#abb2bf><fn=1></fn></fc> %time%\
+                       \{ <fc=#abb2bf><fn=1></fn></fc> %cpu%\
+                       \   <fc=#545862>//</fc>\
+                       \   <fc=#abb2bf><fn=1></fn></fc> %memory%\
+                       \   <fc=#545862>//</fc>\
+                       \   <fc=#abb2bf><fn=1></fn></fc> %brightness%\
+                       \   <fc=#545862>//</fc>\
+                       \   <fc=#abb2bf><fn=1></fn></fc> %volume%\
+                       \   <fc=#545862>//</fc>\
+                       \   <fc=#abb2bf><fn=1></fn></fc> %battery%\
+                       \   "
   , commands =
     [ Run StdinReader
     , Run Cpu     [ "-t"       , "<total>%" ] 10
@@ -48,7 +50,8 @@ Config {
                     -- charged status
                     , "-i"	, "<fc=#98c379>Charged</fc>"
                   ] 60
-    , Run Date "%b %_d, %I:%M%P" "date" 10
+    , Run Date "%a, %b %d" "date" 10
+    , Run Date "%I:%M" "time" 10
     , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
     , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
     ]
