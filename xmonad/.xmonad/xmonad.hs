@@ -281,6 +281,11 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
          , sendMessage ToggleStruts
          )
 
+       -- Toggle overlap with bar
+       , ( (modm .|. shiftMask, xK_b)
+         , spawn "~/scripts/stalonetray.sh"
+         )
+
        -- Increment the number of windows in the master area.
        , ( (modm, xK_equal)
          , sendMessage (IncMasterN 1)
