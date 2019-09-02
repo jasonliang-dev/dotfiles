@@ -1,5 +1,4 @@
 # backup files
-*.elc
 *~
 \#*
 
@@ -17,6 +16,9 @@ emacs/.emacs.d/*
 !emacs/.emacs.d/lisp/
 !emacs/.emacs.d/snippets/
 
+# ignore compiled elisp files
+*.elc
+
 mpd/.config/mpd/database
 mpd/.config/mpd/log
 mpd/.config/mpd/pid
@@ -32,6 +34,3 @@ vim-minimal/.vim/.netrwhist
 
 vscode/
 !vscode/.config/Code/User/setttings.json
-
-xmonad/.xmonad/*
-!xmonad/.xmonad/*.hs

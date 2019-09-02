@@ -1,4 +1,4 @@
--- -*- eval: (flycheck-mode -1) -*-
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -28,12 +28,11 @@ import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
                                                 , windowSwap
                                                 , withNavigation2DConfig
                                                 )
-import           XMonad.Hooks.DynamicLog        ( PP(..)
-                                                , statusBar
-                                                , wrap
-                                                , xmobarColor
-                                                , xmobarPP
-                                                )
+-- import           XMonad.Hooks.DynamicLog        ( PP(..)
+--                                                 , statusBar
+--                                                 , xmobarColor
+--                                                 , xmobarPP
+--                                                 )
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
@@ -54,14 +53,11 @@ import           XMonad.Layout.BinarySpacePartition
                                                 ( emptyBSP
                                                 , ResizeDirectional
                                                   ( ExpandTowards
-                                                  , ShrinkFrom
                                                   )
                                                 , Rotate(Rotate)
                                                 , Swap(Swap)
                                                 )
-import           XMonad.Layout.NoBorders        ( noBorders
-                                                , smartBorders
-                                                )
+import           XMonad.Layout.NoBorders        ( smartBorders )
 import           XMonad.Layout.ToggleLayouts    ( ToggleLayout(Toggle)
                                                 , toggleLayouts
                                                 )
@@ -164,31 +160,31 @@ myLayout = avoidStruts $ smartBorders $ toggleLayouts Full emptyBSP
 -- Media keys, application shortcuts, etc defined in sxhkd.
 --
 myKeys :: XConfig Layout -> Map (KeyMask, KeySym) (X ())
-myKeys conf@XConfig { XMonad.modMask = modMask } =
+myKeys conf@XConfig { XMonad.modMask = modm } =
   M.fromList
     $
        -- Close focused window.
-       [ ( (modMask .|. shiftMask, xK_q)
+       [ ( (modm .|. shiftMask, xK_q)
          , kill
          )
 
        -- Cycle through the available layout algorithms.
-       , ( (modMask, xK_space)
+       , ( (modm, xK_space)
          , sendMessage NextLayout
          )
 
        --  Reset the layouts on the current workspace to default.
-       , ( (modMask .|. shiftMask, xK_space)
+       , ( (modm .|. shiftMask, xK_space)
          , setLayout $ XMonad.layoutHook conf
          )
 
        -- Toggle between current layout and fullscreen layout
-       , ( (modMask, xK_f)
+       , ( (modm, xK_f)
          , sendMessage (Toggle "Full")
          )
 
        -- Resize viewed windows to the correct size.
-       , ( (modMask, xK_n)
+       , ( (modm, xK_n)
          , refresh
          )
 
@@ -203,87 +199,87 @@ myKeys conf@XConfig { XMonad.modMask = modMask } =
          )
 
        -- Swap the focused window and the master window.
-       , ( (modMask, xK_m)
+       , ( (modm, xK_m)
          , windows W.swapMaster
          )
 
        -- Focus window toward the left
-       , ( (modMask, xK_h)
+       , ( (modm, xK_h)
          , windowGo L False
          )
 
        -- Focus window toward the right
-       , ( (modMask, xK_l)
+       , ( (modm, xK_l)
          , windowGo R False
          )
 
        -- Focus window toward the top
-       , ( (modMask, xK_k)
+       , ( (modm, xK_k)
          , windowGo U False
          )
 
        -- Focus window toward the bottom
-       , ( (modMask, xK_j)
+       , ( (modm, xK_j)
          , windowGo D False
          )
 
        -- Move focused window toward the left
-       , ( (modMask .|. shiftMask, xK_h)
+       , ( (modm .|. shiftMask, xK_h)
          , windowSwap L False
          )
 
        -- Move focused window toward the right
-       , ( (modMask .|. shiftMask, xK_l)
+       , ( (modm .|. shiftMask, xK_l)
          , windowSwap R False
          )
 
        -- Move focused window toward the top
-       , ( (modMask .|. shiftMask, xK_k)
+       , ( (modm .|. shiftMask, xK_k)
          , windowSwap U False
          )
 
        -- Move focused window toward the bottom
-       , ( (modMask .|. shiftMask, xK_j)
+       , ( (modm .|. shiftMask, xK_j)
          , windowSwap D False
          )
 
        -- Move split towards the left
-       , ( (modMask .|. controlMask, xK_h)
+       , ( (modm .|. controlMask, xK_h)
          , sendMessage $ ExpandTowards L
          )
 
        -- Move split towards the right
-       , ( (modMask .|. controlMask, xK_l)
+       , ( (modm .|. controlMask, xK_l)
          , sendMessage $ ExpandTowards R
          )
 
        -- Move split towards the top
-       , ( (modMask .|. controlMask, xK_k)
+       , ( (modm .|. controlMask, xK_k)
          , sendMessage $ ExpandTowards U
          )
 
        -- Move split towards the bottom
-       , ( (modMask .|. controlMask, xK_j)
+       , ( (modm .|. controlMask, xK_j)
          , sendMessage $ ExpandTowards D
          )
 
        -- Rotate a split (horizontal/vertical)
-       , ( (modMask, xK_v)
+       , ( (modm, xK_v)
          , sendMessage Rotate
          )
 
        -- Swap left and right children of a split
-       , ( (modMask, xK_s)
+       , ( (modm, xK_s)
          , sendMessage Swap
          )
 
        -- Move window to the center of the screen
-       , ( (modMask, xK_c)
+       , ( (modm, xK_c)
          , placeFocused $ fixed (0.5, 0.5)
          )
 
        -- Push window back into tiling.
-       , ( (modMask, xK_t)
+       , ( (modm, xK_t)
          , withFocused $ windows . W.sink
          )
 
@@ -293,28 +289,28 @@ myKeys conf@XConfig { XMonad.modMask = modMask } =
          )
 
        -- Increment the number of windows in the master area.
-       , ( (modMask, xK_equal)
+       , ( (modm, xK_equal)
          , sendMessage (IncMasterN 1)
          )
 
        -- Decrement the number of windows in the master area.
-       , ( (modMask, xK_minus)
+       , ( (modm, xK_minus)
          , sendMessage (IncMasterN (-1))
          )
 
        -- Quit xmonad.
-       , ( (modMask .|. shiftMask .|. controlMask, xK_q)
+       , ( (modm .|. shiftMask .|. controlMask, xK_q)
          , io exitSuccess
          )
 
        -- Restart xmonad.
-       , ((modMask, xK_q), restart "xmonad" True)
+       , ((modm, xK_q), restart "xmonad" True)
        ]
     ++
 
        -- mod-[1..9], Switch to workspace N
        -- mod-shift-[1..9], Move client to workspace N
-       [ ((m .|. modMask, k), windows $ f i)
+       [ ((m .|. modm, k), windows $ f i)
        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
        ]
@@ -322,30 +318,28 @@ myKeys conf@XConfig { XMonad.modMask = modMask } =
 
        -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
        -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-       [ ( (m .|. modMask, key)
-         , screenWorkspace sc >>= flip whenJust (windows . f)
-         )
+       [ ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0 ..]
        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
        ]
 
 -- XMOBAR ----------------------------------------------------------------------
 
-myPP :: Colors -> PP
-myPP colorscheme = xmobarPP
-  { ppCurrent         = xmobarColor (foreground $ special colorscheme) ""
-  , ppHidden          = xmobarColor (color8 $ colors colorscheme) ""
-  , ppHiddenNoWindows = const ""
-  , ppLayout          = xmobarColor (foreground $ special colorscheme) ""
-  , ppSep             = xmobarColor (color8 $ colors colorscheme)
-                                    ""
-                                    "   <fn=2>\58362</fn>   "
-  , ppTitle           = const ""
-  , ppUrgent          = xmobarColor (color1 $ colors colorscheme) ""
-  }
+-- myPP :: Colors -> PP
+-- myPP colorscheme = xmobarPP
+--   { ppCurrent         = xmobarColor (foreground $ special colorscheme) ""
+--   , ppHidden          = xmobarColor (color8 $ colors colorscheme) ""
+--   , ppHiddenNoWindows = const ""
+--   , ppLayout          = xmobarColor (foreground $ special colorscheme) ""
+--   , ppSep             = xmobarColor (color8 $ colors colorscheme)
+--                                     ""
+--                                     "   <fn=2>\58362</fn>   "
+--   , ppTitle           = const ""
+--   , ppUrgent          = xmobarColor (color1 $ colors colorscheme) ""
+--   }
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
+toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
@@ -367,7 +361,7 @@ main = do
   myConfig colorscheme = def
     { terminal           = "~/scripts/term.sh"
     , modMask            = mod4Mask
-    , workspaces         = map show [1 .. 9]
+    , workspaces         = map show ([1 .. 9] :: [Int])
     , keys               = myKeys
     , borderWidth        = 2
     , normalBorderColor  = background $ special colorscheme
