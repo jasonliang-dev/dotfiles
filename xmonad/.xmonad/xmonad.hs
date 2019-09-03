@@ -62,7 +62,7 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Rotate(Rotate)
                                                 , Swap(Swap)
                                                 )
-import           XMonad.Layout.NoBorders        ( smartBorders )
+import           XMonad.Layout.NoBorders        ( noBorders )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
 -- COLOURS ---------------------------------------------------------------------
@@ -157,7 +157,7 @@ myManageHook = insertPosition Below Newer
 -- polybar).  smartBorders will remove window borders when there's one
 -- window displayed.
 --
-myLayout = avoidStruts $ smartBorders (emptyBSP ||| Full)
+myLayout = avoidStruts $ noBorders (emptyBSP ||| Full)
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -388,7 +388,7 @@ main = do
     , modMask            = mod4Mask
     , workspaces         = map show [1 .. 9 :: Int]
     , keys               = myKeys
-    , borderWidth        = 2
+    , borderWidth        = 0 -- compton dims inactive windows.
     , normalBorderColor  = background $ special colorscheme
     , focusedBorderColor = color4 $ colors colorscheme
     , handleEventHook    = fullscreenEventHook
