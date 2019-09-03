@@ -63,6 +63,10 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Swap(Swap)
                                                 )
 import           XMonad.Layout.NoBorders        ( noBorders )
+import           XMonad.Util.NamedScratchpad    ( NamedScratchpad(NS)
+                                                , namedScratchpadAction
+                                                , namedScratchpadManageHook
+                                                )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
 -- COLOURS ---------------------------------------------------------------------
@@ -133,6 +137,22 @@ fallBackColors = Colors
                            }
   }
 
+-- PROGRAMS --------------------------------------------------------------------
+
+-- | The command to launch a terminal.  `xfce4-terminal' for example.
+--
+myTerminal = "~/scripts/term.sh"
+
+-- | List of scratchpad windows.  Runs a command to spawn a window if
+-- the scratchpad window doesn't exist?
+--
+myScratchpads :: [NamedScratchpad]
+myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
+ where
+  spawnTerminal  = "st -n \"scratchpad\"" -- TODO make term.sh take arguments
+  findTerminal   = resource =? "scratchpad"
+  manageTerminal = doCenterFloat
+
 -- MANAGE HOOK -----------------------------------------------------------------
 
 -- | Manipulate windows as they are created.  The list given to
@@ -146,8 +166,10 @@ fallBackColors = Colors
 -- window rather than the master window.
 --
 myManageHook :: ManageHook
-myManageHook = insertPosition Below Newer
-  <+> composeOne [isDialog -?> doCenterFloat, transience]
+myManageHook =
+  insertPosition Below Newer
+    <+> composeOne [isDialog -?> doCenterFloat, transience]
+    <+> namedScratchpadManageHook myScratchpads
 
 -- LAYOUT ----------------------------------------------------------------------
 
@@ -172,6 +194,11 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        -- Close focused window.
        [ ( (modm .|. shiftMask, xK_q)
          , kill
+         )
+
+       -- Launch the terminal scratchpad
+       , ( (modm, 0x0060) -- grave
+         , namedScratchpadAction myScratchpads "terminal"
          )
 
        -- Cycle through the available layout algorithms.
@@ -384,7 +411,7 @@ main = do
     (withNavigation2DConfig def $ docks $ ewmh $ myConfig colorscheme)
  where
   myConfig colorscheme = def
-    { terminal           = "~/scripts/term.sh"
+    { terminal           = myTerminal
     , modMask            = mod4Mask
     , workspaces         = map show [1 .. 9 :: Int]
     , keys               = myKeys
