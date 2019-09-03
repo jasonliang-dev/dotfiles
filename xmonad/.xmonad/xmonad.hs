@@ -37,6 +37,10 @@ import           XMonad.Hooks.DynamicLog        ( PP(..)
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
+import           XMonad.Hooks.InsertPosition    ( insertPosition
+                                                , Focus(Newer)
+                                                , Position(Below)
+                                                )
 import           XMonad.Hooks.ManageDocks       ( avoidStruts
                                                 , docks
                                                 , ToggleStruts(ToggleStruts)
@@ -138,8 +142,12 @@ fallBackColors = Colors
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 --
+-- `insertPosition Below Newer' will spawn new windows as a slave
+-- window rather than the master window.
+--
 myManageHook :: ManageHook
-myManageHook = composeOne [isDialog -?> doCenterFloat, transience]
+myManageHook = insertPosition Below Newer
+  <+> composeOne [isDialog -?> doCenterFloat, transience]
 
 -- LAYOUT ----------------------------------------------------------------------
 
@@ -367,7 +375,7 @@ main :: IO ()
 main = do
   home <- getHomeDirectory
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
-  let colorscheme = fromMaybe fallBackColors (json >>= decode :: Maybe Colors)
+  let colorscheme = fromMaybe fallBackColors $ json >>= decode
 
   xmonad =<< statusBar
     "xmobar"
