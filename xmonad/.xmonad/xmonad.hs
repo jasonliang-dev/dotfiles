@@ -144,12 +144,12 @@ fallBackColors = Colors
 myTerminal = "~/scripts/term.sh"
 
 -- | List of scratchpad windows.  Runs a command to spawn a window if
--- the scratchpad window doesn't exist?
+-- the scratchpad window doesn't exist
 --
 myScratchpads :: [NamedScratchpad]
 myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
  where
-  spawnTerminal  = "st -n \"scratchpad\"" -- TODO make term.sh take arguments
+  spawnTerminal  = myTerminal ++ " -n \"scratchpad\""
   findTerminal   = resource =? "scratchpad"
   manageTerminal = doCenterFloat
 
@@ -179,7 +179,7 @@ myManageHook =
 -- polybar).  smartBorders will remove window borders when there's one
 -- window displayed.
 --
-myLayout = avoidStruts $ noBorders (emptyBSP ||| Full)
+myLayout = avoidStruts $ noBorders $ emptyBSP ||| Full
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -360,31 +360,15 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 
 myPP :: Colors -> PP
 myPP colorscheme = xmobarPP
-  { ppCurrent         = const
-                        $ xmobarColor (foreground $ special colorscheme) ""
-                        $ padRight
-                        $ iconFn filledIcon
-  , ppHidden          = const
-                        $ xmobarColor (color8 $ colors colorscheme) ""
-                        $ padRight
-                        $ iconFn filledIcon
-  , ppHiddenNoWindows = const
-                        $ xmobarColor (color8 $ colors colorscheme) ""
-                        $ padRight
-                        $ iconFn hollowIcon
-  , ppUrgent          = const
-                        $ xmobarColor (color8 $ colors colorscheme) ""
-                        $ padRight
-                        $ iconFn filledIcon
+  { ppCurrent = xmobarColor (foreground $ special colorscheme) "" . padRight
+  , ppHidden = xmobarColor (color8 $ colors colorscheme) "" . padRight
+  , ppHiddenNoWindows = const ""
+  , ppUrgent = xmobarColor (color1 $ colors colorscheme) "" . padRight
   , ppLayout = xmobarColor (foreground $ special colorscheme) "" . padRight
   , ppSep = xmobarColor (color8 $ colors colorscheme) "" $ padRight "//"
-  , ppTitle           = const ""
+  , ppTitle = const ""
   }
- where
-  padRight   = wrap "" "   "
-  iconFn     = wrap "<fn=1>" "</fn>"
-  filledIcon = "\61444" -- heart
-  hollowIcon = "\61578"
+  where padRight = wrap "" "   "
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
