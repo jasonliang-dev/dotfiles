@@ -24,6 +24,7 @@ import qualified XMonad.StackSet               as W
 
 -- xmonad contrib
 import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
+                                                , switchLayer
                                                 , windowGo
                                                 , windowSwap
                                                 , withNavigation2DConfig
@@ -64,7 +65,9 @@ import           XMonad.Layout.BinarySpacePartition
                                                 )
 import           XMonad.Layout.NoBorders        ( noBorders )
 import           XMonad.Util.NamedScratchpad    ( NamedScratchpad(NS)
+                                                , NamedScratchpads
                                                 , namedScratchpadAction
+                                                , namedScratchpadFilterOutWorkspacePP
                                                 , namedScratchpadManageHook
                                                 )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
@@ -146,7 +149,7 @@ myTerminal = "~/scripts/term.sh"
 -- | List of scratchpad windows.  Runs a command to spawn a window if
 -- the scratchpad window doesn't exist
 --
-myScratchpads :: [NamedScratchpad]
+myScratchpads :: NamedScratchpads
 myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
  where
   spawnTerminal  = myTerminal ++ " -n \"scratchpad\""
@@ -229,6 +232,11 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        -- Swap the focused window and the master window.
        , ( (modm, xK_m)
          , windows W.swapMaster
+         )
+
+       -- Toggle floating window focus
+       , ( (modm, xK_y)
+         , switchLayer
          )
 
        -- Focus window toward the left
@@ -359,7 +367,7 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 -- XMOBAR ----------------------------------------------------------------------
 
 myPP :: Colors -> PP
-myPP colorscheme = xmobarPP
+myPP colorscheme = namedScratchpadFilterOutWorkspacePP $ xmobarPP
   { ppCurrent = xmobarColor (foreground $ special colorscheme) "" . padRight
   , ppHidden = xmobarColor (color8 $ colors colorscheme) "" . padRight
   , ppHiddenNoWindows = const ""
