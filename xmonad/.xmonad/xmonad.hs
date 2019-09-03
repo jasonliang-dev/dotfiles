@@ -1,6 +1,5 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 import           Control.Exception              ( catch
@@ -23,7 +22,10 @@ import           XMonad
 import qualified XMonad.StackSet               as W
 
 -- xmonad contrib
-import           XMonad.Actions.Navigation2D    ( Direction2D(U, D, R, L)
+import           XMonad.Actions.Navigation2D    ( defaultTiledNavigation
+                                                , hybridOf
+                                                , lineNavigation
+                                                , centerNavigation
                                                 , switchLayer
                                                 , windowGo
                                                 , windowSwap
@@ -64,12 +66,20 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Swap(Swap)
                                                 )
 import           XMonad.Layout.NoBorders        ( noBorders )
+import           XMonad.Layout.Spacing          ( Border(Border)
+                                                , decScreenWindowSpacing
+                                                , incScreenWindowSpacing
+                                                , spacingRaw
+                                                , toggleScreenSpacingEnabled
+                                                , toggleWindowSpacingEnabled
+                                                )
 import           XMonad.Util.NamedScratchpad    ( NamedScratchpad(NS)
                                                 , NamedScratchpads
                                                 , namedScratchpadAction
                                                 , namedScratchpadFilterOutWorkspacePP
                                                 , namedScratchpadManageHook
                                                 )
+import           XMonad.Util.Types              ( Direction2D(U, D, R, L) )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
 
 -- COLOURS ---------------------------------------------------------------------
@@ -144,6 +154,7 @@ fallBackColors = Colors
 
 -- | The command to launch a terminal.  `xfce4-terminal' for example.
 --
+myTerminal :: String
 myTerminal = "~/scripts/term.sh"
 
 -- | List of scratchpad windows.  Runs a command to spawn a window if
@@ -178,11 +189,17 @@ myManageHook =
 
 -- | The available layouts.  Toggle fullscreen layout with mod + f.
 --
--- avoidStruts will resize windows to make space for taskbars (xmobar,
--- polybar).  smartBorders will remove window borders when there's one
--- window displayed.
+-- avoidStruts will resize windows to make space for taskbars like
+-- polybar.
 --
-myLayout = avoidStruts $ noBorders $ emptyBSP ||| Full
+myLayout = avoidStruts $ noBorders $ withGaps emptyBSP ||| Full
+ where
+  withGaps = spacingRaw smartBorder spacing screenBorder spacing windowBorder
+   where
+    spacing      = Border 10 10 10 10
+    smartBorder  = True
+    screenBorder = False
+    windowBorder = False
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -227,11 +244,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        -- Move focus to the previous window.
        , ( (mod1Mask .|. shiftMask, xK_Tab)
          , windows W.focusUp
-         )
-
-       -- Swap the focused window and the master window.
-       , ( (modm, xK_m)
-         , windows W.swapMaster
          )
 
        -- Toggle floating window focus
@@ -309,6 +321,23 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
          , sendMessage Swap
          )
 
+       -- Toggle gaps
+       , ( (modm, xK_g)
+         , do
+           toggleScreenSpacingEnabled
+           toggleWindowSpacingEnabled
+         )
+
+       -- Increase gap size
+       , ( (modm .|. shiftMask, xK_g)
+         , incScreenWindowSpacing 2
+         )
+
+       -- Decrease gap size
+       , ( (modm .|. controlMask, xK_g)
+         , decScreenWindowSpacing 2
+         )
+
        -- Move window to the center of the screen
        , ( (modm, xK_c)
          , placeFocused $ fixed (0.5, 0.5)
@@ -327,16 +356,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        -- Toggle overlap with bar
        , ( (modm .|. shiftMask, xK_b)
          , spawn "~/scripts/stalonetray.sh"
-         )
-
-       -- Increment the number of windows in the master area.
-       , ( (modm, xK_equal)
-         , sendMessage (IncMasterN 1)
-         )
-
-       -- Decrement the number of windows in the master area.
-       , ( (modm, xK_minus)
-         , sendMessage (IncMasterN (-1))
          )
 
        -- Quit xmonad.
@@ -368,15 +387,15 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 
 myPP :: Colors -> PP
 myPP colorscheme = namedScratchpadFilterOutWorkspacePP $ xmobarPP
-  { ppCurrent = xmobarColor (foreground $ special colorscheme) "" . padRight
-  , ppHidden = xmobarColor (color8 $ colors colorscheme) "" . padRight
+  { ppCurrent         = fgColorPad $ foreground $ special colorscheme
+  , ppHidden          = fgColorPad $ color8 $ colors colorscheme
   , ppHiddenNoWindows = const ""
-  , ppUrgent = xmobarColor (color1 $ colors colorscheme) "" . padRight
-  , ppLayout = xmobarColor (foreground $ special colorscheme) "" . padRight
-  , ppSep = xmobarColor (color8 $ colors colorscheme) "" $ padRight "//"
-  , ppTitle = const ""
+  , ppUrgent          = fgColorPad $ color1 $ colors colorscheme
+  , ppLayout          = fgColorPad $ foreground $ special colorscheme
+  , ppSep             = fgColorPad (color8 $ colors colorscheme) "//"
+  , ppTitle           = const ""
   }
-  where padRight = wrap "" "   "
+  where fgColorPad fg = xmobarColor fg "" . wrap "" "   "
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
@@ -396,22 +415,24 @@ main = do
   json <- safeReadFile $ home ++ "/.cache/wal/colors.json"
   let colorscheme = fromMaybe fallBackColors $ json >>= decode
 
-  xmonad =<< statusBar
-    "xmobar"
-    (myPP colorscheme)
-    toggleStrutsKey
-    (withNavigation2DConfig def $ docks $ ewmh $ myConfig colorscheme)
+  xmonad =<< statusBar "xmobar"
+                       (myPP colorscheme)
+                       toggleStrutsKey
+                       (myConfig colorscheme)
  where
-  myConfig colorscheme = def
-    { terminal           = myTerminal
-    , modMask            = mod4Mask
-    , workspaces         = map show [1 .. 9 :: Int]
-    , keys               = myKeys
-    , borderWidth        = 0 -- compton dims inactive windows.
-    , normalBorderColor  = background $ special colorscheme
-    , focusedBorderColor = color4 $ colors colorscheme
-    , handleEventHook    = fullscreenEventHook
-    , manageHook         = myManageHook
-    , layoutHook         = myLayout
-    , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
-    }
+  myConfig colorscheme =
+    withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
+      { terminal           = myTerminal
+      , modMask            = mod4Mask
+      , workspaces         = map show [1 .. 9 :: Int]
+      , keys               = myKeys
+      , borderWidth        = 0 -- compton dims inactive windows.
+      , normalBorderColor  = background $ special colorscheme
+      , focusedBorderColor = color4 $ colors colorscheme
+      , handleEventHook    = fullscreenEventHook
+      , manageHook         = myManageHook
+      , layoutHook         = myLayout
+      , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
+      }
+  myNavigation2DConfig = def { defaultTiledNavigation = hybridNavigation }
+    where hybridNavigation = hybridOf lineNavigation centerNavigation
