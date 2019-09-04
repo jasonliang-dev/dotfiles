@@ -11,6 +11,10 @@
   :mode "\\.hs\\'"
   :init (setq haskell-process-type 'stack-ghci))
 
+(use-package flycheck-haskell
+  :ensure t
+  :hook (haskell-mode . flycheck-haskell-setup))
+
 (provide 'lang-haskell)
 
 ;;; lang-haskell.el ends here
