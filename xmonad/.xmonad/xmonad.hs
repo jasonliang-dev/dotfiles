@@ -194,12 +194,12 @@ myManageHook =
 --
 myLayout = avoidStruts $ noBorders $ withGaps emptyBSP ||| Full
  where
-  withGaps = spacingRaw smartBorder spacing screenBorder spacing windowBorder
+  withGaps = spacingRaw smartGaps spacing screenGaps spacing windowGaps
    where
-    spacing      = Border 10 10 10 10
-    smartBorder  = True
-    screenBorder = False
-    windowBorder = False
+    spacing    = Border 10 10 10 10
+    smartGaps  = True
+    screenGaps = False
+    windowGaps = False
 
 -- KEYS ------------------------------------------------------------------------
 
@@ -210,159 +210,127 @@ myLayout = avoidStruts $ noBorders $ withGaps emptyBSP ||| Full
 myKeys :: XConfig Layout -> Map (KeyMask, KeySym) (X ())
 myKeys conf@XConfig { XMonad.modMask = modm } =
   M.fromList
-    $
+    $  [
        -- Close focused window.
-       [ ( (modm .|. shiftMask, xK_q)
+         ( (modm .|. shiftMask, xK_q)
          , kill
          )
-
-       -- Launch the terminal scratchpad
-       , ( (modm, 0x0060) -- grave
+       -- Launch the terminal scratchpad (0x0060 = grave)
+       , ( (modm, 0x0060)
          , namedScratchpadAction myScratchpads "terminal"
          )
-
        -- Cycle through the available layout algorithms.
        , ( (modm, xK_space)
          , sendMessage NextLayout
          )
-
        --  Reset the layouts on the current workspace to default.
        , ( (modm .|. shiftMask, xK_space)
          , setLayout $ XMonad.layoutHook conf
          )
-
        -- Resize viewed windows to the correct size.
        , ( (modm, xK_n)
          , refresh
          )
-
        -- Move focus to the next window.
        , ( (mod1Mask, xK_Tab)
          , windows W.focusDown
          )
-
        -- Move focus to the previous window.
        , ( (mod1Mask .|. shiftMask, xK_Tab)
          , windows W.focusUp
          )
-
        -- Toggle floating window focus
        , ( (modm, xK_y)
          , switchLayer
          )
-
        -- Focus window toward the left
        , ( (modm, xK_h)
          , windowGo L False
          )
-
        -- Focus window toward the right
        , ( (modm, xK_l)
          , windowGo R False
          )
-
        -- Focus window toward the top
        , ( (modm, xK_k)
          , windowGo U False
          )
-
        -- Focus window toward the bottom
        , ( (modm, xK_j)
          , windowGo D False
          )
-
        -- Move focused window toward the left
        , ( (modm .|. shiftMask, xK_h)
          , windowSwap L False
          )
-
        -- Move focused window toward the right
        , ( (modm .|. shiftMask, xK_l)
          , windowSwap R False
          )
-
        -- Move focused window toward the top
        , ( (modm .|. shiftMask, xK_k)
          , windowSwap U False
          )
-
        -- Move focused window toward the bottom
        , ( (modm .|. shiftMask, xK_j)
          , windowSwap D False
          )
-
        -- Move split towards the left
        , ( (modm .|. controlMask, xK_h)
          , sendMessage $ ExpandTowards L
          )
-
        -- Move split towards the right
        , ( (modm .|. controlMask, xK_l)
          , sendMessage $ ExpandTowards R
          )
-
        -- Move split towards the top
        , ( (modm .|. controlMask, xK_k)
          , sendMessage $ ExpandTowards U
          )
-
        -- Move split towards the bottom
        , ( (modm .|. controlMask, xK_j)
          , sendMessage $ ExpandTowards D
          )
-
        -- Rotate a split (horizontal/vertical)
        , ( (modm, xK_v)
          , sendMessage Rotate
          )
-
        -- Swap left and right children of a split
        , ( (modm, xK_s)
          , sendMessage Swap
          )
-
        -- Toggle gaps
        , ( (modm, xK_g)
-         , do
-           toggleScreenSpacingEnabled
-           toggleWindowSpacingEnabled
+         , toggleScreenSpacingEnabled >> toggleWindowSpacingEnabled
          )
-
        -- Increase gap size
        , ( (modm .|. shiftMask, xK_g)
          , incScreenWindowSpacing 2
          )
-
        -- Decrease gap size
        , ( (modm .|. controlMask, xK_g)
          , decScreenWindowSpacing 2
          )
-
        -- Move window to the center of the screen
        , ( (modm, xK_c)
          , placeFocused $ fixed (0.5, 0.5)
          )
-
        -- Push window back into tiling.
        , ( (modm, xK_t)
          , withFocused $ windows . W.sink
          )
-
        -- Toggle overlap with bar
        , ( toggleStrutsKey conf
          , sendMessage ToggleStruts
          )
-
        -- Toggle overlap with bar
        , ( (modm .|. shiftMask, xK_b)
          , spawn "~/scripts/stalonetray.sh"
          )
-
        -- Quit xmonad.
        , ( (modm .|. shiftMask .|. controlMask, xK_q)
          , io exitSuccess
          )
-
        -- Restart xmonad.
        , ((modm, xK_q), restart "xmonad" True)
        ]
