@@ -6,7 +6,7 @@ cabal-version:       >=1.10
 executable my-xmonad
   main-is:             ../xmonad.hs
   -- other-modules lists custom modules in my ~/.xmonad/lib/ directory
-  other-modules:
+  other-modules:       WalColors
   build-depends:       base
                      , aeson >= 1.4.4
                      , bytestring >= 0.10.8.2
