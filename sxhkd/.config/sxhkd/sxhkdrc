@@ -7,6 +7,9 @@ XF86MonBrightness{Up,Down}
 super + b
 	~/scripts/bar-toggle.sh
 
+super + shift + b
+	~/scripts/stalonetray.sh
+
 super + d
 	~/scripts/rofi.sh
 
