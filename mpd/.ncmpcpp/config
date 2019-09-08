@@ -327,7 +327,7 @@ progressbar_look = ───
 #
 ## Available values: classic, alternative.
 ##
-user_interface = classic
+user_interface = alternative
 #
 #data_fetching_delay = yes
 #
