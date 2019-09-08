@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
+module Main (main) where
+
 import qualified Data.Map                      as M
 import           Data.Map                       ( Map )
 import           System.Exit                    ( exitSuccess )
@@ -29,7 +31,7 @@ import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 )
 import           XMonad.Hooks.InsertPosition    ( insertPosition
                                                 , Focus(Newer)
-                                                , Position(Below)
+                                                , Position(Above, Below)
                                                 )
 import           XMonad.Hooks.ManageDocks       ( avoidStruts
                                                 , docks
@@ -52,7 +54,7 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Rotate(Rotate)
                                                 , Swap(Swap)
                                                 )
-import           XMonad.Layout.NoBorders        ( noBorders )
+import           XMonad.Layout.NoBorders        ( smartBorders )
 import           XMonad.Layout.Spacing          ( Border(Border)
                                                 , decScreenWindowSpacing
                                                 , incScreenWindowSpacing
@@ -90,10 +92,17 @@ myScratchpads :: NamedScratchpads
 myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
  where
   spawnTerminal  = myTerminal ++ " -n \"scratchpad\""
-  findTerminal   = resource =? "scratchpad"
-  manageTerminal = doCenterFloat
+  findTerminal   = appName =? "scratchpad"
+  manageTerminal = handleDialog
 
 -- MANAGE HOOK -----------------------------------------------------------------
+
+-- | Manage dialog windows.  New windows are automatically focused,
+-- and are placed above older windows.  They are positioned on the
+-- center of the screen.
+--
+handleDialog :: ManageHook
+handleDialog = insertPosition Above Newer <+> doCenterFloat
 
 -- | Manipulate windows as they are created.  The list given to
 -- @composeOne@ is processed from top to bottom.  The first matching
@@ -108,22 +117,26 @@ myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
 myManageHook :: ManageHook
 myManageHook =
   insertPosition Below Newer
-    <+> composeOne [isDialog -?> doCenterFloat, transience]
+    <+> composeOne
+          [ stringProperty "WM_WINDOW_ROLE" =? "toolbox" -?> handleDialog
+          , isDialog -?> handleDialog
+          , transience
+          ]
     <+> namedScratchpadManageHook myScratchpads
 
 -- LAYOUT ----------------------------------------------------------------------
 
--- | The available layouts.  Toggle fullscreen layout with mod + f.
+-- | The available layouts.
 --
 -- avoidStruts will resize windows to make space for taskbars like
 -- polybar.
 --
-myLayout = avoidStruts $ noBorders $ withGaps emptyBSP ||| Full
+myLayout = avoidStruts $ smartBorders $ withGaps emptyBSP ||| Full
  where
   withGaps = spacingRaw smartGaps spacing screenGaps spacing windowGaps
    where
     spacing    = Border 10 10 10 10
-    smartGaps  = True
+    smartGaps  = False
     screenGaps = False
     windowGaps = False
 
@@ -249,10 +262,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        , ( toggleStrutsKey conf
          , sendMessage ToggleStruts
          )
-       -- Toggle overlap with bar
-       , ( (modm .|. shiftMask, xK_b)
-         , spawn "~/scripts/stalonetray.sh"
-         )
        -- Quit xmonad.
        , ( (modm .|. shiftMask .|. controlMask, xK_q)
          , io exitSuccess
@@ -296,6 +305,24 @@ toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
+myConfig colorscheme =
+  withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
+    { terminal           = myTerminal
+    , modMask            = mod4Mask
+    , workspaces         = map show [1 .. 9 :: Int]
+    , keys               = myKeys
+    , borderWidth        = 2
+    , normalBorderColor  = background $ special colorscheme
+    , focusedBorderColor = color4 $ colors colorscheme
+    , handleEventHook    = fullscreenEventHook
+    , manageHook         = myManageHook
+    , layoutHook         = myLayout
+    , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
+    }
+
+myNavigation2DConfig = def { defaultTiledNavigation = hybridNavigation }
+  where hybridNavigation = hybridOf lineNavigation centerNavigation
+
 main :: IO ()
 main = do
   colorscheme <- getWalWithFallback
@@ -304,20 +331,3 @@ main = do
                        (myPP colorscheme)
                        toggleStrutsKey
                        (myConfig colorscheme)
- where
-  myConfig colorscheme =
-    withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
-      { terminal           = myTerminal
-      , modMask            = mod4Mask
-      , workspaces         = map show [1 .. 9 :: Int]
-      , keys               = myKeys
-      , borderWidth        = 0 -- compton dims inactive windows.
-      , normalBorderColor  = background $ special colorscheme
-      , focusedBorderColor = color4 $ colors colorscheme
-      , handleEventHook    = fullscreenEventHook
-      , manageHook         = myManageHook
-      , layoutHook         = myLayout
-      , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
-      }
-  myNavigation2DConfig = def { defaultTiledNavigation = hybridNavigation }
-    where hybridNavigation = hybridOf lineNavigation centerNavigation
