@@ -14,8 +14,6 @@
   :ensure t
   :hook (css-mode . emmet-mode))
 
-(add-hook 'css-mode-hook 'lsp)
-
 (provide 'lang-css)
 
 ;;; lang-css.el ends here

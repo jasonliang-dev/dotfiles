@@ -15,8 +15,7 @@
                                  (web-mode)
                                  (setq web-mode-style-padding 0
                                        web-mode-script-padding 0))))
-  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'")
-  :hook (web-mode . lsp))
+  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'"))
 
 (use-package emmet-mode
   :ensure t
