@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-~/scripts/audio.sh stop
+~/scripts/audio.sh pause
 
 ~/scripts/try.sh "betterlockscreen -l dim" slock
