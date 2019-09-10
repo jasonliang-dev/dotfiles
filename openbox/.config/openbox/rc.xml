@@ -217,6 +217,24 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
         <direction>east</direction>
       </action>
     </keybind>
+    <keybind key="W-Up">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
     <keybind key="W-w">
       <action name="If">
         <maximized>yes</maximized>
