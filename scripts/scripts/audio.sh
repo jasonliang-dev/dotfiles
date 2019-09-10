@@ -5,8 +5,9 @@ case "$1" in
     "down") amixer set Master 2%- ;;
     "mute") amixer set Master toggle ;;
 
-    "play") ~/scripts/try.sh "cmus-remote -u" "mpc toggle" "playerctl play-pause" ;;
-    "stop") ~/scripts/try.sh "cmus-remote -s" "mpc stop" "playerctl stop" ;;
-    "next") ~/scripts/try.sh "cmus-remote -n" "mpc next" "playerctl next" ;;
-    "prev") ~/scripts/try.sh "cmus-remote -r" "mpc prev" "playerctl previous" ;;
+    "play")  ~/scripts/try.sh "cmus-remote -u" "mpc toggle" "playerctl play-pause" ;;
+    "pause") ~/scripts/try.sh "cmus-remote -s" "mpc pause" "playerctl pause" ;;
+    "stop")  ~/scripts/try.sh "cmus-remote -s" "mpc stop" "playerctl stop" ;;
+    "next")  ~/scripts/try.sh "cmus-remote -n" "mpc next" "playerctl next" ;;
+    "prev")  ~/scripts/try.sh "cmus-remote -r" "mpc prev" "playerctl previous" ;;
 esac
