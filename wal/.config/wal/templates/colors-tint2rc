@@ -132,7 +132,7 @@ launcher_item_app = /usr/share/applications/google-chrome.desktop
 
 #-------------------------------------
 # Clock
-time1_format = %B %d, %I:%M%P
+time1_format = %A, %B %d, %I:%M%P
 time2_format = 
 time1_font = Roboto 10
 time1_timezone = 
