@@ -15,11 +15,12 @@
                                  (web-mode)
                                  (setq web-mode-style-padding 0
                                        web-mode-script-padding 0))))
-  :mode ("\\.html?\\'" "\\.php\\'" "\\.twig\\'"))
+  :mode ("\\.php\\'"))
 
 (use-package emmet-mode
   :ensure t
-  :hook (web-mode . emmet-mode))
+  :hook ((web-mode . emmet-mode)
+         (html-mode . emmet-mode)))
 
 (provide 'lang-web)
 
