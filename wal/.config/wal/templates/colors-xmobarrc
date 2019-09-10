@@ -24,14 +24,10 @@ Config {{
   , sepChar          = "%"
   , alignSep         = "}}{{"
   , template         = "   %StdinReader% }}\
-                       \   <fc={color7}><fn=1></fn></fc> %date%\
+                       \   %date%\
                        \   <fc={color8}>//</fc>\
-                       \   <fc={color7}><fn=1></fn></fc> %time%\
-                       \{{ <fc={color7}><fn=1></fn></fc> %cpu%\
-                       \   <fc={color8}>//</fc>\
-                       \   <fc={color7}><fn=1></fn></fc> %memory%\
-                       \   <fc={color8}>//</fc>\
-                       \   <fc={color7}><fn=1></fn></fc> %brightness%\
+                       \   %time%\
+                       \{{ <fc={color7}><fn=1></fn></fc> %brightness%\
                        \   <fc={color8}>//</fc>\
                        \   <fc={color7}><fn=1></fn></fc> %volume%\
                        \   <fc={color8}>//</fc>\
@@ -46,11 +42,11 @@ Config {{
                     -- discharging status
                     , "-o"	, "(<timeleft>)"
                     -- AC "on" status
-                    , "-O"	, "<fc={color3}>Charging</fc>"
+                    , "-O"	, ""
                     -- charged status
-                    , "-i"	, "<fc={color2}>Charged</fc>"
+                    , "-i"	, ""
                   ] 60
-    , Run Date "%a, %b %d" "date" 10
+    , Run Date "%a %d" "date" 10
     , Run Date "%I:%M" "time" 10
     , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
     , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
