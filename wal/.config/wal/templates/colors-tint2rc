@@ -32,7 +32,7 @@ border_color_pressed = {foreground} 100
 
 #-------------------------------------
 # Panel
-panel_items = TFSBC
+panel_items = TFSEBC
 panel_size = 100% 32
 panel_margin = 0 0
 panel_padding = 0 0 2
@@ -105,7 +105,7 @@ mouse_scroll_down = none
 
 #-------------------------------------
 # System tray (notification area)
-systray_padding = 30 0 8
+systray_padding = 15 0 8
 systray_background_id = 0
 systray_sort = ascending
 systray_icon_size = 24
@@ -138,7 +138,7 @@ time1_font = Roboto 10
 time1_timezone = 
 time2_timezone = 
 clock_font_color = {foreground} 100
-clock_padding = 30 0
+clock_padding = 15 0
 clock_background_id = 0
 clock_tooltip = 
 clock_tooltip_timezone = 
@@ -157,9 +157,9 @@ battery_full_cmd =
 bat1_font = Roboto 10
 bat2_font = Roboto 0
 battery_font_color = {foreground} 100
-bat1_format = 
+bat1_format = Bat: %p
 bat2_format = 
-battery_padding = 0 4
+battery_padding = 15 4
 battery_background_id = 0
 battery_hide = 101
 battery_lclick_command = 
@@ -169,6 +169,29 @@ battery_uwheel_command =
 battery_dwheel_command = 
 ac_connected_cmd = notify-send "Battery is charging"
 ac_disconnected_cmd = notify-send "Battery is discharging"
+
+#-------------------------------------
+# Executor 1
+execp = new
+execp_command = echo Vol: $(~/scripts/info/volume.sh)
+execp_interval = 1
+execp_has_icon = 0
+execp_cache_icon = 1
+execp_continuous = 0
+execp_markup = 1
+execp_tooltip = 
+execp_lclick_command = 
+execp_rclick_command = 
+execp_mclick_command = 
+execp_uwheel_command = 
+execp_dwheel_command = 
+execp_font = Roboto 10
+execp_font_color = {foreground} 100
+execp_padding = 15 4
+execp_background_id = 0
+execp_centered = 0
+execp_icon_w = 0
+execp_icon_h = 0
 
 #-------------------------------------
 # Tooltip
