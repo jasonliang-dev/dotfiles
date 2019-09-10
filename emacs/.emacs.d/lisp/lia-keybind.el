@@ -35,7 +35,7 @@ Otherwise, open a regular terminal window."
   (interactive)
   (if (zerop (shell-command
               (concat "tmux new-window -c '" (expand-file-name default-directory) "'")))
-      (shell-command "wmctrl -x -R scratchpad")
+      (call-process-shell-command "DISABLE_WAL=\"\" ~/scripts/scratchpad.sh" nil 0)
     ;; TODO: terminal crashes here.
     (shell-command "DISABLE_WAL=\"\" ~/scripts/term.sh . 2>&1 > /dev/null & disown")))
 
