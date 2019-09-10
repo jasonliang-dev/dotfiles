@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-if [ $(pgrep stalonetray) ]; then
+if [ $(pgrep tint2 || pgrep polybar) ]; then
+    exit
+elif [ $(pgrep stalonetray) ]; then
     pkill stalonetray
     killall nm-applet
 else
