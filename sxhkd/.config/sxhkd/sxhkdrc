@@ -16,6 +16,9 @@ super + d
 super + Return
 	~/scripts/term.sh
 
+super + grave
+	~/scripts/scratchpad.sh
+
 super + ctrl + Return
 	~/scripts/files.sh
 
