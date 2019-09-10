@@ -7,10 +7,10 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
   </resistance>
   <focus>
     <focusNew>yes</focusNew>
-    <followMouse>no</followMouse>
-    <focusLast>yes</focusLast>
+    <followMouse>yes</followMouse>
+    <focusLast>no</focusLast>
     <underMouse>no</underMouse>
-    <focusDelay>200</focusDelay>
+    <focusDelay>0</focusDelay>
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
   <placement>
@@ -603,7 +603,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
     <submenuHideDelay>50</submenuHideDelay>
   </menu>
   <applications>
-    <application class="firefox">
+    <application role="browser">
       <decor>no</decor>
       <desktop>1</desktop>
       <maximized>yes</maximized>
