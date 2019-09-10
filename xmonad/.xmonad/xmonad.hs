@@ -1,6 +1,9 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
-module Main (main) where
+module Main
+  ( main
+  )
+where
 
 import qualified Data.Map                      as M
 import           Data.Map                       ( Map )
@@ -11,6 +14,10 @@ import           XMonad
 import qualified XMonad.StackSet               as W
 
 -- xmonad contrib
+import           XMonad.Actions.Minimize        ( maximizeWindowAndFocus
+                                                , minimizeWindow
+                                                , withLastMinimized
+                                                )
 import           XMonad.Actions.Navigation2D    ( defaultTiledNavigation
                                                 , hybridOf
                                                 , lineNavigation
@@ -54,6 +61,8 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Rotate(Rotate)
                                                 , Swap(Swap)
                                                 )
+import           XMonad.Layout.BoringWindows    ( boringWindows )
+import           XMonad.Layout.Minimize         ( minimize )
 import           XMonad.Layout.NoBorders        ( smartBorders )
 import           XMonad.Layout.Spacing          ( Border(Border)
                                                 , decScreenWindowSpacing
@@ -131,9 +140,10 @@ myManageHook =
 -- avoidStruts will resize windows to make space for taskbars like
 -- polybar.
 --
-myLayout = avoidStruts $ smartBorders $ withGaps emptyBSP ||| Full
+myLayout = layoutMods $ withGaps emptyBSP ||| Full
  where
-  withGaps = spacingRaw smartGaps spacing screenGaps spacing windowGaps
+  layoutMods = avoidStruts . boringWindows . smartBorders . minimize
+  withGaps   = spacingRaw smartGaps spacing screenGaps spacing windowGaps
    where
     spacing    = Border 10 10 10 10
     smartGaps  = False
@@ -267,7 +277,9 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
          , io exitSuccess
          )
        -- Restart xmonad.
-       , ((modm, xK_q), restart "xmonad" True)
+       , ((modm, xK_q)              , restart "xmonad" True)
+       , ((modm, xK_m)              , withFocused minimizeWindow)
+       , ((modm .|. shiftMask, xK_m), withLastMinimized maximizeWindowAndFocus)
        ]
     ++
 
