@@ -7,7 +7,6 @@
 ;;; Code:
 
 ;; https://emacsredux.com/blog/2013/06/25/boost-performance-by-leveraging-byte-compilation/
-
 ;;;###autoload
 (defun lia/byte-compile-init-dir ()
   "Byte-compile all your dotfiles."
@@ -172,9 +171,7 @@
         neo-theme 'icons
         neo-window-width 30)
   :config
-  (doom-themes-neotree-config)
-  (set-face-attribute 'doom-neotree-dir-face nil :family "Roboto Condensed")
-  (set-face-attribute 'doom-neotree-file-face nil :family "Roboto Condensed"))
+  (doom-themes-neotree-config))
 
 (use-package projectile
   :ensure t
