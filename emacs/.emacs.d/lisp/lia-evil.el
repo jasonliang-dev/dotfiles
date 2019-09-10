@@ -44,12 +44,6 @@
   :init (defvar evil-collection-outline-bind-tab-p nil)
   :config (evil-collection-init))
 
-(use-package evil-iedit-state
-  :ensure t
-  :after evil iedit
-  :commands (evil-iedit-state
-             evil-iedit-insert-state))
-
 (use-package evil-matchit
   :ensure t
   :after evil
