@@ -30,7 +30,7 @@
   :ensure t
   :init
   (setq doom-modeline-height 35
-        doom-modeline-buffer-file-name-style 'relative-to-project)
+        doom-modeline-buffer-file-name-style 'buffer-name)
   :config (doom-modeline-mode))
 
 ;; Enable font ligatures
