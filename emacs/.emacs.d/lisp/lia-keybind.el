@@ -8,13 +8,6 @@
 
 (require 'seq)
 
-;; https://emacs.stackexchange.com/q/7650
-(defun run-external (command)
-  "Run a shell COMMAND that use the current directory."
-  (interactive "s")
-  (shell-command
-   (concat command " . > /dev/null 2>&1 & disown") nil nil))
-
 ;; https://emacs.stackexchange.com/q/7742
 (defun browse-file-directory ()
   "Open the current file's directory however the OS would."
@@ -26,7 +19,7 @@
 (defun lia/terminal ()
   "Launch a terminal.
 Run `eshell' if Emacs is running on Windows,
-otherwise, run `ansi-term' with user shell."
+otherwise, run `ansi-term'."
   (interactive)
   (cond ((eq system-type 'windows-nt)
          (eshell))
@@ -35,9 +28,16 @@ otherwise, run `ansi-term' with user shell."
         (t (ansi-term "/bin/bash"))))
 
 (defun lia/external-terminal ()
-  "Open a new terminal window."
+  "Open a terminal window.
+If there's a tmux session, create a new tmux window and focus the
+scratchpad terminal.
+Otherwise, open a regular terminal window."
   (interactive)
-  (run-external "DISABLE_WAL=\"\" ~/scripts/term.sh"))
+  (if (zerop (shell-command
+              (concat "tmux new-window -c '" (expand-file-name default-directory) "'")))
+      (shell-command "wmctrl -x -R scratchpad")
+    ;; TODO: terminal crashes here.
+    (shell-command "DISABLE_WAL=\"\" ~/scripts/term.sh . 2>&1 > /dev/null & disown")))
 
 (defun lia/config-file ()
   "Edit Emacs config."
