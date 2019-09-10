@@ -55,6 +55,14 @@
             (neotree-select-up-node))
         (neotree-select-up-node)))))
 
+(defun lia/open ()
+  "Open current file (or selected file if in dired mode) in an external program."
+  (interactive)
+  (call-process "xdg-open" nil 0 nil
+                (if (eq major-mode 'dired-mode)
+                    (dired-get-file-for-visit)
+                  buffer-file-name)))
+
 (use-package avy
   :ensure t
   :defer t)
@@ -70,6 +78,12 @@
   (setq dream-eater/check-out-name "Jason Liang"
         dream-eater/email lia-secret-email
         dream-eater/exclude-list '("COMMIT_EDITMSG" ".*\\.org$")))
+
+(use-package dired
+  :general
+  (:keymaps
+   'dired-mode-map
+   "C-c C-o" 'lia/open))
 
 (use-package dumb-jump
   :ensure t
