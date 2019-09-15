@@ -13,7 +13,6 @@
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "no-console": "off",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    "no-console": "off"
   }
 }
