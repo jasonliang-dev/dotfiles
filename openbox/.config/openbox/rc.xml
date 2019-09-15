@@ -7,7 +7,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
   </resistance>
   <focus>
     <focusNew>yes</focusNew>
-    <followMouse>yes</followMouse>
+    <followMouse>no</followMouse>
     <focusLast>no</focusLast>
     <underMouse>no</underMouse>
     <focusDelay>0</focusDelay>
@@ -197,44 +197,6 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
     </keybind>
     <!-- End of Workspaces -->
     <!-- Windows -->
-    <keybind key="W-Left">
-      <action name="UnmaximizeFull" />
-      <action name="MaximizeVert" />
-      <action name="MoveResizeTo">
-        <width>50%</width>
-      </action>
-      <action name="MoveToEdge">
-        <direction>west</direction>
-      </action>
-    </keybind>
-    <keybind key="W-Right">
-      <action name="UnmaximizeFull" />
-      <action name="MaximizeVert" />
-      <action name="MoveResizeTo">
-        <width>50%</width>
-      </action>
-      <action name="MoveToEdge">
-        <direction>east</direction>
-      </action>
-    </keybind>
-    <keybind key="W-Up">
-      <action name="UnmaximizeFull" />
-      <action name="MoveResizeTo">
-        <height>50%</height>
-      </action>
-      <action name="MoveToEdge">
-        <direction>north</direction>
-      </action>
-    </keybind>
-    <keybind key="W-Down">
-      <action name="UnmaximizeFull" />
-      <action name="MoveResizeTo">
-        <height>50%</height>
-      </action>
-      <action name="MoveToEdge">
-        <direction>south</direction>
-      </action>
-    </keybind>
     <keybind key="W-w">
       <action name="If">
         <maximized>yes</maximized>
@@ -322,6 +284,82 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
     </keybind>
     <!-- End of Window Focus -->
     <!-- Window Move -->
+    <keybind key="W-Left">
+      <action name="UnmaximizeFull" />
+      <action name="MaximizeVert" />
+      <action name="MoveResizeTo">
+        <width>50%</width>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-Right">
+      <action name="UnmaximizeFull" />
+      <action name="MaximizeVert" />
+      <action name="MoveResizeTo">
+        <width>50%</width>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-Up">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-h">
+      <action name="UnmaximizeFull" />
+      <action name="MaximizeVert" />
+      <action name="MoveResizeTo">
+        <width>50%</width>
+      </action>
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-j">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-k">
+      <action name="UnmaximizeFull" />
+      <action name="MoveResizeTo">
+        <height>50%</height>
+      </action>
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-l">
+      <action name="UnmaximizeFull" />
+      <action name="MaximizeVert" />
+      <action name="MoveResizeTo">
+        <width>50%</width>
+      </action>
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
     <keybind key="W-S-h">
       <action name="MoveRelative">
         <x>-20</x>
