@@ -15,7 +15,7 @@
                                  (web-mode)
                                  (setq web-mode-style-padding 0
                                        web-mode-script-padding 0))))
-  :mode ("\\.php\\'"))
+  :mode ("\\.php\\'" "\\.ejs\\'" "\\.twig\\'"))
 
 (use-package emmet-mode
   :ensure t
