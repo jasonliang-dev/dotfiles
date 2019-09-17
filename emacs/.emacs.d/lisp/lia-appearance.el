@@ -23,7 +23,8 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one t)
+  (defvar lia-theme)
+  (load-theme lia-theme t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -52,11 +53,23 @@
 (use-package xresources-theme
   :disabled t)
 
+;; remove gui bars
+(add-to-list 'default-frame-alist '(tool-bar-lines . 0))
+(add-to-list 'default-frame-alist '(menu-bar-lines . 0))
+(add-to-list 'default-frame-alist '(vertical-scroll-bars))
+
+;; set font
+(defvar lia-font)
+(add-to-list 'default-frame-alist `(font . ,lia-font))
+
 ;; highlight current line when programming
 (add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; highlight matching paren
 (show-paren-mode t)
+
+;; Enable whitespace mode everywhere
+(global-whitespace-mode)
 
 ;; hide cursor except for selected window
 (setq-default cursor-in-non-selected-windows nil)
@@ -65,13 +78,15 @@
 (setq-default display-line-numbers-type 'relative
               display-line-numbers-width 3
               display-line-numbers-widen t)
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; use line numbers when coding
+(defvar lia-use-line-numbers)
+(when lia-use-line-numbers
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+
 
 ;; Visualize tabs and trailing whitespace
 (setq-default whitespace-style '(face tabs tab-mark trailing))
-
-;; Enable whitespace mode everywhere
-(global-whitespace-mode)
 
 (provide 'lia-appearance)
 

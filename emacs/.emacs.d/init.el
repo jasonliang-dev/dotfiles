@@ -23,14 +23,6 @@
                   gc-cons-percentage 0.1
                   file-name-handler-alist lia--file-name-handler-alist)))
 
-;; remove gui bars. done as early as possible
-(add-to-list 'default-frame-alist '(tool-bar-lines . 0))
-(add-to-list 'default-frame-alist '(menu-bar-lines . 0))
-(add-to-list 'default-frame-alist '(vertical-scroll-bars))
-
-;; set font
-(add-to-list 'default-frame-alist '(font . "Iosevka 10"))
-
 ;; don't load site-start
 (setq site-run-file nil)
 
@@ -97,6 +89,9 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lang" user-emacs-directory))
 
+;; load settings, a collection of things that I change frequently
+(require 'lia-settings)
+
 (require 'lia-keybind)    ;; leader and other global hotkeys
 (require 'lia-evil)       ;; evil mode specific configs
 (require 'lia-appearance) ;; emacs appearance
@@ -123,10 +118,12 @@
 ;; -- EXTRAS ---------------------------------------------------------
 
 ;; set default indentation level
-(lia/set-indent 2)
+(lia/set-indent lia-indent-width)
 
-;; use spaces for indentation
-(lia/global-disable-tabs)
+;; set indentation with tabs or spaces
+(if lia-use-tabs
+    (lia/global-enable-tabs)
+  (lia/global-disable-tabs))
 
 ;; stop doing M-x emacs-init-time everytime I start emacs
 (message (emacs-init-time))
