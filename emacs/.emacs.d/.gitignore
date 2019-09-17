@@ -1,0 +1,11 @@
+# whitelist makefile, init.el and some directories
+*
+!.gitignore
+!Makefile
+!init.el
+!lang/
+!lisp/
+!snippets/
+
+# ignore compiled elisp files
+*.elc
