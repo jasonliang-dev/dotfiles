@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
-# set caps lock to escape
+# remap keys
+# caps to escape, right alt to compose
 setxkbmap -option caps:escape &
+setxkbmap -option compose:ralt &
 # no mouse acceleration
 xset m 0 0 &
 # set keyboard repeat rate
