@@ -62,10 +62,6 @@
                     (dired-get-file-for-visit)
                   buffer-file-name)))
 
-(use-package avy
-  :ensure t
-  :defer t)
-
 (use-package dream-eater
   :disabled t
   :commands (global-dream-eater-mode)
@@ -86,7 +82,10 @@
 
 (use-package dumb-jump
   :ensure t
-  :commands (dumb-jump-go))
+  :commands (dumb-jump-go)
+  :init
+  (eval-after-load 'lia-keybind
+    '(lia-bind-leader "j" 'dumb-jump-go)))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -113,7 +112,10 @@
              er/mark-defun
              er/mark-html-attribute
              er/mark-inner-tag
-             er/mark-outer-tag))
+             er/mark-outer-tag)
+  :init
+  (eval-after-load 'lia-keybind
+    '(lia-bind-leader "v" 'er/expand-region)))
 
 (use-package eyebrowse
   :ensure t
@@ -152,7 +154,10 @@
 
 (use-package magit
   :ensure t
-  :defer t)
+  :defer t
+  :init
+  (eval-after-load 'lia-keybind
+    '(lia-bind-leader "g" 'magit-status)))
 
 (use-package neotree
   :ensure t
@@ -163,6 +168,9 @@
         neo-show-hidden-files t
         neo-theme 'icons
         neo-window-width 30)
+
+  (eval-after-load 'lia-keybind
+    '(lia-bind-leader "tt" 'neotree-toggle))
   :config
   (doom-themes-neotree-config)
 
@@ -198,7 +206,24 @@
              projectile-switch-project
              projectile-switch-to-buffer
              projectile-vc)
-  :init (setq projectile-enable-caching t)
+  :init
+  (setq projectile-enable-caching t)
+  (eval-after-load 'lia-keybind
+    '(progn
+       (lia-bind-leader "p!"  'projectile-run-shell-command-in-root)
+       (lia-bind-leader "p%"  'projectile-replace-regexp)
+       (lia-bind-leader "p&"  'projectile-run-async-shell-command-in-root)
+       (lia-bind-leader "pa"  'projectile-toggle-between-implementation-and-test)
+       (lia-bind-leader "pc"  'projectile-compile-project)
+       (lia-bind-leader "pD"  'projectile-dired)
+       (lia-bind-leader "pd"  'projectile-find-dir)
+       (lia-bind-leader "pg"  'projectile-find-tag)
+       (lia-bind-leader "pG"  'projectile-regenerate-tags)
+       (lia-bind-leader "pI"  'projectile-invalidate-cache)
+       (lia-bind-leader "pk"  'projectile-kill-buffers)
+       (lia-bind-leader "pR"  'projectile-replace)
+       (lia-bind-leader "pT"  'projectile-test-project)
+       (lia-bind-leader "pv"  'projectile-vc)))
   :config
   (projectile-mode t)
   (add-to-list 'projectile-globally-ignored-directories "node_modules")

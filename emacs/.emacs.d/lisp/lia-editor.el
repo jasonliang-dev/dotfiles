@@ -60,7 +60,10 @@ Only affects future buffers.  Revert buffer to update indentation."
 (use-package format-all
   :ensure t
   :commands (format-all-buffer
-             format-all-mode))
+             format-all-mode)
+  :init
+  (eval-after-load 'lia-keybind
+    '(lia-bind-leader "F" 'format-all-buffer)))
 
 ;; indent `case' in switch/case
 (c-set-offset 'case-label '+)

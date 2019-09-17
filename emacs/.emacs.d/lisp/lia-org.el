@@ -48,6 +48,17 @@
        "h" 'org-agenda-earlier
        "l" 'org-agenda-later)))
 
+(eval-after-load 'lia-keybind
+  '(progn
+     (lia-bind-leader "a"  'lia/agenda)
+     (lia-bind-leader "oa" 'org-agenda)
+     (lia-bind-leader "oc" 'org-capture)
+     (lia-bind-leader "od" 'lia/goto-org-directory)
+     (lia-bind-leader "oe" 'org-export-dispatch)
+     (lia-bind-leader "ol" 'org-open-at-point)
+     (lia-bind-leader "ot" 'org-todo)
+     (lia-bind-leader "ox" 'org-archive-subtree)))
+
 ;; go into insert mode when using org capture
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 

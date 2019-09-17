@@ -36,7 +36,13 @@
   ;; emacs movement in insert mode
   (setq evil-disable-insert-state-bindings t)
   ;; vim search behaviour
-  (setq evil-search-module 'evil-search))
+  (setq evil-search-module 'evil-search)
+  ;; leader key bindings
+  (eval-after-load 'lia-keybind
+    '(progn
+       (lia-bind-leader "ESC" 'evil-ex-nohighlight)
+       (lia-bind-leader "q"   'evil-quit)
+       (lia-bind-leader "w"   'evil-window-map))))
 
 (use-package evil-collection
   :ensure t
@@ -53,7 +59,10 @@
   :ensure t
   :after evil
   :commands (evil-numbers/inc-at-pt
-             evil-numbers/dec-at-pt))
+             evil-numbers/dec-at-pt)
+  :init
+  (global-set-key (kbd "C-a")   'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-S-a") 'evil-numbers/dec-at-pt))
 
 (use-package evil-snipe
   :ensure t

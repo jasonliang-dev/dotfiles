@@ -31,13 +31,24 @@
   :bind
   (("M-x" . 'helm-M-x)
    ("C-x C-f" . 'helm-find-files)
-   ("C-x C-b" . 'helm-mini)))
+   ("C-x C-b" . 'helm-mini))
+  :init
+  (eval-after-load 'lia-keybind
+    '(progn
+       (lia-bind-leader "SPC" 'helm-M-x)
+       (lia-bind-leader "b"   'helm-mini)
+       (lia-bind-leader "f"   'helm-find-files))))
 
 (use-package helm-swoop
   :ensure t
   :commands (helm-swoop
              helm-multi-swoop
-             helm-multi-swoop-all))
+             helm-multi-swoop-all)
+  :init
+  (eval-after-load 'lia-keybind
+    '(progn
+       (lia-bind-leader "sS" 'helm-multi-swoop-all)
+       (lia-bind-leader "ss" 'helm-swoop))))
 
 (use-package helm-projectile
   :ensure t
@@ -48,7 +59,18 @@
              helm-projectile-find-file
              helm-projectile-grep
              helm-projectile
-             helm-projectile-switch-project))
+             helm-projectile-switch-project)
+  :init
+  (eval-after-load 'lia-keybind
+    '(progn
+       (lia-bind-leader "pb"  'helm-projectile-switch-to-buffer)
+       (lia-bind-leader "pd"  'helm-projectile-find-dir)
+       (lia-bind-leader "pf"  'helm-projectile-find-file)
+       (lia-bind-leader "pF"  'helm-projectile-find-file-dwim)
+       (lia-bind-leader "ph"  'helm-projectile)
+       (lia-bind-leader "pp"  'helm-projectile-switch-project)
+       (lia-bind-leader "pr"  'helm-projectile-recentf)
+       (lia-bind-leader "sgp" 'helm-projectile-grep))))
 
 (use-package yasnippet
   :ensure t
