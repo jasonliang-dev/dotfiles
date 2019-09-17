@@ -21,13 +21,13 @@
 (use-package evil
   :ensure t
   :hook (emacs-startup . evil-mode)
-  :general
-  ([remap evil-next-line]         'evil-next-visual-line
-   [remap evil-previous-line]     'evil-previous-visual-line
-   [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
-   [remap evil-end-of-line]       'evil-end-of-visual-line
-   [remap evil-window-split]      'lia/evil-window-split-and-focus
-   [remap evil-window-vsplit]      'lia/evil-window-vsplit-and-focus)
+  :bind
+  (([remap evil-next-line] . 'evil-next-visual-line)
+   ([remap evil-previous-line] . 'evil-previous-visual-line)
+   ([remap evil-beginning-of-line] . 'evil-beginning-of-visual-line)
+   ([remap evil-end-of-line] . 'evil-end-of-line)
+   ([remap evil-window-split] . 'lia/evil-window-split-and-focus)
+   ([remap evil-window-vsplit] . 'lia/evil-window-vsplit-and-focus))
   :init
   ;; scroll with C-u
   (setq evil-want-C-u-scroll t)
@@ -41,7 +41,7 @@
 (use-package evil-collection
   :ensure t
   :after evil
-  :init (defvar evil-collection-outline-bind-tab-p nil)
+  :init (defvar evil-collection-outline-bind-tab-p nil) ;; TODO: inspect this
   :config (evil-collection-init))
 
 (use-package evil-matchit

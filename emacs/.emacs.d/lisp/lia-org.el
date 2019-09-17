@@ -9,35 +9,6 @@
 (use-package org
   :ensure t
   :defer t
-  :general
-  (:states
-   'normal
-   :keymaps 'org-agenda-mode-map
-   "RET" 'org-agenda-switch-to
-   "."   'org-agenda-goto-today
-   "c"   'org-agenda-goto-calendar
-   "q"   'org-agenda-quit
-   "r"   'org-agenda-redo
-   "s"   'org-save-all-org-buffers
-   "t"   'org-agenda-todo
-   "u"   'org-agenda-undo
-   "x"   'org-agenda-archive
-
-   "1"   'org-agenda-day-view
-   "2"   'org-agenda-week-view
-   "3"   'org-agenda-fortnight-view
-   "4"   'org-agenda-month-view
-   "5"   'org-agenda-year-view
-
-   "H"   'org-agenda-do-date-earlier
-   "L"   'org-agenda-do-date-later
-
-   "j"   'org-agenda-next-line
-   "k"   'org-agenda-previous-line
-   "J"   'org-agenda-next-date-line
-   "K"   'org-agenda-previous-date-line
-   "h"   'org-agenda-earlier
-   "l"   'org-agenda-later)
   :hook (org-mode . lia/disable-tabs)
   :init
   ;; set the directory storing org files
@@ -109,9 +80,38 @@
   ;; enable habits
   (require 'org-habit)
 
-  ;; start agenda in normal mode
   (eval-after-load 'evil
-    '(progn (evil-set-initial-state 'org-agenda-mode 'normal)))
+    '(progn
+       ;; start agenda in normal mode
+       (evil-set-initial-state 'org-agenda-mode 'normal)
+
+       ;; agenda bindings
+       (evil-define-key 'normal org-agenda-mode-map
+         (kbd "RET") 'org-agenda-switch-to
+         "." 'org-agenda-goto-today
+         "c" 'org-agenda-goto-calendar
+         "q" 'org-agenda-quit
+         "r" 'org-agenda-redo
+         "s" 'org-save-all-org-buffers
+         "t" 'org-agenda-todo
+         "u" 'org-agenda-undo
+         "x" 'org-agenda-archive
+
+         "1" 'org-agenda-day-view
+         "2" 'org-agenda-week-view
+         "3" 'org-agenda-fortnight-view
+         "4" 'org-agenda-month-view
+         "5" 'org-agenda-year-view
+
+         "H" 'org-agenda-do-date-earlier
+         "L" 'org-agenda-do-date-later
+
+         "j" 'org-agenda-next-line
+         "k" 'org-agenda-previous-line
+         "J" 'org-agenda-next-date-line
+         "K" 'org-agenda-previous-date-line
+         "h" 'org-agenda-earlier
+         "l" 'org-agenda-later)))
 
   ;; go into insert mode when using org capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)

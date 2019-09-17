@@ -69,20 +69,20 @@
 (use-package dream-eater
   :disabled t
   :commands (global-dream-eater-mode)
-  :general
-  (:keymaps
-   'global-dream-eater-mode-map
-   [remap helm-find-files] 'find-file)
+  :bind
+  (:map
+   global-dream-eater-mode-map
+   ([remap helm-find-files] . 'find-file))
   :init
   (setq dream-eater/check-out-name "Jason Liang"
         dream-eater/email lia-secret-email
         dream-eater/exclude-list '("COMMIT_EDITMSG" ".*\\.org$")))
 
 (use-package dired
-  :general
-  (:keymaps
-   'dired-mode-map
-   "C-c C-o" 'lia/open))
+  :bind
+  (:map
+   dired-mode-map
+   ("C-c C-o" . 'lia/open)))
 
 (use-package dumb-jump
   :ensure t
@@ -145,10 +145,10 @@
 (use-package restclient
   :ensure t
   :mode ("\\.http\\'")
-  :general
-  (:keymaps
-   'restclient-mode-map
-   [remap eval-last-sexp] 'restclient-http-send-current-stay-in-window))
+  :bind
+  (:map
+   restclient-mode-map
+   ([remap eval-last-sexp] . 'restclient-http-send-current-stay-in-window)))
 
 (use-package magit
   :ensure t
@@ -157,13 +157,6 @@
 (use-package neotree
   :ensure t
   :commands (neotree-toggle)
-  :general
-  (:states
-   'normal
-   :keymaps 'neotree-mode-map
-   "SPC" nil
-   "h"   '+neotree/collapse-or-up
-   "l"   '+neotree/expand-or-open)
   :init
   (setq neo-window-fixed-size nil
         neo-smart-open t
@@ -171,7 +164,14 @@
         neo-theme 'icons
         neo-window-width 30)
   :config
-  (doom-themes-neotree-config))
+  (doom-themes-neotree-config)
+
+  ;; neotree bindins
+  (eval-after-load 'evil
+    '(progn
+       (evil-define-key 'normal neotree-mode-map
+         "h" '+neotree/collapse-or-up
+         "l" '+neotree/expand-or-open))))
 
 (use-package projectile
   :ensure t

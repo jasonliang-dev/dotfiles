@@ -55,124 +55,114 @@ Otherwise, open a regular terminal window."
   (defvar org-directory)
   (find-file org-directory))
 
-(use-package general
-  :ensure t
-  :config
-  ;; leader key
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :keymaps 'override
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
-   ""    '(nil :wk "leader key")
-   "ESC" '(evil-ex-nohighlight :wk "clear highlight")
-   "SPC" '(helm-M-x :wk "run command")
-   "TAB" '(mode-line-other-buffer :wk "other buffer")
-   ";"   '(avy-goto-char-2 :wk "avy jump to")
-   "`"   '(lia/terminal :wk "terminal")
-   ","   '(rename-buffer :wk "rename buffer")
-   "b"   '(helm-mini :wk "buffers")
-   "e"   '(eval-last-sexp :wk "eval")
-   "F"   '(format-all-buffer :wk "format buffer")
-   "f"   '(helm-find-files :wk "find files")
-   "g"   '(magit-status :wk "git status")
-   "j"   '(dumb-jump-go :wk "jump")
-   "k"   '(kill-this-buffer :wk "kill buffer")
-   "q"   '(evil-quit :wk "close buffer")
-   "r"   '(revert-buffer :wk "reload file")
-   "u"   '(undo-tree-visualize :wk "show undo tree")
-   "v"   '(er/expand-region :wk "expand region")
+(defun lia-bind-leader (KEY DEF)
+  "Add a keybinding using the leader key.
 
-   ;; toggles
-   "t"  '(:ignore t :wk "toggles")
-   "tl" '(display-line-numbers-mode :wk "line numbers")
-   "tt" '(neotree-toggle :wk "neotree")
+binds <leader>KEY to run DEF."
+  (defvar lia-leader-map)
+  (define-key lia-leader-map (kbd KEY) DEF))
 
-   ;; search
-   "s"  '(:ignore t :wk "search")
-   "sS" 'helm-multi-swoop-all
-   "ss" 'helm-swoop
+(define-prefix-command 'lia-leader-map)
 
-   ;; projectile
-   "p"   '(:ignore t :wk "projectile")
-   "p!"  'projectile-run-shell-command-in-root
-   "p%"  'projectile-replace-regexp
-   "p&"  'projectile-run-async-shell-command-in-root
-   "pa"  'projectile-toggle-between-implementation-and-test
-   "pb"  'helm-projectile-switch-to-buffer
-   "pc"  'projectile-compile-project
-   "pd"  'helm-projectile-find-dir
-   "pD"  'projectile-dired
-   "pd"  'projectile-find-dir
-   "pf"  'helm-projectile-find-file
-   "pF"  'helm-projectile-find-file-dwim
-   "pg"  'projectile-find-tag
-   "pG"  'projectile-regenerate-tags
-   "ph"  'helm-projectile
-   "pI"  'projectile-invalidate-cache
-   "pk"  'projectile-kill-buffers
-   "pp"  'helm-projectile-switch-project
-   "pr"  'helm-projectile-recentf
-   "pR"  'projectile-replace
-   "pT"  'projectile-test-project
-   "pv"  'projectile-vc
-   "sgp" 'helm-projectile-grep
+;; bind leader key to keymap
+(eval-after-load 'evil
+  '(progn
+     (defvar evil-normal-state-map)
+     (defvar evil-visual-state-map)
+     (defvar evil-insert-state-map)
+     (defvar evil-emacs-state-map)
+     (defvar lia-leader-key)
+     (defvar lia-leader-alt-key)
+     (define-key evil-normal-state-map (kbd lia-leader-key)     'lia-leader-map)
+     (define-key evil-visual-state-map (kbd lia-leader-key)     'lia-leader-map)
+     (define-key evil-insert-state-map (kbd lia-leader-alt-key) 'lia-leader-map)
+     (define-key evil-emacs-state-map  (kbd lia-leader-alt-key) 'lia-leader-map)
 
-   ;; window navigation
-   "w"  '(:ignore t :wk "window")
-   "wh" '(windmove-left :wk "go left")
-   "wj" '(windmove-down :wk "go down")
-   "wk" '(windmove-up :wk "go up")
-   "wl" '(windmove-right :wk "go right")
-   "wH" '(evil-window-move-far-left :wk "move window left")
-   "wJ" '(evil-window-move-very-bottom :wk "move window right")
-   "wK" '(evil-window-move-very-top :wk "move window up")
-   "wL" '(evil-window-move-far-right :wk "move window down")
-   "ws" '(evil-window-split :wk "horizontal split")
-   "wv" '(evil-window-vsplit :wk "vertical split")
-   "wo" '(delete-other-windows :wk "maximize")
-   "wq" '(delete-window :wk "close")
-   "w=" '(balance-windows :wk "equal splits")
+     (lia-bind-leader "ESC" 'evil-ex-nohighlight)
+     (lia-bind-leader "SPC" 'helm-M-x)
+     (lia-bind-leader "TAB" 'mode-line-other-buffer)
+     (lia-bind-leader ";"   'avy-goto-char-2)
+     (lia-bind-leader "`"   'lia/terminal)
+     (lia-bind-leader ","   'rename-buffer)
+     (lia-bind-leader "b"   'helm-mini)
+     (lia-bind-leader "e"   'eval-last-sexp)
+     (lia-bind-leader "F"   'format-all-buffer)
+     (lia-bind-leader "f"   'helm-find-files)
+     (lia-bind-leader "g"   'magit-status)
+     (lia-bind-leader "j"   'dumb-jump-go)
+     (lia-bind-leader "k"   'kill-this-buffer)
+     (lia-bind-leader "q"   'evil-quit)
+     (lia-bind-leader "r"   'revert-buffer)
+     (lia-bind-leader "u"   'undo-tree-visualize)
+     (lia-bind-leader "v"   'er/expand-region)
 
-   ;; org
-   "a"  '(lia/agenda :wk "my agenda")
-   "o"  '(:ignore t :wk "org")
-   "oa" '(org-agenda :wk "agenda commands")
-   "oc" '(org-capture :wk "capture")
-   "od" '(lia/goto-org-directory :wk "org directory")
-   "oe" '(org-export-dispatch :wk "org export")
-   "ol" '(org-open-at-point :wk "open link")
-   "ot" '(org-todo :wk "change todo state")
-   "ox" '(org-archive-subtree :wk "archive")
+     ;; toggles
+     (lia-bind-leader "tl" 'display-line-numbers-mode)
+     (lia-bind-leader "tt" 'neotree-toggle)
 
-   ;; lsp-mode
-   "l"   '(:ignore t :wk "lsp")
-   "lf"  '(:ignore t :wk "find")
-   "lfd" '(lsp-ui-peek-find-definitions :wk "definitions under point")
-   "lfr" '(lsp-ui-peek-find-references :wk "references under point")
-   "lh"  '(lsp-ui-doc-show :wk "show documentation")
-   "lH"  '(lsp-ui-doc-hide :wk "hide documentation")
-   "ls"  '(helm-lsp-workspace-symbol :wk "search symbol")
+     ;; search
+     (lia-bind-leader "sS" 'helm-multi-swoop-all)
+     (lia-bind-leader "ss" 'helm-swoop)
 
-   ;; edit `init.el'
-   "1" '(lia/config-file :wk "init.el")
+     ;; projectile
+     (lia-bind-leader "p!"  'projectile-run-shell-command-in-root)
+     (lia-bind-leader "p%"  'projectile-replace-regexp)
+     (lia-bind-leader "p&"  'projectile-run-async-shell-command-in-root)
+     (lia-bind-leader "pa"  'projectile-toggle-between-implementation-and-test)
+     (lia-bind-leader "pb"  'helm-projectile-switch-to-buffer)
+     (lia-bind-leader "pc"  'projectile-compile-project)
+     (lia-bind-leader "pd"  'helm-projectile-find-dir)
+     (lia-bind-leader "pD"  'projectile-dired)
+     (lia-bind-leader "pd"  'projectile-find-dir)
+     (lia-bind-leader "pf"  'helm-projectile-find-file)
+     (lia-bind-leader "pF"  'helm-projectile-find-file-dwim)
+     (lia-bind-leader "pg"  'projectile-find-tag)
+     (lia-bind-leader "pG"  'projectile-regenerate-tags)
+     (lia-bind-leader "ph"  'helm-projectile)
+     (lia-bind-leader "pI"  'projectile-invalidate-cache)
+     (lia-bind-leader "pk"  'projectile-kill-buffers)
+     (lia-bind-leader "pp"  'helm-projectile-switch-project)
+     (lia-bind-leader "pr"  'helm-projectile-recentf)
+     (lia-bind-leader "pR"  'projectile-replace)
+     (lia-bind-leader "pT"  'projectile-test-project)
+     (lia-bind-leader "pv"  'projectile-vc)
+     (lia-bind-leader "sgp" 'helm-projectile-grep)
 
-   ;; run external
-   "RET"   '(lia/external-terminal :wk "external terminal")
-   "C-SPC" '(browse-file-directory :wk "open file explorer"))
+     ;; window navigation
+     (lia-bind-leader "wh" 'windmove-left)
+     (lia-bind-leader "wj" 'windmove-down)
+     (lia-bind-leader "wk" 'windmove-up)
+     (lia-bind-leader "wl" 'windmove-right)
+     (lia-bind-leader "wH" 'evil-window-move-far-left)
+     (lia-bind-leader "wJ" 'evil-window-move-very-bottom)
+     (lia-bind-leader "wK" 'evil-window-move-very-top)
+     (lia-bind-leader "wL" 'evil-window-move-far-right)
+     (lia-bind-leader "ws" 'evil-window-split)
+     (lia-bind-leader "wv" 'evil-window-vsplit)
+     (lia-bind-leader "wo" 'delete-other-windows)
+     (lia-bind-leader "wq" 'delete-window)
+     (lia-bind-leader "w=" 'balance-windows)
 
-  ;; motion state bindings
-  (general-define-key
-   :states '(normal visual motion)
-   "C-a"     'evil-numbers/inc-at-pt
-   "C-S-a"   'evil-numbers/dec-at-pt
-   "C-c C-u" 'universal-argument
-   "C-;"     "*``")
+     ;; org
+     (lia-bind-leader "a"  'lia/agenda)
+     (lia-bind-leader "oa" 'org-agenda)
+     (lia-bind-leader "oc" 'org-capture)
+     (lia-bind-leader "od" 'lia/goto-org-directory)
+     (lia-bind-leader "oe" 'org-export-dispatch)
+     (lia-bind-leader "ol" 'org-open-at-point)
+     (lia-bind-leader "ot" 'org-todo)
+     (lia-bind-leader "ox" 'org-archive-subtree)
 
-  ;; global bindings
-  (general-define-key
-   "C-s"  'save-buffer
-   "<f5>" 'revert-buffer))
+     ;; edit `init.el'
+     (lia-bind-leader "1" 'lia/config-file)
+
+     ;; run external
+     (lia-bind-leader "RET"   'lia/external-terminal)
+     (lia-bind-leader "C-SPC" 'browse-file-directory)))
+
+(global-set-key (kbd "C-s")   'save-buffer)
+(global-set-key (kbd "C-a")   'evil-numbers/inc-at-pt)
+(global-set-key (kbd "C-S-a") 'evil-numbers/dec-at-pt)
 
 (provide 'lia-keybind)
 

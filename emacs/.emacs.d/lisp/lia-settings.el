@@ -16,7 +16,11 @@
  ;; display font
  lia-font "Iosevka 10"
  ;; when non-nil, buffers will show line numbers when in prog-mode
- lia-use-line-numbers nil)
+ lia-use-line-numbers nil
+ ;; leader key prefix
+ lia-leader-key "SPC"
+ ;; alternative leader key when in insert and emacs state
+ lia-leader-alt-key "M-SPC")
 
 (provide 'lia-settings)
 

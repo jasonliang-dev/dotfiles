@@ -12,10 +12,6 @@
 
 (use-package js2-mode
   :ensure t
-  :general
-  (:keymaps
-   'js-mode-map
-   [remap evil-jump-to-tag] 'js2-jump-to-definition)
   :mode "\\.js\\'"
   :hook ((js2-mode . js2-imenu-extras-mode))
   :init

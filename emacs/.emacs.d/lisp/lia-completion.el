@@ -9,10 +9,11 @@
 (use-package company
   :ensure t
   :hook (prog-mode . company-mode)
-  :general
-  (company-active-map
-   "C-n" #'company-select-next
-   "C-p" #'company-select-previous)
+  :bind
+  (:map
+   company-active-map
+   ("C-n" . #'company-select-next)
+   ("C-p" . #'company-select-previous))
   :init
   ;; don't delay autocomplete suggesstions
   ;; (setq company-idle-delay 0)
@@ -27,10 +28,10 @@
 
 (use-package helm
   :ensure t
-  :general
-  ("M-x"     'helm-M-x
-   "C-x C-f" 'helm-find-files
-   "C-x C-b" 'helm-mini))
+  :bind
+  (("M-x" . 'helm-M-x)
+   ("C-x C-f" . 'helm-find-files)
+   ("C-x C-b" . 'helm-mini)))
 
 (use-package helm-swoop
   :ensure t
