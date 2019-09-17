@@ -59,11 +59,6 @@
 
 (eval-when-compile (require 'use-package))
 
-;; install packages declared by `use-package'
-;; this doesn't work for me. is it because of lexical binding?
-;; just add :ensure t to everything instead
-;;(setq use-package-always-ensure t)
-
 ;; -- CUSTOMIZE FILE -------------------------------------------------
 
 ;; put emacs customize stuff in a separate file

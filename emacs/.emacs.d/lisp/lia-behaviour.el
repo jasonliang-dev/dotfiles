@@ -204,12 +204,6 @@
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "vendor"))
 
-(use-package wakatime-mode
-  :ensure nil
-  :disabled t
-  :defer 5
-  :config (global-wakatime-mode))
-
 (use-package which-key
   :ensure t
   :config (which-key-mode t))

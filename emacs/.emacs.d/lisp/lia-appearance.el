@@ -50,9 +50,6 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package xresources-theme
-  :disabled t)
-
 ;; remove gui bars
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
@@ -63,7 +60,7 @@
 (add-to-list 'default-frame-alist `(font . ,lia-font))
 
 ;; highlight current line when programming
-(add-hook 'prog-mode-hook 'hl-line-mode)
+;; (add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; highlight matching paren
 (show-paren-mode t)
@@ -83,7 +80,6 @@
 (defvar lia-use-line-numbers)
 (when lia-use-line-numbers
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-
 
 ;; Visualize tabs and trailing whitespace
 (setq-default whitespace-style '(face tabs tab-mark trailing))
