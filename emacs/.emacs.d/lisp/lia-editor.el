@@ -7,11 +7,10 @@
 ;;; Code:
 
 (defun lia/set-indent (N)
-  "Set the indentation level to N spaces."
+  "Set the indentation level to N spaces to new buffers."
   (interactive "nIndentation size:")
-  (setq tab-width N) ; local
-  (setq-default tab-width N) ; and global
-  (setq-default evil-shift-width N
+  (setq-default tab-width N
+                evil-shift-width N
                 haskell-indentation-layout-offset N
                 haskell-indentation-starter-offset N
                 haskell-indentation-left-offset N
@@ -19,9 +18,10 @@
                 haskell-indentation-where-pre-offset (floor (/ N 2))
                 haskell-indentation-where-post-offset N
                 c-basic-offset N
+                sh-basic-offset N
                 javascript-indent-level N
                 js-indent-level N
-                js-switch-indent-offset N ; switch-case indentation
+                js-switch-indent-offset N
                 css-indent-offset N
                 web-mode-markup-indent-offset N
                 web-mode-css-indent-offset N
