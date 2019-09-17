@@ -62,21 +62,34 @@ binds <leader>KEY to run DEF."
   (defvar lia-leader-map)
   (define-key lia-leader-map (kbd KEY) DEF))
 
+(define-minor-mode lia-intercept-mode
+  "Global minor mode for higher precedence evil keybindings."
+  :global t
+  :keymap (make-sparse-keymap))
+
+(lia-intercept-mode)
+
+;; create the leader keymap
 (define-prefix-command 'lia-leader-map)
 
 ;; bind leader key to keymap
 (eval-after-load 'evil
   '(progn
-     (defvar evil-normal-state-map)
-     (defvar evil-visual-state-map)
-     (defvar evil-insert-state-map)
-     (defvar evil-emacs-state-map)
      (defvar lia-leader-key)
      (defvar lia-leader-alt-key)
-     (define-key evil-normal-state-map (kbd lia-leader-key)     'lia-leader-map)
-     (define-key evil-visual-state-map (kbd lia-leader-key)     'lia-leader-map)
-     (define-key evil-insert-state-map (kbd lia-leader-alt-key) 'lia-leader-map)
-     (define-key evil-emacs-state-map  (kbd lia-leader-alt-key) 'lia-leader-map)
+
+     (dolist (state '(normal visual insert))
+       (evil-make-intercept-map
+        ;; NOTE: This requires an evil version from 2018-03-20 or later
+        (evil-get-auxiliary-keymap lia-intercept-mode-map state t t)
+        state))
+
+     (evil-define-key 'motion lia-intercept-mode-map
+       (kbd lia-leader-key) 'lia-leader-map)
+     (evil-define-key 'insert lia-intercept-mode-map
+       (kbd lia-leader-alt-key) 'lia-leader-map)
+     (evil-define-key 'emacs lia-intercept-mode-map
+       (kbd lia-leader-alt-key) 'lia-leader-map)
 
      (lia-bind-leader "ESC" 'evil-ex-nohighlight)
      (lia-bind-leader "SPC" 'helm-M-x)
@@ -95,6 +108,7 @@ binds <leader>KEY to run DEF."
      (lia-bind-leader "r"   'revert-buffer)
      (lia-bind-leader "u"   'undo-tree-visualize)
      (lia-bind-leader "v"   'er/expand-region)
+     (lia-bind-leader "w"   'evil-window-map)
 
      ;; toggles
      (lia-bind-leader "tl" 'display-line-numbers-mode)
@@ -127,21 +141,6 @@ binds <leader>KEY to run DEF."
      (lia-bind-leader "pT"  'projectile-test-project)
      (lia-bind-leader "pv"  'projectile-vc)
      (lia-bind-leader "sgp" 'helm-projectile-grep)
-
-     ;; window navigation
-     (lia-bind-leader "wh" 'windmove-left)
-     (lia-bind-leader "wj" 'windmove-down)
-     (lia-bind-leader "wk" 'windmove-up)
-     (lia-bind-leader "wl" 'windmove-right)
-     (lia-bind-leader "wH" 'evil-window-move-far-left)
-     (lia-bind-leader "wJ" 'evil-window-move-very-bottom)
-     (lia-bind-leader "wK" 'evil-window-move-very-top)
-     (lia-bind-leader "wL" 'evil-window-move-far-right)
-     (lia-bind-leader "ws" 'evil-window-split)
-     (lia-bind-leader "wv" 'evil-window-vsplit)
-     (lia-bind-leader "wo" 'delete-other-windows)
-     (lia-bind-leader "wq" 'delete-window)
-     (lia-bind-leader "w=" 'balance-windows)
 
      ;; org
      (lia-bind-leader "a"  'lia/agenda)
