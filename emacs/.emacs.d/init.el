@@ -247,9 +247,49 @@
 
 (use-package projectile
   :ensure t
-  :commands projectile-command-map
+  :commands (projectile-ack
+             projectile-ag
+             projectile-compile-project
+             projectile-dired
+             projectile-find-dir
+             projectile-find-file
+             projectile-find-tag
+             projectile-test-project
+             projectile-grep
+             projectile-invalidate-cache
+             projectile-kill-buffers
+             projectile-multi-occur
+             projectile-project-p
+             projectile-project-root
+             projectile-recentf
+             projectile-regenerate-tags
+             projectile-replace
+             projectile-replace-regexp
+             projectile-run-async-shell-command-in-root
+             projectile-run-shell-command-in-root
+             projectile-switch-project
+             projectile-switch-to-buffer
+             projectile-vc)
   :init
-  (lia-leader-def "p" 'projectile-command-map)
+  (lia-leader-def "p!"  'projectile-run-shell-command-in-root)
+  (lia-leader-def "p%"  'projectile-replace-regexp)
+  (lia-leader-def "p&"  'projectile-run-async-shell-command-in-root)
+  (lia-leader-def "pa"  'projectile-toggle-between-implementation-and-test)
+  (lia-leader-def "pb"  'projectile-switch-to-buffer)
+  (lia-leader-def "pc"  'projectile-compile-project)
+  (lia-leader-def "pD"  'projectile-dired)
+  (lia-leader-def "pd"  'projectile-find-dir)
+  (lia-leader-def "pf"  'projectile-find-file)
+  (lia-leader-def "pg"  'projectile-find-tag)
+  (lia-leader-def "pG"  'projectile-regenerate-tags)
+  (lia-leader-def "pI"  'projectile-invalidate-cache)
+  (lia-leader-def "pk"  'projectile-kill-buffers)
+  (lia-leader-def "pp"  'projectile-switch-project)
+  (lia-leader-def "pR"  'projectile-replace)
+  (lia-leader-def "pr"  'projectile-recentf)
+  (lia-leader-def "pT"  'projectile-test-project)
+  (lia-leader-def "pv"  'projectile-vc)
+  (lia-leader-def "sgp" 'projectile-grep)
   (setq projectile-enable-caching t)
   (setq projectile-completion-system 'ivy)
   :config
