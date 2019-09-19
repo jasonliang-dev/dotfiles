@@ -1,30 +1,14 @@
-;;; init.el --- Emacs Config -*- lexical-binding: t; -*-
-
-;;; Commentary:
-
-;; Just a Emacs config
-
-;;; Code:
+;; -*- lexical-binding: t; -*-
 
 ;; -- EARLY INITIALIZATION -------------------------------------------
 
-;; avoid garbage collection until the end
+;; avoid garbage collection
 (setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6)
 
-;; disable file handler
+;; unset file-name-handler-alist
 (defvar lia--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
-
-;; set gc and file handler back to default after all the dust has settled
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold 16777216
-                  gc-cons-percentage 0.1
-                  file-name-handler-alist lia--file-name-handler-alist)))
-
-;; don't load site-start
-(setq site-run-file nil)
 
 ;; be quiet at startup; don't load or display anything unnecessary
 ;; shamelessly stolen from doom-emacs
@@ -38,21 +22,24 @@
         initial-scratch-message nil
         mode-line-format nil))
 
+;; remove bars and blinking cursor
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(blink-cursor-mode -1)
+
 ;; -- PACKAGE SETUP --------------------------------------------------
 
+;; bootstrap use-package
 (require 'package)
-
-(setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-enable-at-startup nil)
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
                          ;; if elpa.gnu.org is down. try the mirror on github:
                          ;; ("gnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")
                          ))
-
 (package-initialize)
 
-;; install use-package if not installed already
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -70,57 +57,277 @@
 
 (load custom-file nil t)
 
-;; -- LOAD REST OF CONFIG --------------------------------------------
+;; -- PACKAGES -------------------------------------------------------
 
-;; load secret file
-(defvar lia-secret-file (if (eq system-type 'windows-nt)
-                            (concat (getenv "HOMEPATH") "\\Dropbox\\lia-secret.el")
-                          "~/Dropbox/lia-secret.el"))
+(use-package general
+  :ensure t
+  :config
+  (general-create-definer lia-leader-def
+    :states '(normal visual insert emacs)
+    :keymaps 'override
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC")
 
-(when (file-exists-p lia-secret-file)
-  (load lia-secret-file nil t))
+  (lia-leader-def "TAB" 'mode-line-other-buffer)
+  (lia-leader-def ","   'rename-buffer)
+  (lia-leader-def "e"   'eval-last-sexp)
+  (lia-leader-def "k"   'kill-this-buffer)
+  (lia-leader-def "r"   'revert-buffer)
+  (lia-leader-def "u"   'undo-tree-visualize)
 
-;; load files in emacs config directory
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "lang" user-emacs-directory))
+  ;; open config file
+  (lia-leader-def "1"
+    (lambda ()
+      (interactive)
+      (find-file (expand-file-name "init.el" user-emacs-directory))))
 
-;; load settings, a collection of things that I change frequently
-(require 'lia-settings)
+  ;; run tmux in scratchpad terminal
+  (lia-leader-def "RET"
+    (lambda ()
+      (interactive)
+      (when (zerop (shell-command
+                    (concat "tmux new-window -c '"
+                            (expand-file-name default-directory)
+                            "'")))
+        (call-process-shell-command "~/scripts/scratchpad.sh" nil 0)))))
 
-(require 'lia-keybind)    ;; leader and other global hotkeys
-(require 'lia-evil)       ;; evil mode specific configs
-(require 'lia-appearance) ;; emacs appearance
-(require 'lia-completion) ;; helm, code completion, snippets
-(require 'lia-editor)     ;; indentation, text manipulation
-(require 'lia-behaviour)  ;; additional behaviours that don't fit in previous sections
-(require 'lia-org)        ;; org mode configuration
+;; -- EVIL --
 
-;; load languages
-(require 'lang-c)
-(require 'lang-clojure)
-(require 'lang-css)
-(require 'lang-data)
-(require 'lang-elm)
-(require 'lang-haskell)
-(require 'lang-javascript)
-(require 'lang-lua)
-(require 'lang-markdown)
-;; (require 'lang-php) ;; <-- screw you
-(require 'lang-prolog)
-(require 'lang-scala)
-(require 'lang-web)
+(defun lia/evil-window-split-and-focus ()
+  "Split window horizontally and focus other window."
+  (interactive)
+  (evil-window-split)
+  (other-window 1))
 
-;; -- EXTRAS ---------------------------------------------------------
+(defun lia/evil-window-vsplit-and-focus ()
+  "Split window vertically and focus other window."
+  (interactive)
+  (evil-window-vsplit)
+  (other-window 1))
 
-;; set default indentation level
-(lia/set-indent lia-indent-width)
+(use-package evil
+  :ensure t
+  :hook (after-init . evil-mode)
+  :general
+  ([remap evil-next-line]         'evil-next-visual-line
+   [remap evil-previous-line]     'evil-previous-visual-line
+   [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
+   [remap evil-end-of-line]       'evil-end-of-visual-line
+   [remap evil-window-split]      'lia/evil-window-split-and-focus
+   [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
+  :init
+  ;; leader bindings
+  (lia-leader-def "ESC" 'evil-ex-nohighlight)
+  (lia-leader-def "q"   'evil-quit)
+  (lia-leader-def "w"   'evil-window-map)
+  ;; scroll with C-u
+  (setq evil-want-C-u-scroll t)
+  ;; emacs movement in insert mode
+  (setq evil-disable-insert-state-bindings t)
+  ;; vim search behaviour
+  (setq evil-search-module 'evil-search))
 
-;; set indentation with tabs or spaces
-(if lia-use-tabs
-    (lia/global-enable-tabs)
-  (lia/global-disable-tabs))
+(use-package evil-magit
+  :ensure t
+  :after (evil magit))
 
-;; stop doing M-x emacs-init-time everytime I start emacs
-(message (emacs-init-time))
+(use-package evil-matchit
+  :ensure t
+  :after evil
+  :config
+  (global-evil-matchit-mode 1))
 
-;;; init.el ends here
+;; -- THE BIG THREE --
+
+(use-package ivy
+  :ensure t
+  :hook (after-init . ivy-mode)
+  :init
+  (lia-leader-def "SPC" 'counsel-M-x)
+  (lia-leader-def "f"   'counsel-find-file)
+  (lia-leader-def "b"   'ivy-switch-buffer)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :config
+  (counsel-mode))
+
+(use-package swiper
+  :ensure t
+  :after ivy
+  :init
+  (lia-leader-def "sS" 'swiper-all)
+  (lia-leader-def "ss" 'swiper))
+
+;; -- APPEARANCE --
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-one))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :init
+  (setq doom-modeline-height 35
+        doom-modeline-buffer-file-name-style 'buffer-name))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; display line numbers settings
+(setq-default display-line-numbers-width 3
+              display-line-numbers-widen t)
+
+;; Visualize tabs and trailing whitespace
+(setq-default whitespace-style '(face tabs tab-mark trailing))
+
+;; highlight matching paren
+(show-paren-mode t)
+
+;; Enable whitespace mode everywhere
+(global-whitespace-mode)
+
+;; set font
+(set-frame-font "Iosevka 10" nil t)
+
+;; --
+
+(use-package company
+  :ensure t
+  :hook (prog-mode . company-mode)
+  :general
+  (company-active-map
+   "C-n" 'company-select-next
+   "C-p" 'company-select-previous)
+  :init
+  ;; don't delay autocomplete suggesstions
+  (setq company-idle-delay 0)
+
+  ;; popup completions after typing a single character
+  (setq company-minimum-prefix-length 1))
+
+(use-package dtrt-indent
+  :ensure t
+  :hook (prog-mode . dtrt-indent-mode))
+
+(use-package emmet-mode
+  ;; C-j to expand
+  :ensure t
+  :hook (sgml-mode . emmet-mode))
+
+(use-package expand-region
+  :ensure t
+  :commands er/expand-region
+  :init
+  (lia-leader-def "v" 'er/expand-region))
+
+(use-package format-all
+  :ensure t
+  :commands format-all-buffer
+  :init
+  (lia-leader-def "F" 'format-all-buffer))
+
+(use-package magit
+  :ensure t
+  :defer t
+  :init
+  (lia-leader-def "g" 'magit-status))
+
+(use-package projectile
+  :ensure t
+  :commands projectile-command-map
+  :init
+  (lia-leader-def "p" 'projectile-command-map)
+  (setq projectile-enable-caching t)
+  (setq projectile-completion-system 'ivy)
+  :config
+  (projectile-mode t)
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "vendor"))
+
+;; -- LANGUAGES --
+
+(use-package restclient
+  :ensure t
+  :mode ("\\.http\\'")
+  :general
+  (restclient-mode-map
+   [remap eval-last-sexp] 'restclient-http-send-current-stay-in-window))
+
+;; --
+
+(defun lia/toggle-line-number-type ()
+  "Toggle the line number type between absolute and relative."
+  (interactive)
+  (setq display-line-numbers-type
+        (if (eq display-line-numbers-type 'relative)
+            (progn (message "Line number type: absolute") t)
+          (progn (message "Line number type: relative") 'relative)))
+  ;; update line numbers if it's currently being displayed
+  (when (bound-and-true-p display-line-numbers-mode)
+    (display-line-numbers--turn-on)))
+
+;; --
+
+;; don't use tabs for indentation
+(setq-default indent-tabs-mode nil)
+
+;; change indent size
+(setq-default tab-width 2)
+(setq-default evil-shift-width 2)
+
+;; show column number
+(setq column-number-mode t)
+
+;; move backup~ files to its own directory
+(setq backup-directory-alist
+      `((".*" . ,(concat user-emacs-directory "backups"))))
+
+;; no #autosave# files
+(setq auto-save-default nil)
+
+;; no .#lock files
+(setq create-lockfiles nil)
+
+;; better mouse scrolling
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
+      mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
+      mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+
+;; smooth scroll
+(setq scroll-step 1
+      scroll-conservatively 1000)
+
+;; backspace simply deletes a character
+(setq backward-delete-char-untabify-method nil)
+
+;; reset garbage collector and file name handler
+(setq gc-cons-threshold 16777216
+      gc-cons-percentage 0.1
+      file-name-handler-alist lia--file-name-handler-alist)
+
+;; --
+
+;; yes/no prompt is now y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; files that change on disk automatically get reverted
+(global-auto-revert-mode t)
+
+;; show startup time
+(message
+ (format "Started up in %.2f seconds with %d garbage collections."
+         (float-time (time-subtract after-init-time before-init-time))
+         gcs-done))
