@@ -233,6 +233,23 @@
   :init
   (lia-leader-def "v" 'er/expand-region))
 
+(use-package flycheck
+  :ensure t
+  :hook (prog-mode . flycheck-mode)
+  :init
+  (defun lia--use-eslint-from-node-modules ()
+    "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+
+  (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
+
 (use-package format-all
   :ensure t
   :commands format-all-buffer
