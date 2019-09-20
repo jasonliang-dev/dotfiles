@@ -80,16 +80,6 @@ nnoremap k gk
 " change working directory to current file
 nnoremap <leader>dd :lcd %:p:h<CR>
 
-" easy split navigation
-nnoremap <leader>wj <C-W><C-J>
-nnoremap <leader>wk <C-W><C-K>
-nnoremap <leader>wl <C-W><C-L>
-nnoremap <leader>wh <C-W><C-H>
-
-" create splits
-nnoremap <leader>ws :sp<CR>
-nnoremap <leader>wv :vsp<CR>
-
 " leader + w is C-w
 nnoremap <leader>w <C-W>
 
