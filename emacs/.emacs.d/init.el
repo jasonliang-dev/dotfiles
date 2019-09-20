@@ -378,7 +378,14 @@
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
-  :init (setq haskell-process-type 'stack-ghci))
+  :init
+  (setq haskell-process-type 'stack-ghci)
+  (setq-default haskell-indentation-layout-offset     lia-indent-width
+                haskell-indentation-starter-offset    lia-indent-width
+                haskell-indentation-left-offset       lia-indent-width
+                haskell-indentation-ifte-offset       lia-indent-width
+                haskell-indentation-where-pre-offset  lia-indent-width
+                haskell-indentation-where-post-offset lia-indent-width))
 
 (use-package flycheck-haskell
   :ensure t
@@ -432,7 +439,13 @@
 (use-package web-mode
   :ensure t
   :init
-  (setq-default web-mode-enable-auto-pairing nil)
+  (setq-default web-mode-enable-auto-pairing  nil
+                web-mode-markup-indent-offset lia-indent-width
+                web-mode-css-indent-offset    lia-indent-width
+                web-mode-code-indent-offset   lia-indent-width
+                web-mode-script-padding       lia-indent-width
+                web-mode-style-padding        lia-indent-width)
+
   (add-to-list 'auto-mode-alist
                '("\\.vue\\'" . (lambda ()
                                  (web-mode)
@@ -483,8 +496,14 @@
 (setq-default indent-tabs-mode lia-use-tabs)
 
 ;; change indent size
-(setq-default tab-width lia-indent-width)
-(setq-default evil-shift-width lia-indent-width)
+(setq-default tab-width                             lia-indent-width
+              evil-shift-width                      lia-indent-width
+              c-basic-offset                        lia-indent-width
+              sh-basic-offset                       lia-indent-width
+              javascript-indent-level               lia-indent-width
+              js-indent-level                       lia-indent-width
+              js-switch-indent-offset               lia-indent-width
+              css-indent-offset                     lia-indent-width)
 
 ;; show column number in the modebar
 (setq column-number-mode t)
@@ -518,6 +537,9 @@
 ;; display line numbers when in `prog-mode'
 (when lia-use-line-numbers
   (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+
+;; indent `case' in switch/case
+(c-set-offset 'case-label '+)
 
 ;; pair up delimiters: "", (), [], {}
 (electric-pair-mode t)
