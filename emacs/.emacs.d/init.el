@@ -6,6 +6,27 @@
 
 ;;; Code:
 
+(defconst lia-use-tabs nil
+  "When non-nil, indentation uses tab characters instead of spaces.")
+
+(defconst lia-indent-width 2
+  "Default indentation width.")
+
+(defconst lia-display-font "Iosevka 10"
+  "Set the font.")
+
+(defconst lia-theme 'doom-one
+  "Emacs theme to use.")
+
+(defconst lia-use-line-numbers nil
+  "When non-nil, show line numbers when programming.")
+
+(defconst lia-leader-key "SPC"
+  "Leader key prefix.")
+
+(defconst lia-leader-alt-key "M-SPC"
+  "Alternative leader key when in `insert' and `emacs' state.")
+
 ;; -- EARLY INITIALIZATION -------------------------------------------
 
 ;; avoid garbage collection
@@ -69,10 +90,10 @@
   :ensure t
   :config
   (general-create-definer lia-leader-def
-    :states '(normal visual insert emacs)
+    :states '(motion insert emacs)
     :keymaps 'override
-    :prefix "SPC"
-    :non-normal-prefix "M-SPC")
+    :prefix lia-leader-key
+    :non-normal-prefix lia-leader-alt-key)
 
   (lia-leader-def "TAB" 'mode-line-other-buffer)
   (lia-leader-def ","   'rename-buffer)
@@ -95,21 +116,19 @@
                     (concat "tmux new-window -c '"
                             (expand-file-name default-directory)
                             "'")))
-        (call-process-shell-command "~/scripts/scratchpad.sh" nil 0)))))
+        (call-process-shell-command "~/scripts/scratchpad.sh" nil 0))))
+
+  ;; open current file externally
+  (general-define-key
+   :keymaps 'dired-mode-map
+   "C-c C-o" 'lia/open)
+
+  ;; global keybindings
+  (general-define-key
+   "C-s" 'save-buffer
+   [remap delete-other-windows] 'lia/toggle-other-windows))
 
 ;; -- EVIL --
-
-(defun lia/evil-window-split-and-focus ()
-  "Split window horizontally and focus other window."
-  (interactive)
-  (evil-window-split)
-  (other-window 1))
-
-(defun lia/evil-window-vsplit-and-focus ()
-  "Split window vertically and focus other window."
-  (interactive)
-  (evil-window-vsplit)
-  (other-window 1))
 
 (use-package evil
   :ensure t
@@ -122,6 +141,18 @@
    [remap evil-window-split]      'lia/evil-window-split-and-focus
    [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
   :init
+  (defun lia/evil-window-split-and-focus ()
+    "Split window horizontally and focus other window."
+    (interactive)
+    (evil-window-split)
+    (other-window 1))
+
+  (defun lia/evil-window-vsplit-and-focus ()
+    "Split window vertically and focus other window."
+    (interactive)
+    (evil-window-vsplit)
+    (other-window 1))
+
   ;; leader bindings
   (lia-leader-def "ESC" 'evil-ex-nohighlight)
   (lia-leader-def "q"   'evil-quit)
@@ -144,11 +175,27 @@
   :config
   (global-evil-matchit-mode 1))
 
+(use-package evil-numbers
+  :ensure t
+  :general
+  (:states
+   'motion
+   "C-a"   'evil-numbers/inc-at-pt
+   "C-S-a" 'evil-numbers/dec-at-pt))
+
+(use-package evil-surround
+  :ensure t
+  :after evil
+  :config (global-evil-surround-mode))
+
 ;; -- THE BIG THREE --
 
 (use-package ivy
   :ensure t
   :hook (after-init . ivy-mode)
+  :general
+  (ivy-minibuffer-map
+   "TAB" 'ivy-alt-done)
   :init
   (lia-leader-def "SPC" 'counsel-M-x)
   (lia-leader-def "f"   'counsel-find-file)
@@ -165,6 +212,9 @@
 (use-package counsel
   :ensure t
   :after ivy
+  :init
+  (lia-leader-def "s" 'counsel-grep-or-swiper)
+  (lia-leader-def "y" 'counsel-yank-pop)
   :config
   (counsel-mode))
 
@@ -172,15 +222,14 @@
   :ensure t
   :after ivy
   :init
-  (lia-leader-def "sS" 'swiper-all)
-  (lia-leader-def "ss" 'swiper))
+  (lia-leader-def "S" 'swiper-all))
 
 ;; -- APPEARANCE --
 
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one))
+  (load-theme lia-theme))
 
 (use-package doom-modeline
   :ensure t
@@ -197,7 +246,7 @@
 (setq-default display-line-numbers-width 3
               display-line-numbers-widen t)
 
-;; Visualize tabs and trailing whitespace
+;; visualize tabs and trailing whitespace
 (setq-default whitespace-style '(face tabs tab-mark trailing))
 
 ;; highlight matching paren
@@ -207,9 +256,9 @@
 (global-whitespace-mode)
 
 ;; set font
-(set-frame-font "Iosevka 10" nil t)
+(set-frame-font lia-display-font nil t)
 
-;; --
+;; -- EDITOR --
 
 (use-package company
   :ensure t
@@ -229,6 +278,12 @@
   :ensure t
   :hook (prog-mode . dtrt-indent-mode))
 
+(use-package dumb-jump
+  :ensure t
+  :commands (dumb-jump-go)
+  :init
+  (lia-leader-def "j" 'dumb-jump-go))
+
 (use-package emmet-mode
   ;; C-j to expand
   :ensure t
@@ -236,6 +291,16 @@
          (css-mode . emmet-mode)
          (rjsx-mode . emmet-mode)
          (web-mode . emmet-mode)))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :defer 1
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (message "Path loaded"))
 
 (use-package expand-region
   :ensure t
@@ -274,55 +339,21 @@
 
 (use-package projectile
   :ensure t
-  :commands (projectile-ack
-             projectile-ag
-             projectile-compile-project
-             projectile-dired
-             projectile-find-dir
-             projectile-find-file
-             projectile-find-tag
-             projectile-test-project
-             projectile-grep
-             projectile-invalidate-cache
-             projectile-kill-buffers
-             projectile-multi-occur
-             projectile-project-p
-             projectile-project-root
-             projectile-recentf
-             projectile-regenerate-tags
-             projectile-replace
-             projectile-replace-regexp
-             projectile-run-async-shell-command-in-root
-             projectile-run-shell-command-in-root
-             projectile-switch-project
-             projectile-switch-to-buffer
-             projectile-vc)
+  :defer t
   :init
-  (lia-leader-def "p!"  'projectile-run-shell-command-in-root)
-  (lia-leader-def "p%"  'projectile-replace-regexp)
-  (lia-leader-def "p&"  'projectile-run-async-shell-command-in-root)
-  (lia-leader-def "pa"  'projectile-toggle-between-implementation-and-test)
-  (lia-leader-def "pb"  'projectile-switch-to-buffer)
-  (lia-leader-def "pc"  'projectile-compile-project)
-  (lia-leader-def "pD"  'projectile-dired)
-  (lia-leader-def "pd"  'projectile-find-dir)
-  (lia-leader-def "pf"  'projectile-find-file)
-  (lia-leader-def "pg"  'projectile-find-tag)
-  (lia-leader-def "pG"  'projectile-regenerate-tags)
-  (lia-leader-def "pI"  'projectile-invalidate-cache)
-  (lia-leader-def "pk"  'projectile-kill-buffers)
-  (lia-leader-def "pp"  'projectile-switch-project)
-  (lia-leader-def "pR"  'projectile-replace)
-  (lia-leader-def "pr"  'projectile-recentf)
-  (lia-leader-def "pT"  'projectile-test-project)
-  (lia-leader-def "pv"  'projectile-vc)
-  (lia-leader-def "sgp" 'projectile-grep)
+  (lia-leader-def "p" '(:keymap projectile-command-map :package projectile))
   (setq projectile-enable-caching t)
   (setq projectile-completion-system 'ivy)
   :config
-  (projectile-mode t)
+  (add-to-list 'projectile-globally-ignored-directories "elpa")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "vendor"))
+
+(use-package counsel-projectile
+  :ensure t
+  :after projectile
+  :config
+  (counsel-projectile-mode))
 
 ;; -- LANGUAGES --
 
@@ -362,7 +393,8 @@
   :mode ("\\.json\\'" ".eslintrc\\'" ".prettierrc\\'"))
 
 (use-package lua-mode
-  :ensure t
+  :ensure nil
+  :disabled t
   :mode "\\.lua\\'")
 
 (use-package markdown-mode
@@ -397,9 +429,17 @@
                                        web-mode-script-padding 0))))
   :mode ("\\.php\\'" "\\.ejs\\'" "\\.twig\\'"))
 
-;; --
+;; -- FUNCTIONS ------------------------------------------------------
 
-(defun lia/toggle-line-number-type ()
+(defun lia/open ()
+  "Open current file (or selected file if in dired mode) in an external program."
+  (interactive)
+  (call-process "xdg-open" nil 0 nil
+                (if (eq major-mode 'dired-mode)
+                    (dired-get-file-for-visit)
+                  buffer-file-name)))
+
+(defun lia/toggle-display-line-number-type ()
   "Toggle the line number type between absolute and relative."
   (interactive)
   (defvar display-line-numbers-type)
@@ -411,16 +451,31 @@
   (when (bound-and-true-p display-line-numbers-mode)
     (display-line-numbers--turn-on)))
 
-;; --
+(defun lia/toggle-other-windows ()
+  "Make a window fill the frame, or restore previous windows."
+  (interactive)
+  (defvar lia--saved-buffer)
+  (defvar lia--saved-window-configuration)
+  (if (= 1 (length (window-list)))
+      (if (bound-and-true-p lia--saved-window-configuration)
+          (progn
+            (setq lia--saved-buffer (current-buffer))
+            (set-window-configuration lia--saved-window-configuration)
+            (switch-to-buffer lia--saved-buffer))
+        (message "Only one window"))
+    (setq lia--saved-window-configuration (current-window-configuration))
+    (delete-other-windows)))
 
-;; don't use tabs for indentation
-(setq-default indent-tabs-mode nil)
+;; -- SETTINGS -------------------------------------------------------
+
+;; set tabs for indentation
+(setq-default indent-tabs-mode lia-use-tabs)
 
 ;; change indent size
-(setq-default tab-width 2)
-(setq-default evil-shift-width 2)
+(setq-default tab-width lia-indent-width)
+(setq-default evil-shift-width lia-indent-width)
 
-;; show column number
+;; show column number in the modebar
 (setq column-number-mode t)
 
 ;; move backup~ files to its own directory
@@ -445,18 +500,30 @@
 ;; backspace simply deletes a character
 (setq backward-delete-char-untabify-method nil)
 
-;; reset garbage collector and file name handler
-(setq gc-cons-threshold 16777216
-      gc-cons-percentage 0.1
-      file-name-handler-alist lia--file-name-handler-alist)
+;; guess target directory when copying/moving files in dired
+;; i.e. get drag and drop functionality with two dired windows in a split
+(setq dired-dwim-target t)
 
-;; --
+;; display line numbers when in `prog-mode'
+(when lia-use-line-numbers
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+
+;; pair up delimiters: "", (), [], {}
+(electric-pair-mode t)
 
 ;; yes/no prompt is now y/n
+;; saves a bit of typing
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; files that change on disk automatically get reverted
 (global-auto-revert-mode t)
+
+;; -- LATE INITIALIZATION --------------------------------------------
+
+;; reset garbage collector and file name handler
+(setq gc-cons-threshold 16777216
+      gc-cons-percentage 0.1
+      file-name-handler-alist lia--file-name-handler-alist)
 
 ;; show startup time
 (message
