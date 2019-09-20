@@ -86,6 +86,42 @@
 
 ;; -- PACKAGES -------------------------------------------------------
 
+;; -- APPEARANCE --
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme lia-theme))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :init
+  (setq doom-modeline-height 35
+        doom-modeline-buffer-file-name-style 'buffer-name))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; display line numbers settings
+(setq-default display-line-numbers-width 3
+              display-line-numbers-widen t)
+
+;; visualize tabs and trailing whitespace
+(setq-default whitespace-style '(face tabs tab-mark trailing))
+
+;; highlight matching paren
+(show-paren-mode t)
+
+;; Enable whitespace mode everywhere
+(global-whitespace-mode)
+
+;; set font
+(set-frame-font lia-display-font nil t)
+
+;; -- GENERAL --
+
 (use-package general
   :ensure t
   :config
@@ -179,7 +215,7 @@
   :ensure t
   :general
   (:states
-   'visual
+   'motion
    "C-n" 'evil-mc-make-and-goto-next-match
    "C-p" 'evil-mc-make-and-goto-prev-match
    "C-;" 'evil-mc-make-all-cursors)
@@ -234,40 +270,6 @@
   :after ivy
   :init
   (lia-leader-def "S" 'swiper-all))
-
-;; -- APPEARANCE --
-
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme lia-theme))
-
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :init
-  (setq doom-modeline-height 35
-        doom-modeline-buffer-file-name-style 'buffer-name))
-
-(use-package rainbow-delimiters
-  :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-;; display line numbers settings
-(setq-default display-line-numbers-width 3
-              display-line-numbers-widen t)
-
-;; visualize tabs and trailing whitespace
-(setq-default whitespace-style '(face tabs tab-mark trailing))
-
-;; highlight matching paren
-(show-paren-mode t)
-
-;; Enable whitespace mode everywhere
-(global-whitespace-mode)
-
-;; set font
-(set-frame-font lia-display-font nil t)
 
 ;; -- EDITOR --
 
@@ -496,14 +498,14 @@
 (setq-default indent-tabs-mode lia-use-tabs)
 
 ;; change indent size
-(setq-default tab-width                             lia-indent-width
-              evil-shift-width                      lia-indent-width
-              c-basic-offset                        lia-indent-width
-              sh-basic-offset                       lia-indent-width
-              javascript-indent-level               lia-indent-width
-              js-indent-level                       lia-indent-width
-              js-switch-indent-offset               lia-indent-width
-              css-indent-offset                     lia-indent-width)
+(setq-default tab-width               lia-indent-width
+              evil-shift-width        lia-indent-width
+              c-basic-offset          lia-indent-width
+              sh-basic-offset         lia-indent-width
+              javascript-indent-level lia-indent-width
+              js-indent-level         lia-indent-width
+              js-switch-indent-offset lia-indent-width
+              css-indent-offset       lia-indent-width)
 
 ;; show column number in the modebar
 (setq column-number-mode t)
