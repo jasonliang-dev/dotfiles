@@ -175,6 +175,17 @@
   :config
   (global-evil-matchit-mode 1))
 
+(use-package evil-mc
+  :ensure t
+  :general
+  (:states
+   'visual
+   "C-n" 'evil-mc-make-and-goto-next-match
+   "C-p" 'evil-mc-make-and-goto-prev-match
+   "C-;" 'evil-mc-make-all-cursors)
+  :config
+  (global-evil-mc-mode 1))
+
 (use-package evil-numbers
   :ensure t
   :general
