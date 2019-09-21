@@ -190,9 +190,15 @@
     (other-window 1))
 
   ;; leader bindings
-  (lia-leader-def "ESC" 'evil-ex-nohighlight)
-  (lia-leader-def "q"   'evil-quit)
-  (lia-leader-def "w"   'evil-window-map)
+  (lia-leader-def "ESC"
+    (lambda ()
+      "Clear multiple cursors or remove search highlight."
+      (interactive)
+      (if (and (featurep 'evil-mc) (evil-mc-has-cursors-p))
+          (evil-mc-undo-all-cursors)
+        (evil-ex-nohighlight))))
+  (lia-leader-def "q" 'evil-quit)
+  (lia-leader-def "w" 'evil-window-map)
   ;; scroll with C-u
   (setq evil-want-C-u-scroll t)
   ;; emacs movement in insert mode
