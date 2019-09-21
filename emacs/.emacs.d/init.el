@@ -291,7 +291,9 @@
   (setq company-idle-delay 0)
 
   ;; popup completions after typing a single character
-  (setq company-minimum-prefix-length 1))
+  (setq company-minimum-prefix-length 1)
+  :config
+  (company-tng-configure-default))
 
 (use-package dtrt-indent
   :ensure t
