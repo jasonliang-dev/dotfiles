@@ -1,3 +1,9 @@
 #!/usr/bin/env sh
 
-xdg-open $HOME
+if [ -z "$@" ]; then
+  ARGS="$HOME"
+else
+  ARGS="$@"
+fi
+
+xdg-open "$ARGS"

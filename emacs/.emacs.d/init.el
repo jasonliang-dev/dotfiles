@@ -154,6 +154,11 @@
                             "'")))
         (call-process-shell-command "~/scripts/scratchpad.sh" nil 0))))
 
+  (lia-leader-def "C-SPC"
+    (lambda ()
+      (interactive)
+      (call-process-shell-command "~/scripts/files.sh . &" nil 0)))
+
   ;; open current file externally
   (general-define-key
    :keymaps 'dired-mode-map
