@@ -149,11 +149,11 @@
     (lambda ()
       (interactive)
       (when (zerop (shell-command
-                    (concat "tmux new-window -c '"
-                            (expand-file-name default-directory)
-                            "'")))
+                    (format "tmux new-window -c '%s'"
+                            (expand-file-name default-directory))))
         (call-process-shell-command "~/scripts/scratchpad.sh" nil 0))))
 
+  ;; open file explorer in current directory
   (lia-leader-def "C-SPC"
     (lambda ()
       (interactive)
@@ -298,6 +298,7 @@
   ;; popup completions after typing a single character
   (setq company-minimum-prefix-length 1)
   :config
+  ;; enable tab and go; completion using only the tab key.
   (company-tng-configure-default))
 
 (use-package dtrt-indent
@@ -322,7 +323,8 @@
   :ensure t
   :defer 1
   :init
-  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-check-startup-files nil
+        exec-path-from-shell-shell-name "/bin/bash")
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
