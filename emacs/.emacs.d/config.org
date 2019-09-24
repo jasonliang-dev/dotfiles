@@ -809,6 +809,17 @@ Add support for Markdown.
     :mode (".md\\'" "\\.md\\'" "\\.markdown\\'"))
 #+END_SRC
 
+*** Org Mode
+
+Org mode configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :defer t
+    :config
+    (add-to-list 'org-export-backends 'md))
+#+END_SRC
+
 *** PHP
 
 Language support for PHP.
