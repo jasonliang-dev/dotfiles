@@ -1,6 +1,12 @@
 * Emacs Config
 
+This is my Emacs config. [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][There]] [[https://jamiecollinson.com/blog/my-emacs-config/][are]] [[https://pages.sachachua.com/.emacs.d/Sacha.html][many]] [[https://github.com/wasamasa/dotemacs/blob/master/init.org][like]] [[https://github.com/larstvei/dot-emacs][it]], but this one is
+mine. My Emacs config is my best friend. It is my life.
+
 ** Quick Settings
+
+I leave some settings near the top. It's quick to access which makes
+these settings are easy to change.
 
 #+BEGIN_SRC emacs-lisp
   (defconst lia-use-tabs nil
@@ -32,8 +38,8 @@ don't want to see during startup.
 
 *** Avoid Garbage Collection
 
-Cleaning up garbage takes time. Try to avoid as much garbage
-collection as possible.
+Cleaning up garbage takes time. Try to avoid garbage
+collection as much as possible.
 
 Near the end of the config, the memory threshold is set to a
 reasonable value.
@@ -56,24 +62,22 @@ near the end of initialization.
   (setq file-name-handler-alist nil)
 #+END_SRC
 
-*** Hush...
+*** Hide Irrelevant Messages
 
 Be quiet at startup; don't load or display anything unnecessary.
 
 shamelessly stolen from [[https://github.com/hlissner/doom-emacs/blob/5dacbb7cb1c6ac246a9ccd15e6c4290def67757c/core/core.el#L112][doom-emacs's core]].
 
 #+BEGIN_SRC emacs-lisp
-  (unless noninteractive
-    (advice-add #'display-startup-echo-area-message :override #'ignore)
-    (setq inhibit-startup-message t
-          inhibit-startup-echo-area-message user-login-name
-          inhibit-default-init t
-          initial-major-mode 'fundamental-mode
-          initial-scratch-message nil
-          mode-line-format nil))
+  (setq inhibit-startup-message t
+        inhibit-startup-echo-area-message user-login-name
+        inhibit-default-init t
+        initial-major-mode 'fundamental-mode
+        initial-scratch-message nil
+        mode-line-format nil)
 #+END_SRC
 
-*** Hide Bars
+*** Hide Those Disgusting Bars
 
 The GUI elements are ugly and I don't use them.
 
@@ -142,6 +146,14 @@ Create the custom file if it doesn't exist.
 
 ** Appearance
 
+Emacs looks awful by itself. It needs help getting all dolled up.
+
+*** At DOOM's Gate
+
+=doom-themes= is a pack of gorgeous themes for Emacs. I'm using it
+alongside =doom-modeline= which is a super fancy modeline full of
+features (state indicator, git branch, error count, icons, etc).
+
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
@@ -154,72 +166,107 @@ Create the custom file if it doesn't exist.
     :init
     (setq doom-modeline-height 35
           doom-modeline-buffer-file-name-style 'buffer-name))
+#+END_SRC
 
+*** Parenthesis
+
+Make it easy to spot matching brackets =[]= ={}= and parenthesis =()=
+with rainbow delimiters.
+
+#+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
     :hook (prog-mode . rainbow-delimiters-mode))
+#+END_SRC
 
-  ;; display line numbers settings
+Highlight the matching parenthesis under point.
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+#+END_SRC
+
+*** Visualize Whitespace
+
+Show tab characters and trailing whitespace.
+
+Space characters are not shown. Spaces are everywhere. I think that
+having visible space characters is cluttered and it makes text hard to
+read.
+
+On the other hand, tab characters appear much less often. I want to
+see tabs so that I'm aware of the indentation style. This also allows
+me to see if indentation is consistant, or if it's mixed tabs and
+spaces.
+
+To keep files nice and neat, mark trailing whitespace with an
+obnoxious red colour.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default whitespace-style '(face tabs tab-mark trailing))
+#+END_SRC
+
+Enable whitespace visualization everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-whitespace-mode)
+#+END_SRC
+
+*** Line numbers
+
+When programming, display line numbers on the left side of the buffer.
+
+Set the minimum number of columns that line numbers take up.
+
+#+BEGIN_SRC emacs-lisp
   (setq-default display-line-numbers-width 3
                 display-line-numbers-widen t)
+#+END_SRC
 
-  ;; visualize tabs and trailing whitespace
-  (setq-default whitespace-style '(face tabs tab-mark trailing))
+Set =lia-use-line-numbers= to a non-nil value to enable line numbers.
 
-  ;; disable blinking cursor
-  (blink-cursor-mode -1)
+#+BEGIN_SRC emacs-lisp
+  (when lia-use-line-numbers
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+#+END_SRC
 
-  ;; highlight matching paren
-  (show-paren-mode t)
+*** Font
 
-  ;; Enable whitespace mode everywhere
-  (global-whitespace-mode)
+Set the font. Change with =lia-display-font=.
 
-  ;; set font
+#+BEGIN_SRC emacs-lisp
   (set-frame-font lia-display-font nil t)
+#+END_SRC
+
+*** Blinking cursor
+
+Disable cursor blink. I have no idea why the blinking bugs me so much,
+but it does.
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode -1)
 #+END_SRC
 
 ** Keybinding with General
 
+Create a macro for defining bindings with the leader key.
+
+=lia-leader-def= is used time and time again in this config.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package general
-    :ensure t
-    :config
+  (defun lia--create-leader-def ()
     (general-create-definer lia-leader-def
-      :states '(motion insert emacs)
+      :states '(normal visual motion insert emacs)
       :keymaps 'override
       :prefix lia-leader-key
-      :non-normal-prefix lia-leader-alt-key)
+      :non-normal-prefix lia-leader-alt-key))
+#+END_SRC
 
-    (lia-leader-def "TAB" 'mode-line-other-buffer)
-    (lia-leader-def ","   'rename-buffer)
-    (lia-leader-def "e"   'eval-last-sexp)
-    (lia-leader-def "k"   'kill-this-buffer)
-    (lia-leader-def "r"   'revert-buffer)
-    (lia-leader-def "u"   'undo-tree-visualize)
+Create some bindings. These keyboard shortcuts don't belong in any of
+the other packages listed below, so I put them here.
 
-    ;; open config file
-    (lia-leader-def "1"
-      (lambda ()
-        (interactive)
-        (find-file (expand-file-name "init.el" user-emacs-directory))))
-
-    ;; run tmux in scratchpad terminal
-    (lia-leader-def "RET"
-      (lambda ()
-        (interactive)
-        (when (zerop (shell-command
-                      (format "tmux new-window -c '%s'"
-                              (expand-file-name default-directory))))
-          (call-process-shell-command "~/scripts/scratchpad.sh" nil 0))))
-
-    ;; open file explorer in current directory
-    (lia-leader-def "C-SPC"
-      (lambda ()
-        (interactive)
-        (call-process-shell-command "~/scripts/files.sh ." nil 0)))
-
-    ;; open current file externally
+#+BEGIN_SRC emacs-lisp
+  (defun lia--bind-some-keys ()
+    ;; open current file externally in dired
     (general-define-key
      :keymaps 'dired-mode-map
      "C-c C-o" 'lia/open)
@@ -230,7 +277,36 @@ Create the custom file if it doesn't exist.
      [remap delete-other-windows] 'lia/toggle-other-windows))
 #+END_SRC
 
+Create some bindings with the leader key. Just like the bindings
+above, these are placed here because they got nowhere else to go.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia--bind-some-keys-with-leader ()
+    (lia-leader-def "TAB"   'mode-line-other-buffer)
+    (lia-leader-def ","     'rename-buffer)
+    (lia-leader-def "e"     'eval-last-sexp)
+    (lia-leader-def "k"     'kill-this-buffer)
+    (lia-leader-def "r"     'revert-buffer)
+    (lia-leader-def "u"     'undo-tree-visualize)
+    (lia-leader-def "1"     'lia/open-config)
+    (lia-leader-def "RET"   'lia/new-tmux-window-and-launch-scratchpad)
+    (lia-leader-def "C-SPC" 'lia/open-file-explorer))
+#+END_SRC
+
+Use General. A package that makes binding keys easy and convenient.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    :ensure t
+    :config
+    (lia--create-leader-def)
+    (lia--bind-some-keys)
+    (lia--bind-some-keys-with-leader))
+#+END_SRC
+
 ** Evil
+
+Evil mode. It's Vim emulation in Emacs!
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
@@ -244,46 +320,44 @@ Create the custom file if it doesn't exist.
      [remap evil-window-split]      'lia/evil-window-split-and-focus
      [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
     :init
-    (defun lia/evil-window-split-and-focus ()
-      "Split window horizontally and focus other window."
-      (interactive)
-      (evil-window-split)
-      (other-window 1))
-
-    (defun lia/evil-window-vsplit-and-focus ()
-      "Split window vertically and focus other window."
-      (interactive)
-      (evil-window-vsplit)
-      (other-window 1))
-
     ;; leader bindings
-    (lia-leader-def "ESC"
-      (lambda ()
-        "Clear multiple cursors or remove search highlight."
-        (interactive)
-        (if (and (featurep 'evil-mc) (evil-mc-has-cursors-p))
-            (evil-mc-undo-all-cursors)
-          (evil-ex-nohighlight))))
-    (lia-leader-def "q" 'evil-quit)
-    (lia-leader-def "w" 'evil-window-map)
+    (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
+    (lia-leader-def "q"   'evil-quit)
+    (lia-leader-def "w"   'evil-window-map)
     ;; scroll with C-u
     (setq evil-want-C-u-scroll t)
     ;; emacs movement in insert mode
-    (defvar evil-disable-insert-state-bindings)
     (setq evil-disable-insert-state-bindings t)
     ;; vim search behaviour
     (setq evil-search-module 'evil-search))
+#+END_SRC
 
+Use Evil bindings in Magit.
+
+#+BEGIN_SRC emacs-lisp
   (use-package evil-magit
     :ensure t
     :after (evil magit))
+#+END_SRC
 
+Use =%= to jump between matching tags with =evil-matchit=.
+
+=evil-matchit= supports jumping between HTML tags =<div>= =</div>=,
+Python statements =if= =elif= =else=, and much more.
+
+#+BEGIN_SRC emacs-lisp
   (use-package evil-matchit
     :ensure t
     :after evil
     :config
     (global-evil-matchit-mode 1))
+#+END_SRC
 
+Multiple cursors with support for Evil.
+
+I've heard of iedit, but I've yet to take a look into it.
+
+#+BEGIN_SRC emacs-lisp
   (use-package evil-mc
     :ensure t
     :general
@@ -294,7 +368,12 @@ Create the custom file if it doesn't exist.
      "C-;" 'evil-mc-make-all-cursors)
     :config
     (global-evil-mc-mode 1))
+#+END_SRC
 
+Increment and decrememt numbers just like in Vim. Really powerful when
+combined with macros.
+
+#+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
     :ensure t
     :general
@@ -302,7 +381,12 @@ Create the custom file if it doesn't exist.
      'motion
      "C-a"   'evil-numbers/inc-at-pt
      "C-S-a" 'evil-numbers/dec-at-pt))
+#+END_SRC
 
+=evil-surround= is surround.vim ported to Emacs. Easily add, change
+and delete parenthesis, brackets, HTML tags, etc.
+
+#+BEGIN_SRC emacs-lisp
   (use-package evil-surround
     :ensure t
     :after evil
@@ -310,6 +394,13 @@ Create the custom file if it doesn't exist.
 #+END_SRC
 
 ** Ivy
+
+I used to use Helm, but mainly used it for simple things. All of the
+things that I've done in Helm, I can do in Ivy. Since Helm has a
+larger footprint, I've abandoned it for Ivy.
+
+=ivy-alt-done= is just like pressing enter, except when there's a
+directory, it will autocomplete with the selected candidate.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -330,24 +421,53 @@ Create the custom file if it doesn't exist.
     (setq ivy-count-format "")
     ;; no regexp by default
     (setq ivy-initial-inputs-alist nil))
+#+END_SRC
 
+Remap common Emacs functions with ones that use Ivy for completion.
+
+Replace Evil search with =counsel-grep-or-swiper=.
+
+#+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
     :after ivy
+    :general
+    (:states
+     'motion
+     "/" 'counsel-grep-or-swiper
+     "?" 'counsel-grep-or-swiper-backward)
     :init
-    (lia-leader-def "s" 'counsel-grep-or-swiper)
     (lia-leader-def "y" 'counsel-yank-pop)
     :config
     (counsel-mode))
+#+END_SRC
 
+Swiper provides ways to find text really really quickly.
+
+The =swiper= command is a great replacement for default search. It
+shows multiple results in the minibuffer. =swiper-all= runs a search
+through all buffers.
+
+#+BEGIN_SRC emacs-lisp
   (use-package swiper
     :ensure t
     :after ivy
     :init
-    (lia-leader-def "S" 'swiper-all))
+    (lia-leader-def "s" 'swiper-all))
 #+END_SRC
 
 ** Editor
+
+Below are some behaviours that I want from Emacs.
+
+*** Code completion
+
+Company enables text and code completions when typing.
+
+=company-tng-configure-default= enables a behaviour where changing the
+selected candidate will update the buffer with the new selected
+candidate. There's no need to press the enter key anymore, saving a
+few keystrokes.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -360,31 +480,85 @@ Create the custom file if it doesn't exist.
     :init
     ;; don't delay autocomplete suggesstions
     (setq company-idle-delay 0)
-
     ;; popup completions after typing a single character
     (setq company-minimum-prefix-length 1)
     :config
     ;; enable tab and go; completion using only the tab key.
     (company-tng-configure-default))
+#+END_SRC
 
+*** Automatically Switch Indentation Style
+
+I really like how VS Code (and probably other editors such as Atom)
+changes the indentation style of the editor to fit the file currently
+open.
+
+If only there was a way to do this in Em-- Oh look! there's a package
+that does exactly this!
+
+#+BEGIN_SRC emacs-lisp
   (use-package dtrt-indent
     :ensure t
     :hook (prog-mode . dtrt-indent-mode))
+#+END_SRC
 
+*** Jump To Definition
+
+Dumb Jump adds "Jump to definition" behaviour without generating
+CTAGS. It's definitely slower than CTAGS, but Dumb Jump needs no
+configuration.
+
+#+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :ensure t
     :commands (dumb-jump-go)
     :init
     (lia-leader-def "j" 'dumb-jump-go))
+#+END_SRC
 
+*** Emmet
+
+Emmet is a must have for web devs. Type abbreviations, hit =C-j=, and
+HTML comes out!
+
+The following:
+
+#+BEGIN_EXAMPLE
+ul#foods>li.food-item*5
+#+END_EXAMPLE
+
+Expands to:
+
+#+BEGIN_SRC html
+  <ul id="foods">
+    <li class="food-item"></li>
+    <li class="food-item"></li>
+    <li class="food-item"></li>
+    <li class="food-item"></li>
+    <li class="food-item"></li>
+  </ul>
+#+END_SRC
+
+Enable Emmet support. It adds =C-j= as a keybinding for expanding
+Emmet abbreviations.
+
+#+BEGIN_SRC emacs-lisp
   (use-package emmet-mode
-    ;; C-j to expand
     :ensure t
     :hook ((sgml-mode . emmet-mode)
            (css-mode . emmet-mode)
            (rjsx-mode . emmet-mode)
            (web-mode . emmet-mode)))
+#+END_SRC
 
+*** Get =$PATH=
+
+Get the =$PATH= from the shell. This lets me use Flycheck with ESLint,
+as well as use several programs that auto-format code.
+
+Doesn't work on Windows.
+
+#+BEGIN_SRC emacs-lisp
   (use-package exec-path-from-shell
     :ensure t
     :defer 1
@@ -393,44 +567,89 @@ Create the custom file if it doesn't exist.
           exec-path-from-shell-shell-name "/bin/bash")
     :config
     (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize))
-    (message "Path loaded"))
+      (exec-path-from-shell-initialize)))
+#+END_SRC
 
+*** Expand Region
+
+Highlight a region of code quickly and easily. This is useful with
+Emacs Lisp and Clojure where it's trivial to highlight all of the text
+between a pair of parenthesis. It's also really easy to text with
+quotes surrounding it (strings).
+
+#+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
     :commands er/expand-region
     :init
     (lia-leader-def "v" 'er/expand-region))
+#+END_SRC
 
+*** Flycheck
+
+In Node.js projects, I install ESLint as a dependency. Configure
+Flycheck to use local ESLint.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia--use-eslint-from-node-modules ()
+        "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
+        (let* ((root (locate-dominating-file
+                      (or (buffer-file-name) default-directory)
+                      "node_modules"))
+               (eslint (and root
+                            (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                              root))))
+          (when (and eslint (file-executable-p eslint))
+            (setq-local flycheck-javascript-eslint-executable eslint))))
+#+END_SRC
+
+Flycheck enables syntax checking when programming. I don't know how
+I'd live without it.
+
+#+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
     :hook (prog-mode . flycheck-mode)
     :init
-    (defun lia--use-eslint-from-node-modules ()
-      "If exists, use local eslint. https://emacs.stackexchange.com/q/21205"
-      (let* ((root (locate-dominating-file
-                    (or (buffer-file-name) default-directory)
-                    "node_modules"))
-             (eslint (and root
-                          (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                            root))))
-        (when (and eslint (file-executable-p eslint))
-          (setq-local flycheck-javascript-eslint-executable eslint))))
-
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
     (add-hook 'flycheck-mode-hook #'lia--use-eslint-from-node-modules))
+#+END_SRC
 
+*** Format Code
+
+With a quick keyboard shortcut, tidy up code in the current
+buffer. Formatting typically requires another program to be
+installed. JavaScript, for example, needs prettier to be installed.
+
+#+BEGIN_SRC emacs-lisp
   (use-package format-all
     :ensure t
     :commands format-all-buffer
     :init
     (lia-leader-def "F" 'format-all-buffer))
+#+END_SRC
 
+*** Magit Is Magic
+
+Probably the best Git interface to the point where I would launch
+Emacs just to stage some files and make a commit instead of using the
+terminal.
+
+#+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
     :defer t
     :init
     (lia-leader-def "g" 'magit-status))
+#+END_SRC
 
+*** Project Management With Projectile
+
+Projectile automatically detects some directories as
+projects. Projectile provides ways to quickly find files in a project,
+search in a project with grep/ag, etc.
+
+#+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
     :defer t
@@ -439,10 +658,14 @@ Create the custom file if it doesn't exist.
     (setq projectile-enable-caching t)
     (setq projectile-completion-system 'ivy)
     :config
-    (add-to-list 'projectile-globally-ignored-directories "elpa")
-    (add-to-list 'projectile-globally-ignored-directories "node_modules")
-    (add-to-list 'projectile-globally-ignored-directories "vendor"))
+    (dolist (directory '("elpa" "node_modules" "vendor"))
+      (add-to-list 'projectile-globally-ignored-directories directory)))
+#+END_SRC
 
+Provide more Ivy support for Projectile. It replaces some Projectile
+commands with =counsel-projectile= alternatives.
+
+#+BEGIN_SRC emacs-lisp
   (use-package counsel-projectile
     :ensure t
     :after projectile
@@ -450,16 +673,56 @@ Create the custom file if it doesn't exist.
     (counsel-projectile-mode))
 #+END_SRC
 
-** Languages
+** Programming Languages + File Types
+
+This section adds support for several programming languages and other
+file types (JSON, Markdown, etc).
+
+*** C/C++
+
+Default switch/case indentation style:
+
+#+BEGIN_SRC C
+  switch (str) {
+  case "foo":
+    // ...
+  case "bar":
+    // ...
+  }
+#+END_SRC
+
+I like to indent the body inside the braces like this:
+
+#+BEGIN_SRC C
+  switch (str) {
+    case "foo":
+      // ...
+    case "bar":
+      // ...
+  }
+#+END_SRC
+
+Set =case= to be indented in switch/case.
+
+#+BEGIN_SRC emacs-lisp
+  (c-set-offset 'case-label '+)
+#+END_SRC
+
+*** Elm
+
+Language support for Elm.
 
 #+BEGIN_SRC emacs-lisp
   (use-package elm-mode
     :ensure t
-    :mode "\\.elm\\'"
-    :general
-    (elm-mode-map
-     [remap format-all-buffer] 'elm-format-buffer))
+    :mode "\\.elm\\'")
+#+END_SRC
 
+*** Haskell
+
+Language support for Haskell.
+
+#+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
     :ensure t
     :mode "\\.hs\\'"
@@ -471,56 +734,131 @@ Create the custom file if it doesn't exist.
                   haskell-indentation-ifte-offset       lia-indent-width
                   haskell-indentation-where-pre-offset  lia-indent-width
                   haskell-indentation-where-post-offset lia-indent-width))
+#+END_SRC
 
+=haskell-mode= on its own, does not play well with Flycheck. Install
+=flycheck-haskell= for proper syntax checking.
+
+#+BEGIN_SRC emacs-lisp
   (use-package flycheck-haskell
     :ensure t
     :hook (haskell-mode . flycheck-haskell-setup))
+#+END_SRC
 
+*** JavaScript
+
+Language support for JavaScript.
+
+Disable all warnings and errors shown by =js2-mode=. Instead, Flycheck
+and ESLint is used to check for errors.
+
+#+BEGIN_SRC emacs-lisp
   (use-package js2-mode
     :ensure t
     :mode "\\.js\\'"
-    :hook ((js2-mode . js2-imenu-extras-mode))
+    :hook (js2-mode . js2-imenu-extras-mode)
     :init
     (setq js2-strict-missing-semi-warning nil
           js2-missing-semi-one-line-override nil
           js2-mode-show-parse-errors nil
           js2-mode-show-strict-warnings nil))
+#+END_SRC
 
+=rjsx-mode= adds JSX/React support.
+
+Setting =emmet-expand-jsx-className?= will use =className= instead of
+=class= when expanding an Emmet abbreviation.
+
+#+BEGIN_SRC emacs-lisp
   (use-package rjsx-mode
     :ensure t
     :mode "\\.jsx\\'"
-    :magic ("/\\*\\* @jsx React\\.DOM \\*/" "^import React"))
+    :magic ("/\\*\\* @jsx React\\.DOM \\*/" "^import React")
+    :hook (rjsx-mode . (lambda ()
+                         (setq emmet-expand-jsx-className? t))))
+#+END_SRC
 
+*** JSON
+
+Add support for JSON files.
+
+#+BEGIN_SRC emacs-lisp
   (use-package json-mode
     :ensure t
-    :mode ("\\.json\\'" ".eslintrc\\'" ".prettierrc\\'"))
+    :mode "\\.json\\'")
+#+END_SRC
 
+*** Lua
+
+Language support for Lua.
+
+#+BEGIN_SRC emacs-lisp
   (use-package lua-mode
     :ensure nil
     :disabled t
     :mode "\\.lua\\'")
+#+END_SRC
 
+*** Markdown
+
+Add support for Markdown.
+
+#+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :ensure t
-    :mode (".md\\'" "\\.md\\'" "\\.markdown\\'")
-    :init (setq markdown-command "multimarkdown"))
+    :mode (".md\\'" "\\.md\\'" "\\.markdown\\'"))
+#+END_SRC
 
+*** PHP
+
+Language support for PHP.
+
+I've kept this package disabled for a while. The PHP code that I work
+with is actually HTML, CSS, JavaScript and PHP all mixed
+together. =web-mode= is more suitable.
+
+If I end up working with something like Laravel, I'll start using this
+package.
+
+#+BEGIN_SRC emacs-lisp
   (use-package php-mode
     :ensure nil
     :disabled t
     :mode "\\.php\\'")
+#+END_SRC
 
+*** =restclient=
+
+=restclient= is a tool to test web APIs. I use this package over
+Postman. It's great.
+
+#+BEGIN_SRC emacs-lisp
   (use-package restclient
     :ensure t
     :mode "\\.http\\'"
     :general
     (restclient-mode-map
      [remap eval-last-sexp] 'restclient-http-send-current-stay-in-window))
+#+END_SRC
 
+*** YAML
+
+Add support for YAML.
+
+#+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
     :ensure t
     :mode "\\.yaml\\'")
+#+END_SRC
 
+*** Web Mode
+
+=web-mode.el= add support for editing web templates.
+
+It's crazy powerful. I think it shines the best when working with a
+file with mixed HTML, CSS, JS, and PHP.
+
+#+BEGIN_SRC emacs-lisp
   (use-package web-mode
     :ensure t
     :init
@@ -530,16 +868,85 @@ Create the custom file if it doesn't exist.
                   web-mode-code-indent-offset   lia-indent-width
                   web-mode-script-padding       lia-indent-width
                   web-mode-style-padding        lia-indent-width)
-
-    (add-to-list 'auto-mode-alist
-                 '("\\.vue\\'" . (lambda ()
-                                   (web-mode)
-                                   (setq web-mode-style-padding 0
-                                         web-mode-script-padding 0))))
-    :mode ("\\.php\\'" "\\.ejs\\'" "\\.twig\\'"))
+    :mode (("\\.php\\'"  . web-mode)
+           ("\\.ejs\\'"  . web-mode)
+           ("\\.twig\\'" . web-mode)
+           ("\\.vue\\'"  . (lambda ()
+                             (web-mode)
+                             (setq web-mode-style-padding 0
+                                   web-mode-script-padding 0)))))
 #+END_SRC
 
-** Functions
+** Global Functions
+
+I change my Emacs config a lot. Make it trivial to find my config.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/open-config ()
+    "Open Emacs config."
+    (interactive)
+    (find-file (expand-file-name "config.org" user-emacs-directory)))
+#+END_SRC
+
+My workflow consists of two programs: Emacs, and the scratchpad
+terminal running a tmux session.
+
+This function creates a new tmux window and changes the focus from
+Emacs to the scratchpad terminal. The working directory in the new
+tmux window is the same as the one in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/new-tmux-window-and-launch-scratchpad ()
+    "Create a new tmux window and focus the scratchpad terminal."
+    (interactive)
+    (when (zerop (shell-command
+                  (format "tmux new-window -c 'cd %s'"
+                          (expand-file-name default-directory))))
+      (call-process-shell-command "~/scripts/scratchpad.sh" nil 0)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/open-file-explorer ()
+    "Open file explorer in current directory."
+    (interactive)
+    (call-process-shell-command "~/scripts/files.sh ." nil 0))
+#+END_SRC
+
+When there's multiple cursors, remove them. Otherwise, disable search
+highlight.
+
+Despite being completely unrelated commands, it just feels natural to
+me to have this function bound to a key shortcut.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/clear-mc-or-nohl ()
+    "Clear multiple cursors or remove search highlight."
+    (interactive)
+    (if (and (featurep 'evil-mc) (evil-mc-has-cursors-p))
+        (evil-mc-undo-all-cursors)
+      (evil-ex-nohighlight)))
+#+END_SRC
+
+When spliting windows, focus the newly created window. This is the
+default behaviour in Vim.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/evil-window-split-and-focus ()
+    "Split window horizontally and focus other window."
+    (interactive)
+    (evil-window-split)
+    (other-window 1))
+
+  (defun lia/evil-window-vsplit-and-focus ()
+    "Split window vertically and focus other window."
+    (interactive)
+    (evil-window-vsplit)
+    (other-window 1))
+#+END_SRC
+
+Alright. I'll admit, I don't live in Emacs. Other programs just handle
+certain file types better (images and PDFs for example). This function
+makes it easy to handle the current file.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/open ()
@@ -549,11 +956,12 @@ Create the custom file if it doesn't exist.
                   (if (eq major-mode 'dired-mode)
                       (dired-get-file-for-visit)
                     buffer-file-name)))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
   (defun lia/toggle-display-line-number-type ()
     "Toggle the line number type between absolute and relative."
     (interactive)
-    (defvar display-line-numbers-type)
     (setq display-line-numbers-type
           (if (eq display-line-numbers-type 'relative)
               (progn (message "Line number type: absolute") t)
@@ -561,12 +969,12 @@ Create the custom file if it doesn't exist.
     ;; update line numbers if it's currently being displayed
     (when (bound-and-true-p display-line-numbers-mode)
       (display-line-numbers--turn-on)))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
   (defun lia/toggle-other-windows ()
     "Make a window fill the frame, or restore previous windows."
     (interactive)
-    (defvar lia--saved-buffer)
-    (defvar lia--saved-window-configuration)
     (if (= 1 (length (window-list)))
         (if (bound-and-true-p lia--saved-window-configuration)
             (progn
@@ -580,11 +988,19 @@ Create the custom file if it doesn't exist.
 
 ** Settings
 
-#+BEGIN_SRC emacs-lisp
-  ;; set tabs for indentation
-  (setq-default indent-tabs-mode lia-use-tabs)
+*** Indentation
 
-  ;; change indent size
+Enable/disable tabs for indentation.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode lia-use-tabs)
+#+END_SRC
+
+Change the indentation size for some major modes. Indentation size for
+other modes (like =haskell-mode=) is set in its =use-package=
+declaration.
+
+#+BEGIN_SRC emacs-lisp
   (setq-default tab-width               lia-indent-width
                 evil-shift-width        lia-indent-width
                 c-basic-offset          lia-indent-width
@@ -593,51 +1009,99 @@ Create the custom file if it doesn't exist.
                 js-indent-level         lia-indent-width
                 js-switch-indent-offset lia-indent-width
                 css-indent-offset       lia-indent-width)
+#+END_SRC
 
-  ;; show column number in the modebar
-  (setq column-number-mode t)
+*** Backup Files
 
-  ;; move backup~ files to its own directory
+Move backup~ files to a =backups= folder in the Emacs directory.
+
+#+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
         `((".*" . ,(concat user-emacs-directory "backups"))))
+#+END_SRC
 
-  ;; no #autosave# files
+I find the #autosave# files annoying. Don't use them.
+
+#+BEGIN_SRC emacs-lisp
   (setq auto-save-default nil)
+#+END_SRC
 
-  ;; no .#lock files
+I also don't want .#lock files.
+
+#+BEGIN_SRC emacs-lisp
   (setq create-lockfiles nil)
+#+END_SRC
 
-  ;; better mouse scrolling
-  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
+*** Scrolling
+
+Change the mouse scroll behaviour.
+
+A few people use my Emacs configuration because I hand over my laptop
+to them for code review. These changes are nice, because they use the mouse.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
         mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
         mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+#+END_SRC
 
-  ;; smooth scroll
+Set "smooth scrolling". When moving towards the up/bottom of the
+buffer, don't jump down half of the view. Instead, scroll one line at
+a time.
+
+#+BEGIN_SRC emacs-lisp
   (setq scroll-step 1
         scroll-conservatively 1000)
+#+END_SRC
 
-  ;; backspace simply deletes a character
+*** Other Settings
+
+Show column number in the modebar
+
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+#+END_SRC
+
+Backspace simply deletes a character.
+
+"Wait, that's what backspace should do, right?"
+
+Not exactly. If the cursor is in front of a tab character and the user
+hits backspace, the tab character gets converted to spaces, then a
+space character is deleted.
+
+In my opinion, that behaviour is dumb. Just delete a single
+character. Simple.
+
+#+BEGIN_SRC emacs-lisp
   (setq backward-delete-char-untabify-method nil)
+#+END_SRC
 
-  ;; guess target directory when copying/moving files in dired
-  ;; i.e. get drag and drop functionality with two dired windows in a split
+Guess target directory when copying/moving files in dired.
+
+This emulates drag and drop functionality with two dired windows in a
+split.
+
+#+BEGIN_SRC emacs-lisp
   (setq dired-dwim-target t)
+#+END_SRC
 
-  ;; display line numbers when in `prog-mode'
-  (when lia-use-line-numbers
-    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+Pair up delimiters: =""=, =()=, =[]=, ={}=
 
-  ;; indent `case' in switch/case
-  (c-set-offset 'case-label '+)
-
-  ;; pair up delimiters: "", (), [], {}
+#+BEGIN_SRC emacs-lisp
   (electric-pair-mode t)
+#+END_SRC
 
-  ;; yes/no prompt is now y/n
-  ;; saves a bit of typing
+Change yes/no prompts to be y/n. Saves a bit of typing.
+
+#+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 
-  ;; files that change on disk automatically get reverted
+Automatically revert buffers when they change on disk. This is handy
+when running =npm install= and =package.json= gets updated.
+
+#+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
 #+END_SRC
 
@@ -656,11 +1120,13 @@ file name handler.
         file-name-handler-alist lia--file-name-handler-alist)
 #+END_SRC
 
-We're done! show the startup time.
+We're done! At the end of startup, show the startup time and the total
+number of garbage collections.
 
 #+BEGIN_SRC emacs-lisp
-  (message
-   (format "Started up in %.2f seconds with %d garbage collections."
-           (float-time (time-subtract after-init-time before-init-time))
-           gcs-done))
+  (defun display-startup-echo-area-message ()
+    (message
+     (format "Started up in %.2f seconds with %d garbage collections."
+             (float-time (time-subtract after-init-time before-init-time))
+             gcs-done)))
 #+END_SRC

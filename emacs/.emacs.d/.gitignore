@@ -1,4 +1,4 @@
-# whitelist gitignore and init.el
+# whitelist gitignore and emacs config
 *
 !.gitignore
 !init.el
