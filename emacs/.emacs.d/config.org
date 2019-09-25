@@ -1190,6 +1190,13 @@ split.
   (setq dired-dwim-target t)
 #+END_SRC
 
+When deleting files, don't actually delete them. Move them to the
+trash instead.
+
+#+BEGIN_SRC emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+END_SRC
+
 Pair up delimiters: =""=, =()=, =[]=, ={}=
 
 #+BEGIN_SRC emacs-lisp
