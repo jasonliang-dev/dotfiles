@@ -1,3 +1,5 @@
+#+STARTUP: content
+
 * Emacs Config
 
 This is my Emacs config. [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][There]] [[https://jamiecollinson.com/blog/my-emacs-config/][are]] [[https://pages.sachachua.com/.emacs.d/Sacha.html][many]] [[https://github.com/wasamasa/dotemacs/blob/master/init.org][like]] [[https://github.com/larstvei/dot-emacs][it]], but this one is
@@ -324,12 +326,26 @@ Evil mode. It's Vim emulation in Emacs!
     (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
     (lia-leader-def "q"   'evil-quit)
     (lia-leader-def "w"   'evil-window-map)
+    ;; disable binding keys to some modes.
+    ;; `evil-collection' will handle it instead
+    (setq evil-want-keybinding nil)
     ;; scroll with C-u
     (setq evil-want-C-u-scroll t)
     ;; emacs movement in insert mode
     (setq evil-disable-insert-state-bindings t)
     ;; vim search behaviour
     (setq evil-search-module 'evil-search))
+#+END_SRC
+
+Evil mode by itself, doesn't cover a lot of places in Emacs. Evil
+Collection creates Evil key bindings nearly everywhere in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :ensure t
+    :after evil
+    :config
+    (evil-collection-init))
 #+END_SRC
 
 Use Evil bindings in Magit.
