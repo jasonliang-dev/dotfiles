@@ -914,6 +914,7 @@ file with mixed HTML, CSS, JS, and PHP.
                   web-mode-script-padding       lia-indent-width
                   web-mode-style-padding        lia-indent-width)
     :mode (("\\.php\\'"  . web-mode)
+           ("\\.html\\'" . web-mode)
            ("\\.ejs\\'"  . web-mode)
            ("\\.twig\\'" . web-mode)
            ("\\.vue\\'"  . (lambda ()
