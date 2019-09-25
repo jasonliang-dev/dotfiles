@@ -689,6 +689,21 @@ commands with =counsel-projectile= alternatives.
     (counsel-projectile-mode))
 #+END_SRC
 
+*** Crazy Refactoring With =wgrep=
+
+Refactoring variables and functions is made easy with
+=ivy-occur=. When searching for a string (with =swiper= or
+=counsel-projectile-ag=, for example), pressing =C-c C-o= will bring a
+buffer to edit the search results.
+
+Editing the =ivy-occur= buffer requires =wgrep=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package wgrep
+    :ensure t
+    :hook ivy-occur-mode)
+#+END_SRC
+
 ** Programming Languages + File Types
 
 This section adds support for several programming languages and other
@@ -962,7 +977,7 @@ When there's multiple cursors, remove them. Otherwise, disable search
 highlight.
 
 Despite being completely unrelated commands, it just feels natural to
-me to have this function bound to a key shortcut.
+me to have this function bound to the same key shortcut.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/clear-mc-or-nohl ()
