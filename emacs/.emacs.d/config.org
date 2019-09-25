@@ -899,6 +899,8 @@ I change my Emacs config a lot. Make it trivial to find my config.
     (find-file (expand-file-name "config.org" user-emacs-directory)))
 #+END_SRC
 
+-----
+
 My workflow consists of two programs: Emacs, and the scratchpad
 terminal running a tmux session.
 
@@ -916,12 +918,29 @@ tmux window is the same as the one in Emacs.
       (call-process-shell-command "~/scripts/scratchpad.sh" nil 0)))
 #+END_SRC
 
+-----
+
+Bless me, Father, for I have sinned. I use GUI applications. I
+actually prefer to use a file explorer.
+
+Open the current working directory in an external file explorer. This
+is better than something like =:!thunar= because this happens
+asynchronously (Emacs doesn't wait for Thunar to exit).
+
+"But can't you use =:!thunar &= or run =async-shell-command=?"
+
+Sure, but the solution below doesn't display a new buffer. Both
+=:!thunar &= and =async-shell-command= pops open a buffer for showing
+the command output. I'm not interested that.
+
 #+BEGIN_SRC emacs-lisp
   (defun lia/open-file-explorer ()
     "Open file explorer in current directory."
     (interactive)
     (call-process-shell-command "~/scripts/files.sh ." nil 0))
 #+END_SRC
+
+-----
 
 When there's multiple cursors, remove them. Otherwise, disable search
 highlight.
@@ -937,6 +956,8 @@ me to have this function bound to a key shortcut.
         (evil-mc-undo-all-cursors)
       (evil-ex-nohighlight)))
 #+END_SRC
+
+-----
 
 When spliting windows, focus the newly created window. This is the
 default behaviour in Vim.
@@ -955,6 +976,8 @@ default behaviour in Vim.
     (other-window 1))
 #+END_SRC
 
+-----
+
 Alright. I'll admit, I don't live in Emacs. Other programs just handle
 certain file types better (images and PDFs for example). This function
 makes it easy to handle the current file.
@@ -969,18 +992,57 @@ makes it easy to handle the current file.
                     buffer-file-name)))
 #+END_SRC
 
+-----
+
+Toggle between absolute line numbers and (visual) relative line numbers.
+
+Absolute line numbers are lines that are labels as is. Line 1 is
+labeled =1=, Line 2 is labeled =2=, etc.
+
+#+BEGIN_EXAMPLE
+  29  ...
+  30  Roses.are("Red");
+  31  Violets.are("Blue");
+  32  throw new Error();
+  33  // on line 32
+  34  ...
+#+END_EXAMPLE
+
+Relative line numbers label the lines based on the cursor
+location. The line below the cursor is label =1=, the line below that
+is labeled =2=, etc. The same is true in the other direction. The line
+with the cursor is labeled as is.
+
+#+BEGIN_EXAMPLE
+   3  ...
+   2  Roses.are("Red");
+   1  Violets.are("Blue");
+  32  throw new SyntaxError(); // cursor on this line
+   1  // on line 32
+   2  ...
+#+END_EXAMPLE
+
+=visual= line numbers is the same as relative, except it disregards
+hidden lines (for example, when folding).
+
 #+BEGIN_SRC emacs-lisp
   (defun lia/toggle-display-line-number-type ()
-    "Toggle the line number type between absolute and relative."
+    "Toggle the line number type between absolute and (visual) relative."
     (interactive)
     (setq display-line-numbers-type
-          (if (eq display-line-numbers-type 'relative)
+          (if (eq display-line-numbers-type 'visual)
               (progn (message "Line number type: absolute") t)
-            (progn (message "Line number type: relative") 'relative)))
+            (progn (message "Line number type: visual") 'visual)))
     ;; update line numbers if it's currently being displayed
     (when (bound-and-true-p display-line-numbers-mode)
       (display-line-numbers--turn-on)))
 #+END_SRC
+
+-----
+
+Maximize/minimize a window. Maximizing fills the current window and
+removes all other windows. Minimizing restores the windows that were
+previously removed.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/toggle-other-windows ()
@@ -1075,7 +1137,7 @@ Show column number in the modebar
 
 Backspace simply deletes a character.
 
-"Wait, that's what backspace should do, right?"
+"Wait, that's what backspace does, right?"
 
 Not exactly. If the cursor is in front of a tab character and the user
 hits backspace, the tab character gets converted to spaces, then a
@@ -1141,3 +1203,5 @@ number of garbage collections.
              (float-time (time-subtract after-init-time before-init-time))
              gcs-done)))
 #+END_SRC
+
+#  LocalWords:  labeled
