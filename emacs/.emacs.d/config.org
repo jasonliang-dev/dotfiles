@@ -947,7 +947,7 @@ tmux window is the same as the one in Emacs.
     "Create a new tmux window and focus the scratchpad terminal."
     (interactive)
     (when (zerop (shell-command
-                  (format "tmux new-window -c 'cd %s'"
+                  (format "tmux new-window -c '%s'"
                           (expand-file-name default-directory))))
       (call-process-shell-command "~/scripts/scratchpad.sh" nil 0)))
 #+END_SRC
