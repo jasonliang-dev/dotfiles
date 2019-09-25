@@ -160,7 +160,7 @@ features (state indicator, git branch, error count, icons, etc).
   (use-package doom-themes
     :ensure t
     :config
-    (load-theme lia-theme))
+    (load-theme lia-theme t))
 
   (use-package doom-modeline
     :ensure t
@@ -268,6 +268,11 @@ the other packages listed below, so I put them here.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia--bind-some-keys ()
+    ;; narrow to visual selection
+    (general-define-key
+     :states 'visual
+     "n" 'narrow-to-region)
+
     ;; open current file externally in dired
     (general-define-key
      :keymaps 'dired-mode-map
@@ -323,7 +328,7 @@ Evil mode. It's Vim emulation in Emacs!
      [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
     :init
     ;; leader bindings
-    (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
+    (lia-leader-def "ESC" 'lia/clear-something-dwim)
     (lia-leader-def "q"   'evil-quit)
     (lia-leader-def "w"   'evil-window-map)
     ;; disable binding keys to some modes.
@@ -371,14 +376,12 @@ Python statements =if= =elif= =else=, and much more.
 
 Multiple cursors with support for Evil.
 
-I've heard of iedit, but I've yet to take a look into it.
-
 #+BEGIN_SRC emacs-lisp
   (use-package evil-mc
     :ensure t
     :general
     (:states
-     'motion
+     '(normal visual)
      "C-n" 'evil-mc-make-and-goto-next-match
      "C-p" 'evil-mc-make-and-goto-prev-match
      "C-;" 'evil-mc-make-all-cursors)
@@ -671,7 +674,7 @@ search in a project with grep/ag, etc.
     :defer t
     :init
     (lia-leader-def "p" '(:keymap projectile-command-map :package projectile))
-    (setq projectile-enable-caching t)
+    ;; (setq projectile-enable-caching t)
     (setq projectile-completion-system 'ivy)
     :config
     (dolist (directory '("elpa" "node_modules" "vendor"))
@@ -689,7 +692,7 @@ commands with =counsel-projectile= alternatives.
     (counsel-projectile-mode))
 #+END_SRC
 
-*** Crazy Refactoring With =wgrep=
+*** Install =wgrep= For Refactoring
 
 Refactoring variables and functions is made easy with
 =ivy-occur=. When searching for a string (with =swiper= or
@@ -973,19 +976,25 @@ the command output. I'm not interested that.
 
 -----
 
-When there's multiple cursors, remove them. Otherwise, disable search
-highlight.
+Widen buffer, remove multiple cursors, or clear highlight.
 
 Despite being completely unrelated commands, it just feels natural to
 me to have this function bound to the same key shortcut.
 
 #+BEGIN_SRC emacs-lisp
-  (defun lia/clear-mc-or-nohl ()
-    "Clear multiple cursors or remove search highlight."
+  (defun lia/clear-something-dwim ()
+    "Do something, depending on some conditions.
+
+  - If the buffer is narrowed, widen it.
+  - Otherwise, if there are multiple cursors, remove them.
+  - Otherwise, clear search highlight."
     (interactive)
-    (if (and (featurep 'evil-mc) (evil-mc-has-cursors-p))
-        (evil-mc-undo-all-cursors)
-      (evil-ex-nohighlight)))
+    (cond ((buffer-narrowed-p)
+           (widen))
+          ((and (featurep 'evil-mc) (evil-mc-has-cursors-p))
+           (evil-mc-undo-all-cursors))
+          (t
+           (evil-ex-nohighlight))))
 #+END_SRC
 
 -----
@@ -1216,6 +1225,15 @@ when running =npm install= and =package.json= gets updated.
   (global-auto-revert-mode t)
 #+END_SRC
 
+Narrowing is disabled by default to avoid confusion for users that
+don't know what narrowing is.
+
+I use narrowing. Enable it.
+
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
 ** Late Initialization
 
 Garbage collection was avoided by setting the memory threshold to a
@@ -1241,5 +1259,3 @@ number of garbage collections.
              (float-time (time-subtract after-init-time before-init-time))
              gcs-done)))
 #+END_SRC
-
-#  LocalWords:  labeled
