@@ -421,6 +421,32 @@ and delete parenthesis, brackets, HTML tags, etc.
     :config (global-evil-surround-mode))
 #+END_SRC
 
+=evil-snipe= overrides the =s= and =S= keys. They are just like Vim's
+=f= / =F= commands, but searches with two characters instead of
+one. Navigation is faster because the search candidates are reduced.
+
+Example: I want to jump to the beginning of "intriguing" in the
+sentence: "The internet is a place with intriguing content."
+
+The motion =fi= will match the =i= in: internet, is, with, and
+intriguing (6 candidates).
+
+Using =evil-snipe=, =sin= will match the =in= in: internet and
+intriguing (3 candidates).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-snipe
+    :ensure t
+    :hook (after-init . evil-snipe-mode)
+    :init
+    (setq evil-snipe-scope        'visible
+          evil-snipe-repeat-scope 'whole-visible
+          evil-snipe-smart-case   t)
+    :config
+    (evil-snipe-override-mode 1)
+    (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
+#+END_SRC
+
 ** Ivy
 
 I used to use Helm, but mainly used it for simple things. All of the
@@ -1046,7 +1072,7 @@ makes it easy to handle the current file.
 
 Toggle between absolute line numbers and (visual) relative line numbers.
 
-Absolute line numbers are lines that are labels as is. Line 1 is
+Absolute line numbers are lines that are labeled as is. Line 1 is
 labeled =1=, Line 2 is labeled =2=, etc.
 
 #+BEGIN_EXAMPLE
@@ -1060,14 +1086,14 @@ labeled =1=, Line 2 is labeled =2=, etc.
 
 Relative line numbers label the lines based on the cursor
 location. The line below the cursor is label =1=, the line below that
-is labeled =2=, etc. The same is true in the other direction. The line
-with the cursor is labeled as is.
+is labeled =2=, etc, and vice versa. The line with the cursor is
+labeled as is.
 
 #+BEGIN_EXAMPLE
    3  ...
    2  Roses.are("Red");
    1  Violets.are("Blue");
-  32  throw new SyntaxError(); // cursor on this line
+  32  throw new Error(); // cursor on this line
    1  // on line 32
    2  ...
 #+END_EXAMPLE
