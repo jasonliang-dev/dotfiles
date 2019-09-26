@@ -659,11 +659,6 @@ xmlns:xi="http://www.w3.org/2001/XInclude">
     <submenuHideDelay>50</submenuHideDelay>
   </menu>
   <applications>
-    <application role="browser">
-      <decor>no</decor>
-      <desktop>1</desktop>
-      <maximized>yes</maximized>
-    </application>
     <application class="orage">
       <decor>no</decor>
       <desktop>all</desktop>
