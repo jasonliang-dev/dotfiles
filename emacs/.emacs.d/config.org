@@ -472,7 +472,7 @@ through all buffers.
     :ensure t
     :after ivy
     :init
-    (lia-leader-def "s" 'swiper-all))
+    (lia-leader-def "/" 'swiper-all))
 #+END_SRC
 
 ** Editor
