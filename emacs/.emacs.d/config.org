@@ -1242,7 +1242,7 @@ trash instead.
   (setq delete-by-moving-to-trash t)
 #+END_SRC
 
-Pair up delimiters: =''=, =()=, =[]=, ={}=
+Pair up delimiters: ~""~, =()=, =[]=, ={}=
 
 #+BEGIN_SRC emacs-lisp
   (electric-pair-mode t)
