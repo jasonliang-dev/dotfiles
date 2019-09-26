@@ -170,6 +170,15 @@ features (state indicator, git branch, error count, icons, etc).
           doom-modeline-buffer-file-name-style 'buffer-name))
 #+END_SRC
 
+*** Style The Fringe
+
+The fringe is the space by the left and right of the window. I want
+the colour of the fringe to be the same as the background colour.
+
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'fringe nil :background nil)
+#+END_SRC
+
 *** Parenthesis
 
 Make it easy to spot matching brackets =[]= ={}= and parenthesis =()=
@@ -435,7 +444,7 @@ directory, it will autocomplete with the selected candidate.
     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
     (setq ivy-use-virtual-buffers t)
     ;; number of result lines to display
-    (setq ivy-height 10)
+    (setq ivy-height 15)
     ;; does not count candidates
     (setq ivy-count-format "")
     ;; no regexp by default
