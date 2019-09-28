@@ -947,13 +947,13 @@ an overview of the week below.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-custom-commands
         '(("c" "My agenda"
-           ((org-agenda-compact-blocks t))
-           ((alltodo ""
+           ((agenda "")
+            (alltodo ""
                      ((org-agenda-skip-function
                        '(org-agenda-skip-entry-if
                          'todo 'done 'scheduled 'deadline))
-                      (org-agenda-overriding-header "Unscheduled tasks")))
-            (agenda "")))))
+                      (org-agenda-overriding-header "Unscheduled tasks"))))
+           ((org-agenda-compact-blocks t)))))
 #+END_SRC
 
 Use 12 hour clock in the agenda.
