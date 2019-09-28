@@ -324,6 +324,13 @@ Use General. A package that makes binding keys easy and convenient.
 
 Evil mode. It's Vim emulation in Emacs!
 
+Remap some movement commands to the visual equivalent. For example, if
+the current line is really long and wraps around the window, then the
+cursor will behave as if the current line is split into multiple.
+
+Also remap window splits so that the new split is where the cursor is
+focused.
+
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
@@ -348,10 +355,13 @@ Evil mode. It's Vim emulation in Emacs!
     ;; emacs movement in insert mode
     (setq evil-disable-insert-state-bindings t)
     ;; vim search behaviour
-    (setq evil-search-module 'evil-search))
+    (setq evil-search-module 'evil-search)
+    :config
+    ;; start agenda in normal mode
+    (evil-set-initial-state 'org-agenda-mode 'normal))
 #+END_SRC
 
-Evil mode by itself, doesn't cover a lot of places in Emacs. Evil
+Evil mode by itself doesn't cover a lot of places in Emacs. Evil
 Collection creates Evil key bindings nearly everywhere in Emacs.
 
 #+BEGIN_SRC emacs-lisp
@@ -882,11 +892,74 @@ Add support for Markdown.
 
 Org mode configuration.
 
+Add bindings to the agenda view. Require =org-habit= to enable habits
+in the agenda view. Add markdown as one of the export options.
+
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :defer t
+    :general
+    (org-agenda-mode-map
+     :states 'normal
+     "C-r" 'org-agenda-redo
+     "RET" 'org-agenda-switch-to
+     "."   'org-agenda-goto-today
+     "c"   'org-agenda-goto-calendar
+     "q"   'org-agenda-quit
+     "s"   'org-save-all-org-buffers
+     "t"   'org-agenda-todo
+     "u"   'org-agenda-undo
+     "x"   'org-agenda-archive
+
+     "1"   'org-agenda-day-view
+     "2"   'org-agenda-week-view
+     "3"   'org-agenda-fortnight-view
+     "4"   'org-agenda-month-view
+     "5"   'org-agenda-year-view
+
+     "j"   'org-agenda-next-line
+     "k"   'org-agenda-previous-line
+     "h"   'org-agenda-earlier
+     "l"   'org-agenda-later)
+    :init
+    (lia-leader-def "oa" 'org-agenda)
+    (lia-leader-def "ox" 'org-archive-subtree)
     :config
+    (require 'org-habit)
     (add-to-list 'org-export-backends 'md))
+#+END_SRC
+
+Set the directory to search for Org files.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/Dropbox/org/")
+#+END_SRC
+
+Add the files in =org-directory= for use in the agenda.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list org-directory))
+#+END_SRC
+
+Create an agenda view that lists all unscheduled tasks at the top, and
+an overview of the week below.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-custom-commands
+        '(("c" "My agenda"
+           ((org-agenda-compact-blocks t))
+           ((alltodo ""
+                     ((org-agenda-skip-function
+                       '(org-agenda-skip-entry-if
+                         'todo 'done 'scheduled 'deadline))
+                      (org-agenda-overriding-header "Unscheduled tasks")))
+            (agenda "")))))
+#+END_SRC
+
+Use 12 hour clock in the agenda.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-timegrid-use-ampm t)
 #+END_SRC
 
 *** PHP
@@ -990,8 +1063,8 @@ tmux window is the same as the one in Emacs.
 
 -----
 
-Bless me, Father, for I have sinned. I use GUI applications. I
-actually prefer to use a file explorer.
+I actually prefer to use a file explorer over something like =ranger=
+or =dired=.
 
 Open the current working directory in an external file explorer. This
 is better than something like =:!thunar= because this happens
@@ -1008,6 +1081,19 @@ the command output. I'm not interested that.
     "Open file explorer in current directory."
     (interactive)
     (call-process-shell-command "~/scripts/files.sh ." nil 0))
+#+END_SRC
+
+-----
+
+Go to the =org-directory=.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/goto-org-directory ()
+    "Navigate to `org-directory'."
+    (interactive)
+    (if (bound-and-true-p org-directory)
+        (find-file org-directory)
+      (message "`org-directory' not set.")))
 #+END_SRC
 
 -----
