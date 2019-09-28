@@ -277,11 +277,6 @@ the other packages listed below, so I put them here.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia--bind-some-keys ()
-    ;; narrow to visual selection
-    (general-define-key
-     :states 'visual
-     "n" 'narrow-to-region)
-
     ;; open current file externally in dired
     (general-define-key
      :keymaps 'dired-mode-map
@@ -302,6 +297,7 @@ above, these are placed here because they got nowhere else to go.
     (lia-leader-def ","     'rename-buffer)
     (lia-leader-def "e"     'eval-last-sexp)
     (lia-leader-def "k"     'kill-this-buffer)
+    (lia-leader-def "n"     'lia/narrow-or-widen)
     (lia-leader-def "r"     'revert-buffer)
     (lia-leader-def "u"     'undo-tree-visualize)
     (lia-leader-def "1"     'lia/open-config)
@@ -344,7 +340,7 @@ focused.
      [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
     :init
     ;; leader bindings
-    (lia-leader-def "ESC" 'lia/clear-something-dwim)
+    (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
     (lia-leader-def "q"   'evil-quit)
     (lia-leader-def "w"   'evil-window-map)
     ;; disable binding keys to some modes.
@@ -901,11 +897,10 @@ in the agenda view. Add markdown as one of the export options.
     :general
     (org-agenda-mode-map
      :states 'normal
-     "C-r" 'org-agenda-redo
      "RET" 'org-agenda-switch-to
      "."   'org-agenda-goto-today
-     "c"   'org-agenda-goto-calendar
      "q"   'org-agenda-quit
+     "r"   'org-agenda-redo
      "s"   'org-save-all-org-buffers
      "t"   'org-agenda-todo
      "u"   'org-agenda-undo
@@ -922,7 +917,8 @@ in the agenda view. Add markdown as one of the export options.
      "h"   'org-agenda-earlier
      "l"   'org-agenda-later)
     :init
-    (lia-leader-def "oa" 'org-agenda)
+    (lia-leader-def "oa" 'lia/org-agenda)
+    (lia-leader-def "od" 'lia/goto-org-directory)
     (lia-leader-def "ox" 'org-archive-subtree)
     :config
     (require 'org-habit)
@@ -960,6 +956,15 @@ Use 12 hour clock in the agenda.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-timegrid-use-ampm t)
+#+END_SRC
+
+Resize the consistency graph in the agenda. Move it to the right and
+display the last two weeks.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-habit-graph-column 56
+        org-habit-following-days 1
+        org-habit-preceding-days 14)
 #+END_SRC
 
 *** PHP
@@ -1098,25 +1103,41 @@ Go to the =org-directory=.
 
 -----
 
-Widen buffer, remove multiple cursors, or clear highlight.
+Open my custom agenda directly. Don't go through the dispatch menu.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/org-agenda ()
+    (interactive)
+    (org-agenda nil "c"))
+#+END_SRC
+
+-----
+
+If there's multiple cursors, remove the extra cursors. Otherwise,
+clear search highlight.
 
 Despite being completely unrelated commands, it just feels natural to
 me to have this function bound to the same key shortcut.
 
 #+BEGIN_SRC emacs-lisp
-  (defun lia/clear-something-dwim ()
-    "Do something, depending on some conditions.
-
-  - If the buffer is narrowed, widen it.
-  - Otherwise, if there are multiple cursors, remove them.
-  - Otherwise, clear search highlight."
+  (defun lia/clear-mc-or-nohl ()
+    "Remove multiple cursors or clear search highlight."
     (interactive)
-    (cond ((buffer-narrowed-p)
-           (widen))
-          ((and (featurep 'evil-mc) (evil-mc-has-cursors-p))
+    (cond ((and (featurep 'evil-mc) (evil-mc-has-cursors-p))
            (evil-mc-undo-all-cursors))
           (t
            (evil-ex-nohighlight))))
+#+END_SRC
+
+-----
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/narrow-or-widen ()
+    "If region is active, narrow to region. Widen otherwise."
+    (interactive)
+    (if (region-active-p)
+        (narrow-to-region (region-beginning) (region-end))
+      (widen)))
 #+END_SRC
 
 -----
