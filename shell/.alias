@@ -8,7 +8,6 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias  l='ls -l'
 alias la='ls -a'
-alias lg='ls | grep'
 alias ll='ls -al'
 alias ls='ls --color=auto'
 
@@ -24,9 +23,8 @@ alias gc='git commit -m'
 alias gca='git commit --amend'
 alias gd='git diff'
 alias gl='git log'
-alias gr='git reset HEAD'
 alias gs='git status'
-alias gu='git reset HEAD'
+alias gu='git reset HEAD --'
 alias pull='git pull'
 alias push='git push'
 
@@ -38,7 +36,6 @@ alias ni='npm install'
 alias nid='npm install --save-dev'
 alias ns='npm start'
 alias nr='npm run'
-alias music='ncmpcpp'
 
 alias a='tmux attach'
 alias t='tmux'
@@ -47,9 +44,6 @@ alias v='vim'
 # not an alias but pretend that it is okay?
 e () { emacs "$@" & disown; }
 
-alias sf='screenfetch -n'
-alias nf='neofetch --off'
+alias music='ncmpcpp'
 alias wl='wal -no ~/scripts/wal-set.sh'
-
-alias ytdl='youtube-dl'
 alias mp3='youtube-dl --extract-audio --audio-format mp3'
