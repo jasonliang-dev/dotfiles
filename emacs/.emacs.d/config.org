@@ -110,7 +110,7 @@ Setup =package-archives= to download packages from MELPA and GNU ELPA
                            ("gnu" . "http://elpa.gnu.org/packages/")))
 #+END_SRC
 
-If elpa.gnu.org is down. try the mirror on github:
+If elpa.gnu.org is down. try the mirror on GitHub:
 
 # use 'lisp' to avoid evaluation
 
@@ -206,7 +206,7 @@ read.
 
 On the other hand, tab characters appear much less often. I want to
 see tabs so that I'm aware of the indentation style. This also allows
-me to see if indentation is consistant, or if it's mixed tabs and
+me to see if indentation is consistent, or if it's mixed tabs and
 spaces.
 
 To keep files nice and neat, mark trailing whitespace with an
@@ -404,7 +404,7 @@ Multiple cursors with support for Evil.
     (global-evil-mc-mode 1))
 #+END_SRC
 
-Increment and decrememt numbers just like in Vim. Really powerful when
+Increment and decrement numbers just like in Vim. Really powerful when
 combined with macros.
 
 #+BEGIN_SRC emacs-lisp
@@ -455,7 +455,7 @@ intriguing (3 candidates).
 
 ** Ivy
 
-I used to use Helm, but mainly used it for simple things. All of the
+I used to use Helm but mainly used it for simple things. All of the
 things that I've done in Helm, I can do in Ivy. Since Helm has a
 larger footprint, I've abandoned it for Ivy.
 
@@ -525,7 +525,7 @@ Below are some behaviours that I want from Emacs.
 Company enables text and code completions when typing.
 
 =company-tng-configure-default= enables a behaviour where changing the
-selected candidate will update the buffer with the new selected
+selected candidate will update the buffer with the newly selected
 candidate. There's no need to press the enter key anymore, saving a
 few keystrokes.
 
@@ -578,7 +578,7 @@ configuration.
 
 *** Emmet
 
-Emmet is a must have for web devs. Type abbreviations, hit =C-j=, and
+Emmet is a must-have for web devs. Type emmet abbreviations, hit =C-j=, and
 HTML comes out!
 
 The following:
@@ -811,7 +811,7 @@ Language support for Haskell.
                   haskell-indentation-where-post-offset lia-indent-width))
 #+END_SRC
 
-=haskell-mode= on its own, does not play well with Flycheck. Install
+=haskell-mode= does not play well with Flycheck by itself. Install
 =flycheck-haskell= for proper syntax checking.
 
 #+BEGIN_SRC emacs-lisp
@@ -863,17 +863,6 @@ Add support for JSON files.
     :mode "\\.json\\'")
 #+END_SRC
 
-*** Lua
-
-Language support for Lua.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package lua-mode
-    :ensure nil
-    :disabled t
-    :mode "\\.lua\\'")
-#+END_SRC
-
 *** Markdown
 
 Add support for Markdown.
@@ -917,8 +906,8 @@ in the agenda view. Add markdown as one of the export options.
      "h"   'org-agenda-earlier
      "l"   'org-agenda-later)
     :init
+    (lia-leader-def "2" 'lia/goto-org-index-file)
     (lia-leader-def "oa" 'lia/org-agenda)
-    (lia-leader-def "od" 'lia/goto-org-directory)
     (lia-leader-def "ox" 'org-archive-subtree)
     :config
     (require 'org-habit)
@@ -952,7 +941,7 @@ an overview of the week below.
            ((org-agenda-compact-blocks t)))))
 #+END_SRC
 
-Use 12 hour clock in the agenda.
+Use 12-hour clock in the agenda view.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-timegrid-use-ampm t)
@@ -965,24 +954,6 @@ display the last two weeks.
   (setq org-habit-graph-column 56
         org-habit-following-days 1
         org-habit-preceding-days 14)
-#+END_SRC
-
-*** PHP
-
-Language support for PHP.
-
-I've kept this package disabled for a while. The PHP code that I work
-with is actually HTML, CSS, JavaScript and PHP all mixed
-together. =web-mode= is more suitable.
-
-If I end up working with something like Laravel, I'll start using this
-package.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package php-mode
-    :ensure nil
-    :disabled t
-    :mode "\\.php\\'")
 #+END_SRC
 
 *** =restclient=
@@ -1068,8 +1039,8 @@ tmux window is the same as the one in Emacs.
 
 -----
 
-I actually prefer to use a file explorer over something like =ranger=
-or =dired=.
+I prefer to use a file explorer over something like =ranger= or
+=dired=.
 
 Open the current working directory in an external file explorer. This
 is better than something like =:!thunar= because this happens
@@ -1079,7 +1050,7 @@ asynchronously (Emacs doesn't wait for Thunar to exit).
 
 Sure, but the solution below doesn't display a new buffer. Both
 =:!thunar &= and =async-shell-command= pops open a buffer for showing
-the command output. I'm not interested that.
+the command output. I'm not interested in that.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/open-file-explorer ()
@@ -1090,14 +1061,14 @@ the command output. I'm not interested that.
 
 -----
 
-Go to the =org-directory=.
+Go to =index.org= located in the the =org-directory=.
 
 #+BEGIN_SRC emacs-lisp
-  (defun lia/goto-org-directory ()
-    "Navigate to `org-directory'."
+  (defun lia/goto-org-index-file ()
+    "Navigate to my `index.org' file."
     (interactive)
     (if (bound-and-true-p org-directory)
-        (find-file org-directory)
+        (find-file (expand-file-name "index.org" org-directory))
       (message "`org-directory' not set.")))
 #+END_SRC
 
@@ -1113,7 +1084,7 @@ Open my custom agenda directly. Don't go through the dispatch menu.
 
 -----
 
-If there's multiple cursors, remove the extra cursors. Otherwise,
+If there are multiple cursors, remove the extra cursors. Otherwise,
 clear search highlight.
 
 Despite being completely unrelated commands, it just feels natural to
@@ -1142,7 +1113,7 @@ me to have this function bound to the same key shortcut.
 
 -----
 
-When spliting windows, focus the newly created window. This is the
+When splitting windows, focus the newly-created window. This is the
 default behaviour in Vim.
 
 #+BEGIN_SRC emacs-lisp
@@ -1179,8 +1150,8 @@ makes it easy to handle the current file.
 
 Toggle between absolute line numbers and (visual) relative line numbers.
 
-Absolute line numbers are lines that are labeled as is. Line 1 is
-labeled =1=, Line 2 is labeled =2=, etc.
+Absolute line numbers are lines that are labelled as is. Line 1 is
+labelled =1=, Line 2 is labelled =2=, etc.
 
 #+BEGIN_EXAMPLE
   29  ...
@@ -1193,8 +1164,8 @@ labeled =1=, Line 2 is labeled =2=, etc.
 
 Relative line numbers label the lines based on the cursor
 location. The line below the cursor is label =1=, the line below that
-is labeled =2=, etc, and vice versa. The line with the cursor is
-labeled as is.
+is labelled =2=, etc, and vice versa. The line with the cursor is
+labelled as is.
 
 #+BEGIN_EXAMPLE
    3  ...
@@ -1205,8 +1176,8 @@ labeled as is.
    2  ...
 #+END_EXAMPLE
 
-=visual= line numbers is the same as relative, except it disregards
-hidden lines (for example, when folding).
+=visual= line numbers type is the same as relative, except it
+disregards hidden lines (for example, when folding).
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/toggle-display-line-number-type ()
@@ -1293,7 +1264,7 @@ I also don't want .#lock files.
 Change the mouse scroll behaviour.
 
 A few people use my Emacs configuration because I hand over my laptop
-to them for code review. These changes are nice, because they use the mouse.
+to them for code review. These changes are nice because they use the mouse.
 
 #+BEGIN_SRC emacs-lisp
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
@@ -1318,7 +1289,7 @@ Show column number in the modebar
   (setq column-number-mode t)
 #+END_SRC
 
-Backspace simply deletes a character.
+Let backspace simply delete a character.
 
 "Wait, that's what backspace does, right?"
 
