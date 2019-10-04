@@ -8,7 +8,7 @@ mine. My Emacs config is my best friend. It is my life.
 ** Quick Settings
 
 I leave some settings near the top. It's quick to access which makes
-these settings are easy to change.
+these settings easy to change.
 
 #+BEGIN_SRC emacs-lisp
   (defconst lia-use-tabs nil
@@ -693,9 +693,7 @@ installed. JavaScript, for example, needs prettier to be installed.
 
 *** Magit Is Magic
 
-Probably the best Git interface to the point where I would launch
-Emacs just to stage some files and make a commit instead of using the
-terminal.
+If you're reading this you probably know what Magit already is.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -1104,6 +1102,10 @@ me to have this function bound to the same key shortcut.
 
 -----
 
+Narrow to region, or widen if there's no active region. Narrowing
+restricts the buffer so that only a certain area of text is
+visible. Widening undoes narrowing, restoring the hidden text.
+
 #+BEGIN_SRC emacs-lisp
   (defun lia/narrow-or-widen ()
     "If region is active, narrow to region. Widen otherwise."
@@ -1284,6 +1286,14 @@ a time.
 #+END_SRC
 
 *** Other Settings
+
+Don't delay showing unfinished key commands. Can't be set to 0,
+because the keys won't be displayed at all. Set the delay to a very
+low number.
+
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.02)
+#+END_SRC
 
 Show column number in the modebar
 
