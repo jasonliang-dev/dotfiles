@@ -391,23 +391,19 @@ Python statements =if= =elif= =else=, and much more.
     (global-evil-matchit-mode 1))
 #+END_SRC
 
-Multiple cursors with support for Evil.
+Edit multiple parts of text at once. Similar to multiple cursors.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package evil-mc
+  (use-package evil-multiedit
     :ensure t
-    :general
-    (:states
-     '(normal visual)
-     "C-n" 'evil-mc-make-and-goto-next-match
-     "C-p" 'evil-mc-make-and-goto-prev-match
-     "C-;" 'evil-mc-make-all-cursors)
+    :after evil
     :config
-    (global-evil-mc-mode 1))
+    (evil-multiedit-default-keybinds))
 #+END_SRC
 
 Increment and decrement numbers just like in Vim. Really powerful when
-combined with macros.
+combined with macros or multiple cursors.
+
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
@@ -1084,20 +1080,14 @@ Open my custom agenda directly. Don't go through the dispatch menu.
 
 -----
 
-If there are multiple cursors, remove the extra cursors. Otherwise,
-clear search highlight.
-
-Despite being completely unrelated commands, it just feels natural to
-me to have this function bound to the same key shortcut.
+Clear search highlight. Wrapped in an interactive function for binding
+to a key.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/clear-mc-or-nohl ()
-    "Remove multiple cursors or clear search highlight."
+    "Clear search highlight."
     (interactive)
-    (cond ((and (featurep 'evil-mc) (evil-mc-has-cursors-p))
-           (evil-mc-undo-all-cursors))
-          (t
-           (evil-ex-nohighlight))))
+    (evil-ex-nohighlight))
 #+END_SRC
 
 -----
