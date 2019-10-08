@@ -323,11 +323,13 @@ Use General. A package that makes binding keys easy and convenient.
 Evil mode. It's Vim emulation in Emacs!
 
 Remap some movement commands to the visual equivalent. For example, if
-the current line is really long and wraps around the window, then the
-cursor will behave as if the current line is split into multiple.
+the current line is really long and wraps around the window, then
+cursor movement will behave as if the current line is split into
+multiple lines. Moving down a line will actually move down a "visual"
+line.
 
-Also remap window splits so that the new split is where the cursor is
-focused.
+Also remap window splits so that the cursor is focused on the newly
+split window.
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
