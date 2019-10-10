@@ -393,19 +393,45 @@ Python statements =if= =elif= =else=, and much more.
     (global-evil-matchit-mode 1))
 #+END_SRC
 
+Multiple cursors with support for Evil.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-mc
+    :ensure t
+    :general
+    (:states
+     '(normal visual)
+     "C-n" 'evil-mc-make-and-goto-next-match
+     "C-p" 'evil-mc-make-and-goto-prev-match)
+    :init
+    (advice-add 'evil-force-normal-state :before 'evil-mc-undo-all-cursors)
+    :config
+    (global-evil-mc-mode 1))
+#+END_SRC
+
 Edit multiple parts of text at once. Similar to multiple cursors.
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-multiedit
     :ensure t
-    :after evil
-    :config
-    (evil-multiedit-default-keybinds))
+    :general
+    (:states
+     'normal
+     "C-;" 'evil-multiedit-match-all
+     "M-d" 'evil-multiedit-match-symbol-and-next
+     "M-u" 'evil-multiedit-match-symbol-and-prev)
+    (:states
+     'visual
+     "C-;" 'evil-multiedit-toggle-or-restrict-region
+     "M-d" 'evil-multiedit-match-and-next
+     "M-u" 'evil-multiedit-match-and-prev)
+    (:keymaps
+     'evil-multiedit-state-map
+     "RET" 'evil-multiedit-toggle-or-restrict-region))
 #+END_SRC
 
 Increment and decrement numbers just like in Vim. Really powerful when
 combined with macros or multiple cursors.
-
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
