@@ -403,10 +403,9 @@ Multiple cursors with support for Evil.
      '(normal visual)
      "C-n" 'evil-mc-make-and-goto-next-match
      "C-p" 'evil-mc-make-and-goto-prev-match)
-    :init
-    (advice-add 'evil-force-normal-state :before 'evil-mc-undo-all-cursors)
     :config
-    (global-evil-mc-mode 1))
+    (global-evil-mc-mode 1)
+    (advice-add 'evil-force-normal-state :before 'evil-mc-undo-all-cursors))
 #+END_SRC
 
 Edit multiple parts of text at once. Similar to multiple cursors.
