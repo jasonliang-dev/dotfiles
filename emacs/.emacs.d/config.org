@@ -421,12 +421,15 @@ Edit multiple parts of text at once. Similar to multiple cursors.
      "M-u" 'evil-multiedit-match-symbol-and-prev)
     (:states
      'visual
-     "C-;" 'evil-multiedit-toggle-or-restrict-region
+     "C-;" 'evil-multiedit-match-all
+     "RET" 'evil-multiedit-toggle-or-restrict-region
      "M-d" 'evil-multiedit-match-and-next
      "M-u" 'evil-multiedit-match-and-prev)
     (:keymaps
      'evil-multiedit-state-map
-     "RET" 'evil-multiedit-toggle-or-restrict-region))
+     "RET" 'evil-multiedit-toggle-or-restrict-region
+     "C-n" 'evil-multiedit-next
+     "C-p" 'evil-multiedit-prev))
 #+END_SRC
 
 Increment and decrement numbers just like in Vim. Really powerful when
