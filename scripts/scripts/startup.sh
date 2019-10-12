@@ -24,7 +24,7 @@ nm-applet &
 redshift-gtk &
 
 # lock screen after 10 minutes
-xautolock -time 10 -locker $HOME/scripts/lock.sh &
+xautolock -time 10 -corners 000- -locker $HOME/scripts/lock.sh &
 
 # optional stuff
 while [ "$#" -gt 0 ]
