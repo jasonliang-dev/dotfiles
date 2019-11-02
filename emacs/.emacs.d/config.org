@@ -559,7 +559,8 @@ Company enables text and code completions when typing.
     :general
     (company-active-map
      "C-n" 'company-select-next
-     "C-p" 'company-select-previous)
+     "C-p" 'company-select-previous
+     "C-c C-j" 'yas-expand)
     :init
     ;; don't delay autocomplete suggesstions
     (setq company-idle-delay 0)
