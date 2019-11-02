@@ -3,3 +3,5 @@
 !.gitignore
 !init.el
 !config.org
+!snippets/
+!snippets/**/*

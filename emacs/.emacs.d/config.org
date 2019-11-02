@@ -552,11 +552,6 @@ Below are some behaviours that I want from Emacs.
 
 Company enables text and code completions when typing.
 
-=company-tng-configure-default= enables a behaviour where changing the
-selected candidate will update the buffer with the newly selected
-candidate. There's no need to press the enter key anymore, saving a
-few keystrokes.
-
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
@@ -570,9 +565,16 @@ few keystrokes.
     (setq company-idle-delay 0)
     ;; popup completions after typing a single character
     (setq company-minimum-prefix-length 1)
+    ;; don't lowercase candidates
+    (setq company-dabbrev-downcase nil)
     :config
-    ;; enable tab and go; completion using only the tab key.
-    (company-tng-configure-default))
+    ;; enable yasnippet backend
+    (defun company-mode/backend-with-yas (backend)
+      (if (and (listp backend) (member 'company-yasnippet backend))
+          backend
+        (append (if (consp backend) backend (list backend))
+                '(:with company-yasnippet))))
+    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 #+END_SRC
 
 *** Automatically Switch Indentation Style
@@ -772,6 +774,17 @@ Editing the =ivy-occur= buffer requires =wgrep=.
   (use-package wgrep
     :ensure t
     :hook ivy-occur-mode)
+#+END_SRC
+
+*** Templates/Snippets
+
+Type abbreviations and expand them into code templates. Snippets are
+located in =.emacs.d/snippets=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :hook (after-init . yas-global-mode))
 #+END_SRC
 
 ** Programming Languages + File Types
