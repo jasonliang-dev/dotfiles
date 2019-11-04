@@ -1374,6 +1374,13 @@ trash instead.
   (setq delete-by-moving-to-trash t)
 #+END_SRC
 
+You can view HTML quickly with =C-c C-v= in HTML buffers. Set the
+command to launch Firefox.
+
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-firefox)
+#+END_SRC
+
 Pair up delimiters: =()=, =[]=, ={}=
 
 #+BEGIN_SRC emacs-lisp
