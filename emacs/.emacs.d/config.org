@@ -550,7 +550,19 @@ Below are some behaviours that I want from Emacs.
 
 *** Code completion
 
-Company enables text and code completions when typing.
+Yasnippet integrates with Company. Show snippets in candidate list by
+adding the Yasnippet backend.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia--company-mode/backend-with-yas (backend)
+    (if (and (listp backend) (member 'company-yasnippet backend))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))))
+#+END_SRC
+
+Company enables text and code completions when typing by showing a
+list of candidates to auto-complete.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -570,12 +582,8 @@ Company enables text and code completions when typing.
     (setq company-dabbrev-downcase nil)
     :config
     ;; enable yasnippet backend
-    (defun company-mode/backend-with-yas (backend)
-      (if (and (listp backend) (member 'company-yasnippet backend))
-          backend
-        (append (if (consp backend) backend (list backend))
-                '(:with company-yasnippet))))
-    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+    (setq company-backends
+          (mapcar #'lia--company-mode/backend-with-yas company-backends)))
 #+END_SRC
 
 *** Automatically Switch Indentation Style
