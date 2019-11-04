@@ -7,11 +7,7 @@ echo '{
   "env": {
     "browser": true
   },
-  "extends": ["airbnb", "airbnb/hooks", "prettier"],
-  "rules": {
-    "import/extensions": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-  }
+  "extends": ["airbnb", "airbnb/hooks", "prettier"]
 }' > ./.eslintrc
 
 echo '{
