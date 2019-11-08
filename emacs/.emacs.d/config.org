@@ -1381,6 +1381,13 @@ command to launch Firefox.
   (setq browse-url-browser-function 'browse-url-firefox)
 #+END_SRC
 
+I sometimes use Ubuntu. In Ubuntu, Emacs will use the annoying alert
+sound for certain actions. Disable it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
 Pair up delimiters: =()=, =[]=, ={}=
 
 #+BEGIN_SRC emacs-lisp
