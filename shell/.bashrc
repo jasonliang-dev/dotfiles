@@ -9,4 +9,5 @@
 
 source $HOME/.shell-start
 
-export PS1="\[\e[36m\]\w\[\e[m\]\\n$ "
+export PS1="\n\[\e[36m\]\w\[\e[m\]\\n$ "
+
