@@ -1,0 +1,10 @@
+! Caps lock is used as escape key
+remove Lock = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock
+
+! Right alt is compose key
+keysym Alt_R = Multi_key
+
+! Disable middle mouse click
+pointer = 1 32 3 4 5
