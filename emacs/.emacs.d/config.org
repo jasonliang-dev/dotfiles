@@ -837,7 +837,7 @@ Use IDE features for CMake projects.
   (use-package cmake-ide
     :ensure t
     :defer t
-    :config
+    :init
     (advice-add 'c-mode :before 'cmake-ide-setup))
 #+END_SRC
 
