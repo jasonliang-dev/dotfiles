@@ -831,6 +831,16 @@ Set =case= to be indented in switch/case.
   (c-set-offset 'case-label '+)
 #+END_SRC
 
+Use IDE features for CMake projects.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package cmake-ide
+    :ensure t
+    :defer t
+    :config
+    (advice-add 'c-mode :before 'cmake-ide-setup))
+#+END_SRC
+
 *** Elm
 
 Language support for Elm.
