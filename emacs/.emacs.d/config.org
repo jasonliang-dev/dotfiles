@@ -1028,6 +1028,16 @@ Postman. It's great.
      [remap eval-last-sexp] 'restclient-http-send-current-stay-in-window))
 #+END_SRC
 
+*** Rust
+
+Language support for Rust.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :ensure t
+    :mode "\\.rs\\'")
+#+END_SRC
+
 *** YAML
 
 Add support for YAML.
