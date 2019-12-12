@@ -345,7 +345,6 @@ split window.
     :init
     ;; leader bindings
     (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
-    (lia-leader-def "q"   'evil-quit)
     (lia-leader-def "w"   'evil-window-map)
     ;; disable binding keys to some modes.
     ;; `evil-collection' will handle it instead
