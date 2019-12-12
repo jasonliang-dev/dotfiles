@@ -838,6 +838,7 @@ Use IDE features for CMake projects.
     :ensure t
     :defer t
     :init
+    (setq cmake-ide-build-dir "build")
     (advice-add 'c-mode :before 'cmake-ide-setup))
 #+END_SRC
 
