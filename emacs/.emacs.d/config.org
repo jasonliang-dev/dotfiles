@@ -550,6 +550,19 @@ commands with =counsel-projectile= alternatives.
     (counsel-projectile-mode))
 #+END_SRC
 
+*** Multiple Cursors
+
+Multiple cursor support.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :general
+    ("C->" 'mc/mark-next-like-this
+     "C-<" 'mc/mark-previous-like-this
+     "C-c C-<" 'mc/mark-all-like-this))
+#+END_SRC
+
 *** Install =wgrep= For Refactoring
 
 Refactoring variables and functions is made easy with
