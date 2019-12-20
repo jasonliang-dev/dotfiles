@@ -1219,6 +1219,13 @@ I use narrowing. Enable it.
   (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
+Sensible region behaviour. When a region is active, any text inserted
+will be overwritten.
+
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+#+END_SRC
+
 ** Late Initialization
 
 Garbage collection was avoided by setting the memory threshold to a
