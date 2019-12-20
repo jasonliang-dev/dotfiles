@@ -394,7 +394,9 @@ Jump to a part of the visible buffer.
     :ensure t
     :commands (avy-goto-char)
     :general
-    ("C-'" 'avy-goto-char-2))
+    (:keymaps
+     'override
+     "C-'" 'avy-goto-char-2))
 #+END_SRC
 
 *** Jump To Definition
