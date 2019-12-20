@@ -25,12 +25,6 @@ these settings easy to change.
 
   (defconst lia-use-line-numbers nil
     "When non-nil, show line numbers when programming.")
-
-  (defconst lia-leader-key "SPC"
-    "Leader key prefix.")
-
-  (defconst lia-leader-alt-key "M-SPC"
-    "Alternative leader key when in `insert' and `emacs' state.")
 #+END_SRC
 
 ** Early Initialization
@@ -259,24 +253,12 @@ but it does.
 
 ** Keybinding with General
 
-Create a macro for defining bindings with the leader key.
-
-=lia-leader-def= is used time and time again in this config.
+Use General. A package that makes binding keys easy and convenient.
 
 #+BEGIN_SRC emacs-lisp
-  (defun lia--create-leader-def ()
-    (general-create-definer lia-leader-def
-      :states '(normal visual motion insert emacs)
-      :keymaps 'override
-      :prefix lia-leader-key
-      :non-normal-prefix lia-leader-alt-key))
-#+END_SRC
-
-Create some bindings. These keyboard shortcuts don't belong in any of
-the other packages listed below, so I put them here.
-
-#+BEGIN_SRC emacs-lisp
-  (defun lia--bind-some-keys ()
+  (use-package general
+    :ensure t
+    :config
     ;; open current file externally in dired
     (general-define-key
      :keymaps 'dired-mode-map
@@ -284,200 +266,7 @@ the other packages listed below, so I put them here.
 
     ;; global keybindings
     (general-define-key
-     "C-s" 'save-buffer
      [remap delete-other-windows] 'lia/toggle-other-windows))
-#+END_SRC
-
-Create some bindings with the leader key. Just like the bindings
-above, these are placed here because they got nowhere else to go.
-
-#+BEGIN_SRC emacs-lisp
-  (defun lia--bind-some-keys-with-leader ()
-    (lia-leader-def "TAB"   'mode-line-other-buffer)
-    (lia-leader-def ","     'rename-buffer)
-    (lia-leader-def "e"     'eval-last-sexp)
-    (lia-leader-def "k"     'kill-this-buffer)
-    (lia-leader-def "r"     'revert-buffer)
-    (lia-leader-def "u"     'undo-tree-visualize)
-    (lia-leader-def "tl"    'display-line-numbers-mode)
-    (lia-leader-def "tn"    'lia/narrow-or-widen)
-    (lia-leader-def "tr"    'lia/toggle-display-line-number-type)
-    (lia-leader-def "1"     'lia/open-config)
-    (lia-leader-def "RET"   'lia/new-tmux-window-and-launch-scratchpad)
-    (lia-leader-def "C-SPC" 'lia/open-file-explorer))
-#+END_SRC
-
-Use General. A package that makes binding keys easy and convenient.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package general
-    :ensure t
-    :config
-    (lia--create-leader-def)
-    (lia--bind-some-keys)
-    (lia--bind-some-keys-with-leader))
-#+END_SRC
-
-** Evil
-
-Evil mode. It's Vim emulation in Emacs!
-
-Remap some movement commands to the visual equivalent. For example, if
-the current line is really long and wraps around the window, then
-cursor movement will behave as if the current line is split into
-multiple lines. Moving down a line will actually move down a "visual"
-line.
-
-Also remap window splits so that the cursor is focused on the newly
-split window.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :hook (after-init . evil-mode)
-    :general
-    ([remap evil-next-line]         'evil-next-visual-line
-     [remap evil-previous-line]     'evil-previous-visual-line
-     [remap evil-beginning-of-line] 'evil-beginning-of-visual-line
-     [remap evil-end-of-line]       'evil-end-of-visual-line
-     [remap evil-window-split]      'lia/evil-window-split-and-focus
-     [remap evil-window-vsplit]     'lia/evil-window-vsplit-and-focus)
-    :init
-    ;; leader bindings
-    (lia-leader-def "ESC" 'lia/clear-mc-or-nohl)
-    (lia-leader-def "w"   'evil-window-map)
-    ;; disable binding keys to some modes.
-    ;; `evil-collection' will handle it instead
-    (setq evil-want-keybinding nil)
-    ;; scroll with C-u
-    (setq evil-want-C-u-scroll t)
-    ;; emacs movement in insert mode
-    (setq evil-disable-insert-state-bindings t)
-    ;; vim search behaviour
-    (setq evil-search-module 'evil-search)
-    :config
-    ;; start agenda in normal mode
-    (evil-set-initial-state 'org-agenda-mode 'normal))
-#+END_SRC
-
-Evil mode by itself doesn't cover a lot of places in Emacs. Evil
-Collection creates Evil key bindings nearly everywhere in Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-collection
-    :ensure t
-    :after evil
-    :config
-    (evil-collection-init))
-#+END_SRC
-
-Use Evil bindings in Magit.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-magit
-    :ensure t
-    :after (evil magit))
-#+END_SRC
-
-Use =%= to jump between matching tags with =evil-matchit=.
-
-=evil-matchit= supports jumping between HTML tags =<div>= =</div>=,
-Python statements =if= =elif= =else=, and much more.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-matchit
-    :ensure t
-    :after evil
-    :config
-    (global-evil-matchit-mode 1))
-#+END_SRC
-
-Multiple cursors with support for Evil.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-mc
-    :ensure t
-    :general
-    (:states
-     '(normal visual)
-     "C-n" 'evil-mc-make-and-goto-next-match
-     "C-p" 'evil-mc-make-and-goto-prev-match)
-    :config
-    (global-evil-mc-mode 1)
-    (advice-add 'evil-force-normal-state :before 'evil-mc-undo-all-cursors))
-#+END_SRC
-
-Edit multiple parts of text at once. Similar to multiple cursors.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-multiedit
-    :ensure t
-    :general
-    (:states
-     'normal
-     "C-;" 'evil-multiedit-match-all
-     "M-d" 'evil-multiedit-match-symbol-and-next
-     "M-u" 'evil-multiedit-match-symbol-and-prev)
-    (:states
-     'visual
-     "C-;" 'evil-multiedit-match-all
-     "RET" 'evil-multiedit-toggle-or-restrict-region
-     "M-d" 'evil-multiedit-match-and-next
-     "M-u" 'evil-multiedit-match-and-prev)
-    (:keymaps
-     'evil-multiedit-state-map
-     "RET" 'evil-multiedit-toggle-or-restrict-region
-     "C-n" 'evil-multiedit-next
-     "C-p" 'evil-multiedit-prev))
-#+END_SRC
-
-Increment and decrement numbers just like in Vim. Really powerful when
-combined with macros or multiple cursors.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-numbers
-    :ensure t
-    :general
-    (:states
-     'motion
-     "C-a"   'evil-numbers/inc-at-pt
-     "C-S-a" 'evil-numbers/dec-at-pt))
-#+END_SRC
-
-=evil-surround= is surround.vim ported to Emacs. Easily add, change
-and delete parenthesis, brackets, HTML tags, etc.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-surround
-    :ensure t
-    :after evil
-    :config (global-evil-surround-mode))
-#+END_SRC
-
-=evil-snipe= overrides the =s= and =S= keys. They are just like Vim's
-=f= / =F= commands, but searches with two characters instead of
-one. Navigation is faster because the search candidates are reduced.
-
-Example: I want to jump to the beginning of "intriguing" in the
-sentence: "The internet is a place with intriguing content."
-
-The motion =fi= will match the =i= in: internet, is, with, and
-intriguing (6 candidates).
-
-Using =evil-snipe=, =sin= will match the =in= in: internet and
-intriguing (3 candidates).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-snipe
-    :ensure t
-    :hook (after-init . evil-snipe-mode)
-    :init
-    (setq evil-snipe-scope        'visible
-          evil-snipe-repeat-scope 'whole-visible
-          evil-snipe-smart-case   t)
-    :config
-    (evil-snipe-override-mode 1)
-    (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
 #+END_SRC
 
 ** Ivy
@@ -497,9 +286,6 @@ directory, it will autocomplete with the selected candidate.
     (ivy-minibuffer-map
      "TAB" 'ivy-alt-done)
     :init
-    (lia-leader-def "SPC" 'counsel-M-x)
-    (lia-leader-def "f"   'counsel-find-file)
-    (lia-leader-def "b"   'ivy-switch-buffer)
     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
     (setq ivy-use-virtual-buffers t)
     ;; number of result lines to display
@@ -512,19 +298,15 @@ directory, it will autocomplete with the selected candidate.
 
 Remap common Emacs functions with ones that use Ivy for completion.
 
-Replace Evil search with =counsel-grep-or-swiper=.
+Replace search with =counsel-grep-or-swiper=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
     :after ivy
     :general
-    (:states
-     'motion
-     "/" 'counsel-grep-or-swiper
-     "?" 'counsel-grep-or-swiper-backward)
-    :init
-    (lia-leader-def "y" 'counsel-yank-pop)
+    ("C-s" 'counsel-grep-or-swiper
+     "C-r" 'counsel-grep-or-swiper-backward)
     :config
     (counsel-mode))
 #+END_SRC
@@ -538,9 +320,7 @@ through all buffers.
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
     :ensure t
-    :after ivy
-    :init
-    (lia-leader-def "/" 'swiper-all))
+    :after ivy)
 #+END_SRC
 
 ** Editor
@@ -569,8 +349,6 @@ list of candidates to auto-complete.
     :hook (prog-mode . company-mode)
     :general
     (company-active-map
-     "C-n" 'company-select-next
-     "C-p" 'company-select-previous
      "C-c C-j" 'yas-expand)
     :init
     ;; don't delay autocomplete suggesstions
@@ -608,10 +386,8 @@ configuration.
 
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
-    :ensure t
-    :commands (dumb-jump-go)
-    :init
-    (lia-leader-def "j" 'dumb-jump-go))
+    :ensure nil
+    :commands (dumb-jump-go))
 #+END_SRC
 
 *** Emmet
@@ -679,8 +455,8 @@ quotes surrounding it (strings).
   (use-package expand-region
     :ensure t
     :commands er/expand-region
-    :init
-    (lia-leader-def "v" 'er/expand-region))
+    :general
+    ("C-=" 'er/expand-region))
 #+END_SRC
 
 *** Flycheck
@@ -723,8 +499,8 @@ installed. JavaScript, for example, needs prettier to be installed.
   (use-package format-all
     :ensure t
     :commands format-all-buffer
-    :init
-    (lia-leader-def "F" 'format-all-buffer))
+    :general
+    ("C-c f" 'format-all-buffer))
 #+END_SRC
 
 *** Magit Is Magic
@@ -735,8 +511,8 @@ If you're reading this you probably know what Magit already is.
   (use-package magit
     :ensure t
     :defer t
-    :init
-    (lia-leader-def "g" 'magit-status))
+    :general
+    ("C-x g" 'magit-status))
 #+END_SRC
 
 *** Project Management With Projectile
@@ -749,9 +525,11 @@ search in a project with grep/ag, etc.
   (use-package projectile
     :ensure t
     :defer t
+    :general
+    ("C-c p" '(:keymap projectile-command-map :package projectile))
     :init
-    (lia-leader-def "p" '(:keymap projectile-command-map :package projectile))
     ;; (setq projectile-enable-caching t)
+    (setq projectile-keymap-prefix (kbd "C-c p"))
     (setq projectile-completion-system 'ivy)
     :config
     (dolist (directory '("elpa" "node_modules" "vendor"))
@@ -941,32 +719,6 @@ in the agenda view. Add markdown as one of the export options.
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :defer t
-    :general
-    (org-agenda-mode-map
-     :states 'normal
-     "RET" 'org-agenda-switch-to
-     "."   'org-agenda-goto-today
-     "q"   'org-agenda-quit
-     "r"   'org-agenda-redo
-     "s"   'org-save-all-org-buffers
-     "t"   'org-agenda-todo
-     "u"   'org-agenda-undo
-     "x"   'org-agenda-archive
-
-     "1"   'org-agenda-day-view
-     "2"   'org-agenda-week-view
-     "3"   'org-agenda-fortnight-view
-     "4"   'org-agenda-month-view
-     "5"   'org-agenda-year-view
-
-     "j"   'org-agenda-next-line
-     "k"   'org-agenda-previous-line
-     "h"   'org-agenda-earlier
-     "l"   'org-agenda-later)
-    :init
-    (lia-leader-def "2" 'lia/goto-org-index-file)
-    (lia-leader-def "oa" 'lia/org-agenda)
-    (lia-leader-def "ox" 'org-archive-subtree)
     :config
     (require 'org-habit)
     (add-to-list 'org-export-backends 'md))
@@ -1152,18 +904,6 @@ Open my custom agenda directly. Don't go through the dispatch menu.
 
 -----
 
-Clear search highlight. Wrapped in an interactive function for binding
-to a key.
-
-#+BEGIN_SRC emacs-lisp
-  (defun lia/clear-mc-or-nohl ()
-    "Clear search highlight."
-    (interactive)
-    (evil-ex-nohighlight))
-#+END_SRC
-
------
-
 Narrow to region, or widen if there's no active region. Narrowing
 restricts the buffer so that only a certain area of text is
 visible. Widening undoes narrowing, restoring the hidden text.
@@ -1175,25 +915,6 @@ visible. Widening undoes narrowing, restoring the hidden text.
     (if (region-active-p)
         (narrow-to-region (region-beginning) (region-end))
       (widen)))
-#+END_SRC
-
------
-
-When splitting windows, focus the newly-created window. This is the
-default behaviour in Vim.
-
-#+BEGIN_SRC emacs-lisp
-  (defun lia/evil-window-split-and-focus ()
-    "Split window horizontally and focus other window."
-    (interactive)
-    (evil-window-split)
-    (other-window 1))
-
-  (defun lia/evil-window-vsplit-and-focus ()
-    "Split window vertically and focus other window."
-    (interactive)
-    (evil-window-vsplit)
-    (other-window 1))
 #+END_SRC
 
 -----
@@ -1279,6 +1000,35 @@ previously removed.
       (delete-other-windows)))
 #+END_SRC
 
+-----
+
+Move point to begining of line or first character on a line. [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Stolen here]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun lia/smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
+
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
+
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+#+END_SRC
+
 ** Settings
 
 *** Indentation
@@ -1295,7 +1045,6 @@ declaration.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default tab-width               lia-indent-width
-                evil-shift-width        lia-indent-width
                 c-basic-offset          lia-indent-width
                 sh-basic-offset         lia-indent-width
                 javascript-indent-level lia-indent-width
