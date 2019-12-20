@@ -547,6 +547,16 @@ commands with =counsel-projectile= alternatives.
     (counsel-projectile-mode))
 #+END_SRC
 
+*** No more undoing the undo with =undo-tree=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :hook (prog-mode . undo-tree-mode)
+    :general
+    ("C-x u" 'undo-tree-visualize))
+#+END_SRC
+
 *** Install =wgrep= For Refactoring
 
 Refactoring variables and functions is made easy with
