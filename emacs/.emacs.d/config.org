@@ -381,6 +381,18 @@ that does exactly this!
     :hook (prog-mode . dtrt-indent-mode))
 #+END_SRC
 
+*** =avy= Makes You Feel Like a Sniper
+
+Jump to a part of the visible buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :commands (avy-goto-char)
+    :general
+    ("C-'" 'avy-goto-char-2))
+#+END_SRC
+
 *** Jump To Definition
 
 Dumb Jump adds "Jump to definition" behaviour without generating
