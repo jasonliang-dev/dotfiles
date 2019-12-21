@@ -944,24 +944,9 @@ Open my custom agenda directly. Don't go through the dispatch menu.
 
 -----
 
-Narrow to region, or widen if there's no active region. Narrowing
-restricts the buffer so that only a certain area of text is
-visible. Widening undoes narrowing, restoring the hidden text.
-
-#+BEGIN_SRC emacs-lisp
-  (defun lia/narrow-or-widen ()
-    "If region is active, narrow to region. Widen otherwise."
-    (interactive)
-    (if (region-active-p)
-        (narrow-to-region (region-beginning) (region-end))
-      (widen)))
-#+END_SRC
-
------
-
-Alright. I'll admit, I don't live in Emacs. Other programs just handle
-certain file types better (images and PDFs for example). This function
-makes it easy to handle the current file.
+Other programs handle certain file types better than Emacs (images and
+PDFs for example). This function makes it easy to handle the current
+file.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/open ()
@@ -1214,15 +1199,6 @@ when running =npm install= and =package.json= gets updated.
 
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
-#+END_SRC
-
-Narrowing is disabled by default to avoid confusion for users that
-don't know what narrowing is.
-
-I use narrowing. Enable it.
-
-#+BEGIN_SRC emacs-lisp
-  (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
 Sensible region behaviour. When a region is active, any text inserted
