@@ -267,8 +267,8 @@ Use General. A package that makes binding keys easy and convenient.
     ;; global keybindings
     (general-define-key
      "C-c r" 'revert-buffer
-     "C-c <C-return>" 'lia/new-tmux-window-and-launch-scratchpad
-     "C-c C-SPC" 'lia/open-file-explorer
+     "C-c RET" 'lia/new-tmux-window-and-launch-scratchpad
+     "C-c SPC" 'lia/open-file-explorer
      "C-v" (lambda ()
              (interactive)
              (scroll-up-command (/ (window-height) 2)))
