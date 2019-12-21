@@ -626,6 +626,23 @@ located in =.emacs.d/snippets=.
     :hook (after-init . yas-global-mode))
 #+END_SRC
 
+*** Smart Pairing of Delimitors
+
+Insert, wrap, and delete parenthesis, quotes, and brackets.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :hook (prog-mode . smartparens-mode)
+    :general
+    ("C-M-f" 'sp-forward-sexp
+     "C-M-b" 'sp-backward-sexp
+     "M-=" 'sp-rewrap-sexp
+     "M-<backspace>" 'sp-splice-sexp)
+    :config
+    (require 'smartparens-config))
+#+END_SRC
+
 ** Programming Languages + File Types
 
 This section adds support for several programming languages and other
@@ -1193,12 +1210,6 @@ sound for certain actions. Disable it.
 
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
-#+END_SRC
-
-Pair up delimiters: =()=, =[]=, ={}=
-
-#+BEGIN_SRC emacs-lisp
-  (electric-pair-mode t)
 #+END_SRC
 
 Change yes/no prompts to be y/n. Saves a bit of typing.
