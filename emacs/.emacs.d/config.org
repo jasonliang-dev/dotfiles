@@ -391,6 +391,19 @@ that does exactly this!
     :hook (prog-mode . dtrt-indent-mode))
 #+END_SRC
 
+*** Switch Windows Quickly
+
+=ace-window= shows a label for each window. Pressing the character in
+a label will jump to the labeled window.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :commands (ace-window)
+    :general
+    ("M-o" 'ace-window))
+#+END_SRC
+
 *** =avy= Makes You Feel Like a Sniper
 
 Jump to a part of the visible buffer.
