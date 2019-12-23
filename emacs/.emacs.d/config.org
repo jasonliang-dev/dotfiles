@@ -296,7 +296,10 @@ the selected candidate.
     ;; does not count candidates
     (setq ivy-count-format "")
     ;; no regexp by default
-    (setq ivy-initial-inputs-alist nil))
+    (setq ivy-initial-inputs-alist nil)
+    ;; make prompt line selectable.  this lets you create a file "bar"
+    ;; when a file "barricade" already exists.
+    (setq ivy-use-selectable-prompt t))
 #+END_SRC
 
 Remap common Emacs functions with ones that use Ivy for completion.
