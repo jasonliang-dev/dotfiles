@@ -194,17 +194,9 @@ Highlight the matching parenthesis under point.
 
 Show tab characters and trailing whitespace.
 
-Space characters are not shown. Spaces are everywhere. I think that
-having visible space characters is cluttered and it makes text hard to
-read.
-
-On the other hand, tab characters appear much less often. I want to
-see tabs so that I'm aware of the indentation style. This also allows
-me to see if indentation is consistent, or if it's mixed tabs and
-spaces.
-
-To keep files nice and neat, mark trailing whitespace with an
-obnoxious red colour.
+Whitespace visualization makes space and tab characters visible. Set
+whitespace style to only show tabs and trailing whitespace. This makes
+it easy to see if code contains mixed indentation.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default whitespace-style '(face tabs tab-mark trailing))
@@ -282,12 +274,12 @@ Use General. A package that makes binding keys easy and convenient.
 
 ** Ivy
 
-I used to use Helm but mainly used it for simple things. All of the
-things that I've done in Helm, I can do in Ivy. Since Helm has a
-larger footprint, I've abandoned it for Ivy.
+A completion framework. Autocomplete things such as =M-x= commands,
+file search, etc.
 
-=ivy-alt-done= is just like pressing enter, except when there's a
-directory, it will autocomplete with the selected candidate.
+The =ivy-alt-done= command is similar to pressing enter in the
+minibuffer, except when there's a directory, it will autocomplete with
+the selected candidate.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -376,12 +368,10 @@ list of candidates to auto-complete.
 
 *** Automatically Switch Indentation Style
 
-I really like how VS Code (and probably other editors such as Atom)
-changes the indentation style of the editor to fit the file currently
-open.
+I really like how editors like VS Code changes the indentation style
+to match the file currently open.
 
-If only there was a way to do this in Em-- Oh look! there's a package
-that does exactly this!
+=dtrt-indent= does exactly this.
 
 #+BEGIN_SRC emacs-lisp
   (use-package dtrt-indent
@@ -484,10 +474,9 @@ Doesn't work on Windows.
 
 *** Expand Region
 
-Highlight a region of code quickly and easily. This is useful with
-Emacs Lisp and Clojure where it's trivial to highlight all of the text
-between a pair of parenthesis. It's also really easy to text with
-quotes surrounding it (strings).
+Highlight a region of code quickly and easily. This is useful
+especially useful in Emacs Lisp and Clojure. It's trivial to highlight
+all of the text between a pair of parenthesis or quotes.
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
@@ -543,7 +532,7 @@ installed. JavaScript, for example, needs prettier to be installed.
 
 *** Magit Is Magic
 
-If you're reading this you probably know what Magit already is.
+Magit is a magical Git front-end. It's one of the main reasons why I use Emacs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -796,9 +785,6 @@ Add support for Markdown.
 
 Org mode configuration.
 
-Add bindings to the agenda view. Require =org-habit= to enable habits
-in the agenda view. Add markdown as one of the export options.
-
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :defer t
@@ -944,18 +930,7 @@ tmux window is the same as the one in Emacs.
 
 -----
 
-I prefer to use a file explorer over something like =ranger= or
-=dired=.
-
-Open the current working directory in an external file explorer. This
-is better than something like =:!thunar= because this happens
-asynchronously (Emacs doesn't wait for Thunar to exit).
-
-"But can't you use =:!thunar &= or run =async-shell-command=?"
-
-Sure, but the solution below doesn't display a new buffer. Both
-=:!thunar &= and =async-shell-command= pops open a buffer for showing
-the command output. I'm not interested in that.
+Open the current working directory in an external file explorer.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/open-file-explorer ()
@@ -989,9 +964,8 @@ Open my custom agenda directly. Don't go through the dispatch menu.
 
 -----
 
-Other programs handle certain file types better than Emacs (images and
-PDFs for example). This function makes it easy to handle the current
-file.
+Open the current file in an external program. This function runs
+=xdg-open= to open the file.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/open ()
@@ -1053,7 +1027,8 @@ disregards hidden lines (for example, when folding).
 
 Maximize/minimize a window. Maximizing fills the current window and
 removes all other windows. Minimizing restores the windows that were
-previously removed.
+previously removed. Maximizing occurs when there is more than one
+window. Minimizing occurs when a window has been previously maximized.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/toggle-other-windows ()
@@ -1101,7 +1076,7 @@ Move point to begining of line or first character on a line. [[https://emacsredu
 
 -----
 
-Sensible =delete-indentation=.
+Sensible =delete-indentation=. Joins two or more lines à la Vim.
 
 #+BEGIN_SRC emacs-lisp
   (defun lia/join-line (n)
@@ -1148,7 +1123,8 @@ Move backup~ files to a =backups= folder in the Emacs directory.
         `((".*" . ,(concat user-emacs-directory "backups"))))
 #+END_SRC
 
-I find the #autosave# files annoying. Don't use them.
+I find the #autosave# files annoying. Don't use them. Everything
+should be in a git repo anyways.
 
 #+BEGIN_SRC emacs-lisp
   (setq auto-save-default nil)
@@ -1164,8 +1140,8 @@ I also don't want .#lock files.
 
 Change the mouse scroll behaviour.
 
-A few people use my Emacs configuration because I hand over my laptop
-to them for code review. These changes are nice because they use the mouse.
+Other people use my Emacs configuration because I hand over my laptop
+to them. They aren't familiar with Emacs and use the mouse.
 
 #+BEGIN_SRC emacs-lisp
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
@@ -1200,11 +1176,9 @@ Show column number in the modebar
 
 Let backspace simply delete a character.
 
-"Wait, that's what backspace does, right?"
-
-Not exactly. If the cursor is in front of a tab character and the user
-hits backspace, the tab character gets converted to spaces, then a
-space character is deleted.
+Here's the default backspace behaviour: if the cursor is in front of a
+tab character and the user hits backspace, the tab character gets
+converted to spaces, then a space character is deleted.
 
 In my opinion, that behaviour is dumb. Just delete a single
 character. Simple.
@@ -1222,7 +1196,7 @@ split.
   (setq dired-dwim-target t)
 #+END_SRC
 
-When deleting files, don't actually delete them. Move them to the
+When deleting files, don't permanently delete them. Move them to the
 trash instead.
 
 #+BEGIN_SRC emacs-lisp
@@ -1236,8 +1210,7 @@ command to launch Firefox.
   (setq browse-url-browser-function 'browse-url-firefox)
 #+END_SRC
 
-I sometimes use Ubuntu. In Ubuntu, Emacs will use the annoying alert
-sound for certain actions. Disable it.
+Disable annoying sounds.
 
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
