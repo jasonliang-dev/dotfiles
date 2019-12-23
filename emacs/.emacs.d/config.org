@@ -413,7 +413,7 @@ Jump to a part of the visible buffer.
     :general
     (:keymaps
      'override
-     "C-'" 'avy-goto-char-2))
+     "C-'" 'avy-goto-char-timer))
 #+END_SRC
 
 *** Jump To Definition
@@ -596,6 +596,21 @@ Multiple cursor support.
     ("C->" 'mc/mark-next-like-this
      "C-<" 'mc/mark-previous-like-this
      "C-c C-<" 'mc/mark-all-like-this))
+#+END_SRC
+
+*** Better Undo with =undo-tree=
+
+Default undo behaviour is too weird for me. Undo tree treats undo
+history in a more conventional way but it still keeps all edits by
+storing changes in a tree.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :general
+    ("C-c u" 'undo-tree-visualize)
+    :hook ((prog-mode . undo-tree-mode)
+           (org-mode . undo-tree-mode)))
 #+END_SRC
 
 *** Install =wgrep= For Refactoring
@@ -787,6 +802,8 @@ in the agenda view. Add markdown as one of the export options.
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :defer t
+    :general
+    ([remap org-delete-indentation] 'lia/join-line)
     :config
     (require 'org-habit)
     (add-to-list 'org-export-backends 'md))
