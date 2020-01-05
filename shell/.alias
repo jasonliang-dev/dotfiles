@@ -38,6 +38,7 @@ alias nip='npm install --save-prod'
 alias ns='npm start'
 alias nr='npm run'
 alias nt='npm test'
+alias nu='npm uninstall'
 
 alias a='tmux attach'
 alias t='tmux'
