@@ -411,18 +411,6 @@ Jump to a part of the visible buffer.
      "C-'" 'avy-goto-char-timer))
 #+END_SRC
 
-*** Jump To Definition
-
-Dumb Jump adds "Jump to definition" behaviour without generating
-CTAGS. It's definitely slower than CTAGS, but Dumb Jump needs no
-configuration.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump
-    :ensure nil
-    :commands (dumb-jump-go))
-#+END_SRC
-
 *** Emmet
 
 Emmet is a must-have for web devs. Type emmet abbreviations, hit =C-j=, and
