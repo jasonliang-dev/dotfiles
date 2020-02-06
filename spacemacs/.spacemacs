@@ -509,8 +509,8 @@ before packages are loaded."
   (dtrt-indent-global-mode)
 
   ;; additional bindings
-  (global-set-key (kbd "C-c <f5>") 'revert-buffer)
-  (global-set-key (kbd "C-c =") 'format-all-buffer))
+  (spacemacs/set-leader-keys "<f5>" 'revert-buffer)
+  (spacemacs/set-leader-keys "=" 'format-all-buffer))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
