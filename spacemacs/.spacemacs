@@ -38,6 +38,7 @@ This function should only modify configuration layer settings."
      helm
      markdown
      multiple-cursors
+     org
      syntax-checking
      treemacs
 
@@ -484,6 +485,24 @@ before packages are loaded."
         js2-missing-semi-one-line-override nil
         js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil)
+
+  ;; don't create .#lockfiles
+  (setq create-lockfiles nil)
+
+  ;; Set the directory to search for Org files.
+  (setq org-directory "~/Dropbox/org/")
+
+  ;; Add the files in org-directory for use in the agenda.
+  (setq org-agenda-files (list org-directory))
+
+  ;; target file for notes. capture notes here.
+  (setq org-default-notes-file (concat org-directory "index.org"))
+
+  ;; set org bullets
+  (setq org-bullets-bullet-list '("◉" "○"))
+
+  ;; wrap lines in org-mode buffers
+  (add-hook 'org-mode-hook 'visual-line-mode)
 
   ;; enable dtrt. a package that automatically switches indentation style based
   ;; on the file's contents
