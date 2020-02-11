@@ -466,6 +466,65 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
+(defun lia/org-config ()
+  "Configurations specific to org-mode.
+This function should be called in `dotspacemacs/user-config'."
+  ;; Set the directory to search for Org files.
+  (setq org-directory "~/Dropbox/org/")
+
+  ;; Add the files in org-directory for use in the agenda.
+  (setq org-agenda-files (list org-directory))
+
+  ;; target file for notes. capture notes here.
+  (setq org-default-notes-file (concat org-directory "inbox.org"))
+
+  ;; set org bullets
+  (setq org-bullets-bullet-list '("◉" "○"))
+
+  ;; init refile targets. move any node to any agenda file.
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+  ;; refile a node to the top level of a file
+  (setq org-refile-use-outline-path 'file)
+
+  ;; no headings appear when `org-refile-use-outline-path' is set to file
+  ;; the next line fixes this
+  (setq org-outline-path-complete-in-steps nil)
+
+  ;; add custom todo states
+  ;; https://orgmode.org/manual/Tracking-TODO-state-changes.html
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "WAIT(w!)" "|" "DONE(d!)" "CANCELED(c!)")))
+
+  ;; setup org capture templates
+  (setq org-capture-templates
+        '(("c" "Capture to Inbox" entry (file org-default-notes-file)
+           "* TODO %?\n  %a")))
+
+  ;; use a custom agenda view
+  (setq org-agenda-custom-commands
+        '(("n" "My agenda" ;; "n" because it overrides the default
+           ((agenda "")
+            (alltodo ""
+                     ((org-agenda-skip-function
+                       '(org-agenda-skip-entry-if 'nottodo '("NEXT")))
+                      (org-agenda-overriding-header "Next Tasks")))
+            (alltodo ""
+                     ((org-agenda-skip-function
+                       '(org-agenda-skip-entry-if
+                         'scheduled 'deadline))
+                      (org-agenda-overriding-header "Unscheduled Tasks")))))))
+
+  ;; wrap lines in org-mode buffers
+  (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+
+  ;; add keybind to inbox
+  (spacemacs/set-leader-keys "aog"
+    (lambda() (interactive) (helm-find-files-1 org-directory)))
+  ;; add shortcut to custom agenda view
+  (spacemacs/set-leader-keys "aon"
+    (lambda () (interactive) (org-agenda nil "n"))))
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -489,24 +548,12 @@ before packages are loaded."
   ;; don't create .#lockfiles
   (setq create-lockfiles nil)
 
-  ;; Set the directory to search for Org files.
-  (setq org-directory "~/Dropbox/org/")
-
-  ;; Add the files in org-directory for use in the agenda.
-  (setq org-agenda-files (list org-directory))
-
-  ;; target file for notes. capture notes here.
-  (setq org-default-notes-file (concat org-directory "index.org"))
-
-  ;; set org bullets
-  (setq org-bullets-bullet-list '("◉" "○"))
-
-  ;; wrap lines in org-mode buffers
-  (add-hook 'org-mode-hook 'visual-line-mode)
-
   ;; enable dtrt. a package that automatically switches indentation style based
   ;; on the file's contents
   (dtrt-indent-global-mode)
+
+  ;; use my org-mode configuration
+  (lia/org-config)
 
   ;; additional bindings
   (spacemacs/set-leader-keys "<f5>" 'revert-buffer)
