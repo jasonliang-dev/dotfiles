@@ -47,6 +47,7 @@ This function should only modify configuration layer settings."
 
      ;; programming languages
      c-c++
+     csharp
      elm
      emacs-lisp
      haskell
@@ -59,8 +60,9 @@ This function should only modify configuration layer settings."
      rust
      sql
      swift
-     yaml
-     )
+     (typescript :variables
+                 typescript-linter 'eslint)
+     yaml)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
