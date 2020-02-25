@@ -53,7 +53,11 @@ This function should only modify configuration layer settings."
      haskell
      html
      java
-     javascript
+     (javascript :variables
+                 js2-strict-missing-semi-warning nil
+                 js2-missing-semi-one-line-override nil
+                 js2-mode-show-parse-errors nil
+                 js2-mode-show-strict-warnings nil)
      markdown
      php
      python
@@ -540,12 +544,6 @@ before packages are loaded."
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
         mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
         mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-
-  ;; disable all js2 warnings. flycheck with eslint is used instead
-  (setq js2-strict-missing-semi-warning nil
-        js2-missing-semi-one-line-override nil
-        js2-mode-show-parse-errors nil
-        js2-mode-show-strict-warnings nil)
 
   ;; don't create .#lockfiles
   (setq create-lockfiles nil)
