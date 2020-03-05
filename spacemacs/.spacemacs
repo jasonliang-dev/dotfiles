@@ -39,6 +39,7 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      org
+     prettier
      syntax-checking
      treemacs
 
@@ -51,7 +52,8 @@ This function should only modify configuration layer settings."
      elm
      emacs-lisp
      haskell
-     html
+     (html :variables
+           web-fmt-tool 'prettier)
      java
      (javascript :variables
                  js2-strict-missing-semi-warning nil
