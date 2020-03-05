@@ -28,7 +28,7 @@ alias gu='git reset HEAD --'
 alias pull='git pull'
 alias push='git push'
 
-# -- applications ---------------------
+# -- javascript -----------------------
 
 alias js='node'
 alias n='npm'
@@ -37,8 +37,11 @@ alias nid='npm install --save-dev'
 alias nip='npm install --save-prod'
 alias ns='npm start'
 alias nr='npm run'
+alias nrd='npm run dev'
 alias nt='npm test'
 alias nu='npm uninstall'
+
+# -- others ---------------------------
 
 alias a='tmux attach'
 alias t='tmux'
