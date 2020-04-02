@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+yabai -m config layout float
+yabai -m config mouse_modifier cmd
