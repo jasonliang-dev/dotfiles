@@ -1,12 +1,12 @@
-cmd - 1 : yabai -m space --focus 1
-cmd - 2 : yabai -m space --focus 2
-cmd - 3 : yabai -m space --focus 3
-cmd - 4 : yabai -m space --focus 4
+cmd - 1 : yabai -m space --focus one
+cmd - 2 : yabai -m space --focus two
+cmd - 3 : yabai -m space --focus three
+cmd - 4 : yabai -m space --focus four
 
-shift + cmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
-shift + cmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
-shift + cmd - 3 : yabai -m window --space 3; yabai -m space --focus 3
-shift + cmd - 4 : yabai -m window --space 4; yabai -m space --focus 4
+shift + cmd - 1 : yabai -m window --space one; yabai -m space --focus one
+shift + cmd - 2 : yabai -m window --space two; yabai -m space --focus two
+shift + cmd - 3 : yabai -m window --space three; yabai -m space --focus three
+shift + cmd - 4 : yabai -m window --space four; yabai -m space --focus four 
 
 # 0x32 is the tilde (`) key
 # see: https://github.com/koekeishiya/skhd/issues/1
