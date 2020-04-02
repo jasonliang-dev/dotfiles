@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # -- navigation -----------------------
 
@@ -9,7 +9,8 @@ alias .....='cd ../../../../'
 alias  l='ls -l'
 alias la='ls -a'
 alias ll='ls -al'
-alias ls='ls --color=auto'
+
+[[ "$OSTYPE" == "darwin"* ]] && alias ls='ls -G' || alias ls='ls --color=auto'
 
 alias c='clear'
 alias x='exit'
