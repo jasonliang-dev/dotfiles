@@ -550,6 +550,10 @@ before packages are loaded."
   ;; don't create .#lockfiles
   (setq create-lockfiles nil)
 
+  ;; enable menu-bar-mode for yabai to recognize emacs
+  (if (eq system-type 'darwin)
+      (menu-bar-mode t))
+
   ;; enable dtrt. a package that automatically switches indentation style based
   ;; on the file's contents
   (dtrt-indent-global-mode)
