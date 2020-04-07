@@ -1,14 +1,24 @@
-cmd - 1 : yabai -m space --focus one
-cmd - 2 : yabai -m space --focus two
-cmd - 3 : yabai -m space --focus three
-cmd - 4 : yabai -m space --focus four
+alt - 1 : yabai -m space --focus one
+alt - 2 : yabai -m space --focus two
+alt - 3 : yabai -m space --focus three
+alt - 4 : yabai -m space --focus four
 
-shift + cmd - 1 : yabai -m window --space one; yabai -m space --focus one
-shift + cmd - 2 : yabai -m window --space two; yabai -m space --focus two
-shift + cmd - 3 : yabai -m window --space three; yabai -m space --focus three
-shift + cmd - 4 : yabai -m window --space four; yabai -m space --focus four 
+shift + alt - 1 : yabai -m window --space one; yabai -m space --focus one
+shift + alt - 2 : yabai -m window --space two; yabai -m space --focus two
+shift + alt - 3 : yabai -m window --space three; yabai -m space --focus three
+shift + alt - 4 : yabai -m window --space four; yabai -m space --focus four
+
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
 
 # 0x32 is the tilde (`) key
 # see: https://github.com/koekeishiya/skhd/issues/1
-cmd - 0x32 : osascript ~/scripts/iterm.scpt
+alt - 0x32 : osascript ~/scripts/iterm.scpt
 
