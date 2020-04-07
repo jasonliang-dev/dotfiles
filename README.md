@@ -1,6 +1,26 @@
+<h1 align="center">Dotfiles</h1>
+
+<p align="center">
+  <img src="images/noodles.png" width="128" />
+</p>
+
+<p align="center">
+  My collection of configuration files.
+</p>
+
+## Yabai
+
+<img src="images/yabai.png" />
+
+- **Font**: Iosevka Bold
+- **Terminal**: iTerm2
+- **Bar**: Übersicht
+- **Text Editor**: Vim
+- **Cat**: [cat](./cat/cat)
+
 ## Openbox
 
-![](screenshots/openbox.png)
+<img src="images/openbox.png" />
 
 - **Font**: Roboto
 - **Terminal**: `gnome-terminal`
@@ -10,7 +30,7 @@
 
 ## i3
 
-![](screenshots/i3.png)
+<img src="images/i3.png" />
 
 - **Font**: Source Sans Pro
 - **Terminal**: `gnome-terminal`
@@ -18,18 +38,3 @@
 - **Bar**: `polybar`
 - **File Explorer**: `ranger`
 - **Text Editor**: Vim
-
-## Emacs
-
-![](screenshots/emacs.png)
-
-- **Editor Font**: Iosevka
-- **Tree Font**: Roboto Condensed
-- **Theme**: `doom-one` from [doom-themes](https://github.com/hlissner/emacs-doom-themes)
-
-## Vim
-
-![](screenshots/vim.png)
-
-- **Colorscheme**: [base16](https://github.com/chriskempson/base16-vim) (`base16-material`)
-- **Statusline**: [vim-airline](https://github.com/vim-airline/vim-airline)
