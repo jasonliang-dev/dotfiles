@@ -550,9 +550,19 @@ before packages are loaded."
   ;; don't create .#lockfiles
   (setq create-lockfiles nil)
 
-  ;; enable menu-bar-mode for yabai to recognize emacs
+  ;; macos specific settings
   (if (eq system-type 'darwin)
-      (menu-bar-mode t))
+      (progn
+        ;; enable menu-bar-mode for yabai to recognize emacs
+        (menu-bar-mode t)
+
+        ;; use option as meta key when using unicode hex input keyboard
+        (setq mac-option-key-is-meta t
+              mac-option-modifier 'meta)
+
+        ;; enable font ligatures.
+        (if (fboundp 'mac-auto-operator-composition-mode)
+            (mac-auto-operator-composition-mode))))
 
   ;; enable dtrt. a package that automatically switches indentation style based
   ;; on the file's contents
