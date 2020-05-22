@@ -557,6 +557,10 @@ before packages are loaded."
   ;; don't create .#lockfiles
   (setq create-lockfiles nil)
 
+  ;; visualize tab and trailing characters
+  (setq-default whitespace-style '(face tabs tab-mark trailing))
+  (spacemacs/toggle-whitespace-globally-on)
+
   ;; macos specific settings
   (if (eq system-type 'darwin)
       (progn
