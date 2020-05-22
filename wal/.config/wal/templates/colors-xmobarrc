@@ -2,10 +2,6 @@
 
 Config {{
     font             = "xft:roboto:size=9:antialias=true"
-  , additionalFonts  = [ "xft:font awesome:size=10:antialias=true"
-                       , "xft:font awesome:size=3:antialias=true"
-                       ]
-  , textOffsets      = [20, 16]
   , borderColor      = "{color8}"
   , border           = NoBorder
   , bgColor          = "{background}"
@@ -27,11 +23,11 @@ Config {{
                        \   %date%\
                        \   <fc={color8}>//</fc>\
                        \   %time%\
-                       \{{ <fc={color7}><fn=1></fn></fc> %brightness%\
+                       \{{ BRI %brightness%\
                        \   <fc={color8}>//</fc>\
-                       \   <fc={color7}><fn=1></fn></fc> %volume%\
+                       \   VOL %volume%\
                        \   <fc={color8}>//</fc>\
-                       \   <fc={color7}><fn=1></fn></fc> %battery%\
+                       \   BAT %battery%\
                        \   "
   , commands =
     [ Run StdinReader
@@ -47,7 +43,7 @@ Config {{
                     , "-i"	, ""
                   ] 60
     , Run Date "%a %d" "date" 10
-    , Run Date "%I:%M" "time" 10
+    , Run Date "%I:%M %p" "time" 10
     , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
     , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
     ]

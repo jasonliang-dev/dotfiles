@@ -5,8 +5,8 @@ module Main
   )
 where
 
-import qualified Data.Map                      as M
 import           Data.Map                       ( Map )
+import qualified Data.Map                      as M
 import           System.Exit                    ( exitSuccess )
 
 -- xmonad core
@@ -18,10 +18,11 @@ import           XMonad.Actions.Minimize        ( maximizeWindowAndFocus
                                                 , minimizeWindow
                                                 , withLastMinimized
                                                 )
-import           XMonad.Actions.Navigation2D    ( defaultTiledNavigation
+import           XMonad.Actions.Navigation2D    ( Navigation2DConfig
+                                                , centerNavigation
+                                                , defaultTiledNavigation
                                                 , hybridOf
                                                 , lineNavigation
-                                                , centerNavigation
                                                 , switchLayer
                                                 , windowGo
                                                 , windowSwap
@@ -36,13 +37,13 @@ import           XMonad.Hooks.DynamicLog        ( PP(..)
 import           XMonad.Hooks.EwmhDesktops      ( ewmh
                                                 , fullscreenEventHook
                                                 )
-import           XMonad.Hooks.InsertPosition    ( insertPosition
-                                                , Focus(Newer)
+import           XMonad.Hooks.InsertPosition    ( Focus(Newer)
                                                 , Position(Above, Below)
+                                                , insertPosition
                                                 )
-import           XMonad.Hooks.ManageDocks       ( avoidStruts
+import           XMonad.Hooks.ManageDocks       ( ToggleStruts(ToggleStruts)
+                                                , avoidStruts
                                                 , docks
-                                                , ToggleStruts(ToggleStruts)
                                                 )
 import           XMonad.Hooks.ManageHelpers     ( composeOne
                                                 , doCenterFloat
@@ -54,12 +55,12 @@ import           XMonad.Hooks.Place             ( fixed
                                                 , placeFocused
                                                 )
 import           XMonad.Layout.BinarySpacePartition
-                                                ( emptyBSP
-                                                , ResizeDirectional
+                                                ( ResizeDirectional
                                                   ( ExpandTowards
                                                   )
                                                 , Rotate(Rotate)
                                                 , Swap(Swap)
+                                                , emptyBSP
                                                 )
 import           XMonad.Layout.BoringWindows    ( boringWindows )
 import           XMonad.Layout.Minimize         ( minimize )
@@ -71,20 +72,15 @@ import           XMonad.Layout.Spacing          ( Border(Border)
                                                 , toggleScreenSpacingEnabled
                                                 , toggleWindowSpacingEnabled
                                                 )
-import           XMonad.Util.NamedScratchpad    ( NamedScratchpad(NS)
-                                                , NamedScratchpads
-                                                , namedScratchpadAction
-                                                , namedScratchpadFilterOutWorkspacePP
-                                                , namedScratchpadManageHook
-                                                )
-import           XMonad.Util.Types              ( Direction2D(U, D, R, L) )
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
+import           XMonad.Util.Types              ( Direction2D(D, L, R, U) )
 
--- From lib source directory
-import           WalColors                      ( Colors(..)
+-- lib
+import           WalColors                      ( ColorPalette(..)
+                                                , Colors(..)
                                                 , SpecialColors(..)
-                                                , ColorPalette(..)
                                                 , getWalWithFallback
+                                                , oneDarkFallbackColors
                                                 )
 
 -- PROGRAMS --------------------------------------------------------------------
@@ -93,16 +89,6 @@ import           WalColors                      ( Colors(..)
 --
 myTerminal :: String
 myTerminal = "~/scripts/term.sh"
-
--- | List of scratchpad windows.  Runs a command to spawn a window if
--- the scratchpad window doesn't exist
---
-myScratchpads :: NamedScratchpads
-myScratchpads = [NS "terminal" spawnTerminal findTerminal manageTerminal]
- where
-  spawnTerminal  = myTerminal ++ " -n \"scratchpad\""
-  findTerminal   = appName =? "scratchpad"
-  manageTerminal = handleDialog
 
 -- MANAGE HOOK -----------------------------------------------------------------
 
@@ -124,14 +110,11 @@ handleDialog = insertPosition Above Newer <+> doCenterFloat
 -- window rather than the master window.
 --
 myManageHook :: ManageHook
-myManageHook =
-  insertPosition Below Newer
-    <+> composeOne
-          [ stringProperty "WM_WINDOW_ROLE" =? "toolbox" -?> handleDialog
-          , isDialog -?> handleDialog
-          , transience
-          ]
-    <+> namedScratchpadManageHook myScratchpads
+myManageHook = insertPosition Below Newer <+> composeOne
+  [ stringProperty "WM_WINDOW_ROLE" =? "toolbox" -?> handleDialog
+  , isDialog -?> handleDialog
+  , transience
+  ]
 
 -- LAYOUT ----------------------------------------------------------------------
 
@@ -163,10 +146,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        -- Close focused window.
          ( (modm .|. shiftMask, xK_q)
          , kill
-         )
-       -- Launch the terminal scratchpad (0x0060 = grave)
-       , ( (modm, 0x0060)
-         , namedScratchpadAction myScratchpads "terminal"
          )
        -- Cycle through the available layout algorithms.
        , ( (modm, xK_space)
@@ -301,45 +280,42 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 -- XMOBAR ----------------------------------------------------------------------
 
 myPP :: Colors -> PP
-myPP colorscheme = namedScratchpadFilterOutWorkspacePP $ xmobarPP
-  { ppCurrent         = fgColorPad $ foreground $ special colorscheme
-  , ppHidden          = fgColorPad $ color8 $ colors colorscheme
+myPP theme = xmobarPP
+  { ppCurrent         = xmobarColor (foreground $ special theme) "" . pad
+  , ppHidden          = xmobarColor (color8 $ colors theme) "" . pad
   , ppHiddenNoWindows = const ""
-  , ppUrgent          = fgColorPad $ color1 $ colors colorscheme
-  , ppLayout          = fgColorPad $ foreground $ special colorscheme
-  , ppSep             = fgColorPad (color8 $ colors colorscheme) "//"
+  , ppUrgent          = xmobarColor (color1 $ colors theme) "" . pad
+  , ppLayout          = xmobarColor (foreground $ special theme) "" . pad
+  , ppSep             = xmobarColor (color8 $ colors theme) "" $ pad "//"
   , ppTitle           = const ""
   }
-  where fgColorPad fg = xmobarColor fg "" . wrap "" "   "
+  where pad = wrap "" "   "
+
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
-myConfig colorscheme =
-  withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
-    { terminal           = myTerminal
-    , modMask            = mod4Mask
-    , workspaces         = map show [1 .. 9 :: Int]
-    , keys               = myKeys
-    , borderWidth        = 2
-    , normalBorderColor  = background $ special colorscheme
-    , focusedBorderColor = color4 $ colors colorscheme
-    , handleEventHook    = fullscreenEventHook
-    , manageHook         = myManageHook
-    , layoutHook         = myLayout
-    , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
-    }
+myConfig theme = withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
+  { terminal           = myTerminal
+  , modMask            = mod4Mask
+  , workspaces         = map show [1 .. 9 :: Int]
+  , keys               = myKeys
+  , borderWidth        = 2
+  , normalBorderColor  = color0 $ colors theme
+  , focusedBorderColor = color6 $ colors theme
+  , handleEventHook    = fullscreenEventHook
+  , manageHook         = myManageHook
+  , layoutHook         = myLayout
+  , startupHook        = spawnOnce "~/scripts/startup.sh --fix-cursor"
+  }
 
+myNavigation2DConfig :: Navigation2DConfig
 myNavigation2DConfig = def { defaultTiledNavigation = hybridNavigation }
   where hybridNavigation = hybridOf lineNavigation centerNavigation
 
 main :: IO ()
 main = do
-  colorscheme <- getWalWithFallback
-
-  xmonad =<< statusBar "xmobar"
-                       (myPP colorscheme)
-                       toggleStrutsKey
-                       (myConfig colorscheme)
+  theme <- getWalWithFallback oneDarkFallbackColors
+  xmonad =<< statusBar "xmobar" (myPP theme) toggleStrutsKey (myConfig theme)

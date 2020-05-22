@@ -2,14 +2,10 @@
 
 Config {
     font             = "xft:roboto:size=9:antialias=true"
-  , additionalFonts  = [ "xft:font awesome:size=10:antialias=true"
-                       , "xft:font awesome:size=3:antialias=true"
-                       ]
-  , textOffsets      = [20, 16]
-  , borderColor      = "#545862"
+  , borderColor      = "#969896"
   , border           = NoBorder
-  , bgColor          = "#282c34"
-  , fgColor          = "#abb2bf"
+  , bgColor          = "#1d1f21"
+  , fgColor          = "#c5c8c6"
   , alpha            = 255
   , position         = BottomSize C 100 30
   , textOffset       = 20
@@ -25,13 +21,13 @@ Config {
   , alignSep         = "}{"
   , template         = "   %StdinReader% }\
                        \   %date%\
-                       \   <fc=#545862>//</fc>\
+                       \   <fc=#969896>//</fc>\
                        \   %time%\
-                       \{ <fc=#abb2bf><fn=1></fn></fc> %brightness%\
-                       \   <fc=#545862>//</fc>\
-                       \   <fc=#abb2bf><fn=1></fn></fc> %volume%\
-                       \   <fc=#545862>//</fc>\
-                       \   <fc=#abb2bf><fn=1></fn></fc> %battery%\
+                       \{ BRI %brightness%\
+                       \   <fc=#969896>//</fc>\
+                       \   VOL %volume%\
+                       \   <fc=#969896>//</fc>\
+                       \   BAT %battery%\
                        \   "
   , commands =
     [ Run StdinReader
@@ -47,7 +43,7 @@ Config {
                     , "-i"	, ""
                   ] 60
     , Run Date "%a %d" "date" 10
-    , Run Date "%I:%M" "time" 10
+    , Run Date "%I:%M %p" "time" 10
     , Run Com "sh" ["-c", "~/scripts/info/brightness.sh intel_backlight"] "brightness" 30
     , Run Com "sh" ["-c", "~/scripts/info/volume.sh"] "volume" 5
     ]

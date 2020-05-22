@@ -1,70 +1,69 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module WalColors
   ( Colors(..)
   , SpecialColors(..)
   , ColorPalette(..)
-  , fallbackColors
+  , oneDarkFallbackColors
+  , tomorrowNightFallbackColors
   , getWal
   , getWalWithFallback
   , getWalWithFile
-  , getWalWithFileAndFallback
   )
 where
 
-import           Control.Exception              ( catch
-                                                , SomeException
-                                                )
-import           Data.Aeson                     ( decode
-                                                , FromJSON
-                                                )
-import qualified Data.ByteString.Lazy          as BS
-import           Data.ByteString.Lazy           ( ByteString )
-import           Data.Maybe                     ( fromMaybe )
-import           GHC.Generics                   ( Generic )
-import           System.Directory               ( getHomeDirectory )
+import           Control.Exception    (SomeException, catch)
+import           Data.Aeson           (FromJSON, decode)
+import           Data.ByteString.Lazy (ByteString)
+import qualified Data.ByteString.Lazy as BS
+import           Data.Maybe           (fromMaybe)
+import           GHC.Generics         (Generic)
+import           System.Directory     (getHomeDirectory)
 
 data Colors = Colors
-  { special :: SpecialColors
-  , colors  :: ColorPalette
-  } deriving (Show, Generic)
+    { special :: SpecialColors
+    , colors  :: ColorPalette
+    }
+    deriving (Show, Generic)
 
 instance FromJSON Colors
 
 data SpecialColors = SpecialColors
-  { background :: String
-  , foreground :: String
-  , cursor     :: String
-  } deriving (Show, Generic)
+    { background :: String
+    , foreground :: String
+    , cursor     :: String
+    }
+    deriving (Show, Generic)
 
 instance FromJSON SpecialColors
 
 data ColorPalette = ColorPalette
-  { color0  :: String
-  , color1  :: String
-  , color2  :: String
-  , color3  :: String
-  , color4  :: String
-  , color5  :: String
-  , color6  :: String
-  , color7  :: String
-  , color8  :: String
-  , color9  :: String
-  , color10 :: String
-  , color11 :: String
-  , color12 :: String
-  , color13 :: String
-  , color14 :: String
-  , color15 :: String
-  } deriving (Show, Generic)
+    { color0  :: String
+    , color1  :: String
+    , color2  :: String
+    , color3  :: String
+    , color4  :: String
+    , color5  :: String
+    , color6  :: String
+    , color7  :: String
+    , color8  :: String
+    , color9  :: String
+    , color10 :: String
+    , color11 :: String
+    , color12 :: String
+    , color13 :: String
+    , color14 :: String
+    , color15 :: String
+    }
+    deriving (Show, Generic)
 
 instance FromJSON ColorPalette
 
--- | Some hardcoded colors.
+-- | Fallback on base16-onedark theme if pywal colorscheme can't be read.
 --
-fallbackColors :: Colors
-fallbackColors = Colors
+oneDarkFallbackColors :: Colors
+oneDarkFallbackColors = Colors
   { special = SpecialColors { background = "#282c34"
                             , foreground = "#abb2bf"
                             , cursor     = "#abb2bf"
@@ -88,6 +87,34 @@ fallbackColors = Colors
                            }
   }
 
+-- | Fallback on base16-tomorrow-night theme if pywal colorscheme can't be read.
+--
+tomorrowNightFallbackColors :: Colors
+tomorrowNightFallbackColors = Colors
+  { special = SpecialColors { background = "#1d1f21"
+                            , foreground = "#c5c8c6"
+                            , cursor     = "#c5c8c6"
+                            }
+  , colors  = ColorPalette { color0  = "#1d1f21"
+                           , color1  = "#cc6666"
+                           , color2  = "#b5bd68"
+                           , color3  = "#f0c674"
+                           , color4  = "#81a2be"
+                           , color5  = "#b294bb"
+                           , color6  = "#8abeb7"
+                           , color7  = "#c5c8c6"
+                           , color8  = "#969896"
+                           , color9  = "#cc6666"
+                           , color10 = "#b5bd68"
+                           , color11 = "#f0c674"
+                           , color12 = "#81a2be"
+                           , color13 = "#b294bb"
+                           , color14 = "#8abeb7"
+                           , color15 = "#ffffff"
+                           }
+  }
+
+
 -- | A wrapper for 'readFile'.  It returns 'Nothing' where there would
 -- usually be an exception.
 --
@@ -103,16 +130,17 @@ getWal = do
   home <- getHomeDirectory
   getWalWithFile $ home ++ "/.cache/wal/colors.json"
 
--- | Same as 'getWal', but will use 'fallbackColors' if the
+-- | Same as 'getWal', but will use the colors passed in if the
 -- colors.json file cannot be read.
 --
-getWalWithFallback :: IO Colors
-getWalWithFallback = fromMaybe fallbackColors <$> getWal
+getWalWithFallback :: Colors -> IO Colors
+getWalWithFallback fallback = fromMaybe fallback <$> getWal
 
 {-|
-  Get colour scheme from a given json file.
+  Get colour scheme from the json file generated by pywal.
 
-  Example json file contents:
+  Alternatively, create a file with the following contents
+  (of course, colors can be changed):
 
   @
     {
@@ -149,9 +177,3 @@ getWalWithFile :: FilePath -> IO (Maybe Colors)
 getWalWithFile filepath = do
   json <- safeReadFile filepath
   return $ json >>= decode
-
--- | Get colour scheme from a given json file.  Uses 'fallbackColors'
--- if the file cannot be read.
---
-getWalWithFileAndFallback :: FilePath -> IO Colors
-getWalWithFileAndFallback = (fromMaybe fallbackColors <$>) . getWalWithFile
