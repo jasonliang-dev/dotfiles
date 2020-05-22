@@ -1,11 +1,17 @@
 #!/usr/bin/env sh
 
+# make directories if they don't already exist
+mkdir -p ~/.themes/dark/openbox-3
+mkdir -p ~/.config/tint2
+mkdir -p ~/.config/dunst
+mkdir -p ~/.config/polybar
+
 # copy configs
-cp ~/.cache/wal/colors-themerc ~/.themes/dark/openbox-3/themerc
-cp ~/.cache/wal/colors-tint2rc ~/.config/tint2/tint2rc
-cp ~/.cache/wal/colors-dunstrc ~/.config/dunst/dunstrc
-cp ~/.cache/wal/colors-polybar ~/.config/polybar/config
-cp ~/.cache/wal/colors-xmobarrc ~/.xmobarrc
+ln -sf ~/.cache/wal/colors-themerc ~/.themes/dark/openbox-3/themerc
+ln -sf ~/.cache/wal/colors-tint2rc ~/.config/tint2/tint2rc
+ln -sf ~/.cache/wal/colors-dunstrc ~/.config/dunst/dunstrc
+ln -sf ~/.cache/wal/colors-polybar ~/.config/polybar/config
+ln -sf ~/.cache/wal/colors-xmobarrc ~/.xmobarrc
 
 # restart xmonad. xmobar also restarts
 [ $(pgrep xmonad) ] && xmonad --restart
