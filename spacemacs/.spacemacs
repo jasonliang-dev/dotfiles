@@ -49,6 +49,8 @@ This function should only modify configuration layer settings."
 
      ;; programming languages
      c-c++
+     (clojure :variables
+              clojure-enable-linters 'clj-kondo)
      csharp
      elm
      emacs-lisp
