@@ -27,3 +27,4 @@ super + shift + x
 
 super + shift + F5
 	pkill -USR1 -x sxhkd
+
