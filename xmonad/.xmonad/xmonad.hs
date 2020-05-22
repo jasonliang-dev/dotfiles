@@ -171,54 +171,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        , ( (modm, xK_y)
          , switchLayer
          )
-       -- Focus window toward the left
-       , ( (modm, xK_h)
-         , windowGo L False
-         )
-       -- Focus window toward the right
-       , ( (modm, xK_l)
-         , windowGo R False
-         )
-       -- Focus window toward the top
-       , ( (modm, xK_k)
-         , windowGo U False
-         )
-       -- Focus window toward the bottom
-       , ( (modm, xK_j)
-         , windowGo D False
-         )
-       -- Move focused window toward the left
-       , ( (modm .|. shiftMask, xK_h)
-         , windowSwap L False
-         )
-       -- Move focused window toward the right
-       , ( (modm .|. shiftMask, xK_l)
-         , windowSwap R False
-         )
-       -- Move focused window toward the top
-       , ( (modm .|. shiftMask, xK_k)
-         , windowSwap U False
-         )
-       -- Move focused window toward the bottom
-       , ( (modm .|. shiftMask, xK_j)
-         , windowSwap D False
-         )
-       -- Move split towards the left
-       , ( (modm .|. controlMask, xK_h)
-         , sendMessage $ ExpandTowards L
-         )
-       -- Move split towards the right
-       , ( (modm .|. controlMask, xK_l)
-         , sendMessage $ ExpandTowards R
-         )
-       -- Move split towards the top
-       , ( (modm .|. controlMask, xK_k)
-         , sendMessage $ ExpandTowards U
-         )
-       -- Move split towards the bottom
-       , ( (modm .|. controlMask, xK_j)
-         , sendMessage $ ExpandTowards D
-         )
        -- Rotate a split (horizontal/vertical)
        , ( (modm, xK_v)
          , sendMessage Rotate
@@ -256,9 +208,27 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
          , io exitSuccess
          )
        -- Restart xmonad.
-       , ((modm, xK_q)              , restart "xmonad" True)
-       , ((modm, xK_m)              , withFocused minimizeWindow)
+       , ( (modm, xK_q)
+         , restart "xmonad" True
+         )
+       -- Minimize (hide) window
+       , ( (modm, xK_m)
+         , withFocused minimizeWindow
+         )
+       -- Show previously minimized window
        , ((modm .|. shiftMask, xK_m), withLastMinimized maximizeWindowAndFocus)
+       ]
+    ++
+       -- mod-{h,j,k,l}, focus window towards left, down, up, or right
+       -- mod-shift-{h,j,k,l}, move window
+       -- mod-control-{h,j,k,l}, resize window
+       [ ((m .|. modm, key), f dir)
+       | (dir, key) <- [(L, xK_h), (D, xK_j), (U, xK_k), (R, xK_l)]
+       , (f, m) <-
+         [ (flip windowGo False        , 0)
+         , (flip windowSwap False      , shiftMask)
+         , (sendMessage . ExpandTowards, controlMask)
+         ]
        ]
     ++
 
