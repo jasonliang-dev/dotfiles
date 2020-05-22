@@ -45,6 +45,7 @@ This function should only modify configuration layer settings."
 
      ;; frameworks
      react
+     vue
 
      ;; programming languages
      c-c++
@@ -541,6 +542,10 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; set default indentation width
   (setq standard-indent 2)
+
+  ;; set <script> and <style> indentation in web-mode
+  (setq web-mode-script-padding 2
+        web-mode-style-padding 2)
 
   ;; better mouse scrolling
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
