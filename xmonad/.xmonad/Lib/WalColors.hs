@@ -13,13 +13,17 @@ module WalColors
   )
 where
 
-import           Control.Exception    (SomeException, catch)
-import           Data.Aeson           (FromJSON, decode)
-import           Data.ByteString.Lazy (ByteString)
-import qualified Data.ByteString.Lazy as BS
-import           Data.Maybe           (fromMaybe)
-import           GHC.Generics         (Generic)
-import           System.Directory     (getHomeDirectory)
+import           Control.Exception              ( SomeException
+                                                , catch
+                                                )
+import           Data.Aeson                     ( FromJSON
+                                                , decode
+                                                )
+import           Data.ByteString.Lazy           ( ByteString )
+import qualified Data.ByteString.Lazy          as BS
+import           Data.Maybe                     ( fromMaybe )
+import           GHC.Generics                   ( Generic )
+import           System.Directory               ( getHomeDirectory )
 
 data Colors = Colors
     { special :: SpecialColors

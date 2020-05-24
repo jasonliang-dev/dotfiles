@@ -259,7 +259,7 @@ myPP theme = xmobarPP
   , ppSep             = xmobarColor (color8 $ colors theme) "" $ pad "//"
   , ppTitle           = const ""
   }
-  where pad = wrap "" "   "
+  where pad = wrap "" "    "
 
 
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
