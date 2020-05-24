@@ -1,9 +1,17 @@
 #!/usr/bin/env sh
 
 case "$1" in
-    "up")   amixer set Master 2%+ ;;
-    "down") amixer set Master 2%- ;;
-    "mute") amixer set Master toggle ;;
+    # thank you arch wiki
+    # https://wiki.archlinux.org/index.php/PulseAudio#Keyboard_volume_control
+    "up")
+        pactl set-sink-mute @DEFAULT_SINK@ false
+        pactl set-sink-volume @DEFAULT_SINK@ +2%
+        ;;
+    "down")
+        pactl set-sink-mute @DEFAULT_SINK@ false
+        pactl set-sink-volume @DEFAULT_SINK@ -2%
+        ;;
+    "mute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
 
     "play")  ~/scripts/try.sh "cmus-remote -u" "mpc toggle" "playerctl play-pause" ;;
     "pause") ~/scripts/try.sh "cmus-remote -s" "mpc pause" "playerctl pause" ;;
