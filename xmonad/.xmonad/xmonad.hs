@@ -14,10 +14,6 @@ import           XMonad
 import qualified XMonad.StackSet               as W
 
 -- xmonad contrib
-import           XMonad.Actions.Minimize        ( maximizeWindowAndFocus
-                                                , minimizeWindow
-                                                , withLastMinimized
-                                                )
 import           XMonad.Actions.Navigation2D    ( Navigation2DConfig
                                                 , centerNavigation
                                                 , defaultTiledNavigation
@@ -202,12 +198,6 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        , ( (modm, xK_q)
          , restart "xmonad" True
          )
-       -- Minimize (hide) window
-       , ( (modm, xK_m)
-         , withFocused minimizeWindow
-         )
-       -- Show previously minimized window
-       , ((modm .|. shiftMask, xK_m), withLastMinimized maximizeWindowAndFocus)
        ]
     ++
        -- mod-{h,j,k,l}, focus window towards left, down, up, or right
