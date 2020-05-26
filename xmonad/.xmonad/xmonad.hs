@@ -62,8 +62,6 @@ import           XMonad.Layout.BinarySpacePartition
                                                 , Swap(Swap)
                                                 , emptyBSP
                                                 )
-import           XMonad.Layout.BoringWindows    ( boringWindows )
-import           XMonad.Layout.Minimize         ( minimize )
 import           XMonad.Layout.NoBorders        ( smartBorders )
 import           XMonad.Layout.Spacing          ( Border(Border)
                                                 , decScreenWindowSpacing
@@ -110,11 +108,8 @@ handleDialog = insertPosition Above Newer <+> doCenterFloat
 -- window rather than the master window.
 --
 myManageHook :: ManageHook
-myManageHook = insertPosition Below Newer <+> composeOne
-  [ stringProperty "WM_WINDOW_ROLE" =? "toolbox" -?> handleDialog
-  , isDialog -?> handleDialog
-  , transience
-  ]
+myManageHook = insertPosition Below Newer
+  <+> composeOne [isDialog -?> handleDialog, transience]
 
 -- LAYOUT ----------------------------------------------------------------------
 
@@ -125,7 +120,7 @@ myManageHook = insertPosition Below Newer <+> composeOne
 --
 myLayout = layoutMods $ withGaps emptyBSP ||| Full
  where
-  layoutMods = avoidStruts . boringWindows . smartBorders . minimize
+  layoutMods = avoidStruts . smartBorders
   withGaps   = spacingRaw smartGaps spacing screenGaps spacing windowGaps
    where
     spacing    = Border 10 10 10 10
@@ -155,16 +150,12 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
        , ( (modm .|. shiftMask, xK_space)
          , setLayout $ XMonad.layoutHook conf
          )
-       -- Resize viewed windows to the correct size.
-       , ( (modm, xK_n)
-         , refresh
-         )
        -- Move focus to the next window.
-       , ( (mod1Mask, xK_Tab)
+       , ( (modm, xK_n)
          , windows W.focusDown
          )
        -- Move focus to the previous window.
-       , ( (mod1Mask .|. shiftMask, xK_Tab)
+       , ( (modm, xK_p)
          , windows W.focusUp
          )
        -- Toggle floating window focus
@@ -252,6 +243,7 @@ myKeys conf@XConfig { XMonad.modMask = modm } =
 myPP :: Colors -> PP
 myPP theme = xmobarPP
   { ppCurrent         = xmobarColor (foreground $ special theme) "" . pad
+  , ppVisible         = xmobarColor (color4 $ colors theme) "" . pad
   , ppHidden          = xmobarColor (color8 $ colors theme) "" . pad
   , ppHiddenNoWindows = const ""
   , ppUrgent          = xmobarColor (color1 $ colors theme) "" . pad
@@ -267,14 +259,14 @@ toggleStrutsKey XConfig { XMonad.modMask = modm } = (modm, xK_b)
 
 -- RUN XMONAD ------------------------------------------------------------------
 
-myConfig theme = withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh def
+myConfig theme = def
   { terminal           = myTerminal
   , modMask            = mod4Mask
   , workspaces         = map show [1 .. 9 :: Int]
   , keys               = myKeys
   , borderWidth        = 2
   , normalBorderColor  = color0 $ colors theme
-  , focusedBorderColor = color6 $ colors theme
+  , focusedBorderColor = color4 $ colors theme
   , handleEventHook    = fullscreenEventHook
   , manageHook         = myManageHook
   , layoutHook         = myLayout
@@ -288,4 +280,9 @@ myNavigation2DConfig = def { defaultTiledNavigation = hybridNavigation }
 main :: IO ()
 main = do
   theme <- getWalWithFallback oneDarkFallbackColors
-  xmonad =<< statusBar "xmobar" (myPP theme) toggleStrutsKey (myConfig theme)
+  xmonad =<< statusBar
+    "xmobar"
+    (myPP theme)
+    toggleStrutsKey
+    (withNavigation2DConfig myNavigation2DConfig $ docks $ ewmh $ myConfig theme
+    )
