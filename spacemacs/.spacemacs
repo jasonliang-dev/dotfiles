@@ -36,10 +36,9 @@ This function should only modify configuration layer settings."
      better-defaults
      git
      helm
+     ;; lsp
      markdown
      multiple-cursors
-     org
-     prettier
      syntax-checking
      treemacs
 
@@ -80,7 +79,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(doom-themes dtrt-indent format-all)
+   dotspacemacs-additional-packages '(doom-themes format-all)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -120,9 +119,9 @@ It should only modify the values of Spacemacs settings."
    ;; portable dumper in the cache directory under dumps sub-directory.
    ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
-   ;; (default spacemacs.pdmp)
-   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+   ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
+   ;; (default spacemacs-27.1.pdmp)
+   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
@@ -141,6 +140,13 @@ It should only modify the values of Spacemacs settings."
    ;; performance issues due to garbage collection operations.
    ;; (default '(100000000 0.1))
    dotspacemacs-gc-cons '(100000000 0.1)
+
+   ;; Set `read-process-output-max' when startup finishes.
+   ;; This defines how much data is read from a foreign process.
+   ;; Setting this >= 1 MB should increase performance for lsp servers
+   ;; in emacs 27.
+   ;; (default (* 1024 1024))
+   dotspacemacs-read-process-output-max (* 1024 1024)
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
@@ -170,13 +176,18 @@ It should only modify the values of Spacemacs settings."
    ;; (default 'vim)
    dotspacemacs-editing-style 'hybrid
 
+   ;; If non-nil show the version string in the Spacemacs buffer. It will
+   ;; appear as (spacemacs version)@(emacs version)
+   ;; (default t)
+   dotspacemacs-startup-buffer-show-version t
+
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
    ;; banner, `random' chooses a random text banner in `core/banners'
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner nil
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -205,8 +216,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-one
-                         doom-one-light)
+   dotspacemacs-themes '(doom-tomorrow-night doom-one-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -246,8 +256,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key nil
 
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m")
-   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
+   ;; Thus M-RET should work as leader key in both GUI and terminal modes.
+   ;; C-M-m also should work in terminal mode, but not in GUI mode.
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
@@ -445,6 +457,13 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
 
+   ;; If non nil activate `clean-aindent-mode' which tries to correct
+   ;; virtual indentation of simple modes. This can interfer with mode specific
+   ;; indent handling like has been reported for `go-mode'.
+   ;; If it does deactivate it here.
+   ;; (default t)
+   dotspacemacs-use-clean-aindent-mode t
+
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
@@ -452,7 +471,11 @@ It should only modify the values of Spacemacs settings."
    ;; Run `spacemacs/prettify-org-buffer' when
    ;; visiting README.org files of Spacemacs.
    ;; (default nil)
-   dotspacemacs-pretty-docs nil))
+   dotspacemacs-pretty-docs nil
+
+   ;; If nil the home buffer shows the full path of agenda items
+   ;; and todos. If non nil only the file name is shown.
+   dotspacemacs-home-shorten-agenda-source nil))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -477,78 +500,12 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
-(defun lia/org-config ()
-  "Configurations specific to org-mode.
-This function should be called in `dotspacemacs/user-config'."
-  ;; Set the directory to search for Org files.
-  (setq org-directory "~/Dropbox/org/")
-
-  ;; Add the files in org-directory for use in the agenda.
-  (setq org-agenda-files (list org-directory))
-
-  ;; target file for notes. capture notes here.
-  (setq org-default-notes-file (concat org-directory "inbox.org"))
-
-  ;; set org bullets
-  (setq org-bullets-bullet-list '("◉" "○"))
-
-  ;; init refile targets. move any node to any agenda file.
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-
-  ;; refile a node to the top level of a file
-  (setq org-refile-use-outline-path 'file)
-
-  ;; no headings appear when `org-refile-use-outline-path' is set to file
-  ;; the next line fixes this
-  (setq org-outline-path-complete-in-steps nil)
-
-  ;; add custom todo states
-  ;; https://orgmode.org/manual/Tracking-TODO-state-changes.html
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "WAIT(w!)" "|" "DONE(d!)" "CANCELED(c!)")))
-
-  ;; setup org capture templates
-  (setq org-capture-templates
-        '(("c" "Capture to Inbox" entry (file org-default-notes-file)
-           "* TODO %?\n  %a")))
-
-  ;; use a custom agenda view
-  (setq org-agenda-custom-commands
-        '(("n" "My agenda" ;; "n" because it overrides the default
-           ((agenda "")
-            (alltodo ""
-                     ((org-agenda-skip-function
-                       '(org-agenda-skip-entry-if 'nottodo '("NEXT")))
-                      (org-agenda-overriding-header "Next Tasks")))
-            (alltodo ""
-                     ((org-agenda-skip-function
-                       '(org-agenda-skip-entry-if
-                         'scheduled 'deadline))
-                      (org-agenda-overriding-header "Unscheduled Tasks")))))))
-
-  ;; wrap lines in org-mode buffers
-  (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-
-  ;; add keybind to inbox
-  (spacemacs/set-leader-keys "aog"
-    (lambda() (interactive) (helm-find-files-1 org-directory)))
-  ;; add shortcut to custom agenda view
-  (spacemacs/set-leader-keys "aon"
-    (lambda () (interactive) (org-agenda nil "n"))))
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; set default indentation width
-  (setq standard-indent 2)
-
-  ;; set <script> and <style> indentation in web-mode
-  (setq web-mode-script-padding 2
-        web-mode-style-padding 2)
-
   ;; better mouse scrolling
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one/two line at a time
         mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
@@ -575,14 +532,6 @@ before packages are loaded."
         (if (fboundp 'mac-auto-operator-composition-mode)
             (mac-auto-operator-composition-mode))))
 
-  ;; enable dtrt. a package that automatically switches indentation style based
-  ;; on the file's contents
-  (dtrt-indent-global-mode)
-
-  ;; use my org-mode configuration
-  (lia/org-config)
-
-  ;; additional bindings
   (spacemacs/set-leader-keys "<f5>" 'revert-buffer)
   (spacemacs/set-leader-keys "=" 'format-all-buffer))
 
