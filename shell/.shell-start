@@ -9,6 +9,12 @@ export VISUAL='vim'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+# load base16 shell if it exists
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+              eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 # load nix shell if exists
 [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ] && \. $HOME/.nix-profile/etc/profile.d/nix.sh
 
