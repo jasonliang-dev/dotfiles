@@ -1,7 +1,0 @@
-# whitelist gitignore and emacs config
-*
-!.gitignore
-!init.el
-!config.org
-!snippets/
-!snippets/**/*
