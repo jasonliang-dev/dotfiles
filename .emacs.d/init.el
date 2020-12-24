@@ -180,6 +180,11 @@
   (ivy-mode 1)
   (define-key lia-leader-map "b" 'ivy-switch-buffer))
 
+;; an excellent git frontend
+(use-package magit
+  :config
+  (define-key lia-leader-map "g" 'magit-status))
+
 ;; cool features for working with projects. find files, swap between
 ;; .h/.c, grep in project, compile command, and so much more
 (use-package projectile
