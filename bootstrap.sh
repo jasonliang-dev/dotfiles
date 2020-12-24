@@ -26,7 +26,7 @@ else
     for i in "${bootstrap_list[@]}"
     do
         echo -e $dotfiles_dir/$cyan$i$nocol "->" ~/$cyan$i$nocol
-        ln -s $dotfiles_dir/$i ~/$i
+        ln -sT $dotfiles_dir/$i ~/$i
     done
 fi
 
