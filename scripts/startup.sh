@@ -17,4 +17,4 @@ xinput set-prop 12 "libinput Disable While Typing Enabled" 0
 
 feh --bg-fill --randomize ~/wallpapers/* &
 
-compton &
+picom --config ~/.picom.conf &

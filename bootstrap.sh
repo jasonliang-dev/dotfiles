@@ -4,6 +4,7 @@ bootstrap_list=(
     .bash_profile
     .bashrc
     .emacs.d
+    .picom.conf
     .tmux.conf
     .xinitrc
     scripts
@@ -17,16 +18,16 @@ if [[ $1 == "clean" ]]
 then
     for i in "${bootstrap_list[@]}"
     do
-        echo -e removing ~/$red$i$nocol
         rm -r ~/$i
+        [[ $? -eq 0 ]] && echo -e removed ~/$red$i$nocol
     done
 else
     dotfiles_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 
     for i in "${bootstrap_list[@]}"
     do
-        echo -e $dotfiles_dir/$cyan$i$nocol "->" ~/$cyan$i$nocol
         ln -sT $dotfiles_dir/$i ~/$i
+        [[ $? -eq 0 ]] && echo -e $dotfiles_dir/$cyan$i$nocol "->" ~/$cyan$i$nocol
     done
 fi
 
