@@ -9,19 +9,23 @@ bootstrap_list=(
     scripts
 )
 
+red='\033[0;31m'
+cyan='\033[0;36m'
+nocol='\033[0m'
+
 if [[ $1 == "clean" ]]
 then
     for i in "${bootstrap_list[@]}"
     do
-        echo removing ~/$i
+        echo -e removing ~/$red$i$nocol
         rm -r ~/$i
     done
 else
-    dotfiles_dir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+    dotfiles_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 
     for i in "${bootstrap_list[@]}"
     do
-        echo creating ~/$i
+        echo -e $dotfiles_dir/$cyan$i$nocol "->" ~/$cyan$i$nocol
         ln -s $dotfiles_dir/$i ~/$i
     done
 fi
