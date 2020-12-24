@@ -24,7 +24,7 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; set font
-(setq default-frame-alist '((font . "Roboto Mono Bold 10")))
+(setq default-frame-alist '((font . "Roboto Mono Bold 9")))
 
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -284,20 +284,6 @@
 (setq dired-dwim-target t)
 
 
-;; -- CUSTOM (DO NOT ADD ANYTHING BELOW) -----------------------------
+;; -- CUSTOM ---------------------------------------------------------
 
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(wakatime-mode counsel-projectile projectile ivy format-all flycheck expand-region evil-surround evil-mc evil-collection evil undo-tree editorconfig doom-themes doom-modeline auto-package-update use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
