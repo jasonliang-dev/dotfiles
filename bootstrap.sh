@@ -6,6 +6,8 @@ bootstrap_list=(
     .emacs.d
     .picom.conf
     .tmux.conf
+    .vim
+    .vimrc
     .xinitrc
     scripts
 )
