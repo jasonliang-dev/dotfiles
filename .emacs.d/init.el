@@ -15,6 +15,12 @@
 ;; -- EARLY INITIALIZATION -------------------------------------------
 
 
+;; boost startup time, values are set again near the end of this file
+(defvar lia-file-name-handler-alist file-name-handler-alist)
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil)
+
 ;; hide ugly gui
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -62,23 +68,13 @@
 
 (eval-when-compile (require 'use-package))
 
-;; always install whatever package is listed below
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
-
 
 ;; -- PACKAGES -------------------------------------------------------
 
 
-;; periodically update packages
-(use-package auto-package-update
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
-
 ;; super clean looking modeline
 (use-package doom-modeline
+  :ensure t
   :init
   (setq doom-modeline-height 35
         doom-modeline-icon nil
@@ -88,24 +84,27 @@
 
 ;; awesome theme collection
 (use-package doom-themes
+  :ensure t
   :config
   (load-theme 'doom-one t))
 
 ;; respect `.editorconfig' files
 ;; https://editorconfig.org/
 (use-package editorconfig
+  :ensure t
   :config
   (editorconfig-mode 1))
 
 ;; undo system used for evil. also the visualizer is kinda cool (C-x u)
 (use-package undo-tree
+  :ensure t
   :config
   (global-undo-tree-mode))
 
 ;; I wouldn't be using emacs if it weren't for you, `evil-mode'. Vim
 ;; emuation in Emacs.
 (use-package evil
-  :requires (undo-tree)
+  :ensure t
   :init
   ;; required for `evil-collection'
   (setq evil-want-keybinding nil)
@@ -134,13 +133,13 @@
 
 ;; vim keybindings for major modes that evil mode doesn't cover
 (use-package evil-collection
-  :requires (evil)
+  :ensure t
   :config
   (evil-collection-init))
 
 ;; multiple cursors! but specifically for evil mode? ok.
 (use-package evil-mc
-  :requires (evil)
+  :ensure t
   :config
   (define-key evil-normal-state-map (kbd "C-n") 'evil-mc-make-and-goto-next-match)
   (define-key evil-normal-state-map (kbd "C-p") 'evil-mc-make-and-goto-prev-match)
@@ -157,12 +156,13 @@
 
 ;; quickly add, change, remove delimiters with evil mode bindings
 (use-package evil-surround
-  :requires (evil)
+  :ensure t
   :config
   (global-evil-surround-mode 1))
 
 ;; select a region between two quotes, brackets, etc. convenient.
 (use-package expand-region
+  :ensure t
   :config
   (define-key lia-leader-map (kbd "v") 'er/expand-region))
 
@@ -171,40 +171,46 @@
 
 ;; format all of your ugly code with a press of a key
 (use-package format-all
+  :ensure t
   :config
   (define-key lia-leader-map (kbd "=") 'format-all-buffer))
 
 ;; completion for commands, file names, buffers, and so much more.
 (use-package ivy
+  :ensure t
   :config
   (ivy-mode 1)
   (define-key lia-leader-map "b" 'ivy-switch-buffer))
 
 ;; an excellent git frontend
 (use-package magit
+  :ensure t
   :config
   (define-key lia-leader-map "g" 'magit-status))
 
 ;; cool features for working with projects. find files, swap between
 ;; .h/.c, grep in project, compile command, and so much more
 (use-package projectile
+  :ensure t
   :config
   (projectile-mode t)
   (define-key lia-leader-map "p" projectile-command-map))
 
 ;; use ivy completion for projectile commands
 (use-package counsel-projectile
-  :requires (ivy projectile)
+  :ensure t
   :config
   (counsel-projectile-mode))
 
 ;; powerful Ctrl-f
 (use-package swiper
+  :ensure t
   :config
   (define-key lia-leader-map "s" 'swiper))
 
 ;; track the time spent programming
 (use-package wakatime-mode
+  :ensure t
   :init
   (setq wakatime-api-key (string-trim-right
                           (with-temp-buffer
@@ -287,6 +293,15 @@
 ;; guess target directory when copying/moving files in dired
 ;; i.e. get drag and drop functionality with two dired windows in a split
 (setq dired-dwim-target t)
+
+
+;; -- RESET ----------------------------------------------------------
+
+
+;; we're at the end of init, change settings back to reasonable values
+(setq gc-cons-threshold 16777216
+      gc-cons-percentage 0.1
+      file-name-handler-alist lia-file-name-handler-alist)
 
 
 ;; -- CUSTOM ---------------------------------------------------------
