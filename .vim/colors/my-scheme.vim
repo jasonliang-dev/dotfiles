@@ -41,8 +41,6 @@ hi Error ctermfg=01 ctermbg=00
 hi ErrorMsg ctermfg=01 ctermbg=00
 hi Exception ctermfg=01 ctermbg=00
 hi Function ctermfg=04 ctermbg=00
-hi GitGutterAdd ctermfg=02 ctermbg=00
-hi GitGutterChange ctermfg=03 ctermbg=00
 hi Identifier ctermfg=01 ctermbg=00
 hi IncSearch ctermfg=03 ctermbg=00
 hi Include ctermfg=05 ctermbg=00
@@ -60,7 +58,7 @@ hi PreProc ctermfg=01 ctermbg=00
 hi Repeat ctermfg=02 ctermbg=00
 hi Search ctermbg=08 ctermfg=15
 hi Special ctermfg=03 ctermbg=00
-hi SpecialChar ctermfg=03 ctermbg=00
+hi SpecialChar ctermfg=02 ctermbg=00
 hi SpecialComment ctermfg=08 ctermbg=00
 hi Statement ctermfg=06 ctermbg=00
 hi Storage ctermfg=05 ctermbg=00
@@ -70,13 +68,4 @@ hi Title ctermfg=03 ctermbg=00
 hi Todo ctermfg=03 ctermbg=00
 hi Type ctermfg=04 ctermbg=00
 hi WarningMsg ctermfg=01 ctermbg=00
-hi cssAttr ctermfg=06 ctermbg=00
-hi cssClassName ctermfg=05 ctermbg=00
-hi cssClassNameDot ctermfg=05 ctermbg=00
-hi cssColor ctermfg=03 ctermbg=00
-hi cssIdentifier ctermfg=01 ctermbg=00
-hi cssImportant ctermfg=01 ctermbg=00
-hi cssIncludeKeyword ctermfg=02 ctermbg=00
-hi javaScriptBoolean ctermfg=05 ctermbg=00
-hi markdownLinkText ctermfg=05 ctermbg=00
 
