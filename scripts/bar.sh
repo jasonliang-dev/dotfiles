@@ -23,16 +23,20 @@ base0D=#61afef
 base0E=#c678dd
 base0F=#be5046
 
-# xprop -id 31457283 | grep ^WM_NAME | sed 's/^.* = "\(.*\)"$/\1/'
-
 dwm-msg --ignore-reply subscribe client_focus_change_event |
-    jq '.client_focus_change_event.new_win_id' |
+    jq --unbuffered '.client_focus_change_event.new_win_id' |
     while IFS=$'\n' read -r winid
     do
-        echo xprop -id $winid | grep ^WM_NAME | sed 's/^.* = "\(.*\)"$/\1/'
+        if [[ $winid == "null" ]]
+        then
+            echo
+        else
+            title=$(xprop -id $winid | grep ^WM_NAME | sed 's/^.* = "\(.*\)"$/\1/')
+            printf "  %s" "$title" | awk 'length > 30{$0=substr($0,0,31)"..."}1'
+        fi
     done |
-    lemonbar -d -g "200x$barheight+$gappx+$gappx" \
-             -f "Source Sans Pro:size=10:weight=200" \
+    lemonbar -d -g "300x$barheight+$gappx+$gappx" \
+             -f "Roboto Mono:size=10:weight=200" \
              -o 0 -B $base01 -F $base05 &
 
 dwm-msg --ignore-reply subscribe tag_change_event |
@@ -68,5 +72,5 @@ do
     sleep 1
 done |
     lemonbar -d -g "200x$barheight+$(($width - 200 - $gappx))+$gappx" \
-             -f "Source Sans Pro:size=10:weight=200" \
+             -f "Roboto Mono:size=10:weight=200" \
              -o 0 -B $base01 -F $base05 &
