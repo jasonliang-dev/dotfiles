@@ -34,15 +34,6 @@ set nopaste
 " use custom colorscheme
 colorscheme my-scheme
 
-" error color
-hi Error cterm=underline ctermfg=Red ctermbg=NONE
-
-" bracket highlight color
-hi MatchParen cterm=bold ctermbg=NONE
-
-" search color
-hi Search cterm=NONE ctermfg=Black ctermbg=Blue
-
 " show matching parenthesis
 set showmatch
 
@@ -59,9 +50,6 @@ let mapleader = " "
 " move by visual line
 nnoremap j gj
 nnoremap k gk
-
-" leader + w is C-w
-nnoremap <leader>w <C-W>
 
 " clear highlighted text
 nnoremap <leader><ESC> :nohl<CR>

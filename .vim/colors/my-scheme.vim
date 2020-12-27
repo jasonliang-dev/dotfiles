@@ -37,7 +37,7 @@ hi DiffChange ctermfg=03 ctermbg=00
 hi DiffDelete ctermfg=01 ctermbg=00
 hi DiffText ctermfg=01 ctermbg=00
 hi Directory ctermfg=05 ctermbg=00
-hi Error ctermfg=01 ctermbg=00
+hi Error cterm=underline ctermfg=01 ctermbg=00
 hi ErrorMsg ctermfg=01 ctermbg=00
 hi Exception ctermfg=01 ctermbg=00
 hi Function ctermfg=04 ctermbg=00
@@ -47,7 +47,7 @@ hi Include ctermfg=05 ctermbg=00
 hi Keyword ctermfg=02 ctermbg=00
 hi Label ctermfg=03 ctermbg=00
 hi Macro ctermfg=15 ctermbg=00
-hi MatchParen ctermfg=03 ctermbg=00
+hi MatchParen cterm=bold ctermfg=03 ctermbg=00
 hi MoreMsg ctermfg=03 ctermbg=00
 hi NonText ctermfg=08 ctermbg=00
 hi Number ctermfg=03 ctermbg=00
