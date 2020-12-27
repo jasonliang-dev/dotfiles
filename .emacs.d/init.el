@@ -86,7 +86,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-gruvbox t))
 
 ;; respect `.editorconfig' files
 ;; https://editorconfig.org/
