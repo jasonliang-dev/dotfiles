@@ -3,5 +3,13 @@
 mkdir -p ~/screenshots/
 
 img=~/screenshots/$(date +'%F-%H%M').png
-import $img
+
+case $1 in
+    "region")
+        import $img
+        ;;
+    *)
+        scrot $img
+esac
+
 xclip -selection clipboard -target image/png -i $img
