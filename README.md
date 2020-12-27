@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="images/dots.png" width="400" />
+    <img src="images/dots-min.png" width="400" />
 </p>
 
 <p align="center">
@@ -7,7 +7,7 @@
     <a href="https://github.com/jasonliang-dev/dotfiles/tree/archive">archive branch</a>.
 </p>
 
-<img src="images/rice.png" />
+<img src="images/rice-min.png" />
 
 #### Required by dwm:
 
