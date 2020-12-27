@@ -9,6 +9,7 @@ bootstrap_list=(
     .vim
     .vimrc
     .xinitrc
+    cat
     scripts
 )
 
@@ -32,4 +33,3 @@ else
         [[ $? -eq 0 ]] && echo -e $dotfiles_dir/$cyan$i$nocol "->" ~/$cyan$i$nocol
     done
 fi
-
