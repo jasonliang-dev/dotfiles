@@ -11,6 +11,7 @@ xset m 0 0
 # move mouse cursor with trackpad and type keys at the same time
 xinput set-prop 12 "libinput Disable While Typing Enabled" 0
 
+udiskie &
 feh --bg-fill --randomize ~/wallpapers/* &
 picom --config ~/.picom.conf &
 ~/scripts/bar.sh &
