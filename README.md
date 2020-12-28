@@ -29,6 +29,5 @@
 
 #### Fonts:
 
-- **Roboto Mono** - required by dwm and lemonbar
-- **Source Sans Pro** - required by st and emacs
+- **Roboto Mono** - required by dwm, lemonbar, st, and emacs
 - **Font Awesome 5** - required by `~/scripts/bar.sh`
