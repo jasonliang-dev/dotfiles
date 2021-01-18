@@ -166,9 +166,6 @@
   :config
   (define-key lia-leader-map (kbd "v") 'er/expand-region))
 
-;; syntax highlighting
-(use-package flycheck)
-
 ;; format all of your ugly code with a press of a key
 (use-package format-all
   :ensure t
