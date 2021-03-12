@@ -217,12 +217,16 @@
   :config
   (global-wakatime-mode))
 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
 
 ;; -- MISC -----------------------------------------------------------
 
 
 ;; make the compilation window small
-(setq compilation-window-height 10)
+(setq compilation-window-height 12)
 (add-hook 'compilation-mode-hook
           (lambda ()
             (when (not (get-buffer-window "*compilation*"))
@@ -290,6 +294,9 @@
 ;; guess target directory when copying/moving files in dired
 ;; i.e. get drag and drop functionality with two dired windows in a split
 (setq dired-dwim-target t)
+
+;; print a copy of the gnu coding standards and burn it
+(setq c-default-style "bsd")
 
 
 ;; -- RESET ----------------------------------------------------------

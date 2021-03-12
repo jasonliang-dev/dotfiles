@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: union ... { ... }
+# key: union
+# --
+
+typedef union $1 $1;
+union ${1:Name}
+{
+    $0
+};

@@ -1,2 +1,3 @@
 .emacs.d/*
-~.emacs.d/init.el
+!.emacs.d/init.el
+!.emacs.d/snippets
