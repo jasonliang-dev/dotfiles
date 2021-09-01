@@ -30,7 +30,7 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; set font
-(setq default-frame-alist '((font . "Roboto Mono Bold 9")))
+(setq default-frame-alist '((font . "Inconsolata Bold 12")))
 
 ;; yes/no prompt is now y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -72,7 +72,6 @@
 ;; -- PACKAGES -------------------------------------------------------
 
 
-;; super clean looking modeline
 (use-package doom-modeline
   :ensure t
   :init
@@ -82,27 +81,21 @@
   :config
   (doom-modeline-mode 1))
 
-;; awesome theme collection
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-gruvbox t))
+  (load-theme 'doom-tomorrow-night t))
 
-;; respect `.editorconfig' files
-;; https://editorconfig.org/
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
 
-;; undo system used for evil. also the visualizer is kinda cool (C-x u)
 (use-package undo-tree
   :ensure t
   :config
   (global-undo-tree-mode))
 
-;; I wouldn't be using emacs if it weren't for you, `evil-mode'. Vim
-;; emuation in Emacs.
 (use-package evil
   :ensure t
   :init
@@ -131,13 +124,11 @@
   (define-key lia-leader-map (kbd "ESC") 'evil-ex-nohighlight)
   (define-key lia-leader-map (kbd "<f5>") 'revert-buffer))
 
-;; vim keybindings for major modes that evil mode doesn't cover
 (use-package evil-collection
   :ensure t
   :config
   (evil-collection-init))
 
-;; multiple cursors! but specifically for evil mode? ok.
 (use-package evil-mc
   :ensure t
   :config
@@ -154,90 +145,41 @@
   (define-key lia-leader-map "rq" 'evil-mc-undo-all-cursors)
   (global-evil-mc-mode 1))
 
-;; quickly add, change, remove delimiters with evil mode bindings
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
-
-;; select a region between two quotes, brackets, etc. convenient.
 (use-package expand-region
   :ensure t
   :config
   (define-key lia-leader-map (kbd "v") 'er/expand-region))
 
-;; format all of your ugly code with a press of a key
 (use-package format-all
   :ensure t
   :config
   (define-key lia-leader-map (kbd "=") 'format-all-buffer))
 
-;; completion for commands, file names, buffers, and so much more.
 (use-package ivy
   :ensure t
   :config
   (ivy-mode 1)
   (define-key lia-leader-map "b" 'ivy-switch-buffer))
 
-;; an excellent git frontend
-(use-package magit
-  :ensure t
-  :config
-  (define-key lia-leader-map "g" 'magit-status))
-
-;; cool features for working with projects. find files, swap between
-;; .h/.c, grep in project, compile command, and so much more
 (use-package projectile
   :ensure t
   :config
   (projectile-mode t)
   (define-key lia-leader-map "p" projectile-command-map))
 
-;; use ivy completion for projectile commands
 (use-package counsel-projectile
   :ensure t
   :config
   (counsel-projectile-mode))
 
-;; powerful Ctrl-f
 (use-package swiper
   :ensure t
   :config
   (define-key lia-leader-map "s" 'swiper))
 
-;; track the time spent programming
-(use-package wakatime-mode
-  :ensure t
-  :init
-  (setq wakatime-api-key (string-trim-right
-                          (with-temp-buffer
-                            (insert-file-contents
-                             (concat user-emacs-directory "wakatime-api-key.txt"))
-                            (buffer-string))))
-  :config
-  (global-wakatime-mode))
-
-(use-package yasnippet
-  :config
-  (yas-global-mode 1))
-
 
 ;; -- MISC -----------------------------------------------------------
 
-
-;; make the compilation window small
-(setq compilation-window-height 12)
-(add-hook 'compilation-mode-hook
-          (lambda ()
-            (when (not (get-buffer-window "*compilation*"))
-              (save-selected-window
-                (save-excursion
-                  (let* ((w (split-window-vertically))
-                         (h (window-height w)))
-                    (select-window w)
-                    (switch-to-buffer "*compilation*")
-                    (shrink-window (- h compilation-window-height))
-                    (set-window-dedicated-p w t)))))))
 
 ;; files that change on disk automatically get reverted
 (global-auto-revert-mode t)
