@@ -1,0 +1,8 @@
+{
+	"details": "Editing {file}",
+	"state": "{loc} lines",
+	"start_state": "",
+	"small_icon": true,
+	"big_icon": false,
+	"time_per_file": false
+}

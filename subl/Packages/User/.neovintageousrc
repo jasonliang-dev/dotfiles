@@ -1,0 +1,17 @@
+set ignorecase
+let mapleader=<space>
+
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wH <C-w>H
+nnoremap <leader>wJ <C-w>J
+nnoremap <leader>wK <C-w>K
+nnoremap <leader>wL <C-w>L
+nnoremap <leader>wo <C-w>o
+nnoremap <leader>wv <C-w>v
+nnoremap <leader>w= <C-w>=
+
+nnoremap j gj
+nnoremap k gk

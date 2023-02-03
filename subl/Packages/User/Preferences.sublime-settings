@@ -1,0 +1,35 @@
+{
+	"ignored_packages": [
+		"Six",
+		"Vintage",
+		"Vintageous",
+	],
+
+	"ui_separator": true,
+	"color_scheme": "Packages/ayu/ayu-dark.sublime-color-scheme",
+	"draw_indent_guides": false,
+	"draw_white_space": ["leading_mixed", "isolated", "selection", "trailing"],
+	"fold_buttons": false,
+	"font_face": "Cascadia Code",
+	"font_size": 11,
+	"highlightedyank_duration": 300,
+	"highlightedyank_style": "outline",
+	"line_numbers": false,
+	"line_padding_bottom": 1,
+	"line_padding_top": 0,
+	"margin": 0,
+	"tab_size": 2,
+	"theme": "ayu-dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": "not_on_caret",
+	"word_wrap": false,
+
+	"neovintageous_build_version": 12700,
+	"vintageous_enable_sneak": true,
+	"vintageous_use_sys_clipboard": true,
+	"vintageous_use_ctrl_keys": true,
+
+	"vintage_ctrl_keys": true,
+	"vintage_use_clipboard": true,
+	"vintage_start_in_command_mode": true,
+}

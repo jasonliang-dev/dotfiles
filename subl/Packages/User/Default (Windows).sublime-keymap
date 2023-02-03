@@ -1,0 +1,37 @@
+[
+	{ "keys": ["ctrl+s"], "command": "save",
+		"args": {"async": true},
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["ctrl+q"], "command": "close",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": [" ", "tab"], "command": "next_view_in_stack",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": [" ", "n"], "command": "toggle_setting",
+		"args": {"setting": "word_wrap"},
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": [" ", "k"], "command": "lsp_hover",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": [" ", "="], "command": "lsp_format_document",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["backspace", "e"], "command": "lsp_show_diagnostics_panel",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["backspace", "f"], "command": "lsp_code_actions",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["backspace", "g"], "command": "lsp_document_symbols",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["backspace", "r"], "command": "lsp_symbol_rename",
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["backspace", "backspace"], "command": "lsp_symbol_definition",
+		"context": [{"key": "setting.command_mode"}]
+	},
+]

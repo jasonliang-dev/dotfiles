@@ -1,0 +1,26 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"ayu",
+		"CMake",
+		"Discord Rich Presence",
+		"EditorConfig",
+		"Emmet",
+		"JsPrettier",
+		"LSP",
+		"LSP-html",
+		"LSP-intelephense",
+		"LSP-typescript",
+		"Moonscripty",
+		"NeoVintageous",
+		"Odin",
+		"Origami",
+		"Package Control",
+		"Tomorrow Color Schemes",
+		"Zig Language",
+	],
+}

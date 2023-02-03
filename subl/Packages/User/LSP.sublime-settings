@@ -1,0 +1,27 @@
+{
+	"show_diagnostics_panel_on_save": 1,
+	"show_diagnostics_count_in_view_status": true,
+	"clients": {
+		"clangd": {
+			"enabled": true,
+		},
+		"odin": {
+			"command": ["ols"],
+			"enabled": true,
+			"selector": "source.odin",
+		},
+		"zig": {
+			"command": ["zls"],
+			"enabled": true,
+			"selector": "source.zig",
+		},
+		"serve-d": {
+			"command": ["serve-d"],
+			"enabled": true,
+			"selector": "source.d",
+		},
+		"gopls": {
+			"enabled": true,
+		},
+	},
+}
