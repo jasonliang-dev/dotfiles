@@ -1,16 +1,18 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
 {
 	"ignored_packages": [
+		"LSP-OmniSharp",
 		"Six",
 		"Vintage",
 		"Vintageous",
 	],
 
-	"ui_separator": true,
-	"color_scheme": "Packages/ayu/ayu-dark.sublime-color-scheme",
+	"color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
 	"draw_indent_guides": false,
 	"draw_white_space": ["leading_mixed", "isolated", "selection", "trailing"],
 	"fold_buttons": false,
-	"font_face": "Cascadia Code",
+	"font_face": "Cascadia Code Bold",
 	"font_size": 11,
 	"highlightedyank_duration": 300,
 	"highlightedyank_style": "outline",
@@ -19,9 +21,11 @@
 	"line_padding_top": 0,
 	"margin": 0,
 	"tab_size": 2,
-	"theme": "ayu-dark.sublime-theme",
+	"theme": "ayu-mirage.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": "not_on_caret",
+	"ui_separator": true,
+	"use_tab_stops": true,
 	"word_wrap": false,
 
 	"neovintageous_build_version": 12700,

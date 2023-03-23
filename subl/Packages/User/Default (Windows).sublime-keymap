@@ -19,6 +19,9 @@
 	{ "keys": [" ", "="], "command": "lsp_format_document",
 		"context": [{"key": "setting.command_mode"}]
 	},
+	{ "keys": [" ", "b"], "command": "build",
+		"context": [{"key": "setting.command_mode"}]
+	},
 	{ "keys": ["backspace", "e"], "command": "lsp_show_diagnostics_panel",
 		"context": [{"key": "setting.command_mode"}]
 	},
