@@ -3,6 +3,7 @@
 {
   "settings": {
     "intelephense": {
+      "files.exclude": ["adminer.php"],
       "stubs": [
         "aerospike",
         "amqp",
