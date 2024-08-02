@@ -6,7 +6,24 @@
   { "keys": ["ctrl+q"], "command": "close",
     "context": [{"key": "setting.command_mode"}]
   },
+  { "keys": ["ctrl+shift+n"], "command": "new_file",
+    "context": [{"key": "setting.command_mode"}]
+  },
+  { "keys": ["ctrl+j"], "command": "swap_line_down",
+    "context": [{"key": "setting.command_mode"}]
+  },
+  { "keys": ["ctrl+k"], "command": "swap_line_up",
+    "context": [{"key": "setting.command_mode"}]
+  },
+  { "keys": ["ctrl+\\"], "command": "toggle_side_bar" },
+  { "keys": ["ctrl+\\"], "command": "toggle_side_bar",
+    "context": [{"key": "setting.command_mode"}]
+  },
   { "keys": [" ", "tab"], "command": "next_view_in_stack",
+    "context": [{"key": "setting.command_mode"}]
+  },
+  { "keys": [" ", "z"], "command": "save_all",
+    "args": {"async": true},
     "context": [{"key": "setting.command_mode"}]
   },
   { "keys": [" ", "n"], "command": "toggle_setting",
@@ -20,6 +37,9 @@
     "context": [{"key": "setting.command_mode"}]
   },
   { "keys": [" ", "b"], "command": "build",
+    "context": [{"key": "setting.command_mode"}]
+  },
+  { "keys": [" ", "d"], "command": "toggle_inline_diff",
     "context": [{"key": "setting.command_mode"}]
   },
   { "keys": ["backspace", "e"], "command": "lsp_show_diagnostics_panel",
