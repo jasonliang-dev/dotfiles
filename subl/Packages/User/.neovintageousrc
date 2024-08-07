@@ -15,3 +15,5 @@ nnoremap <leader>w= <C-w>=
 
 nnoremap j gj
 nnoremap k gk
+
+nnoremap m <nop>
