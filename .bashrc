@@ -6,5 +6,8 @@ export VISUAL='vim'
 
 alias ls="ls --color=auto"
 
-export PS1="\n\[\e[36m\]\w\[\e[m\]\\n$ "
-
+if [[ -z ${CONTAINER_ID} ]]; then 
+    export PS1="\n\[\e[34m\]\w\[\e[m\]\\n$ "
+else
+    export PS1="\n\[\e[31m\]\w\[\e[m\]\\n📦 "
+fi
